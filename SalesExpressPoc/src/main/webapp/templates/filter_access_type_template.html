@@ -1,0 +1,32 @@
+<div class="row salesexpress-line-space" id="divOnBtnCustomize" >
+	<div class="col-sm-12">
+		<label for = "name">If you would like to filer your access by access type, use drop down below</label>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-sm-12">
+		<select name="selectAccessType" id="selectAccessType" class="form-control"
+			multiple="multiple" data-native-menu="false">
+			{%each accessType%}
+			<option value="${key}">${value}</option> {%/each%}
+		</select>
+	</div>
+</div>
+<div class="row salesexpress-line-space">
+	<div class="col-sm-12">
+		<label for = "name">What speed do you want?</label>
+	</div>
+	<div class="col-sm-4">
+	<input type="text" name="sliderSpeedValue" class="form-control"
+				readonly="readonly" id="sliderSpeedValue">
+	</div>
+	<div class="col-sm-4">
+		<span class="form-control salesexpress-no-border salesexpress-no-box-shadow" id="divMRCNRC"></span>
+	</div>		
+    <div class="clearfix"></div>
+
+	<div class="col-sm-12">
+			<span id="divSelectedAccessTypes" class="form-control salesexpress-no-border salesexpress-no-box-shadow">default</span>
+	</div>
+	<div class="col-sm-12"><div id="divSliderAccessSpeed"></div></div>
+	<div class="col-sm-12"><img id="imgAccessType" class="img-responsiveCCC" alt="" src="/resources/images/ethernet.png" height="100px" width="100%"></div>
+</div>

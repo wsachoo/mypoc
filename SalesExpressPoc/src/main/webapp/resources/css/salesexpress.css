@@ -1,0 +1,81 @@
+.salesexpress-empty-row {
+	border: 0px;
+	box-shadow: unset;
+}
+
+.salesexpress-line-space {
+		margin-top: 20px;
+}
+.salesexpress-no-border {
+	border: 0px;
+}
+.salesexpress-no-box-shadow {
+	box-shadow: unset;
+}
+
+.sachmenuitem {
+        border-right: 1px solid #ccccff;
+        background-color: #337ab7;
+        text-align: center;
+        color: white;
+        font-size: 100%;
+        padding-left: 5px;
+        padding-right: 5px;
+}
+
+.sachfootermenuitem {
+	background-color: white;
+	color: black;
+	font-size: 100%;
+	border-top: 1px solid #cccfff;
+	text-align: center;        
+}
+.sachmenuitemactive {
+    padding-left: 5px;
+    padding-right: 5px;
+	border-right: 1px solid #ccccff;
+	background-color: #3399ff;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 100%;
+}
+
+@media (min-width: 767px) {
+	.salesexpress-content-margin {
+		margin-top: 60px;
+	}
+	
+	.sachtopmenu {
+		line-height: 50px; 
+		height: 50px;
+		position: fixed; 
+		width:calc(100% - 225px);
+		z-index: 999;
+		-moz-box-shadow: 0 0 10px white;
+		box-shadow: 0 0 10px white;
+	}
+	
+	.sachbottommenu {
+		line-height: 50px; 
+		height: 50px;
+		position: fixed; 
+		width:calc(100% - 225px);
+		z-index: 999;
+		-moz-box-shadow: 0 0 10px white;
+		box-shadow: 0 0 10px white; 
+		bottom: 0px; 
+	}		
+}
+
+.sachbtn {
+    white-space: normal;
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .btn-responsive {
+    padding:4px 4px;
+    line-height: 1.2;
+  }
+}
+

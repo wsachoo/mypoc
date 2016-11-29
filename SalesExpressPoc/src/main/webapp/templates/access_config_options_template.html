@@ -1,0 +1,50 @@
+<div id="divAccessConfigOptions" class="row salesexpress-line-space">
+	<div class="col-sm-12">
+		<label for="name">Access Configuration Options</label>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-3 col-sm-offset-1">
+		Physical Interference<select class="form-control" name="physicalInterferenceOptions">
+			{%each physicalInterferenceOptions %}
+			<option value="${key}">${value}</option> {%/each%}
+		</select>
+	</div>
+	<div class="col-sm-3 col-sm-offset-1">
+		Access Interconnect Technology (AIT)<select class="form-control" 
+			name="accessInterconnectTechnology">{%each
+			accessInterconnectTechnology %}
+			<option value="${key}">${value}</option> {%/each%}
+		</select>
+	</div>
+</div>
+<div class="row salesexpress-line-space">
+	<div class="col-sm-3 col-sm-offset-1">
+		Local Access Management<select class="form-control" name="localAccessManagement">{%each
+			localAccessManagementOptions %}
+			<option value="${key}">${value}</option> {%/each%}
+		</select>
+	</div>
+	<div class="col-sm-3 col-sm-offset-1">
+		Access Tail Technology<select class="form-control" name="accessTailTechnology">{%each
+			accessTailTechnologyOptions %}
+			<option value="${key}">${value}</option> {%/each%}
+		</select>
+	</div>
+</div>
+<div class="row salesexpress-line-space">
+	<div class="col-sm-3 col-sm-offset-1">
+		Access Architecture<select class="form-control" class="form-control"
+			name="accessArchitecture">{%each accessArchitectureOptions
+			%}
+			<option value="${key}">${value}</option> {%/each%}
+		</select>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-2 col-sm-offset-10">
+		<button id="btnApplyAccessConfigurationOptions"
+			name="btnApplyAccessConfigurationOptions"
+			class="btn btn-primary btn-block" type="button">Apply</button>
+	</div>
+</div>

@@ -1,0 +1,175 @@
+{
+	"accessType": [{
+			"key": "private_line",
+			"value": "Private Line"
+		}, {
+			"key": "ethernet",
+			"value": "Ethernet"
+		}, {
+			"key": "light_speed",
+			"value": "Light Speed"
+		}
+	],
+	"accessSpeeds": {
+		"all": {
+			"MRC": "$0-$4000/site",
+			"NRC": "$4000-$8000/site",
+			"range": [
+				"1M", "2M", "3M", "4M", "5M", "10M", "20M", "50M", "100M", "200M", "500M", "1G", "2G", "5G", "10G"
+			]
+		},
+		"ethernet": {
+			"MRC": "$3940-$6900/site",
+			"NRC": "$1500-$2000/site",
+			"accessSpeedImagePath": "/resources/images/ethernet.png",
+			"range": [
+				"1M", "2M", "3M", "4M", "5M", "6M", "7M", "8M", "9M", "10M"
+			],
+			"physicalInterferenceOptions": [{
+					"key": "ethernetlxBase100",
+					"value": "Ethernet 100 Base LX"
+				}, {
+					"key": "ethernetlxBase200",
+					"value": "Ethernet 200 Base LX"
+				}, {
+					"key": "ethernetlxBase300",
+					"value": "Ethernet 300 Base LX"
+				}
+			],
+			"accessInterconnectTechnology": [{
+					"key": "ethernetdirectConnect",
+					"value": "Ethernet Direct Connect"
+				}, {
+					"key": "ethernetindirectConnect",
+					"value": "Ethernet Indirect Connect"
+				}
+			],
+			"localAccessManagementOptions": [{
+					"key": "ethernet200",
+					"value": "Ethernet 200"
+				}, {
+					"key": "ethernet500",
+					"value": "Ethernet 500"
+				}
+			],	
+			"accessTailTechnologyOptions": [{
+					"key": "ethernetshared",
+					"value": "Ethernet ESP ETH Shared"
+				}, {
+					"key": "ethernetdedicated",
+					"value": "Ethernet ESP ETH Dedicated"
+				}
+			],	
+			"accessArchitectureOptions": [{
+					"key": "ethernetswitched",
+					"value": "Ethernet Switched"
+				}, {
+					"key": "ethernetstandalone",
+					"value": "Ethernet Standalone"
+				}
+			]				
+		},
+		"light_speed": {
+			"MRC": "$7000-$8000/site",
+			"NRC": "$8000-$9000/site",
+			"accessSpeedImagePath": "/resources/images/light_speed.png",
+			"range": [
+				"10G", "20G", "30G", "40G", "50G", "60G", "70G", "80G", "90G", "100G", "120G", "150G"
+			],
+			"physicalInterferenceOptions": [{
+					"key": "lightspeedlxBase100",
+					"value": "Light Speed 100 Base LX"
+				}, {
+					"key": "lightspeedlxBase200",
+					"value": "Light Speed 200 Base LX"
+				}, {
+					"key": "lightspeedlxBase300",
+					"value": "Light Speed 300 Base LX"
+				}
+			],
+			"accessInterconnectTechnology": [{
+					"key": "lightspeeddirectConnect",
+					"value": "Light Speed Direct Connect"
+				}, {
+					"key": "lightspeedindirectConnect",
+					"value": "Light Speed Indirect Connect"
+				}
+			],
+			"localAccessManagementOptions": [{
+					"key": "lightspeed200",
+					"value": "Light Speed 200"
+				}, {
+					"key": "lightspeed500",
+					"value": "Light Speed 500"
+				}
+			],	
+			"accessTailTechnologyOptions": [{
+					"key": "lightspeedshared",
+					"value": "Light Speed ESP ETH Shared"
+				}, {
+					"key": "lightspeeddedicated",
+					"value": "Light Speed ESP ETH Dedicated"
+				}
+			],	
+			"accessArchitectureOptions": [{
+					"key": "lightspeedswitched",
+					"value": "Light Speed Switched"
+				}, {
+					"key": "lightspeedstandalone",
+					"value": "Light Speed Standalone"
+				}
+			]
+		},
+		"private_line": {
+			"MRC": "$500-$1000/site",
+			"NRC": "$1200-$1800/site",
+			"accessSpeedImagePath": "/resources/images/private_line.png",
+			"range": [
+				"100M", "200M", "300M", "400M", "500M", "600M", "700M", "800M", "900M", "1G", "1.1G", "1.2G", "1.3G", "1.4G", "1.5G", "1.6G", "1.7G", "1.8G", "1.9G", "2G"
+			],
+			"physicalInterferenceOptions": [{
+					"key": "privatelinelxBase100",
+					"value": "Private Line 100 Base LX"
+				}, {
+					"key": "privatelinelxBase200",
+					"value": "Private Line 200 Base LX"
+				}, {
+					"key": "privatelinelxBase300",
+					"value": "Private Line 300 Base LX"
+				}
+			],
+			"accessInterconnectTechnology": [{
+					"key": "privatelinedirectConnect",
+					"value": "Private Line Direct Connect"
+				}, {
+					"key": "privatelineindirectConnect",
+					"value": "Private Line Indirect Connect"
+				}
+			],
+			"localAccessManagementOptions": [{
+					"key": "privateline200",
+					"value": "Private Line 200"
+				}, {
+					"key": "privateline500",
+					"value": "Private Line 500"
+				}
+			],	
+			"accessTailTechnologyOptions": [{
+					"key": "privatelineshared",
+					"value": "Private Line ESP ETH Shared"
+				}, {
+					"key": "privatelinededicated",
+					"value": "Private Line ESP ETH Dedicated"
+				}
+			],	
+			"accessArchitectureOptions": [{
+					"key": "privatelineswitched",
+					"value": "Private Line Switched"
+				}, {
+					"key": "privatelinestandalone",
+					"value": "Private Line Standalone"
+				}
+			]			
+		}
+	}
+}
