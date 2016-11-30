@@ -92,7 +92,17 @@ $(document).ready(function() {
 			</div>			
 		</form>
 		
-		<div id="over_map" class="sachbuttonsonmap">sachin c wadhankar</div>
+		<div id="over_map" class="sachbuttonsonmap" style="text-align: center;">
+		<div class="button-wrapper">
+		<button type="button" class="btn btn-primary">Solution Template</button>
+		&nbsp;
+		&nbsp;
+		<button type="button" class="btn btn-primary">Product/Bundle Filter</button>
+		&nbsp;
+		&nbsp;
+		<button type="button" class="btn btn-primary">Guided Selling</button>
+		</div>
+		</div>
 	</div> 
 </body>
 </html>
