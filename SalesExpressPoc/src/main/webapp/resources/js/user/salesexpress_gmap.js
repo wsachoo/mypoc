@@ -1,15 +1,12 @@
-$(document).ready(function () {
-    displaySitesOnGoogleMap();
-});
-  
-function displaySitesOnGoogleMap() {
-	var defaultCenterLatitude = 41.2417;
-	var defaultCenterLongitude = -99.3829;
-	var defaultAddresses = ['200 S Laurel Ave, Middletown, NJ 07748', 'Waring Plaza, 72-286 CA-111, Palm Desert, CA 92260'];
-	
-	if (!(typeof gUserDetails === 'undefined')) {
-		defaultAddresses = gUserDetails.siteAddresses;
-	}
+/*
+ * addressList: List of physical addresses
+ * centerLatitude: Latitude of the location to be displayed at the center of the map.
+ * centerLongitude: Longitude of the location to be displayed at the center of the map.
+ */
+function displaySitesOnGoogleMap(addressList, centerLatitude, centerLongitude) {
+	var defaultCenterLatitude = centerLatitude || 41.2417;
+	var defaultCenterLongitude = centerLongitude || -99.3829;
+	var defaultAddresses = addressList || ['200 S Laurel Ave, Middletown, NJ 07748', 'Waring Plaza, 72-286 CA-111, Palm Desert, CA 92260'];
 	
 	var gmapConfigOptions = {
 		zoom: 5,

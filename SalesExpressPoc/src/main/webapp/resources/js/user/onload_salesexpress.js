@@ -2,6 +2,7 @@ $(document).ready(function() {
 	loadJQueryTemplates();
 	loadAvpnSiteJsonData();
 	loadUserDetail();
+	displayUserSitesOnGoogleMap();
 });
 
 function loadJQueryTemplates() {
@@ -31,4 +32,13 @@ function loadUserDetail() {
 		catch(ex) {
 		}
 	}
+}
+
+function displayUserSitesOnGoogleMap() {
+	if (!(typeof gUserDetails === 'undefined')) {
+		displaySitesOnGoogleMap(gUserDetails.siteAddresses);
+	}
+	else {
+		displaySitesOnGoogleMap();
+	}	
 }
