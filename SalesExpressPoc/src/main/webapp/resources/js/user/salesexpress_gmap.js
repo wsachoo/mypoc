@@ -1,43 +1,6 @@
-  $(document).ready(function () {
-	  displaySitesOnGoogleMap();
- /*	    var map;
-
- 	    var myOptions = {
-	        zoom: 5,
-	        center: new google.maps.LatLng(41.2417, -99.3829),
-	        mapTypeId: 'terrain'
-	    }
- 	    ;
-	    map = new google.maps.Map($('#sachgooglemapdiv')[0], myOptions);
-
-		//Resize Function
-		google.maps.event.addDomListener(window, "resize", function() {
-			var center = map.getCenter();
-			google.maps.event.trigger(map, "resize");
-			map.setCenter(center);
-		});
-
- 				var addresses = ['200 S Laurel Ave, Middletown, NJ 07748', 'Waring Plaza, 72-286 CA-111, Palm Desert, CA 92260', 'adarsh nagar, kalewadi, pune, india 411017'];
-
-	                var  i;
-
-                for (i = 0; i < addresses.length; i++) {  
-                	
-               	var jqxhr = httpGetWithJsonResponse('http://maps.googleapis.com/maps/api/geocode/json?address='+addresses[i]+'&sensor=false');
-               	var p = jqxhr.results[0].geometry.location;
-                	
-                  var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(p.lat, p.lng),
-                    map: map
-                  });
-                  
-                  marker.addListener("click", function() {
-              		alert('sachin' + this.getPosition());
-              	});
-  
-                }*/ 
-            
- 	});
+$(document).ready(function () {
+    displaySitesOnGoogleMap();
+});
   
 function displaySitesOnGoogleMap() {
 	var defaultCenterLatitude = 41.2417;
@@ -63,17 +26,22 @@ function displaySitesOnGoogleMap() {
 	});
 	
     var  i;
-    for (i = 0; i < defaultAddresses.length; i++) {  
+    var infowindow = new google.maps.InfoWindow();
+
+    for (i = 0; i < defaultAddresses.length; i++) {
     	var p = getLatitudeLongitudeByLocation(defaultAddresses[i]);
-    	var marker = new google.maps.Marker({
-    		position: new google.maps.LatLng(p.lat, p.lng),
-    		map: map
-    	});
-      
-    	marker.addListener("click", function() {
-  		alert('sachin' + this.getPosition());
-    	});
-    } 	
+        marker = new google.maps.Marker({
+        	position: new google.maps.LatLng(p.lat, p.lng),
+            map: map
+        });
+
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                infowindow.setContent(defaultAddresses[i]);
+                infowindow.open(map, marker);
+            }
+        }(marker, i)))
+    }	
 }
   
 function getLatitudeLongitudeByLocation(address) {

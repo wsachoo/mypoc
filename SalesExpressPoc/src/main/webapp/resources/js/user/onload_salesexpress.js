@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	loadJQueryTemplates();
 	loadAvpnSiteJsonData();
+	loadUserDetail();
 });
 
 function loadJQueryTemplates() {
@@ -18,4 +19,16 @@ function loadJQueryTemplates() {
 function loadAvpnSiteJsonData() {
 	var avpnUrl = SALESEXPRESS_CONSTANTS.getUrlPath('avpnSiteJsonDataUrl')
 	avpnJsonData = httpGetWithJsonResponse(avpnUrl);	
+}
+
+function loadUserDetail() {
+	gUserDetails = $.parseJSON($("#userDetail").html());
+	
+	if (typeof gUserDetails === 'undefined') {
+		try {
+			gUserDetails = JSON.parse($("#userDetail").html());
+		}
+		catch(ex) {
+		}
+	}
 }

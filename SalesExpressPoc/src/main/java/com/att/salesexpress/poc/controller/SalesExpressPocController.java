@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 @RequestMapping("/salesexpress")
 public class SalesExpressPocController {
-	
+
 	@Autowired
 	DbServiceInterface dbServiceImpl;
 

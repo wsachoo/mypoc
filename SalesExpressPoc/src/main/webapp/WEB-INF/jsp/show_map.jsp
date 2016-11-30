@@ -34,14 +34,14 @@ $(document).ready(function() {
 <script type="text/javascript"
 	src="/resources/js/lib/bootstrap-multiselect.js"></script>
 <script>
-	document.write('<script src="/resources/js/user/salesexpress_gmap.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
-</script>
-<script>
 	document.write('<script src="/resources/js/user/init_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 </script>
 <script>
 	document.write('<script src="/resources/js/user/onload_salesexpress.js?dev='
 			+ Math.floor(Math.random() * 100) + '"\><\/script>');
+</script>
+<script>
+	document.write('<script src="/resources/js/user/salesexpress_gmap.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 </script>
 <script>
 	document.write('<script src="/resources/js/user/submit_requests.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
@@ -59,18 +59,16 @@ $(document).ready(function() {
 
 </head>
 <body>
-	<script type="text/javascript">
-		gUserDetails = ${userDetail};
-	</script>
-
+	<div id="userDetail" style="display: none;">${userDetail}</div>
+	
 	<div id="salesexpress-side-bar"></div>    
 	<div class="container-fluid salesexpress-content-area" id="accessSpeedConfigPlaceholder">
 		<form id="configureAccessForm" data-ajax="false">
 			<div class="row sachtopmenu">
-				<div class="col-sm-3 col-xs-12 sachmenuitem">
+				<div class="col-sm-3 col-xs-12 sachmenuitemactive">
 					<label for="name">Site Map</label>
 				</div>
-				<div class="col-sm-3 col-xs-12 sachmenuitemactive">
+				<div class="col-sm-3 col-xs-12 sachmenuitem">
 					<label for="name">Access & Port</label>
 				</div>
 				<div class="col-sm-3 col-xs-12 sachmenuitem">
