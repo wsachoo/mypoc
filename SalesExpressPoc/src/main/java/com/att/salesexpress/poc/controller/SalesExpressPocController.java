@@ -35,6 +35,14 @@ public class SalesExpressPocController {
 		return new ModelAndView("access_configure");
 	}
 
+	@RequestMapping(value = "/login/{userId}", method = RequestMethod.GET)
+	public ModelAndView showMap(@PathVariable String userId) {
+		ModelAndView view = new ModelAndView("show_map");
+		String objUserDetail = dbServiceImpl.findUserDetailByUserId(userId);
+		view.addObject("userDetail", objUserDetail);
+		return view;
+	}
+
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "{sitename}")
 	public Map<String, Object> getSiteDetailBySiteName(@PathVariable String sitename) {
@@ -67,8 +75,6 @@ public class SalesExpressPocController {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public Map<String, Object> handleAllException(Exception ex) {
-		System.out.println("Inside handleAllException() method");
-		ex.printStackTrace();
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		returnValues.put("exceptionText", ex.getMessage());
 		return returnValues;

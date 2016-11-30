@@ -54,4 +54,11 @@ public class DbServiceImpl implements DbServiceInterface {
 		
 		return seqNum;
 	}
+
+	@Override
+	public String findUserDetailByUserId(String userId) {
+		String sql = "SELECT site_data FROM user_detail WHERE user_id = ?";
+		String siteDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { userId }, String.class);
+		return siteDataJson;	
+	}
 }

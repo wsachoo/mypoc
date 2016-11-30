@@ -9,4 +9,6 @@ public interface DbServiceInterface {
 	public Map<String, Object> getSiteDetailEntityBySiteName(String sitename);
 	
 	public long updateAccessTypeData(final long siteId, final String accessData) throws SQLException;
+
+	public String findUserDetailByUserId(String userId);
 }

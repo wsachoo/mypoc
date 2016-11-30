@@ -8,9 +8,16 @@ $(document).ready(function() {
     	httpAsyncPostWithJsonRequestResponse(url, formData)
     	.done(function(data, textStatus, jqXHR ) {
     		console.log("Inside done() method: " + data.status);
+    		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
+    								  "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" +
+    								  "<strong>Success!</strong> The request has been submitted successfully</div>";
+    		$("#divAccessTypeclickApplyMessage").html(successAlertMessage);
     	})
     	.fail(function(jqXHR, textStatus, errorThrown) {
-    		console.log("Inside fail() method: " + jqXHR.responseText);
+    		var successAlertMessage = "<div class='alert alert-danger alert-dismissible'>" +
+			  						  "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" +
+			  						  "<strong>Failure!</strong> The request failed with this error: " + jqXHR.responseText + "</div>";  
+    		$("#divAccessTypeclickApplyMessage").html(successAlertMessage);
     	});
     });
 });

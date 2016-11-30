@@ -3,6 +3,7 @@
  */
 var SALESEXPRESS_CONSTANTS;
 var avpnJsonData;
+var gUserDetails = {}; //Object to store user information
 
 
 SALESEXPRESS_CONSTANTS = (function() {
