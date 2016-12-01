@@ -67,7 +67,6 @@ public class SalesExpressPocController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "getJson/{sitename}")
 	public String getSiteDataBySiteName(@PathVariable String sitename) {
-		System.out.println("SITE NAME IS: " + sitename);
 		String siteData = dbServiceImpl.getSiteDataByName(sitename);
 		return siteData;
 	}
