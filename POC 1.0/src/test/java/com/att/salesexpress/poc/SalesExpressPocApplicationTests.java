@@ -12,7 +12,7 @@ public class SalesExpressPocApplicationTests {
 	@Test
 	public void contextLoads() {
 		//addedd comment
-		System.out.println("committed11:29");
+		System.out.println("committed");
 	}
 
 }
