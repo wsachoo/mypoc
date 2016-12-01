@@ -35,13 +35,27 @@ public class SalesExpressPocController {
 		return new ModelAndView("access_configure");
 	}
 
-	@RequestMapping(value = "/login/{userId}", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/login/{userId}", method = RequestMethod.GET)
 	public ModelAndView showMap(@PathVariable String userId) {
 		ModelAndView view = new ModelAndView("show_map");
 		String objUserDetail = dbServiceImpl.findUserDetailByUserId(userId);
 		view.addObject("userDetail", objUserDetail);
 		return view;
-	}
+	}*/
+	
+	@RequestMapping(value = "/login/{userId}/{solutionId}", method = RequestMethod.GET)
+	public ModelAndView showMap(@PathVariable String userId, @PathVariable Integer solutionId) throws JsonProcessingException {
+		System.out.println("Enter showMap with user id and solution id.");
+		ModelAndView view = new ModelAndView("show_map");
+		Map<String, Object> objUserDetail = dbServiceImpl.findUserDetailByUserIdSolutionId(userId, solutionId);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonString = mapper.writeValueAsString(objUserDetail);	
+		System.out.println("Return site json as : " + jsonString);
+		view.addObject("userDetail", jsonString);
+		
+		return view;
+	}	
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "{sitename}")
@@ -53,6 +67,7 @@ public class SalesExpressPocController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "getJson/{sitename}")
 	public String getSiteDataBySiteName(@PathVariable String sitename) {
+		System.out.println("SITE NAME IS: " + sitename);
 		String siteData = dbServiceImpl.getSiteDataByName(sitename);
 		return siteData;
 	}
@@ -77,6 +92,7 @@ public class SalesExpressPocController {
 	public Map<String, Object> handleAllException(Exception ex) {
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		returnValues.put("exceptionText", ex.getMessage());
+		ex.printStackTrace();
 		return returnValues;
 	}
 }

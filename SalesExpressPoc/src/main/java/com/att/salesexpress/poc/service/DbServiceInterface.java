@@ -11,4 +11,6 @@ public interface DbServiceInterface {
 	public long updateAccessTypeData(final long siteId, final String accessData) throws SQLException;
 
 	public String findUserDetailByUserId(String userId);
+
+	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Integer solutionId);
 }

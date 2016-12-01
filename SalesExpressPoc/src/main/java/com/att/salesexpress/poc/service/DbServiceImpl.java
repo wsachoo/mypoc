@@ -3,8 +3,13 @@ package com.att.salesexpress.poc.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,7 +39,7 @@ public class DbServiceImpl implements DbServiceInterface {
 		String sqlSeq = "SELECT nextval('sitedetail_txn_seq') as trxn_seq";
 		final Long seqNum = jdbcTemplate.queryForObject(sqlSeq, Long.class);
 		System.out.println(seqNum);
-		
+
 		final String sql = "INSERT INTO sitedetail_transactions (id, site_id, access_data) VALUES (?, ?, to_json(?::json))";
 		final PGobject jsonObject = new PGobject();
 		jsonObject.setType("json");
@@ -51,7 +56,7 @@ public class DbServiceImpl implements DbServiceInterface {
 				return pstmt;
 			}
 		});
-		
+
 		return seqNum;
 	}
 
@@ -59,6 +64,28 @@ public class DbServiceImpl implements DbServiceInterface {
 	public String findUserDetailByUserId(String userId) {
 		String sql = "SELECT site_data FROM user_detail WHERE user_id = ?";
 		String siteDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { userId }, String.class);
-		return siteDataJson;	
+		return siteDataJson;
+	}
+
+	@Override
+	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Integer solutionId) {
+		String sql = "SELECT * FROM user_detail WHERE user_id = ? and solution_id = ?";
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { userId, solutionId });
+		
+		Map<String, Object> returnValues = new HashMap<String, Object>();
+		
+		returnValues.put("user_id", userId);
+		returnValues.put("solution_id", solutionId);
+		returnValues.put("siteAddresses", new ArrayList<Map<String, Object>>());
+		
+		for (Map<String, Object> map : rows) {
+			Map<String, Object> siteMap = new HashMap<String, Object>();
+			siteMap.put("site_id", map.get("site_id").toString());
+			siteMap.put("site_addr", map.get("site_addr").toString());
+			@SuppressWarnings("unchecked")
+			List<Map<String, Object>> siteAddresses = (List<Map<String, Object>>) returnValues.get("siteAddresses");
+			siteAddresses.add(siteMap);
+		}
+		return returnValues;
 	}
 }
