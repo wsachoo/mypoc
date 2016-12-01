@@ -1,3 +1,15 @@
+$(document).ready(function() {
+	displayUserSitesOnGoogleMap();
+});
+
+function displayUserSitesOnGoogleMap() {
+	if (!(typeof gUserDetails === 'undefined')) {
+		displaySitesOnGoogleMap(gUserDetails.siteAddresses);
+	}
+	else {
+		displaySitesOnGoogleMap();
+	}	
+}
 /*
  * addressList: List of physical addresses
  * centerLatitude: Latitude of the location to be displayed at the center of the map.

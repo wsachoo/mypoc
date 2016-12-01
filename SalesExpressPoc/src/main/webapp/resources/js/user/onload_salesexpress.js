@@ -2,7 +2,6 @@ $(document).ready(function() {
 	loadJQueryTemplates();
 	loadAvpnSiteJsonData();
 	loadUserDetail();
-	displayUserSitesOnGoogleMap();
 });
 
 function loadJQueryTemplates() {
@@ -23,22 +22,12 @@ function loadAvpnSiteJsonData() {
 }
 
 function loadUserDetail() {
-	gUserDetails = $.parseJSON($("#userDetail").html());
-	
-	if (typeof gUserDetails === 'undefined') {
-		try {
+	try {
+		gUserDetails = $.parseJSON($("#userDetail").html());
+		
+		if (typeof gUserDetails === 'undefined') {
 			gUserDetails = JSON.parse($("#userDetail").html());
 		}
-		catch(ex) {
-		}
+	} catch (ex) {
 	}
-}
-
-function displayUserSitesOnGoogleMap() {
-	if (!(typeof gUserDetails === 'undefined')) {
-		displaySitesOnGoogleMap(gUserDetails.siteAddresses);
-	}
-	else {
-		displaySitesOnGoogleMap();
-	}	
 }
