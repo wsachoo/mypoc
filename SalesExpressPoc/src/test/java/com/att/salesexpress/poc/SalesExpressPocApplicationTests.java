@@ -11,6 +11,7 @@ public class SalesExpressPocApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		System.out.println("hsagfs");
 	}
 
 }
