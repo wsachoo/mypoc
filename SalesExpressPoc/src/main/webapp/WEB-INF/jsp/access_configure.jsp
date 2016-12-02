@@ -38,13 +38,13 @@
 	</script>
 </head>
 <body>
-	<input type="hidden" value="${userId}" name="userId">
-	<input type="hidden" value="${solutionId}" name="solutionId">
-	
 	<div id="salesexpress-side-bar"></div>    
 	    	
 	<div class="container-fluid salesexpress-content-area" id="accessSpeedConfigPlaceholder">
 		<form id="configureAccessForm" data-ajax="false">
+			<input type="hidden" value="${userId}" name="userId">
+			<input type="hidden" value="${solutionId}" name="solutionId">
+		
 			<div class="row sachtopmenu">
 				<div class="col-sm-3 col-xs-12 sachmenuitem">
 					<a href="#" style="color: white" data-name="siteMap" data-url="${pageContext.request.contextPath}/login/${userId}/${solutionId}">Site Map</a>

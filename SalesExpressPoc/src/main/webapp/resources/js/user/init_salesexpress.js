@@ -14,9 +14,9 @@ SALESEXPRESS_CONSTANTS = (function() {
 	};
 	
 	var _jsonDataUrls = {
-		"avpnSiteJsonDataUrl" : "/salesexpress/getJson/avpn",
-		"mispntSiteJsonDataUrl" : "/salesexpress/getJson/mispnt",
-		"accessTypePostUrl" : "/salesexpress/sendAccessTypeData"
+		"avpnSiteJsonDataUrl" : "/getJson/avpn",
+		"mispntSiteJsonDataUrl" : "/getJson/mispnt",
+		"accessTypePostUrl" : "/sendAccessTypeData"
 	};
 	
 	return {
