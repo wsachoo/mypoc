@@ -11,6 +11,8 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.postgresql.util.PGobject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -18,11 +20,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class DbServiceImpl implements DbServiceInterface {
-
+	
+	static final Logger logger = LoggerFactory.getLogger(DbServiceImpl.class);
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	public String getSiteDataByName(String name) {
+		logger.info("inside getSiteDataByName method ");
+		logger.info("name entered :" + name);
 		String sql = "SELECT site_data FROM SiteDetail WHERE site_name = ?";
 		String siteDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { name }, String.class);
 		return siteDataJson;
@@ -30,12 +35,16 @@ public class DbServiceImpl implements DbServiceInterface {
 
 	@Override
 	public Map<String, Object> getSiteDetailEntityBySiteName(String sitename) {
+		logger.info("inside getSiteDetailEntityBySiteName method ");
+		logger.info("sitename entered : " + sitename);
 		String sql = "SELECT * FROM SiteDetail WHERE site_name = ?";
 		Map<String, Object> row = jdbcTemplate.queryForMap(sql, sitename);
 		return row;
 	}
 
 	public long updateAccessTypeData(final long siteId, final String accessData) throws SQLException {
+		logger.info("inside updateAccessTypeData method");
+		logger.info("siteId entered :" + siteId + "accessData entered :" + accessData);
 		String sqlSeq = "SELECT nextval('sitedetail_txn_seq') as trxn_seq";
 		final Long seqNum = jdbcTemplate.queryForObject(sqlSeq, Long.class);
 		System.out.println(seqNum);
@@ -62,6 +71,8 @@ public class DbServiceImpl implements DbServiceInterface {
 
 	@Override
 	public String findUserDetailByUserId(String userId) {
+		logger.info("inside findUserDetailByUserId method ");
+		logger.info("userId :" + userId);
 		String sql = "SELECT site_data FROM user_detail WHERE user_id = ?";
 		String siteDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { userId }, String.class);
 		return siteDataJson;
@@ -69,6 +80,9 @@ public class DbServiceImpl implements DbServiceInterface {
 
 	@Override
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Integer solutionId) {
+		logger.info("inside findUserDetailByUserIdSolutionId");
+		logger.info("userId : " + userId);
+		logger.info("solutionId :"+ solutionId);
 		String sql = "SELECT * FROM user_detail WHERE user_id = ? and solution_id = ?";
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { userId, solutionId });
 		

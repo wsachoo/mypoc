@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -26,17 +28,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 @RequestMapping("/salesexpress")
 public class SalesExpressPocController {
-
+	static final Logger logger = LoggerFactory.getLogger(SalesExpressPocController.class);
 	@Autowired
 	DbServiceInterface dbServiceImpl;
 
 	@RequestMapping(value = "/configureAccess", method = RequestMethod.GET)
 	public ModelAndView firstPage() {
+		logger.info("inside firstPage method "+ this.getClass());
 		return new ModelAndView("access_configure");
 	}
 
 /*	@RequestMapping(value = "/login/{userId}", method = RequestMethod.GET)
 	public ModelAndView showMap(@PathVariable String userId) {
+		logger.info("inside showMap method " + this.getClass());
 		ModelAndView view = new ModelAndView("show_map");
 		String objUserDetail = dbServiceImpl.findUserDetailByUserId(userId);
 		view.addObject("userDetail", objUserDetail);
@@ -45,7 +49,7 @@ public class SalesExpressPocController {
 	
 	@RequestMapping(value = "/login/{userId}/{solutionId}", method = RequestMethod.GET)
 	public ModelAndView showMap(@PathVariable String userId, @PathVariable Integer solutionId) throws JsonProcessingException {
-		System.out.println("Enter showMap with user id and solution id.");
+		logger.info("Enter showMap with user id:" + userId +" and solution id:" + solutionId);
 		ModelAndView view = new ModelAndView("show_map");
 		Map<String, Object> objUserDetail = dbServiceImpl.findUserDetailByUserIdSolutionId(userId, solutionId);
 		
@@ -60,6 +64,7 @@ public class SalesExpressPocController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "{sitename}")
 	public Map<String, Object> getSiteDetailBySiteName(@PathVariable String sitename) {
+		logger.info("inside getSiteDetailsBySiteName method, site name :" + sitename);
 		Map<String, Object> siteDetail = dbServiceImpl.getSiteDetailEntityBySiteName(sitename);
 		return siteDetail;
 	}
@@ -67,6 +72,7 @@ public class SalesExpressPocController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "getJson/{sitename}")
 	public String getSiteDataBySiteName(@PathVariable String sitename) {
+		logger.info("inside getSiteDataBySiteName method, sitename : " + sitename);
 		String siteData = dbServiceImpl.getSiteDataByName(sitename);
 		return siteData;
 	}
@@ -75,6 +81,7 @@ public class SalesExpressPocController {
 	@ResponseBody
 	public Map<String, Object> getValues(@RequestBody Map<String, Object> paramValues, final HttpServletRequest request,
 			final HttpServletResponse response) throws SQLException, JsonProcessingException {
+		logger.info("inside getValues method ");
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
 		//String jsonString = mapper.writeValueAsString(paramValues);
@@ -89,6 +96,7 @@ public class SalesExpressPocController {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public Map<String, Object> handleAllException(Exception ex) {
+		logger.info("inside handleAllException method");
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		returnValues.put("exceptionText", ex.getMessage());
 		ex.printStackTrace();
