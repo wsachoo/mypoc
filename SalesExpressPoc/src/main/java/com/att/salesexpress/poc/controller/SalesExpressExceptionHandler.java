@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller("error")
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class SalesExpressExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public ModelAndView exceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception ex) {
