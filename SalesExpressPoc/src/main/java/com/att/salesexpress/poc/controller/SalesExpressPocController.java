@@ -1,7 +1,6 @@
 package com.att.salesexpress.poc.controller;
 
 import java.sql.SQLException;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,16 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.att.salesexpress.poc.service.DbServiceInterface;
@@ -33,12 +31,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 @RequestMapping("/salesexpress")
 public class SalesExpressPocController {
-
+	static final Logger logger = LoggerFactory.getLogger(SalesExpressPocController.class);
 	@Autowired
 	DbServiceInterface dbServiceImpl;
 
 	@RequestMapping(value = "/configureAccess", method = RequestMethod.GET)
 	public ModelAndView firstPage() {
+		logger.info("inside firstPage method " + this.getClass());
 		return new ModelAndView("access_configure");
 	}
 
@@ -59,7 +58,7 @@ public class SalesExpressPocController {
 		session.setAttribute("userId", userId);
 		session.setAttribute("loginId", userId);
 		session.setAttribute("solutionId", userId);
-		
+
 		ModelAndView view = new ModelAndView("show_map");
 		Map<String, Object> objUserDetail = dbServiceImpl.findUserDetailByUserIdSolutionId(userId, solutionId);
 
@@ -74,6 +73,7 @@ public class SalesExpressPocController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "{sitename}")
 	public Map<String, Object> getSiteDetailBySiteName(@PathVariable String sitename) {
+		logger.info("inside getSiteDetailsBySiteName method, site name :" + sitename);
 		Map<String, Object> siteDetail = dbServiceImpl.getSiteDetailEntityBySiteName(sitename);
 		return siteDetail;
 	}
@@ -81,6 +81,7 @@ public class SalesExpressPocController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "getJson/{sitename}")
 	public String getSiteDataBySiteName(@PathVariable String sitename) {
+		logger.info("inside getSiteDataBySiteName method, sitename : " + sitename);
 		String siteData = dbServiceImpl.getSiteDataByName(sitename);
 		return siteData;
 	}
@@ -89,6 +90,7 @@ public class SalesExpressPocController {
 	@ResponseBody
 	public Map<String, Object> getValues(@RequestBody Map<String, Object> paramValues, final HttpServletRequest request,
 			final HttpServletResponse response) throws SQLException, JsonProcessingException {
+		logger.info("inside getValues method ");
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
 		// String jsonString = mapper.writeValueAsString(paramValues);

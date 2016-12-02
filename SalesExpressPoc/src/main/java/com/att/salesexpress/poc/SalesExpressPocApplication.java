@@ -1,5 +1,7 @@
 package com.att.salesexpress.poc;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,10 +20,12 @@ import com.att.salesexpress.poc.service.DbServiceInterface;
 @SpringBootConfiguration
 @ComponentScan(basePackages = { "com.att.salesexpress.poc" })
 public class SalesExpressPocApplication implements CommandLineRunner {
+	static final Logger logger = LoggerFactory.getLogger(SalesExpressPocApplication.class);
 	@Autowired
 	DbServiceInterface dbServiceImpl;
 
 	public static void main(String[] args) {
+		logger.info("inside main method " );
 		SpringApplication.run(SalesExpressPocApplication.class, args);
 	}
 
