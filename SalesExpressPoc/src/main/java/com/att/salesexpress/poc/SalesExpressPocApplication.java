@@ -26,6 +26,5 @@ public class SalesExpressPocApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... arg0) throws Exception {
-		logger.info("run method ...");
 	}
 }
