@@ -8,36 +8,68 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
 
-@Controller("error")
+/**
+ * 
+ * @author sw088d initial version
+ *
+ */
+@Controller
 @ControllerAdvice
 public class SalesExpressExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
-	public ModelAndView exceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception ex) {
+	@ResponseBody
+	public ExceptionDetail exceptionHandlerAjax(HttpServletRequest request, HttpServletResponse response,
+			Exception ex) {
+		System.out.println("Inside exceptionHandlerAjax() method");
 		ResponseStatus responseStatusAnnotation = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
+		HttpStatus httpStatus = responseStatusAnnotation != null ? responseStatusAnnotation.value()
+				: HttpStatus.INTERNAL_SERVER_ERROR;
+		ExceptionDetail exp = new ExceptionDetail();
+		exp.setErrorStatus(httpStatus.value());
+		exp.setReasonPhrase(httpStatus.getReasonPhrase());
+		exp.setErrorText(ex.getMessage());
+		response.setStatus(exp.getErrorStatus());
+		return exp;
+	}
+}
 
-		return buildModelAndViewErrorPage(request, response, ex,
-				responseStatusAnnotation != null ? responseStatusAnnotation.value() : HttpStatus.INTERNAL_SERVER_ERROR);
+class ExceptionDetail {
+	private int errorStatus;
+	private String reasonPhrase;
+	private String errorText;
+
+	public int getErrorStatus() {
+		return errorStatus;
 	}
 
-	@RequestMapping("*")
-	public ModelAndView fallbackHandler(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return buildModelAndViewErrorPage(request, response, null, HttpStatus.NOT_FOUND);
+	public void setErrorStatus(int errorStatus) {
+		this.errorStatus = errorStatus;
 	}
 
-	private ModelAndView buildModelAndViewErrorPage(HttpServletRequest request, HttpServletResponse response,
-			Exception ex, HttpStatus httpStatus) {
-		response.setStatus(httpStatus.value());
-
-		ModelAndView mav = new ModelAndView("error");
-		if (ex != null) {
-			mav.addObject("exception", ex);
-		}
-		mav.addObject("url", request.getRequestURL());
-		return mav;
+	public String getErrorText() {
+		return errorText;
 	}
+
+	public String getReasonPhrase() {
+		return reasonPhrase;
+	}
+
+	public void setReasonPhrase(String reasonPhrase) {
+		this.reasonPhrase = reasonPhrase;
+	}
+
+	public void setErrorText(String errorText) {
+		this.errorText = errorText;
+	}
+
+	@Override
+	public String toString() {
+		return "ExceptionDetail [errorStatus=" + errorStatus + ", reasonPhrase=" + reasonPhrase + ", errorText="
+				+ errorText + "]";
+	}
+
 }

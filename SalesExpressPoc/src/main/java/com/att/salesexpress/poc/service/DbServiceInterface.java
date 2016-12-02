@@ -2,7 +2,11 @@ package com.att.salesexpress.poc.service;
 
 import java.sql.SQLException;
 import java.util.Map;
-
+/**
+ * 
+ * @author sw088d initial version
+ *
+ */
 public interface DbServiceInterface {
 	public String getSiteDataByName(String name);
 

@@ -16,7 +16,7 @@ $(document).ready(function() {
     	.fail(function(jqXHR, textStatus, errorThrown) {
     		var successAlertMessage = "<div class='alert alert-danger alert-dismissible'>" +
 			  						  "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" +
-			  						  "<strong>Failure!</strong> The request failed with this error: " + jqXHR.responseText + "</div>";  
+			  						  "<strong>Failure!</strong> The request failed with this error: " + $.parseJSON(jqXHR.responseText).reasonPhrase + "</div>";  
     		$("#divAccessTypeclickApplyMessage").html(successAlertMessage);
     	});
     });

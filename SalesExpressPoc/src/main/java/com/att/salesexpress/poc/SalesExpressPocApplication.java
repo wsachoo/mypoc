@@ -9,6 +9,11 @@ import org.springframework.context.annotation.ComponentScan;
 
 import com.att.salesexpress.poc.service.DbServiceInterface;
 
+/**
+ * 
+ * @author sw088d
+ *
+ */
 @EnableAutoConfiguration
 @SpringBootConfiguration
 @ComponentScan(basePackages = { "com.att.salesexpress.poc" })
