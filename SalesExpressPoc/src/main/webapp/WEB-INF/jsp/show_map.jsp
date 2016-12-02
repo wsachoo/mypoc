@@ -28,7 +28,7 @@
 		document.write('<script src="/resources/js/user/onload_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script src="/resources/js/user/salesexpress_gmap.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script src="/resources/js/user/submit_requests.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
-		document.write('<script src="/resources/js/user/salesexpress_side_navbar.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		document.write('<script src="/resources/js/user/salesexpress_navigation.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script type="text/javascript" defer="defer" src="/resources/js/user/configure_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 	</script>
 
@@ -46,16 +46,16 @@
 		<form id="configureAccessForm" data-ajax="false">
 			<div class="row sachtopmenu">
 				<div class="col-sm-3 col-xs-12 sachmenuitemactive">
-					<label for="name">Site Map</label>
+					<a href="#" style="color: white" data-name="siteMap">Site Map</a>
 				</div>
 				<div class="col-sm-3 col-xs-12 sachmenuitem">
-					<label for="name">Access & Port</label>
+					<a href="#" style="color: white" data-name="accessAndPort" data-url="${pageContext.request.contextPath}/configureAccess">Access & Port</a>
 				</div>
 				<div class="col-sm-3 col-xs-12 sachmenuitem">
-					<label for="name">Service & Features</label>
+					<a href="#" style="color: white" data-name="serviceAndFeatures">Service & Features</a>
 				</div>
 				<div class="col-sm-3 col-xs-12 sachmenuitem">
-					<label for="name">Results</label>
+					<a href="#" style="color: white" data-name="results">Results</a>
 				</div>
 			</div>
 			<div class="clearfix"></div>

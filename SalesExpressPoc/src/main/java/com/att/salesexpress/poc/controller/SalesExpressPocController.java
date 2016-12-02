@@ -29,16 +29,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 @Controller
-@RequestMapping("/salesexpress")
 public class SalesExpressPocController {
 	static final Logger logger = LoggerFactory.getLogger(SalesExpressPocController.class);
 	@Autowired
 	DbServiceInterface dbServiceImpl;
 
 	@RequestMapping(value = "/configureAccess", method = RequestMethod.GET)
-	public ModelAndView firstPage() {
+	public ModelAndView firstPage(HttpServletRequest request) {
 		logger.info("inside firstPage method " + this.getClass());
-		return new ModelAndView("access_configure");
+		ModelAndView view = new ModelAndView("access_configure");
+		HttpSession session = request.getSession();
+		
+		view.addObject("userId", session.getAttribute("userId"));
+		view.addObject("solutionId", session.getAttribute("solutionId"));
+
+		return view;
 	}
 
 	/*
@@ -57,7 +62,7 @@ public class SalesExpressPocController {
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);
 		session.setAttribute("loginId", userId);
-		session.setAttribute("solutionId", userId);
+		session.setAttribute("solutionId", solutionId);
 
 		ModelAndView view = new ModelAndView("show_map");
 		Map<String, Object> objUserDetail = dbServiceImpl.findUserDetailByUserIdSolutionId(userId, solutionId);

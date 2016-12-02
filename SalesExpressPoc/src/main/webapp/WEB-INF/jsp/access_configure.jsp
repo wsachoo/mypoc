@@ -27,7 +27,7 @@
 		document.write('<script src="/resources/js/user/init_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script src="/resources/js/user/onload_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script src="/resources/js/user/submit_requests.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
-		document.write('<script src="/resources/js/user/salesexpress_side_navbar.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		document.write('<script src="/resources/js/user/salesexpress_navigation.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script type="text/javascript" defer="defer" src="/resources/js/user/configure_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 	</script>
 
@@ -38,24 +38,28 @@
 	</script>
 </head>
 <body>
+	<input type="hidden" value="${userId}" name="userId">
+	<input type="hidden" value="${solutionId}" name="solutionId">
+	
 	<div id="salesexpress-side-bar"></div>    
 	    	
 	<div class="container-fluid salesexpress-content-area" id="accessSpeedConfigPlaceholder">
 		<form id="configureAccessForm" data-ajax="false">
 			<div class="row sachtopmenu">
 				<div class="col-sm-3 col-xs-12 sachmenuitem">
-					<label for="name">Site Map</label>
+					<a href="#" style="color: white" data-name="siteMap" data-url="${pageContext.request.contextPath}/login/${userId}/${solutionId}">Site Map</a>
 				</div>
 				<div class="col-sm-3 col-xs-12 sachmenuitemactive">
-					<label for="name">Access & Port</label>
+					<a href="#" style="color: white" data-name="accessAndPort" data-url="${pageContext.request.contextPath}/configureAccess">Access & Port</a>
 				</div>
 				<div class="col-sm-3 col-xs-12 sachmenuitem">
-					<label for="name">Service & Features</label>
+					<a href="#" style="color: white" data-name="serviceAndFeatures">Service & Features</a>
 				</div>
 				<div class="col-sm-3 col-xs-12 sachmenuitem">
-					<label for="name">Results</label>
-				</div>
+					<a href="#" style="color: white" data-name="results">Results</a>
+				</div>				
 			</div>
+			
 			<div class="clearfix"></div>
 			<div class="row salesexpress-content-margin">
 				<div class="col-sm-12">
