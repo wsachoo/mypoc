@@ -84,7 +84,7 @@ public class SalesExpressPocController {
 	}
 
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET, value = "getJson/{sitename}")
+	@RequestMapping(method = RequestMethod.GET, value = "getMetaData/{sitename}")
 	public String getSiteDataBySiteName(@PathVariable String sitename) {
 		logger.info("inside getSiteDataBySiteName method, sitename : " + sitename);
 		String siteData = dbServiceImpl.getSiteDataByName(sitename);

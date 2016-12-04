@@ -45,7 +45,7 @@ function findLastDivRowOfElement($thisRef) {
 }
 
 function configureDefaultAccessSpeedSlider() {
-	var allAccessSpeeds = avpnJsonData.accessSpeeds.all;
+	var allAccessSpeeds = siteMetaData.accessSpeeds.all;
     $("#divSliderAccessSpeed").slider({
         min: 0,
         max: allAccessSpeeds.range.length-1,
@@ -82,12 +82,12 @@ function setAccessSpeedSliderLimit(objAccessSpeeds) {
 
 function handleBtnCustomizeClick($thisRef, eventSource) {
 	removeNextAllSiblingDivRows($(eventSource));
-	var accessTypes = $.tmpl("filter_access_type_template", avpnJsonData);
+	var accessTypes = $.tmpl("filter_access_type_template", siteMetaData);
 	var lastDiv = findLastDivRowOfElement($thisRef);
 	lastDiv.after(accessTypes);
 	$("#selectAccessType").multiselect({'includeSelectAllOption': true});
 	
-	var accessConfigOptions = $.tmpl("access_config_options_template", avpnJsonData);
+	var accessConfigOptions = $.tmpl("access_config_options_template", siteMetaData);
 	lastDiv = findLastDivRowOfElement($thisRef);
 	lastDiv.after(accessConfigOptions);
 	
@@ -99,16 +99,16 @@ function handleAccessTypeRadioSelectionChange($thisRef, eventSource) {
 	var val = $(eventSource).val();
 	
 	removeNextAllSiblingDivRows($(eventSource));
-	var accessConfigOptions = $.tmpl("access_config_options_template", avpnJsonData.accessSpeeds[val]);
+	var accessConfigOptions = $.tmpl("access_config_options_template", siteMetaData.accessSpeeds[val]);
 	lastDiv = findLastDivRowOfElement($thisRef);
 	lastDiv.after(accessConfigOptions);
 	
 	if ("ethernet" == val || "private_line" == val) {
-		setAccessSpeedSliderLimit(avpnJsonData.accessSpeeds[val]);
+		setAccessSpeedSliderLimit(siteMetaData.accessSpeeds[val]);
 		$("#divFooterMessage").text("Need to apply an access and port speed to all sites before moving on");
 	}
 	else if ("light_speed" == val) {
-		setAccessSpeedSliderLimit(avpnJsonData.accessSpeeds.light_speed);
+		setAccessSpeedSliderLimit(siteMetaData.accessSpeeds.light_speed);
 		$("#divFooterMessage").text("Lighspeed bundles access and port speeds. 45M access speed comes with a 6M upload and a 45M port speeds which cannot be modified");
 	}	
 }
@@ -126,10 +126,10 @@ function handleAccessTypeDropDownChange($thisRef, eventSource) {
 			$divSelectedAccessTypes.html($selectAccessType.find(":selected").text());
 			var accessType = $selectAccessType.find(":selected").val();
 			removeNextAllSiblingDivRows($("#divAccessConfigOptions").prev());
-			var accessConfigOptions = $.tmpl("access_config_options_template", avpnJsonData.accessSpeeds[accessType]);
+			var accessConfigOptions = $.tmpl("access_config_options_template", siteMetaData.accessSpeeds[accessType]);
 			lastDiv = findLastDivRowOfElement($thisRef);
 			lastDiv.after(accessConfigOptions);			
-			setAccessSpeedSliderLimit(avpnJsonData.accessSpeeds[accessType]);
+			setAccessSpeedSliderLimit(siteMetaData.accessSpeeds[accessType]);
 		}
 		else {
 			var selectedValues= {};
@@ -153,7 +153,7 @@ function handleAccessTypeDropDownChange($thisRef, eventSource) {
 function handleActionRequiredAction($thisRef, eventSource) {
 	var isAccessRequiredValue = $(eventSource).val();
 	if ('true' === isAccessRequiredValue) {
-		var optionButtons = $.tmpl("select_speed_configure_options", avpnJsonData);
+		var optionButtons = $.tmpl("select_speed_configure_options", siteMetaData);
 		var lastDiv = findLastDivRowOfElement($thisRef);
 		lastDiv.after(optionButtons);
 	} else {

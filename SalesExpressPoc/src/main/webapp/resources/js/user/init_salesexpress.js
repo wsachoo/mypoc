@@ -2,7 +2,7 @@
  * Global variables delcaration
  */
 var SALESEXPRESS_CONSTANTS;
-var avpnJsonData;
+var siteMetaData;
 var gUserDetails = {}; //Object to store user information
 
 
@@ -14,8 +14,7 @@ SALESEXPRESS_CONSTANTS = (function() {
 	};
 	
 	var _jsonDataUrls = {
-		"avpnSiteJsonDataUrl" : "/getJson/avpn",
-		"mispntSiteJsonDataUrl" : "/getJson/mispnt",
+		"testSiteJsonDataUrl" : "/getMetaData/testSite",
 		"accessTypePostUrl" : "/sendAccessTypeData"
 	};
 	

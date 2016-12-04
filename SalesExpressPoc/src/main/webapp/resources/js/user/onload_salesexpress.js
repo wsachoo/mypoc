@@ -17,8 +17,8 @@ function loadJQueryTemplates() {
 }
 
 function loadAvpnSiteJsonData() {
-	var avpnUrl = SALESEXPRESS_CONSTANTS.getUrlPath('avpnSiteJsonDataUrl')
-	avpnJsonData = httpGetWithJsonResponse(avpnUrl);	
+	var avpnUrl = SALESEXPRESS_CONSTANTS.getUrlPath('testSiteJsonDataUrl')
+	siteMetaData = httpGetWithJsonResponse(avpnUrl);	
 }
 
 function loadUserDetail() {
