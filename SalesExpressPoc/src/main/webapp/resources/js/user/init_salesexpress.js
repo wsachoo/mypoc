@@ -1,5 +1,5 @@
 /*
- * Global variables delcaration
+ * Global variables declaration
  */
 var SALESEXPRESS_CONSTANTS;
 var siteMetaData;

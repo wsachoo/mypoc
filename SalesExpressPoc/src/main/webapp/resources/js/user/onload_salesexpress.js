@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	loadJQueryTemplates();
-	loadAvpnSiteJsonData();
+	loadSiteMetaData();
 	loadUserDetail();
 });
 
@@ -16,9 +16,9 @@ function loadJQueryTemplates() {
 	}	
 }
 
-function loadAvpnSiteJsonData() {
-	var avpnUrl = SALESEXPRESS_CONSTANTS.getUrlPath('testSiteJsonDataUrl')
-	siteMetaData = httpGetWithJsonResponse(avpnUrl);	
+function loadSiteMetaData() {
+	var siteUrl = SALESEXPRESS_CONSTANTS.getUrlPath('testSiteJsonDataUrl')
+	siteMetaData = httpGetWithJsonResponse(siteUrl);	
 }
 
 function loadUserDetail() {

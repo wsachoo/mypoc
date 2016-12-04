@@ -5,8 +5,9 @@ $(document).ready(function() {
     	var url = SALESEXPRESS_CONSTANTS.getUrlPath("accessTypePostUrl");
     	var formData = $("#configureAccessForm").serializeJSON();
     	
-    	httpAsyncPostWithJsonRequestResponse(url, formData)
-    	.done(function(data, textStatus, jqXHR ) {
+    	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
+    	
+    	promise.done(function(data, textStatus, jqXHR ) {
     		console.log("Inside done() method: " + data.status);
     		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
     								  "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" +
