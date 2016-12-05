@@ -13,12 +13,15 @@ $(document).ready(function() {
     								  "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" +
     								  "<strong>Success!</strong> The request has been submitted successfully</div>";
     		$("#divAccessTypeclickApplyMessage").html(successAlertMessage);
+    		$("#transactionId").val(data.transactionId);
     	})
     	.fail(function(jqXHR, textStatus, errorThrown) {
-    		var successAlertMessage = "<div class='alert alert-danger alert-dismissible'>" +
+    		var errorObject = $.parseJSON(jqXHR.responseText);
+    		var failureAlertMessage = "<div class='alert alert-danger alert-dismissible'>" +
 			  						  "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" +
-			  						  "<strong>Failure!</strong> The request failed with this error: " + $.parseJSON(jqXHR.responseText).reasonPhrase + "</div>";  
-    		$("#divAccessTypeclickApplyMessage").html(successAlertMessage);
+			  						  "<strong>Failure!</strong> The request failed with this error: " + errorObject.reasonPhrase + "</div>";  
+    		$("#divAccessTypeclickApplyMessage").html(failureAlertMessage);
+    		console.log(errorObject.stackTrace);
     	});
     });
 });

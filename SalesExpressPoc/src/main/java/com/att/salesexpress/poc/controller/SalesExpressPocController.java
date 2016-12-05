@@ -8,10 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,18 +32,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @Controller
 public class SalesExpressPocController {
-	static final Logger logger = LoggerFactory.getLogger(SalesExpressPocController.class);
+	private static final Logger logger = LoggerFactory.getLogger(SalesExpressPocController.class);
+
+	private static final Integer DEFAULT_SITE_ID = 1; // Using default value for
+														// POC. During actual
+														// implementation this
+														// default will be taken
+														// from request.
+
 	@Autowired
 	DbServiceInterface dbServiceImpl;
 
-	@RequestMapping(value = "/configureAccess", method = RequestMethod.GET)
-	public ModelAndView firstPage(HttpServletRequest request) {
-		logger.info("inside firstPage method " + this.getClass());
+	@RequestMapping(value = "/configure", method = RequestMethod.GET)
+	public ModelAndView configure(HttpServletRequest request) {
+		logger.info("Inside configure(0 method " + this.getClass());
 		ModelAndView view = new ModelAndView("access_configure");
 		HttpSession session = request.getSession();
-		
-		view.addObject("userId", session.getAttribute("userId"));
-		view.addObject("solutionId", session.getAttribute("solutionId"));
+
+		String userId = (String) session.getAttribute("userId");
+		Integer solutionId = (Integer) session.getAttribute("solutionId");
+		Integer transactionId = dbServiceImpl.getTransactionIdByUserIdSolutionId(userId, solutionId);
+
+		view.addObject("userId", userId);
+		view.addObject("solutionId", solutionId);
+		view.addObject("transactionId", transactionId);
 
 		return view;
 	}
@@ -94,13 +108,31 @@ public class SalesExpressPocController {
 	@RequestMapping(value = "/sendAccessTypeData", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> getValues(@RequestBody Map<String, Object> paramValues, final HttpServletRequest request,
-			final HttpServletResponse response) throws SQLException, JsonProcessingException {
-		logger.info("inside getValues method ");
+			final HttpServletResponse response)
+			throws SQLException, JsonProcessingException, ServletRequestBindingException {
+		logger.info("Inside getValues() method ");
+
+		Object userId = (String) paramValues.get("userId");
+		Object solutionId = paramValues.get("solutionId");
+		String strTransactionId = (String) paramValues.get("transactionId");
+
+		logger.info("Request parameters are userId: {}, solutionId: {}, transactionId: {}", userId, solutionId,
+				strTransactionId);
+
+		Long lSolutionId = Long.parseLong(solutionId.toString());
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
 		// String jsonString = mapper.writeValueAsString(paramValues);
 		String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(paramValues);
-		long transactionId = dbServiceImpl.updateAccessTypeData(1, jsonString);
+		long transactionId = -1;
+
+		if (StringUtils.isBlank(strTransactionId)) {
+			transactionId = dbServiceImpl.insertSiteConfigurationData(userId.toString(), lSolutionId, DEFAULT_SITE_ID,
+					jsonString);
+		} else {
+			transactionId = Long.parseLong(strTransactionId);
+			dbServiceImpl.updateSiteConfigurationData(transactionId, jsonString);
+		}
 		returnValues.put("status", "success");
 		returnValues.put("transactionId", transactionId);
 		return returnValues;

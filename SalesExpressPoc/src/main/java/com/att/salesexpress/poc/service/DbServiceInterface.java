@@ -12,9 +12,13 @@ public interface DbServiceInterface {
 
 	public Map<String, Object> getSiteDetailEntityBySiteName(String sitename);
 	
-	public long updateAccessTypeData(final long siteId, final String accessData) throws SQLException;
+	public long insertSiteConfigurationData(final String userId, final long solutionId, final Integer siteId, final String accessData) throws SQLException;
 
 	public String findUserDetailByUserId(String userId);
 
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Integer solutionId);
+
+	public Integer getTransactionIdByUserIdSolutionId(String userId, Integer solutionId);
+
+	public void updateSiteConfigurationData(long lTransactionId, String jsonString) throws SQLException;
 }

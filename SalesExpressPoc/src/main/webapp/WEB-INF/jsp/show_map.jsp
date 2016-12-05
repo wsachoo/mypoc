@@ -49,7 +49,7 @@
 					<a href="#" style="color: white" data-name="siteMap">Site Map</a>
 				</div>
 				<div class="col-sm-3 col-xs-12 sachmenuitem">
-					<a href="#" style="color: white" data-name="accessAndPort" data-url="${pageContext.request.contextPath}/configureAccess">Access & Port</a>
+					<a href="#" style="color: white" data-name="accessAndPort" data-url="${pageContext.request.contextPath}/configure">Access & Port</a>
 				</div>
 				<div class="col-sm-3 col-xs-12 sachmenuitem">
 					<a href="#" style="color: white" data-name="serviceAndFeatures">Service & Features</a>
