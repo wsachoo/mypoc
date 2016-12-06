@@ -3,6 +3,8 @@ $(document).ready(function() {
 	$("#configureAccessForm").on('click', '#btnApplyAccessConfigurationOptions', function(e) {
     	e.preventDefault();
     	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");
+    	
+    	//Note: Instead of serializing the form, in the long term solution, an object will be build with individual fields.
     	var formData = $("#configureAccessForm").serializeJSON();
     	
     	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
