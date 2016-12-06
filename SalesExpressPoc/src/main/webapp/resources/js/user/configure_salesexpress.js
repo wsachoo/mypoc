@@ -48,13 +48,16 @@ function configureDefaultAccessSpeedSlider() {
 	var allAccessSpeeds = siteMetaData.accessSpeeds.all;
     $("#divSliderAccessSpeed").slider({
         min: 0,
-        max: allAccessSpeeds.range.length-1,
-        value: 0,   
+        orientation: "horizontal",
+        range: "min",
+        max: allAccessSpeeds.range.length-1,   
         slide : function(e, ui) {
     		$(this).slider('value', 0);
     		$("#sliderSpeedValue").val(allAccessSpeeds.range[ui.value]);
         }
     });
+    $("#divSliderAccessSpeed").slider("value", 0);
+    $("#divSliderAccessSpeed").find(".ui-slider-range").css("background", "#337ab7");
     
     setAccessSpeedSliderLimit(allAccessSpeeds);
 }
