@@ -105,7 +105,7 @@ public class SalesExpressPocController {
 		return siteData;
 	}
 
-	@RequestMapping(value = "/sendAccessTypeData", method = RequestMethod.POST)
+	@RequestMapping(value = "/postSiteConfiguration", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> getValues(@RequestBody Map<String, Object> paramValues, final HttpServletRequest request,
 			final HttpServletResponse response)
