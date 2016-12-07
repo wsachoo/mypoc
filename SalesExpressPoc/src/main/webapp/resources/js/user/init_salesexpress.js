@@ -4,7 +4,31 @@
 var SALESEXPRESS_CONSTANTS;
 var siteMetaData;
 var gUserDetails = {}; //Object to store user information
+var gUserConfiguration = {}; //Object to store the configuration choices made by user. Holds the object to be submitted to server for storage in DB.
 
+gUserConfiguration = (function() {
+	var configStore = {
+			"accessConfig" : {},
+			"speedConfig" : {},
+	};
+	
+	return {
+		addConfigMetaInformation : function(key, value) {
+			configStore[key] = value;
+		},
+		addAccessConfiguration : function(key, value) {
+			configStore["accessConfig"][key] = value;
+		},
+		
+		addSpeedConfiguration : function(key, value) {
+			configStore["speedConfig"][key] = value;
+		},
+		
+		getConfigurationData : function() {
+			return configStore;
+		}
+	};
+}());
 
 SALESEXPRESS_CONSTANTS = (function() {
 	var _jQueryTemplates = {

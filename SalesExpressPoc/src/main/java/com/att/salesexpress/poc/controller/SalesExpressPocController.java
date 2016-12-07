@@ -89,13 +89,13 @@ public class SalesExpressPocController {
 		return view;
 	}
 
-	@ResponseBody
+/*	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "{sitename}")
 	public Map<String, Object> getSiteDetailBySiteName(@PathVariable String sitename) {
 		logger.info("inside getSiteDetailsBySiteName method, site name :" + sitename);
 		Map<String, Object> siteDetail = dbServiceImpl.getSiteDetailEntityBySiteName(sitename);
 		return siteDetail;
-	}
+	}*/
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "getMetaData/{sitename}")
