@@ -20,6 +20,8 @@ $(document).ready(function() {
         	var url = $(event.target).data('url');
             location.replace(url);
         }
+        else {
+        }
     });    
     
 });

@@ -71,7 +71,7 @@ public class SalesExpressPocController {
 	@RequestMapping(value = "/login/{userId}/{solutionId}", method = RequestMethod.GET)
 	public ModelAndView showMap(HttpServletRequest request, @PathVariable String userId,
 			@PathVariable Integer solutionId) throws JsonProcessingException {
-		System.out.println("Enter showMap with user id and solution id.");
+		logger.debug("Enter showMap with user id and solution id.");
 
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);
@@ -83,7 +83,7 @@ public class SalesExpressPocController {
 
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonString = mapper.writeValueAsString(objUserDetail);
-		System.out.println("Return site json as : " + jsonString);
+		logger.debug("Return site json as : " + jsonString);
 		view.addObject("userDetail", jsonString);
 
 		return view;
