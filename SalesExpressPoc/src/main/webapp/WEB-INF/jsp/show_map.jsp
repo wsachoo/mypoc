@@ -43,7 +43,7 @@
 	
 	<div id="salesexpress-side-bar"></div>    
 	<div class="container-fluid salesexpress-content-area" id="accessSpeedConfigPlaceholder">
-		<form id="configureAccessForm" data-ajax="false">
+		<form id="configureForm" data-ajax="false">
 			<div class="row sachtopmenu">
 				<div class="col-sm-3 col-xs-12 sachmenuitemactive">
 					<a href="#" style="color: white" data-name="siteMap">Site Map</a>

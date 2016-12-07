@@ -15,7 +15,6 @@ $(document).ready(function() {
      */
     $('.sachtopmenu').on('click', "a", function(event) {
         var name = $(event.target).data('name');
-        console.log("You clicked on:", name);
         
         if (("accessAndPort" === name) || ("siteMap" === name)) {
         	var url = $(event.target).data('url');

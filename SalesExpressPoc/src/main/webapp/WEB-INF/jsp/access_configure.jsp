@@ -41,7 +41,7 @@
 	<div id="salesexpress-side-bar"></div>    
 	    	
 	<div class="container-fluid salesexpress-content-area" id="accessSpeedConfigPlaceholder">
-		<form id="configureAccessForm" data-ajax="false">
+		<form id="configureForm" data-ajax="false">
 			<input type="hidden" value="${userId}" name="userId" id="userId">
 			<input type="hidden" value="${solutionId}" name="solutionId" id="solutionId">
 			<input type="hidden" value="${transactionId}" name="transactionId" id="transactionId">
