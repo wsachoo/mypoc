@@ -2,8 +2,8 @@
  * Global variables declaration
  */
 var SALESEXPRESS_CONSTANTS;
-var siteMetaData;
-var gUserDetails = {}; //Object to store user information
+var siteMetaData; //Object to store site configuration meta information from sitedetail table. It is populated from onload_salesexpress script.
+var gUserDetails = {}; //Object to store user's information from user_detail table.
 var gUserConfiguration = {}; //Object to store the configuration choices made by user. Holds the object to be submitted to server for storage in DB.
 
 SALESEXPRESS_CONSTANTS = (function() {
