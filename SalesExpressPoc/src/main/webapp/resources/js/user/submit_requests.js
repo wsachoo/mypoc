@@ -1,28 +1,9 @@
-function updateInMemoryConfigurationMetaInformation() {
-	var metaInfoFields = ["userId", "solutionId", "transactionId"];
-	
-	$.each(metaInfoFields, function(index, name) {
-		var value = $('#' + name).val();
-		gUserConfiguration.addConfigMetaInformation(name, value);
-	});
-}
-
-function updateInMemoryAccessConfigurationFromFormObject(form){
-	var formData = form.serializeJSON();
-	var jsonObject = $.parseJSON(formData)
-	
-    $.each(jsonObject, function(k, v) {
-    	gUserConfiguration.addAccessConfiguration(k, v);
-    });
-}
-
 $(document).ready(function() {
 
 	$("#configureAccessForm").on('click', '#btnApplyAccessConfigurationOptions', function(e) {
     	e.preventDefault();
     	
-    	updateInMemoryConfigurationMetaInformation();
-    	updateInMemoryAccessConfigurationFromFormObject($("#configureAccessForm"));
+    	updateInMemoryConfigurationFromFormObject($("#configureAccessForm"));
     	var formData = JSON.stringify(gUserConfiguration.getConfigurationData());
     	
     	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");

@@ -69,12 +69,12 @@
 			</div>
 			<div class="row">
 				<div class="radio col-sm-11 col-sm-offset-1">
-					<label> <input type="radio" name="accessRequired"
+					<label> <input type="radio" name="accessConfig-accessRequired"
 						id="accessRequiredNo" value="false" checked="checked"> No
 					</label>
 				</div>
 				<div class="radio col-sm-11 col-sm-offset-1">
-					<label> <input type="radio" name="accessRequired"
+					<label> <input type="radio" name="accessConfig-accessRequired"
 						id="accessRequiredYes" value="true"> Yes
 					</label>
 				</div>

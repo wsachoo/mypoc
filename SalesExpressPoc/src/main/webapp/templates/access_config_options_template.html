@@ -5,27 +5,27 @@
 </div>
 <div class="row" id="divAccessConfigOptionsData">
 	<div class="col-sm-3 col-sm-offset-1">
-		Physical Interference<select class="form-control" name="physicalInterferenceOptions">
+		Physical Interference<select class="form-control" name="accessConfig-physicalInterferenceOptions">
 			{%each physicalInterferenceOptions %}
 			<option value="${key}">${value}</option> {%/each%}
 		</select>
 	</div>
 	<div class="col-sm-3 col-sm-offset-1">
 		Access Interconnect Technology (AIT)<select class="form-control" 
-			name="accessInterconnectTechnology">{%each
+			name="accessConfig-accessInterconnectTechnology">{%each
 			accessInterconnectTechnology %}
 			<option value="${key}">${value}</option> {%/each%}
 		</select>
 	</div>
 	<div class="clearfix"></div>
 	<div class="col-sm-3 col-sm-offset-1 salesexpress-line-space">
-		Local Access Management<select class="form-control" name="localAccessManagement">{%each
+		Local Access Management<select class="form-control" name="accessConfig-localAccessManagement">{%each
 			localAccessManagementOptions %}
 			<option value="${key}">${value}</option> {%/each%}
 		</select>
 	</div>
 	<div class="col-sm-3 col-sm-offset-1">
-		Access Tail Technology<select class="form-control" name="accessTailTechnology">{%each
+		Access Tail Technology<select class="form-control" name="accessConfig-accessTailTechnology">{%each
 			accessTailTechnologyOptions %}
 			<option value="${key}">${value}</option> {%/each%}
 		</select>
@@ -33,7 +33,7 @@
 	<div class="clearfix"></div>
 	<div class="col-sm-3 col-sm-offset-1 salesexpress-line-space">
 		Access Architecture<select class="form-control" class="form-control"
-			name="accessArchitecture">{%each accessArchitectureOptions
+			name="accessConfig-accessArchitecture">{%each accessArchitectureOptions
 			%}
 			<option value="${key}">${value}</option> {%/each%}
 		</select>

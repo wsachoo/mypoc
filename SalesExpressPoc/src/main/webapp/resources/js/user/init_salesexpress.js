@@ -6,30 +6,6 @@ var siteMetaData;
 var gUserDetails = {}; //Object to store user information
 var gUserConfiguration = {}; //Object to store the configuration choices made by user. Holds the object to be submitted to server for storage in DB.
 
-gUserConfiguration = (function() {
-	var configStore = {
-			"accessConfig" : {},
-			"speedConfig" : {},
-	};
-	
-	return {
-		addConfigMetaInformation : function(key, value) {
-			configStore[key] = value;
-		},
-		addAccessConfiguration : function(key, value) {
-			configStore["accessConfig"][key] = value;
-		},
-		
-		addSpeedConfiguration : function(key, value) {
-			configStore["speedConfig"][key] = value;
-		},
-		
-		getConfigurationData : function() {
-			return configStore;
-		}
-	};
-}());
-
 SALESEXPRESS_CONSTANTS = (function() {
 	var _jQueryTemplates = {
 			"filter_access_type_template" : "/templates/filter_access_type_template.html",
@@ -53,6 +29,64 @@ SALESEXPRESS_CONSTANTS = (function() {
 	};
 }());
 
+/*
+ * Object gUserConfiguration holds all the user configuration selections.
+ */
+gUserConfiguration = (function() {
+	var configStore = {
+			"accessConfig" : {},
+			"speedConfig" : {},
+	};
+	
+	return {
+		addConfigMetaInformation : function(key, value) {
+			configStore[key] = value;
+		},
+		addAccessConfiguration : function(key, value) {
+			configStore["accessConfig"][key] = value;
+		},
+		
+		addSpeedConfiguration : function(key, value) {
+			configStore["speedConfig"][key] = value;
+		},
+		
+		getConfigurationData : function() {
+			return configStore;
+		},
+		
+		clearConfiguration : function() {
+			configStore = {
+					"accessConfig" : {},
+					"speedConfig" : {},
+			};
+		}
+	};
+}());
+
+/*
+ * This function is used for populating the gUserConfiguration object from elements inside the form passed to it.
+ */
+function updateInMemoryConfigurationFromFormObject(form) {
+	var formData = form.serializeArray();
+	
+    $.each(formData, function() {
+    	var nameArray = this.name.split("-");
+    	
+    	if (nameArray.length == 1) {
+    		gUserConfiguration.addConfigMetaInformation(this.name, this.value);
+    	}
+    	else if (nameArray[0] === "accessConfig") {
+    		gUserConfiguration.addAccessConfiguration(nameArray[1], this.value);
+    	}
+    	else if (nameArray[0] === "speedConfig") {
+    		gUserConfiguration.addSpeedConfiguration(nameArray[1], this.value);
+    	}
+    	else {
+    		gUserConfiguration.addConfigMetaInformation(this.name, this.value);
+    	}
+    });
+}
+
 function getTemplateDefinition(templatePath) {
     var jqXHR = $.ajax({
     	  method: "GET",
@@ -72,6 +106,11 @@ function httpGetWithJsonResponse(path) {
     return jqXHR.responseJSON;
 }
 
+/*
+ * Method used for posting the form data to server.
+ * postData is the json data that needs to be submitted to the server at postUrl.
+ * It returns the promise that holds the json response from the server.
+ */
 function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
   	return $.ajax({
 		url: postUrl,

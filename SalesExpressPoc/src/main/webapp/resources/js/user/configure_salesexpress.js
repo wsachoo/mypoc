@@ -11,7 +11,7 @@ $(document).ready(function() {
 				case 'btnSetSiteMaxSpeeds':
 					removeNextAllSiblingDivRows($(e.target));
 					break;
-				case 'radiofilteredAccessTypes':
+				case 'accessConfig-radiofilteredAccessTypes':
 					handleAccessTypeRadioSelectionChange($(this), e.target);
 					break;
 			}
@@ -21,10 +21,10 @@ $(document).ready(function() {
 			var eventSourceName = e.target.name;
 			
 			switch (eventSourceName) {
-			case 'accessRequired':
+			case 'accessConfig-accessRequired':
 				handleActionRequiredAction($(this), e.target);
 				break;
-			case 'selectAccessType':
+			case 'accessConfig-selectAccessType':
 				handleAccessTypeDropDownChange($(this), e.target);
 				break;			
 			}
@@ -143,7 +143,7 @@ function handleAccessTypeDropDownChange($thisRef, eventSource) {
 
 			$.each( selectedValues, function( key, value ) {
 				$divSelectedAccessTypes.append($('<input>').attr({
-				      type: 'radio', name: 'radiofilteredAccessTypes', value: key, id: 'filteredAccessTypes_' + key
+				      type: 'radio', name: 'accessConfig-radiofilteredAccessTypes', value: key, id: 'filteredAccessTypes_' + key
 				}));
 				$divSelectedAccessTypes.append(value);
 				$divSelectedAccessTypes.append("&nbsp;&nbsp;&nbsp;&nbsp;");
