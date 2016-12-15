@@ -1,7 +1,7 @@
 /*
  * Global variables declaration
  */
-var SALESEXPRESS_CONSTANTS;
+var SALESEXPRESS_CONSTANTS; //Object to store URLs for all jQuery templates
 var siteMetaData; //Object to store site configuration meta information from sitedetail table. It is populated from onload_salesexpress script.
 var gUserDetails = {}; //Object to store user's information from user_detail table.
 var gUserConfiguration = {}; //Object to store the configuration choices made by user. Holds the object to be submitted to server for storage in DB.
@@ -10,7 +10,8 @@ SALESEXPRESS_CONSTANTS = (function() {
 	var _jQueryTemplates = {
 			"filter_access_type_template" : "/templates/filter_access_type_template.html",
 			"access_config_options_template" : "/templates/access_config_options_template.html",
-			"select_speed_configure_options" : "/templates/select_speed_configure_options.html"
+			"select_speed_configure_options" : "/templates/select_speed_configure_options.html",
+			"modify_configuration_options" : "/templates/modify_configuration_options.html"
 	};
 	
 	var _jsonDataUrls = {

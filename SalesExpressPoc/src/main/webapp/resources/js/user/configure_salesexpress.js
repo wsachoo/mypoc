@@ -14,6 +14,9 @@ $(document).ready(function() {
 				case 'accessConfig-radiofilteredAccessTypes':
 					handleAccessTypeRadioSelectionChange($(this), e.target);
 					break;
+				case 'btnModifyConfigOptions':
+					handleModifyConfigOptionsClick($(this), e.target);
+					break;
 			}
 		},
 		
@@ -90,7 +93,11 @@ function handleBtnCustomizeClick($thisRef, eventSource) {
 	lastDiv.after(accessTypes);
 	$("#selectAccessType").multiselect({'includeSelectAllOption': true});
 	
-	var accessConfigOptions = $.tmpl("access_config_options_template", siteMetaData);
+	var accessConfigOptions = $.tmpl("access_config_options_template", { 
+		"accessConfiguration" : siteMetaData,
+		"userSelectedAccessConfiguration" : gUserConfiguration
+    });
+	
 	lastDiv = findLastDivRowOfElement($thisRef);
 	lastDiv.after(accessConfigOptions);
 	
@@ -102,7 +109,11 @@ function handleAccessTypeRadioSelectionChange($thisRef, eventSource) {
 	var val = $(eventSource).val();
 	
 	removeNextAllSiblingDivRows($(eventSource));
-	var accessConfigOptions = $.tmpl("access_config_options_template", siteMetaData.accessSpeeds[val]);
+	var accessConfigOptions = $.tmpl("access_config_options_template", { 
+		"accessConfiguration" : siteMetaData.accessSpeeds[val],
+		"userSelectedAccessConfiguration" : gUserConfiguration
+	});
+
 	lastDiv = findLastDivRowOfElement($thisRef);
 	lastDiv.after(accessConfigOptions);
 	
@@ -114,6 +125,20 @@ function handleAccessTypeRadioSelectionChange($thisRef, eventSource) {
 		setAccessSpeedSliderLimit(siteMetaData.accessSpeeds.light_speed);
 		$("#divFooterMessage").text("Lighspeed bundles access and port speeds. 45M access speed comes with a 6M upload and a 45M port speeds which cannot be modified");
 	}	
+}
+
+function handleModifyConfigOptionsClick($thisRef, eventSource) {
+	$("#divAccessTypeclickApplyMessage").empty();
+	$('#divAccessConfigOptions').remove();
+	$('#divAccessConfigOptionsData').remove();
+	var accessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes || gUserConfiguration.getConfigurationData().accessConfig.selectAccessType;
+
+	var accessConfigOptions = $.tmpl("access_config_options_template", {
+		"accessConfiguration" : siteMetaData.accessSpeeds[accessType],
+		"userSelectedAccessConfiguration" : gUserConfiguration
+	});
+	
+	$("#divStartPortSpeedConfiguration").before(accessConfigOptions);			
 }
 
 function handleAccessTypeDropDownChange($thisRef, eventSource) {
@@ -129,7 +154,11 @@ function handleAccessTypeDropDownChange($thisRef, eventSource) {
 			$divSelectedAccessTypes.html($selectAccessType.find(":selected").text());
 			var accessType = $selectAccessType.find(":selected").val();
 			removeNextAllSiblingDivRows($("#divAccessConfigOptions").prev());
-			var accessConfigOptions = $.tmpl("access_config_options_template", siteMetaData.accessSpeeds[accessType]);
+			var accessConfigOptions = $.tmpl("access_config_options_template", { 
+				"accessConfiguration" : siteMetaData.accessSpeeds[accessType],
+				"userSelectedAccessConfiguration" : gUserConfiguration
+			});
+			
 			lastDiv = findLastDivRowOfElement($thisRef);
 			lastDiv.after(accessConfigOptions);			
 			setAccessSpeedSliderLimit(siteMetaData.accessSpeeds[accessType]);

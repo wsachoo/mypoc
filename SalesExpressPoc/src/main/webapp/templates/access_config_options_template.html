@@ -1,3 +1,4 @@
+${( localUserSelectedAccessConfiguration = userSelectedAccessConfiguration.getConfigurationData().accessConfig ),''}			
 <div id="divAccessConfigOptions" class="row salesexpress-line-space">
 	<div class="col-sm-12">
 		<label for="name">Access Configuration Options</label>
@@ -6,39 +7,63 @@
 <div class="row" id="divAccessConfigOptionsData">
 	<div class="col-sm-3 col-sm-offset-1">
 		Physical Interference<select class="form-control" name="accessConfig-physicalInterferenceOptions">
-			{%each physicalInterferenceOptions %}
-			<option value="${key}">${value}</option> {%/each%}
+			{{each accessConfiguration.physicalInterferenceOptions }}
+				{{if key == localUserSelectedAccessConfiguration.physicalInterferenceOptions }}
+				    <option value="${key}" selected="selected">${value}</option>
+				{{else}}
+					<option value="${key}">${value}</option>
+				{{/if}}
+			{{/each}}
 		</select>
 	</div>
 	<div class="col-sm-3 col-sm-offset-1">
 		Access Interconnect Technology (AIT)<select class="form-control" 
-			name="accessConfig-accessInterconnectTechnology">{%each
-			accessInterconnectTechnology %}
-			<option value="${key}">${value}</option> {%/each%}
+			name="accessConfig-accessInterconnectTechnology">{{each
+			accessConfiguration.accessInterconnectTechnology }}
+				{{if key == localUserSelectedAccessConfiguration.accessInterconnectTechnology }}
+				    <option value="${key}" selected="selected">${value}</option>
+				{{else}}
+					<option value="${key}">${value}</option>
+				{{/if}}
+			{{/each}}
 		</select>
 	</div>
 	<div class="clearfix"></div>
 	<div class="col-sm-3 col-sm-offset-1">
-		Local Access Management<select class="form-control" name="accessConfig-localAccessManagement">{%each
-			localAccessManagementOptions %}
-			<option value="${key}">${value}</option> {%/each%}
+		Local Access Management<select class="form-control" name="accessConfig-localAccessManagement">{{each
+			accessConfiguration.localAccessManagementOptions }}
+				{{if key == localUserSelectedAccessConfiguration.localAccessManagement }}
+				    <option value="${key}" selected="selected">${value}</option>
+				{{else}}
+					<option value="${key}">${value}</option>
+				{{/if}}
+			{{/each}}
 		</select>
 	</div>
 	<div class="col-sm-3 col-sm-offset-1">
-		Access Tail Technology<select class="form-control" name="accessConfig-accessTailTechnology">{%each
-			accessTailTechnologyOptions %}
-			<option value="${key}">${value}</option> {%/each%}
+		Access Tail Technology<select class="form-control" name="accessConfig-accessTailTechnology">{{each
+			accessConfiguration.accessTailTechnologyOptions }}
+				{{if key == localUserSelectedAccessConfiguration.accessTailTechnology }}
+				    <option value="${key}" selected="selected">${value}</option>
+				{{else}}
+					<option value="${key}">${value}</option>
+				{{/if}}
+			{{/each}}
 		</select>
 	</div>
 	<div class="clearfix"></div>
 	<div class="col-sm-3 col-sm-offset-1">
 		Access Architecture<select class="form-control" class="form-control"
-			name="accessConfig-accessArchitecture">{%each accessArchitectureOptions
-			%}
-			<option value="${key}">${value}</option> {%/each%}
+			name="accessConfig-accessArchitecture">{{each accessConfiguration.accessArchitectureOptions	}}
+				{{if key == localUserSelectedAccessConfiguration.accessArchitecture }}
+				    <option value="${key}" selected="selected">${value}</option>
+				{{else}}
+					<option value="${key}">${value}</option>
+				{{/if}}
+			{{/each}}
 		</select>
 	</div>
-	<div class="col-sm-4 col-sm-offset-1" id="divAccessTypeclickApplyMessage"></div>
+	<div class="clearfix"></div>
 	<div class="col-sm-2 col-sm-offset-10">
 		<button id="btnApplyAccessConfigurationOptions"
 			name="btnApplyAccessConfigurationOptions"
