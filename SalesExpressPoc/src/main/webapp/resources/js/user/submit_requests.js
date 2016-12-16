@@ -17,7 +17,7 @@ $(document).ready(function() {
     		$("#divAccessTypeclickApplyMessage").html(successAlertMessage);
     		$("#transactionId").val(data.transactionId);
     		
-    		var accessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes || gUserConfiguration.getConfigurationData().accessConfig.sliderSpeedValue;
+    		var accessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes || gUserConfiguration.getConfigurationData().accessConfig.selectAccessType;
     		var sliderSpeedValue = gUserConfiguration.getConfigurationData().accessConfig.sliderSpeedValue;
 
     		$.each(siteMetaData.accessType, function(i, obj) {
@@ -26,7 +26,7 @@ $(document).ready(function() {
     		    }
     		});
     		
-    		console.log(accessType)
+    		displayAccessSelectionInLeftNavigation("hqAccessId", sliderSpeedValue, accessType);
     	})
     	.fail(function(jqXHR, textStatus, errorThrown) {
     		var errorObject = $.parseJSON(jqXHR.responseText);
@@ -54,4 +54,10 @@ function configureModifyUserOptionsAfterAccessApplySuccess() {
 	var accessConfigOptions = $.tmpl("modify_configuration_options", siteMetaData);
 	lastDiv = findLastDivRowOfElement($("#accessSpeedConfigPlaceholder"));
 	lastDiv.after(accessConfigOptions);
+}
+
+function displayAccessSelectionInLeftNavigation(accessLocation, sliderSpeedValue, accessType) {
+	var hrefAccess = $('#' + accessLocation);
+	hrefAccess.css("font-weight", "bold");
+	hrefAccess.html("Access: " + sliderSpeedValue + " " + accessType);
 }
