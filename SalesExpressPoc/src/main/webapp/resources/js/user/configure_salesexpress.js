@@ -17,6 +17,9 @@ $(document).ready(function() {
 				case 'btnModifyConfigOptions':
 					handleModifyConfigOptionsClick($(this), e.target);
 					break;
+				case 'btnCustomizePortSpeed':
+					handleBtnCustomizePortSpeed($(this), e.target);
+					break;
 			}
 		},
 		
@@ -105,6 +108,17 @@ function handleBtnCustomizeClick($thisRef, eventSource) {
 	$thisRef.trigger('create');	
 }
 
+function handleBtnCustomizePortSpeed($thisRef, eventSource) {
+	removeNextAllSiblingDivRows($(eventSource));
+	var portConfigOptions = $.tmpl("port_config_options_template", { 
+		"portConfiguration" : siteMetaData.portSpeeds
+    });
+	
+	lastDiv = findLastDivRowOfElement($thisRef);
+	lastDiv.after(portConfigOptions);
+	$thisRef.trigger('create');
+}
+
 function handleAccessTypeRadioSelectionChange($thisRef, eventSource) {
 	var val = $(eventSource).val();
 	
@@ -119,11 +133,11 @@ function handleAccessTypeRadioSelectionChange($thisRef, eventSource) {
 	
 	if ("ethernet" == val || "private_line" == val) {
 		setAccessSpeedSliderLimit(siteMetaData.accessSpeeds[val]);
-		$("#divFooterMessage").text("Need to apply an access and port speed to all sites before moving on");
+		updateFooterMessage("Need to apply an access and port speed to all sites before moving on");
 	}
 	else if ("light_speed" == val) {
 		setAccessSpeedSliderLimit(siteMetaData.accessSpeeds.light_speed);
-		$("#divFooterMessage").text("Lighspeed bundles access and port speeds. 45M access speed comes with a 6M upload and a 45M port speeds which cannot be modified");
+		updateFooterMessage("Lighspeed bundles access and port speeds. 45M access speed comes with a 6M upload and a 45M port speeds which cannot be modified");
 	}	
 }
 
@@ -191,6 +205,10 @@ function handleActionRequiredAction($thisRef, eventSource) {
 	} else {
 		removeNextAllSiblingDivRows($(eventSource));
 	}	
+}
+
+function updateFooterMessage(msg) {
+	$("#divFooterMessage").text(msg);
 }
 
 /*function setAccessSpeedSliderLimit(allAccessSpeeds, minVal, maxVal) {

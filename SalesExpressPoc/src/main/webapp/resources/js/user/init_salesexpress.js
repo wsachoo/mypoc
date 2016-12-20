@@ -11,7 +11,8 @@ SALESEXPRESS_CONSTANTS = (function() {
 			"filter_access_type_template" : "/templates/filter_access_type_template.html",
 			"access_config_options_template" : "/templates/access_config_options_template.html",
 			"select_speed_configure_options" : "/templates/select_speed_configure_options.html",
-			"modify_configuration_options" : "/templates/modify_configuration_options.html"
+			"modify_configuration_options" : "/templates/modify_configuration_options.html",
+			"port_config_options_template" : "/templates/port_config_options_template.html"
 	};
 	
 	var _jsonDataUrls = {
@@ -36,7 +37,7 @@ SALESEXPRESS_CONSTANTS = (function() {
 gUserConfiguration = (function() {
 	var configStore = {
 			"accessConfig" : {},
-			"speedConfig" : {},
+			"portConfig" : {},
 	};
 	
 	return {
@@ -47,8 +48,8 @@ gUserConfiguration = (function() {
 			configStore["accessConfig"][key] = value;
 		},
 		
-		addSpeedConfiguration : function(key, value) {
-			configStore["speedConfig"][key] = value;
+		addPortConfiguration : function(key, value) {
+			configStore["portConfig"][key] = value;
 		},
 		
 		getConfigurationData : function() {
@@ -58,7 +59,7 @@ gUserConfiguration = (function() {
 		clearConfiguration : function() {
 			configStore = {
 					"accessConfig" : {},
-					"speedConfig" : {},
+					"portConfig" : {},
 			};
 		}
 	};
@@ -79,8 +80,8 @@ function updateInMemoryConfigurationFromFormObject(form) {
     	else if (nameArray[0] === "accessConfig") {
     		gUserConfiguration.addAccessConfiguration(nameArray[1], this.value);
     	}
-    	else if (nameArray[0] === "speedConfig") {
-    		gUserConfiguration.addSpeedConfiguration(nameArray[1], this.value);
+    	else if (nameArray[0] === "portConfig") {
+    		gUserConfiguration.addPortConfiguration(nameArray[1], this.value);
     	}
     	else {
     		gUserConfiguration.addConfigMetaInformation(this.name, this.value);

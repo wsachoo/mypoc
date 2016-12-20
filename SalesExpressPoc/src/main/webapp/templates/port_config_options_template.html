@@ -1,0 +1,52 @@
+<div id="divPortConfigOptions" class="row salesexpress-line-space">
+	<div class="col-sm-12">
+		<label for="name">Port Configuration Options</label>
+	</div>
+</div>
+<div class="row" id="divPortConfigOptionsData">
+	<div class="col-sm-3 col-sm-offset-1">
+		Port Type<select class="form-control" name="portConfig-portType">
+			{{each portConfiguration.portType}}
+					<option value="${key}">${value}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-sm-3 col-sm-offset-1">
+		Routing Protocol<select class="form-control" 
+			name="portConfig-routingProtocol">{{each
+			portConfiguration.routingProtocol }}
+					<option value="${key}">${value}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-sm-3 col-sm-offset-1">
+		Port Protocol<select class="form-control" name="portConfig-portProtocol">{{each
+			portConfiguration.portProtocol }}
+					<option value="${key}">${value}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-sm-3 col-sm-offset-1">
+		IP Version<select class="form-control" name="portConfig-ipVersion">{{each
+			portConfiguration.ipVersion }}
+					<option value="${key}">${value}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-sm-3 col-sm-offset-1">
+		Rate Plan<select class="form-control" class="form-control"
+			name="portConfig-ratePlan">{{each portConfiguration.ratePlan	}}
+					<option value="${key}">${value}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-sm-4 col-sm-offset-1" id="divPortConfigClickApplyMessage"></div>
+	<div class="clearfix"></div>
+	<div class="col-sm-2 col-sm-offset-10">
+		<button id="btnApplyPortConfigurationOptions"
+			name="btnApplyPortConfigurationOptions"
+			class="btn btn-primary btn-block" type="button">Apply</button>
+	</div>
+</div>
