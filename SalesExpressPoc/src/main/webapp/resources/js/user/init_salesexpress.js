@@ -39,6 +39,7 @@ gUserConfiguration = (function() {
 	var configStore = {
 			"accessConfig" : {},
 			"portConfig" : {},
+			"resiliencyConfig" : {}
 	};
 	
 	return {
@@ -53,6 +54,10 @@ gUserConfiguration = (function() {
 			configStore["portConfig"][key] = value;
 		},
 		
+		addResiliencyConfiguration : function(key, value) {
+			configStore["resiliencyConfig"][key] = value;
+		},
+		
 		getConfigurationData : function() {
 			return configStore;
 		},
@@ -61,6 +66,7 @@ gUserConfiguration = (function() {
 			configStore = {
 					"accessConfig" : {},
 					"portConfig" : {},
+					"resiliencyConfig" : {}
 			};
 		}
 	};
@@ -83,6 +89,9 @@ function updateInMemoryConfigurationFromFormObject(form) {
     	}
     	else if (nameArray[0] === "portConfig") {
     		gUserConfiguration.addPortConfiguration(nameArray[1], this.value);
+    	}
+    	else if (nameArray[0] === "resiliencyConfig") {
+    		gUserConfiguration.addResiliencyConfiguration(nameArray[1], this.value);
     	}
     	else {
     		gUserConfiguration.addConfigMetaInformation(this.name, this.value);

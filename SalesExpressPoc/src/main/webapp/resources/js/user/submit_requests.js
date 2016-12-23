@@ -11,6 +11,9 @@ $(document).ready(function() {
 				case 'btnApplyPortConfigurationOptions':
 					handleBtnApplyPortConfigurationOptionsClick($(this), e.target);
 					break;
+				case 'btnApplyResiliencyConfigurationOptions':
+					handleBtnApplyResiliencyConfigurationOptionsClick($(this), e.target);
+					break;
 			}
 		}
 	});
@@ -19,6 +22,28 @@ $(document).ready(function() {
 		var result = $(e.target).data("applybutton");
 	});*/
 });
+
+function handleBtnApplyResiliencyConfigurationOptionsClick($thisRef, eventSource) {
+	updateInMemoryConfigurationFromFormObject($("#configureForm"));
+	var formData = JSON.stringify(gUserConfiguration.getConfigurationData());
+	
+	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");
+	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
+	
+	promise.done(function(data, textStatus, jqXHR ) {
+		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
+								  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
+								  "<strong>Success!</strong> The request has been submitted successfully</div>";
+		$("#divResiliencyConfigClickApplyMessage").html(successAlertMessage);
+	})
+	.fail(function(jqXHR, textStatus, errorThrown) {
+		var errorObject = $.parseJSON(jqXHR.responseText);
+		var failureAlertMessage = "<div class='alert alert-danger alert-dismissible'>" +
+		  						  "<a href='#' class='close' data-dismiss='alert' data-applybutton='failure' aria-label='close'>&times;</a>" +
+		  						  "<strong>Failure!</strong> The request failed with this error: " + errorObject.reasonPhrase + "</div>";  
+		$("#divResiliencyConfigClickApplyMessage").html(failureAlertMessage);
+	});		
+}
 
 function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 	updateInMemoryConfigurationFromFormObject($("#configureForm"));
