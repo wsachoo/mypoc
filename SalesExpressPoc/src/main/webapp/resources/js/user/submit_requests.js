@@ -32,6 +32,7 @@ function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 								  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
 								  "<strong>Success!</strong> The request has been submitted successfully</div>";
 		$("#divPortConfigClickApplyMessage").html(successAlertMessage);
+		configureResiliencyOptionsAfterPortConfigurationSuccess();
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
 		var errorObject = $.parseJSON(jqXHR.responseText);
@@ -78,8 +79,38 @@ function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 	});	
 }
 
+function configureResiliencyOptionsAfterPortConfigurationSuccess() {
+	var $divPortConfigOptionsData = $("#divPortConfigOptionsData");
+	$divPortConfigOptionsData.nextAll('div').not('.sachbottommenu').remove();
+
+	var resiliencyOptions = $.tmpl("resiliency_options_template", siteMetaData.resiliencyOptions);
+	lastDiv = findLastDivRowOfElement($("#accessSpeedConfigPlaceholder"));
+	lastDiv.after(resiliencyOptions);
+	
+	configureDefaultResiliencySpeedSlider();
+	lastDiv.trigger('create');
+}
+
+function configureDefaultResiliencySpeedSlider() {
+	var allResiliencySpeeds = siteMetaData.resiliencyOptions.resiliencyOptionsDetail.default;
+    $("#divSliderResiliencySpeed").slider({
+        min: 0,
+        orientation: "horizontal",
+        range: "min",
+        max: allResiliencySpeeds.range.length-1,   
+        slide : function(e, ui) {
+    		$(this).slider('value', 0);
+    		$("#sliderResiliencySpeedValue").val(allResiliencySpeeds.range[ui.value]);
+        }
+    });
+    $("#divSliderResiliencySpeed").slider("value", 0);
+    $("#divSliderResiliencySpeed").find(".ui-slider-range").css("background", "#337ab7");
+    
+    setResiliencyOptionSpeedSliderLimit(allResiliencySpeeds);
+}
+
 function configureModifyUserOptionsAfterAccessApplySuccess() {
-	$divAccessConfigOptions = $("#divAccessConfigOptions");
+	var $divAccessConfigOptions = $("#divAccessConfigOptions");
 	$divAccessConfigOptions.nextAll('div').not('.sachbottommenu').remove();
 	$divAccessConfigOptions.remove();			
 	$('#divOnBtnCustomize').remove();

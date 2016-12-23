@@ -12,7 +12,8 @@ SALESEXPRESS_CONSTANTS = (function() {
 			"access_config_options_template" : "/templates/access_config_options_template.html",
 			"select_speed_configure_options" : "/templates/select_speed_configure_options.html",
 			"modify_configuration_options" : "/templates/modify_configuration_options.html",
-			"port_config_options_template" : "/templates/port_config_options_template.html"
+			"port_config_options_template" : "/templates/port_config_options_template.html",
+			"resiliency_options_template" : "/templates/resiliency_options_template.html"
 	};
 	
 	var _jsonDataUrls = {

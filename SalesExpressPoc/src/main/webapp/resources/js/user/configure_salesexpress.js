@@ -32,7 +32,10 @@ $(document).ready(function() {
 				break;
 			case 'accessConfig-selectAccessType':
 				handleAccessTypeDropDownChange($(this), e.target);
-				break;			
+				break;
+			case 'resiliencyConfig-selectResiliencyOption':
+				handleResiliencyOptionDropDownChange($(this), e.target);
+				break;
 			}
 		}
 	});
@@ -194,6 +197,40 @@ function handleAccessTypeDropDownChange($thisRef, eventSource) {
 		}
 		$divSelectedAccessTypes.trigger('create');
 	}	
+}
+
+function handleResiliencyOptionDropDownChange($thisRef, eventSource) {
+	var divSelectedResiliencyOption = $("#divSelectedResiliencyOption");
+	var $selectResiliencyOption = $(eventSource);
+	
+	if (!($selectResiliencyOption.val() == "-1")) {
+		divSelectedResiliencyOption.empty();
+
+		divSelectedResiliencyOption.html($selectResiliencyOption.find(":selected").text());
+		var resOpt = $selectResiliencyOption.find(":selected").val();
+		setResiliencyOptionSpeedSliderLimit(siteMetaData.resiliencyOptions.resiliencyOptionsDetail[resOpt]);
+	}	
+}
+
+/*
+ * This function is called when user changes the resiliency option selected from the drop down.
+ * It changes the calibration of the slider bar accordingly to the resiliency option selected.
+ */
+function setResiliencyOptionSpeedSliderLimit(objResiliencyOption) {
+	var $divSliderResiliencySpeed = $("#divSliderResiliencySpeed");
+	
+	var startIndex = Math.floor(objResiliencyOption.range.length / 2);
+	$divSliderResiliencySpeed.slider('value', startIndex);
+	$("#sliderResiliencySpeedValue").val(objResiliencyOption.range[startIndex]);
+	
+	$("#resiliencyConfig-divMRCNRC").text("MRC:" + objResiliencyOption.MRC + "    NRC:" + objResiliencyOption.NRC);
+	$("#imgResiliencyOption").attr("src", objResiliencyOption.resiliencyOptionImagePath);
+	
+	$divSliderResiliencySpeed.slider("option", "slide", function( event, ui ) {
+		$(this).slider('value', 0);
+		$("#sliderResiliencySpeedValue").val(objResiliencyOption.range[ui.value]);
+		$divSliderResiliencySpeed.slider("option", "max", objResiliencyOption.range.length-1);
+    });	
 }
 
 function handleActionRequiredAction($thisRef, eventSource) {

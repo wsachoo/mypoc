@@ -1,0 +1,28 @@
+<div class="row salesexpress-line-space" id="divResiliencyOption" >
+	<div class="col-sm-12">
+		<label for = "name">Resiliency Options</label>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-sm-6">
+		<select name="resiliencyConfig-selectResiliencyOption" id="resiliencyConfig-selectResiliencyOption" class="form-control">
+			<option value="-1">Select Resiliency Option</option>
+			{%each resiliencyOptionsSelectType%}
+			<option value="${key}">${value}</option> {%/each%}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-sm-4 salesexpress-line-space">
+	<input type="text" name="resiliencyConfig-sliderResiliencySpeedValue" class="form-control"
+				readonly="readonly" id="sliderResiliencySpeedValue">
+	</div>
+	<div class="col-sm-4 salesexpress-line-space">
+		<span class="form-control salesexpress-no-border salesexpress-no-box-shadow" id="resiliencyConfig-divMRCNRC"></span>
+	</div>		
+    <div class="clearfix"></div>
+
+	<div class="col-sm-12">
+			<span id="divSelectedResiliencyOption" class="form-control salesexpress-no-border salesexpress-no-box-shadow">Ethernet</span>
+	</div>
+	<div class="col-sm-12"><div id="divSliderResiliencySpeed"></div></div>
+	<div class="col-sm-12"><img id="imgResiliencyOption" class="img-responsiveCCC" alt="" src="/resources/images/scdapb.png" height="100px" width="100%"></div>
+</div>
