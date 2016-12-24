@@ -2,7 +2,6 @@ $(document).ready(function() {
 	$("#configureForm").on({
 		"click" : function(e) {
 			var eventSourceName = e.target.name;
-			console.log("eventSourceName:" + eventSourceName);
 			
 			switch (eventSourceName) {
 				case 'btnApplyAccessConfigurationOptions':
@@ -10,9 +9,6 @@ $(document).ready(function() {
 					break;
 				case 'btnApplyPortConfigurationOptions':
 					handleBtnApplyPortConfigurationOptionsClick($(this), e.target);
-					break;
-				case 'btnApplyResiliencyConfigurationOptions':
-					handleBtnApplyResiliencyConfigurationOptionsClick($(this), e.target);
 					break;
 			}
 		}
@@ -23,31 +19,9 @@ $(document).ready(function() {
 	});*/
 });
 
-function handleBtnApplyResiliencyConfigurationOptionsClick($thisRef, eventSource) {
-	updateInMemoryConfigurationFromFormObject($("#configureForm"));
-	var formData = JSON.stringify(gUserConfiguration.getConfigurationData());
-	
-	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");
-	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
-	
-	promise.done(function(data, textStatus, jqXHR ) {
-		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
-								  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
-								  "<strong>Success!</strong> The request has been submitted successfully</div>";
-		$("#divResiliencyConfigClickApplyMessage").html(successAlertMessage);
-	})
-	.fail(function(jqXHR, textStatus, errorThrown) {
-		var errorObject = $.parseJSON(jqXHR.responseText);
-		var failureAlertMessage = "<div class='alert alert-danger alert-dismissible'>" +
-		  						  "<a href='#' class='close' data-dismiss='alert' data-applybutton='failure' aria-label='close'>&times;</a>" +
-		  						  "<strong>Failure!</strong> The request failed with this error: " + errorObject.reasonPhrase + "</div>";  
-		$("#divResiliencyConfigClickApplyMessage").html(failureAlertMessage);
-	});		
-}
-
 function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 	updateInMemoryConfigurationFromFormObject($("#configureForm"));
-	var formData = JSON.stringify(gUserConfiguration.getConfigurationData());
+	var formData = JSON.stringify(gUserConfiguration.getUserConfigurationData());
 	
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");
 	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
@@ -57,7 +31,6 @@ function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 								  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
 								  "<strong>Success!</strong> The request has been submitted successfully</div>";
 		$("#divPortConfigClickApplyMessage").html(successAlertMessage);
-		configureResiliencyOptionsAfterPortConfigurationSuccess();
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
 		var errorObject = $.parseJSON(jqXHR.responseText);
@@ -70,7 +43,7 @@ function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 
 function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 	updateInMemoryConfigurationFromFormObject($("#configureForm"));
-	var formData = JSON.stringify(gUserConfiguration.getConfigurationData());
+	var formData = JSON.stringify(gUserConfiguration.getUserConfigurationData());
 	
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");
 	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
@@ -92,7 +65,7 @@ function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 		    }
 		});
 		
-		displayAccessSelectionInLeftNavigation("hqAccessId", sliderSpeedValue, accessType);
+		displayAccessSelectionInLeftNavigation(sliderSpeedValue, accessType);
 		updateFooterMessage("Access configuration options have been defaulted for the sites selected. Access options are too varied across sites to be configured together.");
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
@@ -104,35 +77,6 @@ function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 	});	
 }
 
-function configureResiliencyOptionsAfterPortConfigurationSuccess() {
-	var $divPortConfigOptionsData = $("#divPortConfigOptionsData");
-	$divPortConfigOptionsData.nextAll('div').not('.sachbottommenu').remove();
-
-	var resiliencyOptions = $.tmpl("resiliency_options_template", siteMetaData.resiliencyOptions);
-	lastDiv = findLastDivRowOfElement($("#accessSpeedConfigPlaceholder"));
-	lastDiv.after(resiliencyOptions);
-	
-	configureDefaultResiliencySpeedSlider();
-	lastDiv.trigger('create');
-}
-
-function configureDefaultResiliencySpeedSlider() {
-	var allResiliencySpeeds = siteMetaData.resiliencyOptions.resiliencyOptionsDetail.default;
-    $("#divSliderResiliencySpeed").slider({
-        min: 0,
-        orientation: "horizontal",
-        range: "min",
-        max: allResiliencySpeeds.range.length-1,   
-        slide : function(e, ui) {
-    		$(this).slider('value', 0);
-    		$("#sliderResiliencySpeedValue").val(allResiliencySpeeds.range[ui.value]);
-        }
-    });
-    $("#divSliderResiliencySpeed").slider("value", 0);
-    $("#divSliderResiliencySpeed").find(".ui-slider-range").css("background", "#337ab7");
-    
-    setResiliencyOptionSpeedSliderLimit(allResiliencySpeeds);
-}
 
 function configureModifyUserOptionsAfterAccessApplySuccess() {
 	var $divAccessConfigOptions = $("#divAccessConfigOptions");
@@ -145,8 +89,15 @@ function configureModifyUserOptionsAfterAccessApplySuccess() {
 	lastDiv.after(accessConfigOptions);
 }
 
-function displayAccessSelectionInLeftNavigation(accessLocation, sliderSpeedValue, accessType) {
-	var hrefAccess = $('#' + accessLocation);
-	hrefAccess.css("font-weight", "bold");
-	hrefAccess.html("Access: " + sliderSpeedValue + " " + accessType);
+function displayAccessSelectionInLeftNavigation(sliderSpeedValue, accessType) {
+	if ($('input[name="chkHeadequarters"').is(":checked")) {
+		var hrefAccess = $('#hqAccessId');
+		hrefAccess.css("font-weight", "bold");
+		hrefAccess.html("Access: " + sliderSpeedValue + " " + accessType);
+	}
+	if ($('input[name="chkAccountReceivables"').is(":checked")) {
+		var hrefAccess = $('#arAccessId');
+		hrefAccess.css("font-weight", "bold");
+		hrefAccess.html("Access: " + sliderSpeedValue + " " + accessType);
+	}
 }

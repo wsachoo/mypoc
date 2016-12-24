@@ -12,8 +12,7 @@ SALESEXPRESS_CONSTANTS = (function() {
 			"access_config_options_template" : "/templates/access_config_options_template.html",
 			"select_speed_configure_options" : "/templates/select_speed_configure_options.html",
 			"modify_configuration_options" : "/templates/modify_configuration_options.html",
-			"port_config_options_template" : "/templates/port_config_options_template.html",
-			"resiliency_options_template" : "/templates/resiliency_options_template.html"
+			"port_config_options_template" : "/templates/port_config_options_template.html"
 	};
 	
 	var _jsonDataUrls = {
@@ -36,34 +35,45 @@ SALESEXPRESS_CONSTANTS = (function() {
  * Object gUserConfiguration holds all the user configuration selections.
  */
 gUserConfiguration = (function() {
-	var configStore = {
+	var userConfigStore = {};
+	var tempConfigStore = {
 			"accessConfig" : {},
 			"portConfig" : {},
 			"resiliencyConfig" : {}
 	};
 	
 	return {
-		addConfigMetaInformation : function(key, value) {
-			configStore[key] = value;
+		addConfigurationToSite : function(siteType) {
+			userConfigStore[siteType] = $.extend(true, {}, tempConfigStore);
 		},
+		
+		addConfigMetaInformation : function(key, value) {
+			userConfigStore[key] = value;
+		},
+		
 		addAccessConfiguration : function(key, value) {
-			configStore["accessConfig"][key] = value;
+			tempConfigStore["accessConfig"][key] = value;
 		},
 		
 		addPortConfiguration : function(key, value) {
-			configStore["portConfig"][key] = value;
+			tempConfigStore["portConfig"][key] = value;
 		},
 		
 		addResiliencyConfiguration : function(key, value) {
-			configStore["resiliencyConfig"][key] = value;
+			tempConfigStore["resiliencyConfig"][key] = value;
 		},
 		
 		getConfigurationData : function() {
-			return configStore;
+			return tempConfigStore;
+		},
+		
+		getUserConfigurationData : function() {
+			return userConfigStore;
 		},
 		
 		clearConfiguration : function() {
-			configStore = {
+			userConfigStore = {};
+			tempConfigStore = {
 					"accessConfig" : {},
 					"portConfig" : {},
 					"resiliencyConfig" : {}
@@ -97,6 +107,17 @@ function updateInMemoryConfigurationFromFormObject(form) {
     		gUserConfiguration.addConfigMetaInformation(this.name, this.value);
     	}
     });
+
+	var chkHeadequarters = $('input[name="chkHeadequarters"').is(":checked");
+	var chkAccountReceivables = $('input[name="chkAccountReceivables"').is(":checked");
+
+	if (chkHeadequarters) {
+		gUserConfiguration.addConfigurationToSite("headQuarters");
+	}
+	
+	if (chkAccountReceivables) {
+		gUserConfiguration.addConfigurationToSite("accountReceivables");
+	}    
 }
 
 function getTemplateDefinition(templatePath) {

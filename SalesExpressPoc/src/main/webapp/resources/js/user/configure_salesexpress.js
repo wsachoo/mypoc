@@ -33,9 +33,6 @@ $(document).ready(function() {
 			case 'accessConfig-selectAccessType':
 				handleAccessTypeDropDownChange($(this), e.target);
 				break;
-			case 'resiliencyConfig-selectResiliencyOption':
-				handleResiliencyOptionDropDownChange($(this), e.target);
-				break;
 			}
 		}
 	});
@@ -113,13 +110,40 @@ function handleBtnCustomizeClick($thisRef, eventSource) {
 
 function handleBtnCustomizePortSpeed($thisRef, eventSource) {
 	removeNextAllSiblingDivRows($(eventSource));
+	var accessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes || gUserConfiguration.getConfigurationData().accessConfig.selectAccessType;
+	
 	var portConfigOptions = $.tmpl("port_config_options_template", { 
-		"portConfiguration" : siteMetaData.portSpeeds
+		"portConfiguration" : siteMetaData.portSpeeds[accessType]
     });
 	
 	lastDiv = findLastDivRowOfElement($thisRef);
 	lastDiv.after(portConfigOptions);
+
+	var $divPortConfigOptionsData = $("#divPortConfigOptionsData");
+	$divPortConfigOptionsData.nextAll('div').not('.sachbottommenu').remove();
+	configureDefaultPortSpeedSlider();
+	
 	$thisRef.trigger('create');
+}
+
+function configureDefaultPortSpeedSlider() {
+	var accessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes || gUserConfiguration.getConfigurationData().accessConfig.selectAccessType;
+	
+	var allPortSpeeds = siteMetaData.portSpeeds[accessType];
+    $("#divSliderPortSpeed").slider({
+        min: 0,
+        orientation: "horizontal",
+        range: "min",
+        max: allPortSpeeds.range.length-1,   
+        slide : function(e, ui) {
+    		$(this).slider('value', 0);
+    		$("#sliderPortSpeedValue").val(allPortSpeeds.range[ui.value]);
+        }
+    });
+    $("#divSliderPortSpeed").slider("value", 0);
+    $("#divSliderPortSpeed").find(".ui-slider-range").css("background", "#337ab7");
+    
+    setPortOptionSpeedSliderLimit(allPortSpeeds);
 }
 
 function handleAccessTypeRadioSelectionChange($thisRef, eventSource) {
@@ -199,37 +223,22 @@ function handleAccessTypeDropDownChange($thisRef, eventSource) {
 	}	
 }
 
-function handleResiliencyOptionDropDownChange($thisRef, eventSource) {
-	var divSelectedResiliencyOption = $("#divSelectedResiliencyOption");
-	var $selectResiliencyOption = $(eventSource);
+function setPortOptionSpeedSliderLimit(objPortOption) {
+	var $divSliderPortSpeed = $("#divSliderPortSpeed");
 	
-	if (!($selectResiliencyOption.val() == "-1")) {
-		divSelectedResiliencyOption.empty();
-
-		divSelectedResiliencyOption.html($selectResiliencyOption.find(":selected").text());
-		var resOpt = $selectResiliencyOption.find(":selected").val();
-		setResiliencyOptionSpeedSliderLimit(siteMetaData.resiliencyOptions.resiliencyOptionsDetail[resOpt]);
-	}	
-}
-
-/*
- * This function is called when user changes the resiliency option selected from the drop down.
- * It changes the calibration of the slider bar accordingly to the resiliency option selected.
- */
-function setResiliencyOptionSpeedSliderLimit(objResiliencyOption) {
-	var $divSliderResiliencySpeed = $("#divSliderResiliencySpeed");
+	var startIndex = Math.floor(objPortOption.range.length / 2);
+	$divSliderPortSpeed.slider('value', startIndex);
+	$("#sliderPortSpeedValue").val(objPortOption.range[startIndex]);
 	
-	var startIndex = Math.floor(objResiliencyOption.range.length / 2);
-	$divSliderResiliencySpeed.slider('value', startIndex);
-	$("#sliderResiliencySpeedValue").val(objResiliencyOption.range[startIndex]);
+	$("#portConfig-divMRCNRC").text("MRC:" + objPortOption.MRC + "    NRC:" + objPortOption.NRC);
+	$("#divSelectedPortOption").text(objPortOption.displayValue);
 	
-	$("#resiliencyConfig-divMRCNRC").text("MRC:" + objResiliencyOption.MRC + "    NRC:" + objResiliencyOption.NRC);
-	$("#imgResiliencyOption").attr("src", objResiliencyOption.resiliencyOptionImagePath);
+	$("#imgPortOption").attr("src", objPortOption.portOptionImagePath);
 	
-	$divSliderResiliencySpeed.slider("option", "slide", function( event, ui ) {
+	$divSliderPortSpeed.slider("option", "slide", function( event, ui ) {
 		$(this).slider('value', 0);
-		$("#sliderResiliencySpeedValue").val(objResiliencyOption.range[ui.value]);
-		$divSliderResiliencySpeed.slider("option", "max", objResiliencyOption.range.length-1);
+		$("#sliderPortSpeedValue").val(objPortOption.range[ui.value]);
+		$divSliderPortSpeed.slider("option", "max", objPortOption.range.length-1);
     });	
 }
 

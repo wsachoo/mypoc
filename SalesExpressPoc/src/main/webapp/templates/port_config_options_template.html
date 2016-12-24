@@ -1,3 +1,21 @@
+<div class="col-sm-12 salesexpress-line-space">
+	<label for = "name">What speed do you want?</label>
+</div>
+<div class="col-sm-4">
+<input type="text" name="portConfig-sliderPortSpeedValue" class="form-control"
+			readonly="readonly" id="sliderPortSpeedValue">
+</div>
+<div class="col-sm-4">
+	<span class="form-control salesexpress-no-border salesexpress-no-box-shadow" id="portConfig-divMRCNRC"></span>
+</div>		
+<div class="clearfix"></div>
+
+<div class="col-sm-12">
+	<span id="divSelectedPortOption" class="form-control salesexpress-no-border salesexpress-no-box-shadow"></span>
+</div>
+<div class="col-sm-12"><div id="divSliderPortSpeed"></div></div>
+<div class="col-sm-12"><img id="imgPortOption" class="img-responsiveCCC" alt="" src="/resources/images/scdapb.png" height="100px" width="100%"></div>
+
 <div id="divPortConfigOptions" class="row salesexpress-line-space">
 	<div class="col-sm-12">
 		<label for="name">Port Configuration Options</label>
@@ -42,7 +60,21 @@
 			{{/each}}
 		</select>
 	</div>
+	<div class="clearfix"></div>
+
+	<div class="col-sm-12 salesexpress-line-space">
+		<label for = "name">Resiliency Options</label>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-sm-6">
+		<select name="resiliencyConfig-selectResiliencyOption" id="resiliencyConfig-selectResiliencyOption" class="form-control">
+			<option value="-1">Select Resiliency Option</option>
+			{%each portConfiguration.resiliencyOptions%}
+			<option value="${key}">${value}</option> {%/each%}
+		</select>
+	</div>
 	<div class="col-sm-4 col-sm-offset-1" id="divPortConfigClickApplyMessage"></div>
+	
 	<div class="clearfix"></div>
 	<div class="col-sm-2 col-sm-offset-10">
 		<button id="btnApplyPortConfigurationOptions"
