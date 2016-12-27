@@ -8,6 +8,8 @@ $(document).ready(function() {
 					handleBtnCustomizeClick($(this), e.target);
 					break;
 				case 'btnSetGreatestCompatibleSpeeds':
+					removeNextAllSiblingDivRows($(e.target));
+					break;
 				case 'btnSetSiteMaxSpeeds':
 					removeNextAllSiblingDivRows($(e.target));
 					break;

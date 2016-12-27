@@ -110,13 +110,16 @@ function updateInMemoryConfigurationFromFormObject(form) {
 
 	var chkHeadequarters = $('input[name="chkHeadequarters"').is(":checked");
 	var chkAccountReceivables = $('input[name="chkAccountReceivables"').is(":checked");
+	var chkDistributionCenter = $('input[name="chkDistributionCenter"').is(":checked");
 
 	if (chkHeadequarters) {
 		gUserConfiguration.addConfigurationToSite("headQuarters");
-	}
-	
+	}	
 	if (chkAccountReceivables) {
 		gUserConfiguration.addConfigurationToSite("accountReceivables");
+	}    
+	if (chkDistributionCenter) {
+		gUserConfiguration.addConfigurationToSite("distributionCenter");
 	}    
 }
 
