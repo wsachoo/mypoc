@@ -61,7 +61,7 @@ function configureDefaultAccessSpeedSlider() {
         max: allAccessSpeeds.range.length-1,   
         slide : function(e, ui) {
     		$(this).slider('value', 0);
-    		$("#sliderSpeedValue").val(allAccessSpeeds.range[ui.value]);
+    		$("#sliderSpeedValue").val(allAccessSpeeds.range[ui.value].speed);
         }
     });
     $("#divSliderAccessSpeed").slider("value", 0);
@@ -79,14 +79,15 @@ function setAccessSpeedSliderLimit(objAccessSpeeds) {
 	
 	var startIndex = Math.floor(objAccessSpeeds.range.length / 2);
 	$divSliderAccessSpeed.slider('value', startIndex);
-	$("#sliderSpeedValue").val(objAccessSpeeds.range[startIndex]);
+	$("#sliderSpeedValue").val(objAccessSpeeds.range[startIndex].speed);
 	
-	$("#divMRCNRC").text("MRC:" + objAccessSpeeds.MRC + "    NRC:" + objAccessSpeeds.NRC);
+	$("#divMRCNRC").text("MRC:" + objAccessSpeeds.range[startIndex].MRC + "    NRC:" + objAccessSpeeds.range[startIndex].NRC);
 	$("#imgAccessType").attr("src", objAccessSpeeds.accessSpeedImagePath);
 	
     $divSliderAccessSpeed.slider("option", "slide", function( event, ui ) {
 		$(this).slider('value', 0);
-		$("#sliderSpeedValue").val(objAccessSpeeds.range[ui.value]);
+		$("#sliderSpeedValue").val(objAccessSpeeds.range[ui.value].speed);
+		$("#divMRCNRC").text("MRC:" + objAccessSpeeds.range[ui.value].MRC + "    NRC:" + objAccessSpeeds.range[ui.value].NRC);
 		$divSliderAccessSpeed.slider("option", "max", objAccessSpeeds.range.length-1);
     });	
 }
@@ -139,7 +140,7 @@ function configureDefaultPortSpeedSlider() {
         max: allPortSpeeds.range.length-1,   
         slide : function(e, ui) {
     		$(this).slider('value', 0);
-    		$("#sliderPortSpeedValue").val(allPortSpeeds.range[ui.value]);
+    		$("#sliderPortSpeedValue").val(allPortSpeeds.range[ui.value].speed);
         }
     });
     $("#divSliderPortSpeed").slider("value", 0);
@@ -230,16 +231,17 @@ function setPortOptionSpeedSliderLimit(objPortOption) {
 	
 	var startIndex = Math.floor(objPortOption.range.length / 2);
 	$divSliderPortSpeed.slider('value', startIndex);
-	$("#sliderPortSpeedValue").val(objPortOption.range[startIndex]);
+	$("#sliderPortSpeedValue").val(objPortOption.range[startIndex].speed);
 	
-	$("#portConfig-divMRCNRC").text("MRC:" + objPortOption.MRC + "    NRC:" + objPortOption.NRC);
+	$("#portConfig-divMRCNRC").text("MRC:" + objPortOption.range[startIndex].MRC + "    NRC:" + objPortOption.range[startIndex].NRC);
 	$("#divSelectedPortOption").text(objPortOption.displayValue);
 	
 	$("#imgPortOption").attr("src", objPortOption.portOptionImagePath);
 	
 	$divSliderPortSpeed.slider("option", "slide", function( event, ui ) {
 		$(this).slider('value', 0);
-		$("#sliderPortSpeedValue").val(objPortOption.range[ui.value]);
+		$("#sliderPortSpeedValue").val(objPortOption.range[ui.value].speed);
+		$("#portConfig-divMRCNRC").text("MRC:" + objPortOption.range[ui.value].MRC + "    NRC:" + objPortOption.range[ui.value].NRC);
 		$divSliderPortSpeed.slider("option", "max", objPortOption.range.length-1);
     });	
 }
