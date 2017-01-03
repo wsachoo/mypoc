@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.StrSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.att.salesexpress.poc.service.DbServiceInterface;
+import com.att.salesexpress.poc.constants.SalesExpressConstants;
+import com.att.salesexpress.poc.db.DbServiceInterface;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -98,10 +101,19 @@ public class SalesExpressPocController {
 	}*/
 
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET, value = "getMetaData/{sitename}")
-	public String getSiteDataBySiteName(@PathVariable String sitename) {
-		logger.info("inside getSiteDataBySiteName method, sitename : " + sitename);
-		String siteData = dbServiceImpl.getSiteDataByName(sitename);
+	@RequestMapping(method = RequestMethod.GET, value = "getMetaData/{siteType}")
+	public String getSiteDataBySiteName(@PathVariable String siteType) {
+		logger.info("Inside getSiteDataBySiteName method, sitename : " + siteType);
+		
+		Map<String, String> valuesMap = new HashMap<>();
+		valuesMap.put("siteType", siteType);
+		
+		StrSubstitutor sub = new StrSubstitutor(valuesMap);
+		String url = sub.replace(SalesExpressConstants.MICROSERVICE_URL_SITE_METADATA);
+		logger.info("Invoking microservice with URL: " + url);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String siteData = restTemplate.getForObject(url, String.class);
 		return siteData;
 	}
 

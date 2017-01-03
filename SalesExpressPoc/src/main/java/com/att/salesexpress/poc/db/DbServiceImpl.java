@@ -1,4 +1,4 @@
-package com.att.salesexpress.poc.service;
+package com.att.salesexpress.poc.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
