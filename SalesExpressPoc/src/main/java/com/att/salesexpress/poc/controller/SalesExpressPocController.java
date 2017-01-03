@@ -53,7 +53,7 @@ public class SalesExpressPocController {
 		HttpSession session = request.getSession();
 
 		String userId = (String) session.getAttribute("userId");
-		Integer solutionId = (Integer) session.getAttribute("solutionId");
+		Long solutionId = (Long) session.getAttribute("solutionId");
 		Integer transactionId = dbServiceImpl.getTransactionIdByUserIdSolutionId(userId, solutionId);
 
 		view.addObject("userId", userId);
@@ -73,7 +73,7 @@ public class SalesExpressPocController {
 
 	@RequestMapping(value = "/login/{userId}/{solutionId}", method = RequestMethod.GET)
 	public ModelAndView showMap(HttpServletRequest request, @PathVariable String userId,
-			@PathVariable Integer solutionId) throws JsonProcessingException {
+			@PathVariable Long solutionId) throws JsonProcessingException {
 		logger.debug("Enter showMap with user id and solution id.");
 
 		HttpSession session = request.getSession();
@@ -82,11 +82,18 @@ public class SalesExpressPocController {
 		session.setAttribute("solutionId", solutionId);
 
 		ModelAndView view = new ModelAndView("show_map");
-		Map<String, Object> objUserDetail = dbServiceImpl.findUserDetailByUserIdSolutionId(userId, solutionId);
 
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonString = mapper.writeValueAsString(objUserDetail);
-		logger.debug("Return site json as : " + jsonString);
+		Map<String, String> valuesMap = new HashMap<>();
+		valuesMap.put("userId", userId);
+		valuesMap.put("solutionId", solutionId.toString());
+		
+		StrSubstitutor sub = new StrSubstitutor(valuesMap);
+		String url = sub.replace(SalesExpressConstants.MICROSERVICE_URL_USERID_SOLUTION_METADATA);
+		logger.info("Invoking microservice with URL: " + url);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String jsonString = restTemplate.getForObject(url, String.class);
+
 		view.addObject("userDetail", jsonString);
 
 		return view;

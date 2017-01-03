@@ -16,9 +16,7 @@ public interface DbServiceInterface {
 
 	public String findUserDetailByUserId(String userId);
 
-	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Integer solutionId);
-
-	public Integer getTransactionIdByUserIdSolutionId(String userId, Integer solutionId);
+	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId);
 
 	public void updateSiteConfigurationData(long lTransactionId, String jsonString) throws SQLException;
 }
