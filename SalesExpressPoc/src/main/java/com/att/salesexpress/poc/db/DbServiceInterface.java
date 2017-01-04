@@ -8,13 +8,13 @@ import java.util.Map;
  *
  */
 public interface DbServiceInterface {
-	public String getSiteDataByName(String name);
+	/*public String getSiteDataByName(String name);*/
 
-	public Map<String, Object> getSiteDetailEntityBySiteName(String sitename);
+	/*public Map<String, Object> getSiteDetailEntityBySiteName(String sitename);*/
 	
 	public long insertSiteConfigurationData(final String userId, final long solutionId, final Integer siteId, final String accessData) throws SQLException;
 
-	public String findUserDetailByUserId(String userId);
+	/*public String findUserDetailByUserId(String userId);*/
 
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId);
 
