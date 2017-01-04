@@ -1,4 +1,4 @@
-package com.att.salesexpress.poc.microservices.controller;
+package com.att.salesexpress.microservices.controller;
 
 import javax.annotation.Resource;
 
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.att.salesexpress.poc.microservices.db.DbServiceInterface;
+import com.att.salesexpress.microservices.db.DbServiceInterface;
 
 @RestController
 public class SiteConfigMetaDataController {

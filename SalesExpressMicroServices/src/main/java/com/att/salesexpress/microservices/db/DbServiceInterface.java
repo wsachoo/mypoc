@@ -1,4 +1,4 @@
-package com.att.salesexpress.poc.microservices.db;
+package com.att.salesexpress.microservices.db;
 
 import java.util.Map;
 

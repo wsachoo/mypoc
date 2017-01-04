@@ -113,7 +113,7 @@ function handleBtnCustomizeClick($thisRef, eventSource) {
 
 function handleBtnCustomizePortSpeed($thisRef, eventSource) {
 	removeNextAllSiblingDivRows($(eventSource));
-	var accessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes || gUserConfiguration.getConfigurationData().accessConfig.selectAccessType;
+	var accessType = gUserConfiguration.getConfigurationData().accessConfig.selectAccessType || gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes ;
 	
 	var portConfigOptions = $.tmpl("port_config_options_template", { 
 		"portConfiguration" : siteMetaData.portSpeeds[accessType]

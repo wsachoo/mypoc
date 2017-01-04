@@ -1,4 +1,4 @@
-package com.att.salesexpress.poc.microservices.controller;
+package com.att.salesexpress.microservices.controller;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.att.salesexpress.poc.microservices.db.DbServiceInterface;
+import com.att.salesexpress.microservices.db.DbServiceInterface;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,15 +23,15 @@ public class UserSolutionMetaDataController {
 	DbServiceInterface DbMicroServiceImpl;
 
 	@RequestMapping("/userSolutionMetaData")
-	public String getUserSolutionMetaData(@RequestParam(value = "userId") String userId, 
+	public String getUserSolutionMetaData(@RequestParam(value = "userId") String userId,
 			@RequestParam(value = "solutionId") Long solutionId) throws JsonProcessingException {
 		logger.info("Inside getUserSolutionMetaData method with userId {} and solutionId {}", userId, solutionId);
 
 		Map<String, Object> objUserDetail = DbMicroServiceImpl.findUserDetailByUserIdSolutionId(userId, solutionId);
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonString = mapper.writeValueAsString(objUserDetail);
-		
+
 		logger.debug("Return user solution json as : " + jsonString);
 		return jsonString;
-	}	
+	}
 }

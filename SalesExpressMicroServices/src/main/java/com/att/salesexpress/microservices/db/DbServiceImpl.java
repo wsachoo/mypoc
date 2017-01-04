@@ -1,4 +1,4 @@
-package com.att.salesexpress.poc.microservices.db;
+package com.att.salesexpress.microservices.db;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-@Repository(value="DbServiceImpl.microservice")
+@Repository(value = "DbServiceImpl.microservice")
 public class DbServiceImpl implements DbServiceInterface {
 	static final Logger logger = LoggerFactory.getLogger(DbServiceImpl.class);
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -25,7 +25,7 @@ public class DbServiceImpl implements DbServiceInterface {
 		String siteDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { siteType }, String.class);
 		return siteDataJson;
 	}
-	
+
 	@Override
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Long solutionId) {
 		logger.info("Inside findUserDetailByUserIdSolutionId() method.");
@@ -47,5 +47,5 @@ public class DbServiceImpl implements DbServiceInterface {
 			siteAddresses.add(siteMap);
 		}
 		return returnValues;
-	}	
+	}
 }
