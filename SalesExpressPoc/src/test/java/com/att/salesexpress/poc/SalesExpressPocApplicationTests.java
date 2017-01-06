@@ -1,4 +1,4 @@
-package com.att.salesexpress.poc;
+/*package com.att.salesexpress.poc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,3 +17,4 @@ public class SalesExpressPocApplicationTests {
 	}
 
 }
+*/

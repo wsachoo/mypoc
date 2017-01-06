@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository(value = "DbServiceImpl.microservice")
-public class DbServiceImpl implements DbServiceInterface {
+public class DbServiceImpl implements DbService {
 	static final Logger logger = LoggerFactory.getLogger(DbServiceImpl.class);
 
 	@Autowired
