@@ -1,7 +1,9 @@
 package com.att.salesexpress.poc.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +12,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -156,4 +161,68 @@ public class SalesExpressPocController {
 		returnValues.put("transactionId", transactionId);
 		return returnValues;
 	}
+	
+	@RequestMapping(value = "/serviceFeatures", method = RequestMethod.GET)
+	public ModelAndView serviceFeatures(HttpServletRequest request) {
+		logger.info("Inside serviceFeatures(0 method " + this.getClass());
+		ModelAndView view = new ModelAndView("service_features");
+		HttpSession session = request.getSession();
+
+		String userId = (String) session.getAttribute("userId");
+		List service_list =  dbServiceImpl.getServices();
+
+		view.addObject("service_list", service_list);
+		
+
+		return view;
+	}
+	
+	
+	@RequestMapping(value = "/postServiceFeaturesOptions", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> saveServiceFeaturesData(@RequestBody Map<String, Object> paramValues, HttpServletRequest request) 
+			throws JsonProcessingException, SQLException{
+		logger.info("Inside saveServiceFeaturesData " + paramValues);
+		ModelAndView view = new ModelAndView("service_features");
+		HttpSession session = request.getSession();
+	
+		String userId = (String) session.getAttribute("userId");
+		int solutionId = (int) session.getAttribute("solutionId");
+		logger.info("Inside saveServiceFeaturesData, user_id : " + userId + " solutionId :" + solutionId);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(paramValues);
+		logger.info("JSON string for service features : " + jsonString);
+		
+		dbServiceImpl.updateServiceFeaturesData(jsonString, solutionId, userId);
+
+		
+		
+		Map<String, Object> returnValues = new HashMap<String, Object>();
+		returnValues.put("status", "success");
+		
+		return returnValues;
+	}
+	
+	@RequestMapping(value = "/results", method = RequestMethod.GET)
+	public ModelAndView results(HttpServletRequest request) throws IOException,  JSONException {
+		logger.info("Inside serviceFeatures(0 method " + this.getClass());
+		ModelAndView view = new ModelAndView("salesexpress_results");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
+		int solutionId = (int) session.getAttribute("solutionId");
+		
+		Map<String,String> speedMap = dbServiceImpl.getAccessData(solutionId);
+		
+		
+		
+		String resultDataJSON = dbServiceImpl.getResultsData(speedMap.get("accessSpeed"), speedMap.get("portSpeed"));
+		
+		
+		//List resultDataJSON = dbServiceImpl.getResultsData(accessSpeed);
+		
+		view.addObject("resultData", resultDataJSON);
+		return view;
+	}
+	
 }
