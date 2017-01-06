@@ -6773,6 +6773,13 @@ footer.navbar-default.navbar-fixed-bottom
 	height: 100%;
 	margin-bottom: 60px;
 }
+#serviceFeaturesConfigPlaceHolder {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin-bottom: 60px;
+}
+
 /*
 .footer {
 	position: fixed;

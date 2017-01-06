@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,29 +28,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 @Repository
-public class DbServiceImpl implements DbServiceInterface {
+public class DbServiceImpl implements DbService {
 
 	static final Logger logger = LoggerFactory.getLogger(DbServiceImpl.class);
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-/*	public String getSiteDataByName(String name) {
-		logger.info("Inside getSiteDataByName() method.");
-		logger.info("Site Name:" + name);
-		String sql = "SELECT site_data FROM SiteDetail WHERE site_name = ?";
-		String siteDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { name }, String.class);
-		return siteDataJson;
-	}
-*/
-/*	@Override
-	public Map<String, Object> getSiteDetailEntityBySiteName(String sitename) {
-		logger.info("Inside getSiteDetailEntityBySiteName() method.");
-		logger.info("sitename: " + sitename);
-		String sql = "SELECT * FROM SiteDetail WHERE site_name = ?";
-		Map<String, Object> row = jdbcTemplate.queryForMap(sql, sitename);
-		return row;
-	}
-*/
 	public long insertSiteConfigurationData(final String userId, final long solutionId, final Integer siteId,
 			final String accessData) throws SQLException {
 		logger.info("Inside updateAccessTypeData() method.");
@@ -80,16 +62,7 @@ public class DbServiceImpl implements DbServiceInterface {
 
 		return seqNum;
 	}
-/*
-	@Override
-	public String findUserDetailByUserId(String userId) {
-		logger.info("Inside findUserDetailByUserId() method.");
-		logger.info("userId :" + userId);
-		String sql = "SELECT site_data FROM user_detail WHERE user_id = ?";
-		String siteDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { userId }, String.class);
-		return siteDataJson;
-	}
-*/
+
 	@Override
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId) {
 		String sql = "SELECT id FROM sitedetail_transactions WHERE user_id = ? and solution_id = ?";
@@ -127,7 +100,7 @@ public class DbServiceImpl implements DbServiceInterface {
 		return serviceList;
 	}
 	@Override
-	public void updateServiceFeaturesData(String jsonString, int solutionId, String userId ) throws SQLException{
+	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId ) throws SQLException{
 		logger.info("Inside updateServiceFeaturesData");
 		final PGobject jsonObject = new PGobject();
 		jsonObject.setType("json");
@@ -140,7 +113,7 @@ public class DbServiceImpl implements DbServiceInterface {
 	}
 	
 	
-	public Map<String, String> getAccessData( int solutionId) throws IOException, JSONException {
+	public Map<String, String> getAccessData( Long solutionId) throws IOException, JSONException {
 		logger.info("Inside getAccessData() method.");
 		logger.info("solutionId :" + solutionId);
 		Map<String, String> returnMap = new HashMap<String, String>();

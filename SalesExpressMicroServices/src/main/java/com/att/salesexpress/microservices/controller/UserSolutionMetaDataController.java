@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.att.salesexpress.microservices.db.DbServiceInterface;
+import com.att.salesexpress.microservices.db.DbService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,7 +20,7 @@ public class UserSolutionMetaDataController {
 	private static final Logger logger = LoggerFactory.getLogger(UserSolutionMetaDataController.class);
 
 	@Resource(name = "DbServiceImpl.microservice")
-	DbServiceInterface DbMicroServiceImpl;
+	DbService DbMicroServiceImpl;
 
 	@RequestMapping("/userSolutionMetaData")
 	public String getUserSolutionMetaData(@RequestParam(value = "userId") String userId,

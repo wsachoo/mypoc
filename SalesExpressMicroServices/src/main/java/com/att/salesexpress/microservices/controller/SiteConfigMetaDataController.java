@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.att.salesexpress.microservices.db.DbServiceInterface;
+import com.att.salesexpress.microservices.db.DbService;
 
 @RestController
 public class SiteConfigMetaDataController {
@@ -16,7 +16,7 @@ public class SiteConfigMetaDataController {
 	private static final Logger logger = LoggerFactory.getLogger(SiteConfigMetaDataController.class);
 
 	@Resource(name = "DbServiceImpl.microservice")
-	DbServiceInterface DbMicroServiceImpl;
+	DbService DbMicroServiceImpl;
 
 	@RequestMapping("/siteConfigurationMetaData")
 	public String getSiteMetaData(@RequestParam(value = "siteType", defaultValue = "testSite") String siteType) {
