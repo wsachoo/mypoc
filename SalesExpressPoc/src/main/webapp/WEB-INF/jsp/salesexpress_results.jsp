@@ -10,39 +10,39 @@
 	<title>Sales Express POC</title>
 	
 	<script>
-		document.write('<link href="/resources/css/jquery-ui.css" rel="stylesheet" type="text/css" />');
-		document.write('<link rel="stylesheet" href="/resources/css/bootstrap.css" type="text/css" />');
-		document.write('<link rel="stylesheet" href="/resources/css/bootstrap-multiselect.css" type="text/css" />');
-		document.write('<link rel="stylesheet" href="/resources/css/bootstrap-theme.min.css" type="text/css" />');
-		document.write('<link rel="stylesheet" href="/resources/css/salesexpress.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
-		document.write('<link rel="stylesheet" href="/resources/css/sidenav.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
+		document.write('<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />');
+		document.write('<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />');
+		document.write('<link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css" />');
+		document.write('<link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css" />');
+		document.write('<link rel="stylesheet" href="css/salesexpress.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
+		document.write('<link rel="stylesheet" href="css/sidenav.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
 	</script>
 	
-	<script type="text/javascript" src="/resources/js/lib/jquery-1.12.4.js"></script>
-	<script type="text/javascript" src="/resources/js/lib/jquery-ui.1.12.1.js"></script>
-	<script type="text/javascript" src="/resources/js/lib/jquery.tmpl.js"></script>
-	<script type="text/javascript"src="/resources/js/lib/jquery.serialize-object.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-ui.1.12.1.js"></script>
+	<script type="text/javascript" src="js/lib/jquery.tmpl.js"></script>
+	<script type="text/javascript"src="js/lib/jquery.serialize-object.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATDwoHFXe3mRsNJZfFMtMiltwSRTZcRFA"></script>
-	<script type="text/javascript" src="/resources/js/lib/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/resources/js/lib/bootstrap-multiselect.js"></script>
+	<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/lib/bootstrap-multiselect.js"></script>
 	
 	
 	
 	<script>
-		 document.write('<script src="/resources/js/user/init_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
-		document.write('<script src="/resources/js/user/onload_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
-		document.write('<script src="/resources/js/user/submit_requests.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
-		document.write('<script src="/resources/js/user/salesexpress_navigation.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
-		 document.write('<script type="text/javascript" defer="defer" src="/resources/js/user/configure_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>'); 
-	 	document.write('<script type="text/javascript" defer="defer" src="/resources/js/user/init_service_features.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
-		document.write('<script type="text/javascript" defer="defer" src="/resources/js/user/service_features.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');  
+		 document.write('<script src="js/user/init_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		document.write('<script src="js/user/onload_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		document.write('<script src="js/user/submit_requests.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		document.write('<script src="js/user/salesexpress_navigation.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		 document.write('<script type="text/javascript" defer="defer" src="js/user/configure_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>'); 
+	 	document.write('<script type="text/javascript" defer="defer" src="js/user/init_service_features.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		document.write('<script type="text/javascript" defer="defer" src="js/user/service_features.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');  
 	</script>
 	
 	<script type="text/javascript">
 	var resultData = ${resultData};
 		$(document).ready(function() {
 	 
-			$("#salesexpress-side-bar").load("/templates/side_menu_bar.html");
+			$("#salesexpress-side-bar").load("templates/side_menu_bar.html");
 			
 			
     		handlePackageResults();

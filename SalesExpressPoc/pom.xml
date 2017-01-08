@@ -6,7 +6,7 @@
 	<groupId>com.att.salesexpress</groupId>
 	<artifactId>SalesExpressPoc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>SalesExpressPoc</name>
 	<description>Sales Express POC</description>

@@ -1,7 +1,12 @@
 $(document).ready(function() {
-	loadJQueryTemplates();
-	loadSiteMetaData();
 	loadUserDetail();
+	
+	//Load templates and site metadata only if it is not login page. (this may change in future)
+    var pageLoaded = $(location).attr('href');
+    if (pageLoaded.indexOf("/login/") == -1) {
+    	loadJQueryTemplates();
+    	loadSiteMetaData();
+    }
 });
 
 function loadJQueryTemplates() {
