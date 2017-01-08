@@ -1,7 +1,9 @@
 package com.att.salesexpress.poc.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +77,8 @@ public class SalesExpressPocController {
 		session.setAttribute("loginId", userId);
 		session.setAttribute("solutionId", solutionId);
 
-		String jsonString = salesExpressMicroServiceCallerServiceImpl.getJsonMetaDataByUserIdSolutionId(userId, solutionId);
+		String jsonString = salesExpressMicroServiceCallerServiceImpl.getJsonMetaDataByUserIdSolutionId(userId,
+				solutionId);
 
 		ModelAndView view = new ModelAndView("show_map");
 		view.addObject("userDetail", jsonString);
@@ -86,7 +90,8 @@ public class SalesExpressPocController {
 	@RequestMapping(method = RequestMethod.GET, value = "getMetaData/{siteType}")
 	public String getSiteDataBySiteName(@PathVariable String siteType) {
 		logger.info("Inside getSiteDataBySiteName method, sitename : " + siteType);
-		String siteMetaData = salesExpressMicroServiceCallerServiceImpl.getSiteConfigurationMetaDataBySiteType(siteType);
+		String siteMetaData = salesExpressMicroServiceCallerServiceImpl
+				.getSiteConfigurationMetaDataBySiteType(siteType);
 		return siteMetaData;
 	}
 
@@ -122,4 +127,61 @@ public class SalesExpressPocController {
 		returnValues.put("transactionId", transactionId);
 		return returnValues;
 	}
+
+	@RequestMapping(value = "/serviceFeatures", method = RequestMethod.GET)
+	public ModelAndView serviceFeatures(HttpServletRequest request) {
+		logger.info("Inside serviceFeatures(0 method " + this.getClass());
+		ModelAndView view = new ModelAndView("service_features");
+		HttpSession session = request.getSession();
+
+		String userId = (String) session.getAttribute("userId");
+		List service_list = dbServiceImpl.getServices();
+
+		view.addObject("service_list", service_list);
+
+		return view;
+	}
+
+	@RequestMapping(value = "/postServiceFeaturesOptions", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> saveServiceFeaturesData(@RequestBody Map<String, Object> paramValues,
+			HttpServletRequest request) throws JsonProcessingException, SQLException {
+		logger.info("Inside saveServiceFeaturesData " + paramValues);
+		ModelAndView view = new ModelAndView("service_features");
+		HttpSession session = request.getSession();
+
+		String userId = (String) session.getAttribute("userId");
+		Long solutionId = (Long) session.getAttribute("solutionId");
+		logger.info("Inside saveServiceFeaturesData, user_id : " + userId + " solutionId :" + solutionId);
+		ObjectMapper mapper = new ObjectMapper();
+
+		String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(paramValues);
+		logger.info("JSON string for service features : " + jsonString);
+
+		dbServiceImpl.updateServiceFeaturesData(jsonString, solutionId, userId);
+
+		Map<String, Object> returnValues = new HashMap<String, Object>();
+		returnValues.put("status", "success");
+
+		return returnValues;
+	}
+
+	@RequestMapping(value = "/results", method = RequestMethod.GET)
+	public ModelAndView results(HttpServletRequest request) throws IOException, JSONException {
+		logger.info("Inside serviceFeatures(0 method " + this.getClass());
+		ModelAndView view = new ModelAndView("salesexpress_results");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
+		Long solutionId = (Long) session.getAttribute("solutionId");
+		
+		Map<String,String> speedMap = dbServiceImpl.getAccessData(solutionId);
+		
+		String resultDataJSON = dbServiceImpl.getResultsData(speedMap.get("accessSpeed"), speedMap.get("portSpeed"));
+
+		// List resultDataJSON = dbServiceImpl.getResultsData(accessSpeed);
+
+		view.addObject("resultData", resultDataJSON);
+		return view;
+	}
+
 }

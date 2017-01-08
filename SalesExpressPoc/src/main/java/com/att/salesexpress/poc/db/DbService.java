@@ -1,6 +1,13 @@
 package com.att.salesexpress.poc.db;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONException;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * 
@@ -14,4 +21,12 @@ public interface DbService {
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId);
 
 	public void updateSiteConfigurationData(long lTransactionId, String jsonString) throws SQLException;
+
+	public List getServices();
+	
+	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException;
+
+	public Map<String, String> getAccessData(Long solutionId) throws IOException,  JSONException;
+	
+	public String getResultsData( String accessSpeed, String portSpeed) throws JsonProcessingException , JSONException;
 }

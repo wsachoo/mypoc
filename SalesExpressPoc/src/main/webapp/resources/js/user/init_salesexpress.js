@@ -12,6 +12,11 @@ SALESEXPRESS_CONSTANTS = (function() {
 			"access_config_options_template" : "/templates/access_config_options_template.html",
 			"select_speed_configure_options" : "/templates/select_speed_configure_options.html",
 			"modify_configuration_options" : "/templates/modify_configuration_options.html",
+			"service_features_template" : "templates/service_features_template.html",
+			"service_features_data"		:"templates/service_features_data.html",
+			"service_features_security" : "templates/service_features_security.html",
+			"service_features_misc"		: "templates/service_features_misc.html",
+			"show_results_template"		: "templates/show_results_template.html",
 			"port_config_options_template" : "/templates/port_config_options_template.html"
 	};
 	
