@@ -22,6 +22,8 @@ $(document).ready(function() {
 				case 'btnCustomizePortSpeed':
 					handleBtnCustomizePortSpeed($(this), e.target);
 					break;
+				case 'btnProceedToFeatures' :
+					handleProceedToFeatures($(this), e.target); 	
 			}
 		},
 		
@@ -259,6 +261,11 @@ function handleActionRequiredAction($thisRef, eventSource) {
 
 function updateFooterMessage(msg) {
 	$("#divFooterMessage").text(msg);
+}
+
+function handleProceedToFeatures(){
+	var url = $("#serviceFeaturesPage").data('url');
+    location.replace(url);
 }
 
 /*function setAccessSpeedSliderLimit(allAccessSpeeds, minVal, maxVal) {

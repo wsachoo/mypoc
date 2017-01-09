@@ -45,7 +45,7 @@ $(document).ready(function(){
     	updateInMemoryServiceAndFeaturesFromFormObject($("#serviceAndFeaturesForm"));
     	var formData = JSON.stringify(guserServiceFeatures.getServiceAndFeaturesData());
     	
-    	var url = "/postServiceFeaturesOptions";
+    	var url = SALESEXPRESS_CONSTANTS.getUrlPath("postServiceFeaturesOptionsUrl");
     	var promise = postServiceFeaturesData(url, formData);
     	
     	promise.done(function(data, textStatus, jqXHR ) {
@@ -260,7 +260,8 @@ function handleMiscService($thisRef, eventSource){
 }
 
 function handleProceedToResults($thisRef, eventSource){
-	window.location.href =  "/results"; 
+	var url = $("#resultsPage").data('url');
+    location.replace(url); 
 }
 
 function postServiceFeaturesData(postUrl, postData){

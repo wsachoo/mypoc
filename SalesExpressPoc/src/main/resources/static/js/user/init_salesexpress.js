@@ -22,7 +22,8 @@ SALESEXPRESS_CONSTANTS = (function() {
 	
 	var _jsonDataUrls = {
 		"testSiteJsonDataUrl" : "getMetaData/testSite",
-		"siteConfigurationPostUrl" : "postSiteConfiguration"
+		"siteConfigurationPostUrl" : "postSiteConfiguration",
+		"postServiceFeaturesOptionsUrl":"postServiceFeaturesOptions"
 	};
 	
 	return {

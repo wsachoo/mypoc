@@ -16,7 +16,7 @@ $(document).ready(function() {
     $('.sachtopmenu').on('click', "a", function(event) {
         var name = $(event.target).data('name');
         
-        if (("accessAndPort" === name) || ("siteMap" === name)) {
+        if (("accessAndPort" === name) || ("siteMap" === name) || ("serviceAndFeatures" === name) || ("results" === name)) {
         	var url = $(event.target).data('url');
             location.replace(url);
         }
