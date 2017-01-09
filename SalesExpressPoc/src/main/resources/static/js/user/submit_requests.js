@@ -9,9 +9,7 @@ $(document).ready(function() {
 					break;
 				case 'btnApplyPortConfigurationOptions':
 					handleBtnApplyPortConfigurationOptionsClick($(this), e.target);
-					break;
-				case 'proceedToFeatures' :
-					handleProceedToFeatures($(this), e.target);
+				
 			}
 		}
 	});
@@ -44,7 +42,7 @@ function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 		  						  "<strong>Failure!</strong> The request failed with this error: " + errorObject.reasonPhrase + "</div>";  
 		$("#divPortConfigClickApplyMessage").html(failureAlertMessage);
 	});	
-	$("#proceedToFeatures").css("display", "inline");
+	$("#btnProceedToFeatures").css("display", "inline");
 	
 }
 
@@ -134,7 +132,3 @@ function displayPostSpeedSelectionInLeftNavigation() {
 	}	
 }
 
-function handleProceedToFeatures(){
-	
-	window.location.href =  "/serviceFeatures"; 
-}
