@@ -12,7 +12,7 @@ public class SalesExpressMicroServicesApplication extends SpringBootServletIniti
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(EurekaRegistrationServerApplication.class);
+		return application.sources(SalesExpressMicroServicesApplication.class);
 	}
 	
 	public static void main(String[] args) {
