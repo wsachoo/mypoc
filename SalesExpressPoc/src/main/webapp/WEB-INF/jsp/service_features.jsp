@@ -58,11 +58,10 @@
 					<a href="#" style="color: white" data-name="accessAndPort" data-url="${pageContext.request.contextPath}/configure">Access & Port</a>
 				</div>
 				<div class="col-sm-3 col-xs-12 sachmenuitemactive">
-					<a href="${pageContext.request.contextPath}/serviceFeatures" style="color: white" data-name="serviceAndFeatures" data-url="${pageContext.request.contextPath}/serviceFeatures">Service & Features</a>
+					<a href="#" id="serviceFeaturesPage" style="color: white" data-name="serviceAndFeatures" data-url="${pageContext.request.contextPath}/serviceFeatures">Service & Features</a>
 				</div>
 				<div class="col-sm-3 col-xs-12 sachmenuitem">
-					<!-- <a href="#" style="color: white" data-name="results">Results</a> -->
-					<a href="${pageContext.request.contextPath}/results" style="color: white" data-name="results" data-url="${pageContext.request.contextPath}/results">Results</a>
+					<a href="#" id="resultsPage" style="color: white" data-name="results" data-url="${pageContext.request.contextPath}/results">Results</a>
 				</div>				
 			</div>
 			
