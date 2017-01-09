@@ -6,7 +6,7 @@
 	<groupId>com.att.salesexpress.microservices</groupId>
 	<artifactId>SalesExpressMicroServices</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>SalesExpressMicroServices</name>
 	<description>SalesExpressMicroServices project for Spring Boot</description>
@@ -55,12 +55,12 @@
 			<scope>test</scope>
 		</dependency>
 
-<!-- 		<dependency>
+ 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+<!--		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
@@ -116,7 +116,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
 		<dependency>
 			<!-- Eureka service registration -->
 			<groupId>org.springframework.cloud</groupId>
