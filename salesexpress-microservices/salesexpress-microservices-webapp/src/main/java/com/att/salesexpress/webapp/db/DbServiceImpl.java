@@ -37,10 +37,10 @@ public class DbServiceImpl implements DbService {
 			final String accessData) throws SQLException {
 		logger.info("Inside updateAccessTypeData() method.");
 
-		String sqlSeq = "SELECT nextval('sitedetail_txn_seq') as trxn_seq";
+		String sqlSeq = "SELECT SLEXP_SITEDETAIL_TX_SEQ.nextval as trxn_seq FROM dual";
 		final Long seqNum = jdbcTemplate.queryForObject(sqlSeq, Long.class);
-
-		final String sql = "INSERT INTO sitedetail_transactions (id, user_id, solution_id, site_id, access_data) VALUES (?, ?, ?, ?, to_json(?::json))";
+		
+		final String sql = "INSERT INTO SLEXP_SITEDETAIL_TX (ID, USER_ID, SOLUTION_ID, SITE_ID, ACCESS_DATA) VALUES (?, ?, ?, ?, ?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
@@ -60,7 +60,7 @@ public class DbServiceImpl implements DbService {
 
 	@Override
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId) {
-		String sql = "SELECT id FROM sitedetail_transactions WHERE user_id = ? and solution_id = ?";
+		String sql = "SELECT ID FROM SLEXP_SITEDETAIL_TX WHERE USER_ID = ? and SOLUTION_ID = ?";
 		try {
 			String strTransactionId = (String) jdbcTemplate.queryForObject(sql, new Object[] { userId, solutionId },
 					String.class);
@@ -74,14 +74,14 @@ public class DbServiceImpl implements DbService {
 	@Override
 	public void updateSiteConfigurationData(long transactionId, String jsonString) throws SQLException {
 		logger.info("Inside updateSiteConfigurationData() method.");
-		String sqlUpdate = "UPDATE sitedetail_transactions SET access_data = ? WHERE id = ?";
+		String sqlUpdate = "UPDATE SLEXP_SITEDETAIL_TX SET ACCESS_DATA = ? WHERE ID = ?";
 		int iReturnVal = jdbcTemplate.update(sqlUpdate, jsonString, transactionId);
 		logger.info("Return value after update is {}", iReturnVal);
 	}
 
 	public List getServices() {
 		logger.info("Inside getServices method");
-		String sql = "select service_name from salesexpress_service";
+		String sql = "select SERVICE_NAME from SLEXP_SERVICE_CONFIG";
 		List<Map> serviceList = (List) jdbcTemplate.queryForList(sql);
 		for (Map x : serviceList) {
 			logger.info("" + x.get("service_name"));
@@ -94,7 +94,7 @@ public class DbServiceImpl implements DbService {
 	@Override
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException {
 		logger.info("Inside updateServiceFeaturesData");
-		String sqlUpdate = "update salesexpress_service_features set service_feature_data = ? where solution_id = ? and user_id = ?";
+		String sqlUpdate = "update SLEXP_SITEDETAIL_TX set SERVICE_FEATURE_DATA = ? where SOLUTION_ID = ? and USER_ID = ?";
 		int iReturnVal = jdbcTemplate.update(sqlUpdate, jsonString, solutionId, userId);
 		logger.info("Return value after service and features update : " + iReturnVal);
 
@@ -104,7 +104,7 @@ public class DbServiceImpl implements DbService {
 		logger.info("Inside getAccessData() method.");
 		logger.info("solutionId :" + solutionId);
 		Map<String, String> returnMap = new HashMap<String, String>();
-		String sqlQuery = "select access_data from sitedetail_transactions where  solution_id =?";
+		String sqlQuery = "select ACCESS_DATA from SLEXP_SITEDETAIL_TX where SOLUTION_ID =?";
 		String accessDataJSON = (String) jdbcTemplate.queryForObject(sqlQuery, new Object[] { solutionId },
 				String.class);
 		String accessSpeed = null;
@@ -130,7 +130,6 @@ public class DbServiceImpl implements DbService {
 			JSONObject portConfig = jsonDistributionCenter.getJSONObject("portConfig");
 			accessSpeed = accessConfig.getString("sliderSpeedValue");
 			portSpeed = portConfig.getString("sliderPortSpeedValue");
-
 		}
 
 		logger.info("accessSpeedValue for HeadQuarter is : " + accessSpeed);
@@ -149,7 +148,7 @@ public class DbServiceImpl implements DbService {
 	public String getResultsData(String accessSpeed, String portSpeed) throws JsonProcessingException, JSONException {
 
 		logger.info("getAccessData");
-		String sql = "select * from salesexpress_results_ref where access_speed = ? and port_speed = ? ORDER BY mrc ASC, nrc ASC";
+		String sql = "select * from SLEXP_RESULTS_REF where ACCESS_SPEED = ? and PORT_SPEED = ? order by MRC asc, NRC asc";
 		List resultList = (List) jdbcTemplate.queryForList(sql, accessSpeed, portSpeed);
 
 		// return resultList;
