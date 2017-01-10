@@ -7,12 +7,10 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableEurekaServer
-//@ComponentScan(basePackages = { "com.att.salesexpress.microservices" })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class EurekaRegistrationServerApplication extends SpringBootServletInitializer {
 
@@ -22,8 +20,8 @@ public class EurekaRegistrationServerApplication extends SpringBootServletInitia
 	}
 
 	public static void main(String[] args) {
-        SpringApplication application = new SpringApplication(EurekaRegistrationServerApplication.class);
+		SpringApplication application = new SpringApplication(EurekaRegistrationServerApplication.class);
 		System.setProperty("spring.config.name", "eureka-registration-server");
-        application.run(args);
+		application.run(args);
 	}
 }
