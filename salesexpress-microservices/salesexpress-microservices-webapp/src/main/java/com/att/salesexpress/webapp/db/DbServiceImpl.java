@@ -105,11 +105,11 @@ public class DbServiceImpl implements DbService {
 		logger.info("solutionId :" + solutionId);
 		Map<String, String> returnMap = new HashMap<String, String>();
 		String sqlQuery = "select access_data from sitedetail_transactions where  solution_id =?";
-		String accessDataJSON = (String) jdbcTemplate.queryForObject(sqlQuery, new Object[] { solutionId },
-				String.class);
-		String accessSpeed = null;
-		String portSpeed = null;
-
+		String accessDataJSON = (String) jdbcTemplate.queryForObject(sqlQuery,  new Object[] { solutionId },  String.class);
+		 String accessSpeed = "";
+		 String portSpeed = "";
+		
+		
 		JSONObject json = new JSONObject(accessDataJSON);
 
 		if (null != accessDataJSON && accessDataJSON.contains("headQuarters")) {
