@@ -21,7 +21,7 @@ public class DbServiceImpl implements DbService {
 	@Override
 	public String getSiteMetaData(String siteType) {
 		logger.info("Inside getSiteMetaData() method with siteType {}", siteType);
-		String sql = "SELECT site_data FROM SiteDetail WHERE site_name = ?";
+		String sql = "select SITE_DATA from SLEXP_SITE_CONFIG where SITE_NAME = ?";
 		String siteDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { siteType }, String.class);
 		return siteDataJson;
 	}
@@ -29,7 +29,7 @@ public class DbServiceImpl implements DbService {
 	@Override
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Long solutionId) {
 		logger.info("Inside findUserDetailByUserIdSolutionId() method.");
-		String sql = "SELECT * FROM user_detail WHERE user_id = ? and solution_id = ?";
+		String sql = "select * from SLEXP_USER_DETAIL where USER_ID = ? and SOLUTION_ID = ?";
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { userId, solutionId });
 
 		Map<String, Object> returnValues = new HashMap<String, Object>();

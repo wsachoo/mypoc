@@ -40,7 +40,7 @@ public class SalesExpressPocApplication extends SpringBootServletInitializer imp
 	
 	@LoadBalanced
 	@Bean
-	RestTemplate restTemplate() {
+	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}	
 }
