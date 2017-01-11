@@ -15,10 +15,12 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,11 +31,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 @Repository
+@Transactional
 public class DbServiceImpl implements DbService {
 
 	static final Logger logger = LoggerFactory.getLogger(DbServiceImpl.class);
-	
+
 	@Autowired
+	@Qualifier("hikariOraJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
@@ -66,14 +70,14 @@ public class DbServiceImpl implements DbService {
 		}
 		return returnValues;
 	}
-	
+
 	public long insertSiteConfigurationData(final String userId, final long solutionId, final Integer siteId,
 			final String accessData) throws SQLException {
 		logger.info("Inside updateAccessTypeData() method.");
 
 		String sqlSeq = "SELECT SLEXP_SITEDETAIL_TX_SEQ.nextval as trxn_seq FROM dual";
 		final Long seqNum = jdbcTemplate.queryForObject(sqlSeq, Long.class);
-		
+
 		final String sql = "INSERT INTO SLEXP_SITEDETAIL_TX (ID, USER_ID, SOLUTION_ID, SITE_ID, ACCESS_DATA) VALUES (?, ?, ?, ?, ?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 
@@ -146,9 +150,10 @@ public class DbServiceImpl implements DbService {
 
 		JSONObject json = new JSONObject(accessDataJSON);
 		Iterator itr = json.keys();
-		while(itr.hasNext()){
-			String siteType = (String)itr.next();
-			if(siteType.contains("headQuarters") || siteType.contains("accountReceivables") || siteType.contains("distributionCenter")) {
+		while (itr.hasNext()) {
+			String siteType = (String) itr.next();
+			if (siteType.contains("headQuarters") || siteType.contains("accountReceivables")
+					|| siteType.contains("distributionCenter")) {
 				JSONObject jsonSiteType = json.getJSONObject(siteType);
 				JSONObject accessConfig = jsonSiteType.getJSONObject("accessConfig");
 				accessSpeed = accessConfig.getString("sliderSpeedValue");
