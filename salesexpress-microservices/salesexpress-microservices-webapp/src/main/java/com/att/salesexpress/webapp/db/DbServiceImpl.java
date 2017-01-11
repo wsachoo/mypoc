@@ -112,8 +112,6 @@ public class DbServiceImpl implements DbService {
 		 String accessSpeed = "";
 		 String portSpeed = "";
 		
-		
-
 		JSONObject json = new JSONObject(accessDataJSON);
 		Iterator itr = json.keys();
 		while(itr.hasNext()){
@@ -123,34 +121,12 @@ public class DbServiceImpl implements DbService {
 				JSONObject accessConfig = jsonSiteType.getJSONObject("accessConfig");
 				accessSpeed = accessConfig.getString("sliderSpeedValue");
 				JSONObject portConfig = jsonSiteType.getJSONObject("portConfig");
-				portSpeed = portConfig.getString("sliderSpeedValue");
+				portSpeed = portConfig.getString("sliderPortSpeedValue");
 				break;
 			}
 		}
 
-/*		if (null != accessDataJSON && accessDataJSON.contains("headQuarters")) {
-			JSONObject jsonHeadQuarters = json.getJSONObject("headQuarters");
-			JSONObject accessConfig = jsonHeadQuarters.getJSONObject("accessConfig");
-			JSONObject portConfig = jsonHeadQuarters.getJSONObject("portConfig");
-			accessSpeed = accessConfig.getString("sliderSpeedValue");
-			portSpeed = portConfig.getString("sliderPortSpeedValue");
-		} else if (null != accessDataJSON && accessDataJSON.contains("accountReceivables")) {
-			JSONObject jsonAccountReceivables = json.getJSONObject("accountReceivables");
-			JSONObject accessConfig = jsonAccountReceivables.getJSONObject("accessConfig");
-			JSONObject portConfig = jsonAccountReceivables.getJSONObject("portConfig");
-			accessSpeed = accessConfig.getString("sliderSpeedValue");
-			portSpeed = portConfig.getString("sliderPortSpeedValue");
-		} else if (null != accessDataJSON && accessDataJSON.contains("distributionCenter")) {
-			JSONObject jsonDistributionCenter = json.getJSONObject("distributionCenter");
-			JSONObject accessConfig = jsonDistributionCenter.getJSONObject("accessConfig");
-			JSONObject portConfig = jsonDistributionCenter.getJSONObject("portConfig");
-			accessSpeed = accessConfig.getString("sliderSpeedValue");
-			portSpeed = portConfig.getString("sliderPortSpeedValue");
-		}
-*/
-		
-
-		
+	
 		logger.info("accessSpeedValue for HeadQuarter is : " + accessSpeed);
 		logger.info("portSpeedValue for HeadQUarter is :" + portSpeed);
 
