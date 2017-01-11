@@ -13,6 +13,7 @@
 		<module>salesexpress-microservices-services</module>
 		<module>salesexpress-microservices-common</module>
 		<module>salesexpress-microservices-webapp</module>
+		<module>salesexpress-monolithic-webapp</module>
 	</modules>
 
 	<name>salesexpress-microservices</name>
