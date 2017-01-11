@@ -5,8 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,34 +106,27 @@ public class DbServiceImpl implements DbService {
 		logger.info("Inside getAccessData() method.");
 		logger.info("solutionId :" + solutionId);
 		Map<String, String> returnMap = new HashMap<String, String>();
-		String sqlQuery = "select ACCESS_DATA from SLEXP_SITEDETAIL_TX where SOLUTION_ID =?";
-		String accessDataJSON = (String) jdbcTemplate.queryForObject(sqlQuery, new Object[] { solutionId },
-				String.class);
-		String accessSpeed = null;
-		String portSpeed = null;
 
+		String sqlQuery = "select access_data from SLEXP_SITEDETAIL_TX where  solution_id =?";
+		String accessDataJSON = (String) jdbcTemplate.queryForObject(sqlQuery,  new Object[] { solutionId },  String.class);
+		 String accessSpeed = "";
+		 String portSpeed = "";
+		
 		JSONObject json = new JSONObject(accessDataJSON);
-
-		if (null != accessDataJSON && accessDataJSON.contains("headQuarters")) {
-			JSONObject jsonHeadQuarters = json.getJSONObject("headQuarters");
-			JSONObject accessConfig = jsonHeadQuarters.getJSONObject("accessConfig");
-			JSONObject portConfig = jsonHeadQuarters.getJSONObject("portConfig");
-			accessSpeed = accessConfig.getString("sliderSpeedValue");
-			portSpeed = portConfig.getString("sliderPortSpeedValue");
-		} else if (null != accessDataJSON && accessDataJSON.contains("accountReceivables")) {
-			JSONObject jsonAccountReceivables = json.getJSONObject("accountReceivables");
-			JSONObject accessConfig = jsonAccountReceivables.getJSONObject("accessConfig");
-			JSONObject portConfig = jsonAccountReceivables.getJSONObject("portConfig");
-			accessSpeed = accessConfig.getString("sliderSpeedValue");
-			portSpeed = portConfig.getString("sliderPortSpeedValue");
-		} else if (null != accessDataJSON && accessDataJSON.contains("distributionCenter")) {
-			JSONObject jsonDistributionCenter = json.getJSONObject("distributionCenter");
-			JSONObject accessConfig = jsonDistributionCenter.getJSONObject("accessConfig");
-			JSONObject portConfig = jsonDistributionCenter.getJSONObject("portConfig");
-			accessSpeed = accessConfig.getString("sliderSpeedValue");
-			portSpeed = portConfig.getString("sliderPortSpeedValue");
+		Iterator itr = json.keys();
+		while(itr.hasNext()){
+			String siteType = (String)itr.next();
+			if(siteType.contains("headQuarters") || siteType.contains("accountReceivables") || siteType.contains("distributionCenter")) {
+				JSONObject jsonSiteType = json.getJSONObject(siteType);
+				JSONObject accessConfig = jsonSiteType.getJSONObject("accessConfig");
+				accessSpeed = accessConfig.getString("sliderSpeedValue");
+				JSONObject portConfig = jsonSiteType.getJSONObject("portConfig");
+				portSpeed = portConfig.getString("sliderPortSpeedValue");
+				break;
+			}
 		}
 
+	
 		logger.info("accessSpeedValue for HeadQuarter is : " + accessSpeed);
 		logger.info("portSpeedValue for HeadQUarter is :" + portSpeed);
 

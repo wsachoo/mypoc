@@ -49,13 +49,21 @@ $(document).ready(function(){
     	var promise = postServiceFeaturesData(url, formData);
     	
     	promise.done(function(data, textStatus, jqXHR ) {
-    		alert("success");
+    	/*	alert("success");*/
+    		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
+			  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
+			  "<strong>Success!</strong> Service and Features data has been submitted successfully</div>";
+    		$("#divSubmitAlert").html(successAlertMessage);
     		$("#btnApplyServiceFeatureOptions").attr("disabled", true);
     		$("#btnProceedToResults").removeAttr("disabled");
     		
     	})
     	.fail(function(jqXHR, textStatus, errorThrown) {
-    		alert("failure");
+    		var errorObject = $.parseJSON(jqXHR.responseText);
+    		var failureAlertMessage = "<div class='alert alert-danger alert-dismissible'>" +
+    		  						  "<a href='#' class='close' data-dismiss='alert' data-applybutton='failure' aria-label='close'>&times;</a>" +
+    		  						  "<strong>Failure!</strong> The request failed with this error: " + errorObject.reasonPhrase + "</div>";  
+    		$("#divSubmitAlert").html(failureAlertMessage);
     	});
     
     });
