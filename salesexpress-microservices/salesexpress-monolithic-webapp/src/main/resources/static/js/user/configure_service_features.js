@@ -2,7 +2,7 @@ var guserServiceFeatures = {};
 
 $(document).ready(function(){
 	
-	$("#serviceAndFeaturesForm").on({
+	$("#accessSpeedConfigPlaceholder").on({
 		"click" : function(e) {
 			var eventSourceName = e.target.name;
 			
@@ -22,7 +22,7 @@ $(document).ready(function(){
 			
 			switch (eventSourceName) {
 			case 'serviceConfig-serviceRequired':
-				handleActionRequiredAction($(this), e.target);
+				handleActionRequiredActionServiceAndFeatures($(this), e.target);
 				break;
 			case 'dataService' :
 				handleDataService($(this), e.target);
@@ -39,14 +39,14 @@ $(document).ready(function(){
 		
 	});
 	
-	$("#serviceAndFeaturesForm").on('click', '#btnApplyServiceFeatureOptions', function(e) {
+	$("#accessSpeedConfigPlaceholder").on('click', '#btnApplyServiceFeatureOptions', function(e) {
     	e.preventDefault();
     	
-    	updateInMemoryServiceAndFeaturesFromFormObject($("#serviceAndFeaturesForm"));
+    	updateInMemoryServiceAndFeaturesFromFormObject($("#configureForm"));
     	var formData = JSON.stringify(guserServiceFeatures.getServiceAndFeaturesData());
     	
     	var url = SALESEXPRESS_CONSTANTS.getUrlPath("postServiceFeaturesOptionsUrl");
-    	var promise = postServiceFeaturesData(url, formData);
+    	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
     	
     	promise.done(function(data, textStatus, jqXHR ) {
     	/*	alert("success");*/
@@ -206,7 +206,7 @@ function updateInMemoryServiceAndFeaturesFromFormObject(form) {
     });
 }
 
-function handleActionRequiredAction($thisRef, eventSource) {
+function handleActionRequiredActionServiceAndFeatures($thisRef, eventSource) {
 	var isServiceRequiredValue = $(eventSource).val();
 	if ('true' === isServiceRequiredValue) {
 		var servicesOffered = $.tmpl("service_features_template", siteMetaData);
@@ -252,7 +252,7 @@ function handleSecurityService($thisRef, eventSource){
 		$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
 	}else{
 		$("#div_securityService").remove();
-		$("#serviceAndFeaturesForm .div_securityService_tmpl").remove();
+		$("#configureForm .div_securityService_tmpl").remove();
 	}
 }
 
@@ -263,26 +263,21 @@ function handleMiscService($thisRef, eventSource){
 		$(miscServiceOptions).insertBefore('.sachbottommenu');
 		$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
 	}else{
-		$("#serviceAndFeaturesForm .div_miscService_tmpl").remove();
+		$("#configureForm .div_miscService_tmpl").remove();
 	}
 }
 
 function handleProceedToResults($thisRef, eventSource){
-	var url = $("#resultsPage").data('url');
-    location.replace(url); 
+/*	var url = $("#resultsPage").data('url');
+    location.replace(url); */
+	performTabChangeAction("results");
+
+	var resultData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('resultsPageUrl'));	
+
+	var formElement = $("form");
+	formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
+	var serviceFeaturesInit= $.tmpl("show_results_template", resultData);
+	var topmenudiv = formElement.find("div.sachtopmenu");
+	topmenudiv.after(serviceFeaturesInit);
+	formElement.trigger('create');    	
 }
-
-function postServiceFeaturesData(postUrl, postData){
-	
-	return $.ajax({
-		url: postUrl,
-		data: postData,
-		type: 'POST',
-		async: 'true',
-		dataType: 'json',
-        contentType : "application/json"
-    });	
-}
-
-
-

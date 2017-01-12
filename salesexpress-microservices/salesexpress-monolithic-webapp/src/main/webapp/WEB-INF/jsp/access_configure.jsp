@@ -29,6 +29,9 @@
 		document.write('<script src="js/user/submit_requests.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script src="js/user/salesexpress_navigation.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script type="text/javascript" defer="defer" src="js/user/configure_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		document.write('<script type="text/javascript" defer="defer" src="js/user/configure_service_features.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		document.write('<script type="text/javascript" defer="defer" src="js/user/service_features.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		
 	</script>
 
 	<script type="text/javascript">

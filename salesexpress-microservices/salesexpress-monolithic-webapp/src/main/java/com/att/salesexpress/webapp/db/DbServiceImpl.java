@@ -186,7 +186,7 @@ public class DbServiceImpl implements DbService {
 		ObjectMapper mapper = new ObjectMapper();
 		String JSONString = mapper.writeValueAsString(resultList);
 
-		String finalJsonString = "{packageData : " + JSONString + " }";
+		String finalJsonString = "{ \"packageData\" : " + JSONString + " }";
 
 		/* return JSONString; */
 		return finalJsonString;

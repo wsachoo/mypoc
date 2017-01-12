@@ -1,32 +1,32 @@
-<div id="packageContent">
-       			<h3>Select Your Package</h3>
-        		<div id="packageContainer"></div>
+<div class="clearfix"></div>
+<div id="showPackages">
+
+	<div id="packageContent">
+		<h3>Select Your Package</h3>
+		<div id="packageContainer"></div>
+	</div>
+
+	{{each packageData}}
+
+	<div class="col-sm-12 salesexpress-line-space"
+		style="border: 1px solid #ddd; box-shadow: inset 0 -5px 0 rgba(0, 0, 0, .25)">
+
+		<div
+			style="float: left; display: table; width: 10%; height: 200px; text-align: center; align: center; padding: 10px">
+			<span style="display: table-cell; vertical-align: middle">Option<br />
+				<span style="font-size: 250%">${$index + 1}</span></span>
+		</div>
+		<div
+			style="float: left; display: table; width: 80%; height: 200px; align: center; padding: 10px">
+			<span style="display: table-cell; vertical-align: middle"> <span
+				style="font-weight: bold; font-size: 110%">${PRODUCT_ID}</span><br />
+				<br /> pricing <span style="font-weight: 600; font-size: 105%">MRC:$${MRC}
+					NRC:$${NRC} </span><br /> <br /> details <span
+				style="font-weight: 600; font-size: 105%">${product_id}</span><br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All
+				Sites<br />
+			</span>
+		</div>
+	</div>
+	{{/each}}
 </div>
-
-<!-- {%each packageData%}
-<div id="package" >
-            <h3>${product_id}</h3>
-            pricing : MRC :${mrc} NRC: ${nrc}
-</div>
-{%/each%} -->
-
-{{each packageData}}
-
- <div class="col-sm-12 salesexpress-line-space"  style="border:1px solid #ddd;  box-shadow: inset 0 -5px 0 rgba(0, 0, 0, .25)">
-                 
-                  <div  style="float: left; display: table; width: 10%; height:200px; text-align: center; align:center; padding:10px" >
-                  <span style="display: table-cell; vertical-align:middle">Option<br/>
-                  <span style="font-size: 250%">${$index + 1}</span></span>
-                  </div>
-                   <div style="float: left; display: table; width:80%; height:200px;  align: center; padding:10px">
-                   <span style="display: table-cell; vertical-align:middle">
-                   <span style="font-weight:bold; font-size:110%">${PRODUCT_ID}</span><br/>
-                   <br/>
-                   pricing <span style="font-weight:600;font-size:105%">MRC:$${MRC} NRC:$${NRC} </span><br/>
-                   <br/>
-                   details  <span style="font-weight:600;font-size:105%">${product_id}</span><br/>
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All Sites<br/>
-                   </span>
-                   </div>
-			</div>
-{{/each}}

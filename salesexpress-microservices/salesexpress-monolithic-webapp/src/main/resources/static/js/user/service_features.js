@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	$("#serviceFeaturesConfigPlaceHolder").on({
+	$("#accessSpeedConfigPlaceholder").on({
 
 		"change" : function(e) {
 			var eventSourceName = e.target.name;

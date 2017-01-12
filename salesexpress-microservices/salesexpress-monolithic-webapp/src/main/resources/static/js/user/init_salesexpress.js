@@ -17,13 +17,15 @@ SALESEXPRESS_CONSTANTS = (function() {
 			"service_features_security" : "templates/service_features_security.html",
 			"service_features_misc"		: "templates/service_features_misc.html",
 			"show_results_template"		: "templates/show_results_template.html",
-			"port_config_options_template" : "templates/port_config_options_template.html"
+			"port_config_options_template" : "templates/port_config_options_template.html",
+			"service_features_init" : "templates/service_features_init.html"
 	};
 	
 	var _jsonDataUrls = {
 		"testSiteJsonDataUrl" : "getMetaData/testSite",
 		"siteConfigurationPostUrl" : "postSiteConfiguration",
-		"postServiceFeaturesOptionsUrl":"postServiceFeaturesOptions"
+		"postServiceFeaturesOptionsUrl":"postServiceFeaturesOptions",
+		"resultsPageUrl" : "results"
 	};
 	
 	return {
@@ -145,7 +147,13 @@ function httpGetWithJsonResponse(path) {
     	  dataType: 'json',
     	  async: false
     });
-    return jqXHR.responseJSON;
+    
+    if (jqXHR.responseJSON) {
+    	return jqXHR.responseJSON;
+    }
+    else if (jqXHR.responseText) {
+    	return jqXHR.responseText;
+    }
 }
 
 /*

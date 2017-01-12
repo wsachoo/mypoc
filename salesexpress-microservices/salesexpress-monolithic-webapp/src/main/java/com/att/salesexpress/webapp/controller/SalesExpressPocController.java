@@ -3,7 +3,6 @@ package com.att.salesexpress.webapp.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -128,26 +127,11 @@ public class SalesExpressPocController {
 		return returnValues;
 	}
 
-	@RequestMapping(value = "/serviceFeatures", method = RequestMethod.GET)
-	public ModelAndView serviceFeatures(HttpServletRequest request) {
-		logger.info("Inside serviceFeatures(0 method " + this.getClass());
-		ModelAndView view = new ModelAndView("service_features");
-		HttpSession session = request.getSession();
-
-		String userId = (String) session.getAttribute("userId");
-		List service_list = dbServiceImpl.getServices();
-
-		view.addObject("service_list", service_list);
-
-		return view;
-	}
-
 	@RequestMapping(value = "/postServiceFeaturesOptions", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> saveServiceFeaturesData(@RequestBody Map<String, Object> paramValues,
 			HttpServletRequest request) throws JsonProcessingException, SQLException {
 		logger.info("Inside saveServiceFeaturesData " + paramValues);
-		ModelAndView view = new ModelAndView("service_features");
 		HttpSession session = request.getSession();
 
 		String userId = (String) session.getAttribute("userId");
@@ -166,22 +150,17 @@ public class SalesExpressPocController {
 		return returnValues;
 	}
 
-	@RequestMapping(value = "/results", method = RequestMethod.GET)
-	public ModelAndView results(HttpServletRequest request) throws IOException, JSONException {
-		logger.info("Inside serviceFeatures(0 method " + this.getClass());
-		ModelAndView view = new ModelAndView("salesexpress_results");
+	@ResponseBody
+	@RequestMapping(value = "results", method = RequestMethod.GET)
+	public String results(HttpServletRequest request) throws IOException, JSONException {
+		logger.info("Inside results() method " + this.getClass());
 		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("userId");
 		Long solutionId = (Long) session.getAttribute("solutionId");
+		logger.debug("Solution is retrieved from session is {}", solutionId);
 
 		Map<String, String> speedMap = dbServiceImpl.getAccessData(solutionId);
 
 		String resultDataJSON = dbServiceImpl.getResultsData(speedMap.get("accessSpeed"), speedMap.get("portSpeed"));
-
-		// List resultDataJSON = dbServiceImpl.getResultsData(accessSpeed);
-
-		view.addObject("resultData", resultDataJSON);
-		return view;
+		return resultDataJSON;
 	}
-
 }

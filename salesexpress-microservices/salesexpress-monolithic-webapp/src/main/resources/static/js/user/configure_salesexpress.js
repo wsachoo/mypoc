@@ -264,8 +264,16 @@ function updateFooterMessage(msg) {
 }
 
 function handleProceedToFeatures(){
-	var url = $("#serviceFeaturesPage").data('url');
-    location.replace(url);
+/*	var url = $("#serviceFeaturesPage").data('url');
+    location.replace(url);*/
+    performTabChangeAction("serviceAndFeatures");
+	
+    var formElement = $("form");
+	formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
+	var serviceFeaturesInit= $.tmpl("service_features_init");
+	var topmenudiv = formElement.find("div.sachtopmenu");
+	topmenudiv.after(serviceFeaturesInit);
+	formElement.trigger('create');    
 }
 
 /*function setAccessSpeedSliderLimit(allAccessSpeeds, minVal, maxVal) {
@@ -292,3 +300,25 @@ $("#divSliderAccessSpeed").slider("option", "slide", function( event, ui ) {
 });	
 }
 */
+
+function performTabChangeAction(tabDataName) {
+	
+	var div1 = $('a[data-name="siteMap"]').closest("div");
+	var div2 = $('a[data-name="accessAndPort"]').closest("div");
+	var div3 = $('a[data-name="serviceAndFeatures"]').closest("div");
+	var div4 = $('a[data-name="results"]').closest("div");
+	div1.removeClass("sachmenuitemactive");
+	div1.addClass("sachmenuitem");
+	div2.removeClass("sachmenuitemactive");
+	div2.addClass("sachmenuitem");
+	div3.removeClass("sachmenuitemactive");
+	div3.addClass("sachmenuitem");
+	div4.removeClass("sachmenuitemactive");
+	div4.addClass("sachmenuitem");
+	
+	var searchPattern = 'a[data-name="' + tabDataName + '"]';
+	var selectedTabElementDiv =  $(searchPattern).closest("div");
+	
+	selectedTabElementDiv.removeClass("sachmenuitem");
+	selectedTabElementDiv.addClass("sachmenuitemactive");
+}
