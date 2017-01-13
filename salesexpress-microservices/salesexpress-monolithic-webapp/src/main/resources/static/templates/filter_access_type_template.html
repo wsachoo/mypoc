@@ -6,8 +6,9 @@
 	<div class="col-sm-12">
 		<select name="accessConfig-selectAccessType" id="selectAccessType" class="form-control"
 			multiple="multiple" data-native-menu="false">
-			{%each accessType%}
-			<option value="${key}">${value}</option> {%/each%}
+			{%each(prop, val) accessSpeeds%}			
+			<option value="${prop}">${val.displayValue}</option> 
+			{%/each%}
 		</select>
 	</div>
 	<div class="col-sm-12 salesexpress-line-space">
@@ -23,7 +24,7 @@
     <div class="clearfix"></div>
 
 	<div class="col-sm-12">
-			<span id="divSelectedAccessTypes" class="form-control salesexpress-no-border salesexpress-no-box-shadow">default</span>
+			<span id="divSelectedAccessTypes" class="form-control salesexpress-no-border salesexpress-no-box-shadow"></span>
 	</div>
 	<div class="col-sm-12"><div id="divSliderAccessSpeed"></div></div>
 	<div class="col-sm-12"><img id="imgAccessType" class="img-responsiveCCC" alt="" src="images/ethernet.png" height="100px" width="100%"></div>

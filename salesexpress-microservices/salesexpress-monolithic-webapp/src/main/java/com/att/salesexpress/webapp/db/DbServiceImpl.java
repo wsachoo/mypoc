@@ -179,7 +179,7 @@ public class DbServiceImpl implements DbService {
 	public String getResultsData(String accessSpeed, String portSpeed) throws JsonProcessingException, JSONException {
 
 		logger.info("getAccessData");
-		String sql = "select * from SLEXP_RESULTS_REF where ACCESS_SPEED = ? and PORT_SPEED = ? order by MRC asc, NRC asc";
+		String sql = "select * from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_SPEED_ID = ? order by MRC asc, NRC asc";
 		List resultList = (List) jdbcTemplate.queryForList(sql, accessSpeed, portSpeed);
 
 		// return resultList;

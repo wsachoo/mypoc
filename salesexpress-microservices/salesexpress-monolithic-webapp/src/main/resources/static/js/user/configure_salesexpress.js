@@ -55,7 +55,8 @@ function findLastDivRowOfElement($thisRef) {
 }
 
 function configureDefaultAccessSpeedSlider() {
-	var allAccessSpeeds = siteMetaData.accessSpeeds.all;
+	var firstKeyName = Object.keys(siteMetaData.accessSpeeds)[0];
+	var allAccessSpeeds = siteMetaData.accessSpeeds[firstKeyName];
     $("#divSliderAccessSpeed").slider({
         min: 0,
         orientation: "horizontal",
@@ -99,10 +100,16 @@ function handleBtnCustomizeClick($thisRef, eventSource) {
 	var accessTypes = $.tmpl("filter_access_type_template", siteMetaData);
 	var lastDiv = findLastDivRowOfElement($thisRef);
 	lastDiv.after(accessTypes);
+	
+	var firstKeyName = Object.keys(siteMetaData.accessSpeeds)[0];
+	
+	$("#divSelectedAccessTypes").text(siteMetaData.accessSpeeds[firstKeyName].displayValue);
+	
+	$('#selectAccessType')[0].selectedIndex = 0; //By default select first option
 	$("#selectAccessType").multiselect({'includeSelectAllOption': true});
 	
 	var accessConfigOptions = $.tmpl("access_config_options_template", { 
-		"accessConfiguration" : siteMetaData,
+		"accessConfiguration" : siteMetaData.accessSpeeds[firstKeyName],
 		"userSelectedAccessConfiguration" : gUserConfiguration
     });
 	
@@ -110,6 +117,7 @@ function handleBtnCustomizeClick($thisRef, eventSource) {
 	lastDiv.after(accessConfigOptions);
 	
 	configureDefaultAccessSpeedSlider();
+	
 	$thisRef.trigger('create');	
 }
 
@@ -163,14 +171,14 @@ function handleAccessTypeRadioSelectionChange($thisRef, eventSource) {
 	lastDiv = findLastDivRowOfElement($thisRef);
 	lastDiv.after(accessConfigOptions);
 	
-	if ("ethernet" == val || "private_line" == val) {
-		setAccessSpeedSliderLimit(siteMetaData.accessSpeeds[val]);
-		updateFooterMessage("Need to apply an access and port speed to all sites before moving on");
-	}
-	else if ("light_speed" == val) {
+	if ("light_speed" == val) {
 		setAccessSpeedSliderLimit(siteMetaData.accessSpeeds.light_speed);
 		updateFooterMessage("Lighspeed bundles access and port speeds. 45M access speed comes with a 6M upload and a 45M port speeds which cannot be modified");
-	}	
+	}
+	else {
+		setAccessSpeedSliderLimit(siteMetaData.accessSpeeds[val]);
+		updateFooterMessage("Need to apply an access and port speed to all sites before moving on");		
+	}
 }
 
 function handleModifyConfigOptionsClick($thisRef, eventSource) {
@@ -191,7 +199,7 @@ function handleAccessTypeDropDownChange($thisRef, eventSource) {
 	var $divSelectedAccessTypes = $("#divSelectedAccessTypes");
 	var $selectAccessType = $(eventSource);
 	
-	if (!($selectAccessType == undefined)) {
+	if (!($selectAccessType == undefined || $selectAccessType.val() == undefined)) {
 		var selectAccessTypeLength = $selectAccessType.val().length;
 
 		$divSelectedAccessTypes.empty();
