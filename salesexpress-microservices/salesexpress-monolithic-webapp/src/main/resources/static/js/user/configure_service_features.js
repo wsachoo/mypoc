@@ -56,6 +56,7 @@ $(document).ready(function(){
     		$("#divSubmitAlert").html(successAlertMessage);
     		$("#btnApplyServiceFeatureOptions").attr("disabled", true);
     		$("#btnProceedToResults").removeAttr("disabled");
+    		displayFeaturesAppliedInLeftNav();
     		
     	})
     	.fail(function(jqXHR, textStatus, errorThrown) {
@@ -76,16 +77,17 @@ $(document).ready(function(){
 
 guserServiceFeatures = (function() {
 	var serviceAndFeatures = {
-			"data_Service" : { 
+			"Data Service" : { 
 								"Performance" :{},
 								"ManagedRouter" :{},
 								"Service Diversity Options" : {},
 							},
-			"misc_Service" : {
-								"Reporting" : {}
-							},
-			"security_Service" : {
+			"Miscellaneous Service" : 	{
+											"Reporting" : {},
+										},
+			"Security Service" : {
 								"Virtual Private Network" : {},
+								"Additional Features" : {},
 								},
 	};
 	
@@ -96,38 +98,60 @@ guserServiceFeatures = (function() {
 		
 		//data service and features starts
 		addDataServiceConfiguration : function(key, value) {
-			serviceAndFeatures["data_Service"][key] = value;
+			serviceAndFeatures["Data Service"][key] = value;
 		},
 		addDataServicePerformanceConfiguration :function(key, value){
-			serviceAndFeatures["data_Service"]["Performance"][key] = value;
+			serviceAndFeatures["Data Service"]["Performance"][key] = value;
 			
 		},
 		addDataServiceManagedRouterConfiguration :function(key, value){
-			serviceAndFeatures["data_Service"]["ManagedRouter"][key] = value;
+			serviceAndFeatures["Data Service"]["ManagedRouter"][key] = value;
 			
 		},
 		addDataServiceDiversityOptionsConfiguration :function(key, value){
-			serviceAndFeatures["data_Service"]["Service Diversity Options"][key] = value;
+			serviceAndFeatures["Data Service"]["Service Diversity Options"][key] = value;
 			
 		},
 		
 		//data service and features ends
+		//misc service and features starts
 		addMiscServiceConfiguration : function(key, value) {
-			serviceAndFeatures["misc_Service"][key] = value;
+			serviceAndFeatures["Miscellaneous Service"][key] = value;
 		},
 		
 		
-		addMiscServiceReportingConfiguration : function(key, value){
-			serviceAndFeatures["misc_Service"]["Reporting"][key] = value;
+		addMiscServiceMPLSReportingConfiguration : function(key, value){
+			serviceAndFeatures["Miscellaneous Service"]["Reporting"][key] = value;
 		},
-		
+		addMiscServiceManagedRouterReportingConfiguration : function(key, value){
+			serviceAndFeatures["Miscellaneous Service"]["Reporting"][key] = value;
+		},
+		addMiscServiceEnhancedReportingConfiguration : function(key, value){
+			serviceAndFeatures["Miscellaneous Service"]["Reporting"][key] = value;
+		},
+		addMiscServiceCOSReportingConfiguration : function(key, value){
+			serviceAndFeatures["Miscellaneous Service"]["Reporting"][key] = value;
+		},
+		addMiscServiceFirewallReportingConfiguration : function(key, value){
+			serviceAndFeatures["Miscellaneous Service"]["Reporting"][key] = value;
+		},
+		//misc service and features ends
 		//security service and feature starts
 		addSecurityServiceConfiguration : function(key, value) {
-			serviceAndFeatures["security_Service"][key] = value;
+			serviceAndFeatures["Security Service"][key] = value;
 		},
 		
 		addSecurityServiceVPNConfiguration : function(key, value) {
-			serviceAndFeatures["security_Service"]["Virtual Private Network"][key] = value;
+			serviceAndFeatures["Security Service"]["Virtual Private Network"][key] = value;
+		},
+		addSecurityServiceCBSConfiguration : function(key, value){
+			serviceAndFeatures["Security Service"]["Additional Features"][key] = value;
+		},
+		addSecurityServiceFirewallConfiguration : function(key, value){
+			serviceAndFeatures["Security Service"]["Additional Features"][key] = value;
+		},
+		addSecurityServiceWBSConfiguration : function(key, value){
+			serviceAndFeatures["Security Service"]["Additional Features"][key] = value;
 		},
 		
 		//security service and feature ends
@@ -137,16 +161,17 @@ guserServiceFeatures = (function() {
 		
 		clearConfiguration : function() {
 			serviceAndFeatures = {
-					"data_Service" : { 
+					"Data Service" : { 
 						"Performance" :{},
 						"ManagedRouter" :{},
 						"Service Diversity Options" : {},
 					},
-					"misc_Service" : {
-						"Reporting" : {}
+					"Miscellaneous Service" : {
+						"Reporting" : {},
 					},
-					"security_Service" : {
+					"Security Service" : {
 						"Virtual Private Network" : {},
+						"Additional Features" : {},
 					},
 			};
 		}
@@ -166,21 +191,44 @@ function updateInMemoryServiceAndFeaturesFromFormObject(form) {
     	/*else if (nameArray[0] === "dataService") {
     		guserServiceFeatures.addDataServiceConfiguration(nameArray[1], this.value);
     	}*/
+    	//misc service features starts
     	 if (nameArray === "miscService") {
-    		guserServiceFeatures.addMiscServiceConfiguration(nameArray, this.value);
+    		/*guserServiceFeatures.addMiscServiceConfiguration(nameArray, this.value);*/
     	}
     	 else if(nameArray === "miscService_selectMPLSPort"){
-    		 guserServiceFeatures.addMiscServiceReportingConfiguration("Reporting Type", this.value);
+    		 guserServiceFeatures.addMiscServiceMPLSReportingConfiguration("MPLS Port Reports", "Yes");
     	 }
+    	 else if(nameArray === "miscService_selectManagedRouter"){
+    		 guserServiceFeatures.addMiscServiceManagedRouterReportingConfiguration("Managed Router Reports", "Yes");
+    	 }
+    	 else if(nameArray === "miscService_selectEnhanced"){
+    		 guserServiceFeatures.addMiscServiceEnhancedReportingConfiguration("Enhanced Reports", "Yes");
+    	 }
+    	 else if(nameArray === "miscService_selectCos"){
+    		 guserServiceFeatures.addMiscServiceCOSReportingConfiguration("Class of Service Reports", "Yes");
+    	 }
+    	 else if(nameArray === "miscService_selectFirewall"){
+    		 guserServiceFeatures.addMiscServiceFirewallReportingConfiguration("Firewall Reports", "Yes");
+    	 }
+    	 //misc service and features ends
     	//security service and feature starts 
-    	else if (nameArray === "securityService") {
+    	/*else if (nameArray === "securityService") {
     		guserServiceFeatures.addSecurityServiceConfiguration(nameArray, this.value);
+    	}*/
+    	else if (nameArray === "securityService_selectVPN_required") {
+    		guserServiceFeatures.addSecurityServiceVPNConfiguration("VPN Required", this.value);
     	}
     	else if (nameArray === "securityService_selectVPN_required") {
-    		guserServiceFeatures.addSecurityServiceVPNConfiguration(nameArray, this.value);
+    		guserServiceFeatures.addSecurityServiceVPNConfiguration("VPN Required", this.value);
     	}
-    	else if (nameArray === "securityService_selectVPN_required") {
-    		guserServiceFeatures.addSecurityServiceVPNConfiguration(nameArray, this.value);
+    	else if (nameArray === "securityService_af_cbs"){
+    		guserServiceFeatures.addSecurityServiceCBSConfiguration("CloudBasedSecurity", "Yes");
+    	}
+    	else if(nameArray === "securityService_af_fw"){
+    		guserServiceFeatures.addSecurityServiceFirewallConfiguration("FireWall", "Yes");
+    	}
+    	else if(nameArray === "securityService_af_wbs"){
+    		guserServiceFeatures.addSecurityServiceWBSConfiguration("WireLessBasedSecurity", "Yes");
     	}
     	//security service and features ends 
     	//data service and features starts 
@@ -280,4 +328,26 @@ function handleProceedToResults($thisRef, eventSource){
 	var topmenudiv = formElement.find("div.sachtopmenu");
 	topmenudiv.after(serviceFeaturesInit);
 	formElement.trigger('create');    	
+}
+
+function displayFeaturesAppliedInLeftNav(){
+	var glyphIconInfo = "<span class='glyphicon glyphicon-info-sign'></span>";
+	if ($('input[name="chkHeadequarters"').is(":checked")) {
+		var hrefHqFeatures = $('#hqFeaturesAppliedId');
+		hrefHqFeatures.css("font-weight", "bold");
+		hrefHqFeatures.html("Features: " + "Applied" + " "+glyphIconInfo);
+	}
+	if ($('input[name="chkAccountReceivables"').is(":checked")) {
+		var hrefArFeatures = $('#arFeaturesAppliedId');
+		hrefArFeatures.css("font-weight", "bold");
+		hrefArFeatures.html("Features: " + "Applied");
+		hrefArFeatures.html("Features: " + "Applied" + " "+glyphIconInfo);
+	}
+	if ($('input[name="chkDistributionCenter"').is(":checked")) {
+		var hrefDcFeatures = $('#dcFeaturesAppliedId');
+		hrefDcFeatures.css("font-weight", "bold");
+		hrefDcFeatures.html("Access: " + "Applied");
+		hrefDcFeatures.html("Features: " + "Applied" + " "+glyphIconInfo);
+	}
+	
 }
