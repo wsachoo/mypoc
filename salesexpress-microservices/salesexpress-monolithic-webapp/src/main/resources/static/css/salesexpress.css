@@ -125,3 +125,8 @@ left: calc((100% - 225px)/2);
     line-height: 1.2;
   }
 }
+
+.option-space{
+	padding-left:1em;
+	font-size:40px;
+}
