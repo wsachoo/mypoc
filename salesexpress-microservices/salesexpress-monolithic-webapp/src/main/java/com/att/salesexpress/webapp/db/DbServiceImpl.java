@@ -3,6 +3,7 @@ package com.att.salesexpress.webapp.db;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +20,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.att.salesexpress.webapp.pojos.PortSpeedDO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -31,7 +34,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 @Repository
-@Transactional
 public class DbServiceImpl implements DbService {
 
 	static final Logger logger = LoggerFactory.getLogger(DbServiceImpl.class);
@@ -41,6 +43,7 @@ public class DbServiceImpl implements DbService {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
+	@Transactional(readOnly = true)
 	public String getSiteMetaData(String siteType) {
 		logger.info("Inside getSiteMetaData() method with siteType {}", siteType);
 		String sql = "select SITE_DATA from SLEXP_SITE_CONFIG where SITE_NAME = ?";
@@ -49,6 +52,7 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Long solutionId) {
 		logger.info("Inside findUserDetailByUserIdSolutionId() method.");
 		String sql = "select * from SLEXP_USER_DETAIL where USER_ID = ? and SOLUTION_ID = ?";
@@ -71,6 +75,8 @@ public class DbServiceImpl implements DbService {
 		return returnValues;
 	}
 
+	@Transactional
+	@Override
 	public long insertSiteConfigurationData(final String userId, final long solutionId, final Integer siteId,
 			final String accessData) throws SQLException {
 		logger.info("Inside updateAccessTypeData() method.");
@@ -97,6 +103,7 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId) {
 		String sql = "SELECT ID FROM SLEXP_SITEDETAIL_TX WHERE USER_ID = ? and SOLUTION_ID = ?";
 		try {
@@ -110,6 +117,7 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
+	@Transactional
 	public void updateSiteConfigurationData(long transactionId, String jsonString) throws SQLException {
 		logger.info("Inside updateSiteConfigurationData() method.");
 		String sqlUpdate = "UPDATE SLEXP_SITEDETAIL_TX SET ACCESS_DATA = ? WHERE ID = ?";
@@ -117,6 +125,7 @@ public class DbServiceImpl implements DbService {
 		logger.info("Return value after update is {}", iReturnVal);
 	}
 
+	@Transactional(readOnly = true)
 	public List getServices() {
 		logger.info("Inside getServices method");
 		String sql = "select SERVICE_NAME from SLEXP_SERVICE_CONFIG";
@@ -130,6 +139,7 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
+	@Transactional
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException {
 		logger.info("Inside updateServiceFeaturesData");
 		String sqlUpdate = "update SLEXP_SITEDETAIL_TX set SERVICE_FEATURE_DATA = ? where SOLUTION_ID = ? and USER_ID = ?";
@@ -138,6 +148,8 @@ public class DbServiceImpl implements DbService {
 
 	}
 
+	@Override
+	@Transactional(readOnly = true)
 	public Map<String, String> getAccessData(Long solutionId) throws IOException, JSONException {
 		logger.info("Inside getAccessData() method.");
 		logger.info("solutionId :" + solutionId);
@@ -176,6 +188,8 @@ public class DbServiceImpl implements DbService {
 
 	}
 
+	@Override
+	@Transactional(readOnly = true)
 	public String getResultsData(String accessSpeed, String portSpeed) throws JsonProcessingException, JSONException {
 
 		logger.info("getAccessData");
@@ -190,5 +204,33 @@ public class DbServiceImpl implements DbService {
 
 		/* return JSONString; */
 		return finalJsonString;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<PortSpeedDO> getPortSpeedsByAccessData(final String accessType, final String accessSpeed) {
+		logger.info("Access Speed and Access Type received are {} and {}", accessSpeed, accessType);
+		String sql = "select PORT_SPEED_ID, MRC, NRC from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_TYPE = ?";
+		List<PortSpeedDO> list = jdbcTemplate.query(sql, new RowMapper<PortSpeedDO>() {
+			@Override
+			public PortSpeedDO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				PortSpeedDO portSpeedDO = new PortSpeedDO();
+				portSpeedDO.setPortType(accessType);
+				portSpeedDO.setAccessSpeed(accessSpeed);
+				portSpeedDO.setPortSpeed(rs.getString("PORT_SPEED_ID"));
+				portSpeedDO.setMrc(rs.getString("MRC"));
+				portSpeedDO.setNrc(rs.getString("NRC"));
+				return portSpeedDO;
+			}
+		}, accessSpeed, accessType);
+		return list;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<PortSpeedDO> getAllAccessSpeeds() {
+		String sql = "select PORT_TYPE, ACCESS_SPEED_ID, " + " min(MRC) || '-' || max(MRC), min(NRC) || '-' || max(NRC)"
+				+ " from sales_rules" + " group by PORT_TYPE, ACCESS_SPEED_ID" + " order by PORT_TYPE, ACCESS_SPEED_ID";
+		return null;
 	}
 }

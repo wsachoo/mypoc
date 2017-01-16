@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(value = {"accessSpeed", "portType"})
-public class AccessSpeedDO {
+public class PortSpeedDO {
 
 	private String accessSpeed;
 	

@@ -25,7 +25,8 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"testSiteJsonDataUrl" : "getMetaData/testSite",
 		"siteConfigurationPostUrl" : "postSiteConfiguration",
 		"postServiceFeaturesOptionsUrl":"postServiceFeaturesOptions",
-		"resultsPageUrl" : "results"
+		"resultsPageUrl" : "results",
+		"postSpeedsBySelectedAccessSpeedUrl" : "getPortSpeedsByAccessSpeed"
 	};
 	
 	return {
@@ -140,10 +141,11 @@ function getTemplateDefinition(templatePath) {
     return jqXHR.responseText;
 }
 
-function httpGetWithJsonResponse(path) {
+function httpGetWithJsonResponse(path, jsonData) {
     var jqXHR = $.ajax({
     	  method: "GET",
     	  url: path,
+    	  data: jsonData,
     	  dataType: 'json',
     	  async: false
     });

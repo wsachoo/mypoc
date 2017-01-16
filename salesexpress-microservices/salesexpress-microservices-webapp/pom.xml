@@ -9,7 +9,7 @@
 
 	<groupId>com.att.salesexpress.webapp</groupId>
 	<artifactId>salesexpress-microservices-webapp</artifactId>
-	<packaging>war</packaging>
+	<packaging>${artifact-packaging}</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

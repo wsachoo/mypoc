@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.json.JSONException;
 
+import com.att.salesexpress.webapp.pojos.PortSpeedDO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
@@ -33,4 +34,9 @@ public interface DbService {
 	public Map<String, String> getAccessData(Long solutionId) throws IOException,  JSONException;
 	
 	public String getResultsData( String accessSpeed, String portSpeed) throws JsonProcessingException , JSONException;
+
+	public List<PortSpeedDO> getPortSpeedsByAccessData(String accessType, String accessSpeed);
+
+	public List<PortSpeedDO> getAllAccessSpeeds();
+
 }

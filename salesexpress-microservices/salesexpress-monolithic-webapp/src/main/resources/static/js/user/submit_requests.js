@@ -63,16 +63,32 @@ function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 		
 		displayAccessSelectionInLeftNavigation();
 		updateFooterMessage("Access configuration options have been defaulted for the sites selected. Access options are too varied across sites to be configured together.");
+		fetchPortSpeedsForSelectedAccessSpeed();
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
-		var errorObject = $.parseJSON(jqXHR.responseText);
+		//var errorObject = $.parseJSON(jqXHR.responseText);
+		var errorObject = jqXHR.responseJSON;
+		
 		var failureAlertMessage = "<div class='alert alert-danger alert-dismissible'>" +
 		  						  "<a href='#' class='close' data-dismiss='alert' data-applybutton='failure' aria-label='close'>&times;</a>" +
 		  						  "<strong>Failure!</strong> The request failed with this error: " + errorObject.reasonPhrase + "</div>";  
 		$("#divAccessTypeclickApplyMessage").html(failureAlertMessage);
+		console.log(errorObject.stackTrace);
 	});	
 }
 
+function fetchPortSpeedsForSelectedAccessSpeed() {
+	var urlPortSpeedsByAccessSpeed = SALESEXPRESS_CONSTANTS.getUrlPath("postSpeedsBySelectedAccessSpeedUrl");
+	
+	var portSpeedsJson = httpGetWithJsonResponse(urlPortSpeedsByAccessSpeed, {
+		"accessType" : gUserConfiguration.getConfigurationData().accessConfig.selectAccessType,
+		"accessSpeed" : gUserConfiguration.getConfigurationData().accessConfig.sliderSpeedValue
+	});
+	
+	//Replace siteMetaData json portSpeed range with this fetched values
+	//This is temporary fix
+	siteMetaData.portSpeeds[gUserConfiguration.getConfigurationData().accessConfig.selectAccessType].range = portSpeedsJson;
+}
 
 function configureModifyUserOptionsAfterAccessApplySuccess() {
 	var $divAccessConfigOptions = $("#divAccessConfigOptions");

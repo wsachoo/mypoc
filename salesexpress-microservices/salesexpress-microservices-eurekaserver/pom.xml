@@ -10,5 +10,5 @@
 	<properties>
 		<start-class>com.att.salesexpress.microservices.EurekaRegistrationServerApplication</start-class>
 	</properties>
-	<packaging>war</packaging>
+	<packaging>${artifact-packaging}</packaging>
 </project>

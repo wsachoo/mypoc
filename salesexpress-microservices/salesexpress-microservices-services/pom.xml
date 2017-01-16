@@ -18,5 +18,5 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-	<packaging>war</packaging>
+	<packaging>${artifact-packaging}</packaging>
 </project>
