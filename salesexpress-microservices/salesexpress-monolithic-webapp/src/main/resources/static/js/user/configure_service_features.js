@@ -331,23 +331,23 @@ function handleProceedToResults($thisRef, eventSource){
 }
 
 function displayFeaturesAppliedInLeftNav(){
-	var glyphIconInfo = "<span class='glyphicon glyphicon-info-sign'></span>";
+	var glyphIconInfo = "<span class='badge'>i</span>";
 	if ($('input[name="chkHeadequarters"').is(":checked")) {
 		var hrefHqFeatures = $('#hqFeaturesAppliedId');
 		hrefHqFeatures.css("font-weight", "bold");
-		hrefHqFeatures.html("Features: " + "Applied" + " "+glyphIconInfo);
+		hrefHqFeatures.html("Features: " + "Applied" + "  "+glyphIconInfo);
 	}
 	if ($('input[name="chkAccountReceivables"').is(":checked")) {
 		var hrefArFeatures = $('#arFeaturesAppliedId');
 		hrefArFeatures.css("font-weight", "bold");
 		hrefArFeatures.html("Features: " + "Applied");
-		hrefArFeatures.html("Features: " + "Applied" + " "+glyphIconInfo);
+		hrefArFeatures.html("Features: " + "Applied" + "  "+glyphIconInfo);
 	}
 	if ($('input[name="chkDistributionCenter"').is(":checked")) {
 		var hrefDcFeatures = $('#dcFeaturesAppliedId');
 		hrefDcFeatures.css("font-weight", "bold");
 		hrefDcFeatures.html("Access: " + "Applied");
-		hrefDcFeatures.html("Features: " + "Applied" + " "+glyphIconInfo);
+		hrefDcFeatures.html("Features: " + "Applied" + "  "+glyphIconInfo);
 	}
 	
 }
