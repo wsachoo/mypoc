@@ -89,13 +89,13 @@ public class SalesExpressJsonDataController {
 
 	@ResponseBody
 	@RequestMapping(value = "results", method = RequestMethod.GET)
-	public ResponseEntity<String> getResults(HttpServletRequest request) throws IOException, JSONException {
+	public ResponseEntity<String> getResults(HttpServletRequest request, @RequestParam Map<String, Object> paramValues) throws IOException, JSONException {
 		logger.info("Inside results() method " + this.getClass());
 		HttpSession session = request.getSession();
 		Long solutionId = (Long) session.getAttribute("solutionId");
 		logger.debug("Solution is retrieved from session is {}", solutionId);
 
-		String resultDataJSON = salesExpressOperationServiceImpl.getResultsData(solutionId);
+		String resultDataJSON = salesExpressOperationServiceImpl.getResultsData(solutionId, paramValues);
 		return new ResponseEntity<String>(resultDataJSON, HttpStatus.OK);
 	}
 

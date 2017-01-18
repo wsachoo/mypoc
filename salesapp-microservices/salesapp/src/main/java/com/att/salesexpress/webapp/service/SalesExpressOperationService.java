@@ -23,7 +23,7 @@ public interface SalesExpressOperationService {
 
 	void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException;
 
-	String getResultsData(Long solutionId) throws JSONException, IOException;
+	String getResultsData(Long solutionId, Map<String, Object> paramValues) throws JSONException, IOException;
 
 	String getAllAccessSpeeds() throws JsonProcessingException;
 

@@ -124,14 +124,6 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException {
 		dbServiceImpl.updateServiceFeaturesData(jsonString, solutionId, userId);
 	}
-	
-	@Override
-	public String getResultsData(Long solutionId) throws JSONException, IOException {
-		Map<String, String> speedMap = dbServiceImpl.getAccessData(solutionId);
-
-		String resultDataJSON = dbServiceImpl.getResultsData(speedMap.get("accessSpeed"), speedMap.get("portSpeed"));
-		return resultDataJSON;
-	}
 
 	@Override
 	public Long fetchDefaultSolutionIdByUserId(String userId) {
@@ -145,4 +137,13 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 		String jsonString = mapper.writeValueAsString(result);
 		return jsonString;
 	}
+
+	@Override
+	public String getResultsData(Long solutionId, Map<String, Object> paramValues) throws JSONException, IOException {
+		String portSpeed = (String) paramValues.get("portSpeed");
+		String accessSpeed = (String) paramValues.get("accessSpeed");
+		String resultDataJSON = dbServiceImpl.getResultsData(accessSpeed, portSpeed);
+		return resultDataJSON;
+	}
+	
 }
