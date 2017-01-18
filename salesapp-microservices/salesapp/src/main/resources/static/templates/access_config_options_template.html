@@ -1,0 +1,73 @@
+${( localUserSelectedAccessConfiguration = userSelectedAccessConfiguration.getConfigurationData().accessConfig ),''}			
+<div id="divAccessConfigOptions" class="row salesexpress-line-space">
+	<div class="col-sm-12">
+		<label for="name">Access Configuration Options</label>
+	</div>
+</div>
+<div class="row" id="divAccessConfigOptionsData">
+	<div class="col-sm-3 col-sm-offset-1">
+		Physical Interference<select class="form-control" name="accessConfig-physicalInterferenceOptions">
+			{{each accessConfiguration.physicalInterferenceOptions }}
+				{{if key == localUserSelectedAccessConfiguration.physicalInterferenceOptions }}
+				    <option value="${key}" selected="selected">${value}</option>
+				{{else}}
+					<option value="${key}">${value}</option>
+				{{/if}}
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-sm-3 col-sm-offset-1">
+		Access Interconnect Technology (AIT)<select class="form-control" 
+			name="accessConfig-accessInterconnectTechnology">{{each
+			accessConfiguration.accessInterconnectTechnology }}
+				{{if key == localUserSelectedAccessConfiguration.accessInterconnectTechnology }}
+				    <option value="${key}" selected="selected">${value}</option>
+				{{else}}
+					<option value="${key}">${value}</option>
+				{{/if}}
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-sm-3 col-sm-offset-1">
+		Local Access Management<select class="form-control" name="accessConfig-localAccessManagement">{{each
+			accessConfiguration.localAccessManagementOptions }}
+				{{if key == localUserSelectedAccessConfiguration.localAccessManagement }}
+				    <option value="${key}" selected="selected">${value}</option>
+				{{else}}
+					<option value="${key}">${value}</option>
+				{{/if}}
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-sm-3 col-sm-offset-1">
+		Access Tail Technology<select class="form-control" name="accessConfig-accessTailTechnology">{{each
+			accessConfiguration.accessTailTechnologyOptions }}
+				{{if key == localUserSelectedAccessConfiguration.accessTailTechnology }}
+				    <option value="${key}" selected="selected">${value}</option>
+				{{else}}
+					<option value="${key}">${value}</option>
+				{{/if}}
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-sm-3 col-sm-offset-1">
+		Access Architecture<select class="form-control" class="form-control"
+			name="accessConfig-accessArchitecture">{{each accessConfiguration.accessArchitectureOptions	}}
+				{{if key == localUserSelectedAccessConfiguration.accessArchitecture }}
+				    <option value="${key}" selected="selected">${value}</option>
+				{{else}}
+					<option value="${key}">${value}</option>
+				{{/if}}
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-sm-4 col-sm-offset-6" id="divAccessTypeclickApplyMessage"></div>
+	<div class="col-sm-2">
+		<button id="btnApplyAccessConfigurationOptions"
+			name="btnApplyAccessConfigurationOptions"
+			class="btn btn-primary btn-block" type="button">Apply</button>
+	</div>
+</div>

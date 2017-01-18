@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.att.salesexpress.microservices</groupId>
+		<artifactId>salesapp-microservices</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>salesapp-microservices-services</artifactId>
+	<properties>
+		<start-class>com.att.salesexpress.microservices.SalesExpressMicroServicesApplication</start-class>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.att.salesexpress.microservices</groupId>
+			<artifactId>salesapp-microservices-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	<packaging>${artifact-packaging}</packaging>
+</project>
