@@ -46,7 +46,10 @@ SALESEXPRESS_CONSTANTS = (function() {
  * Object gUserConfiguration holds all the user configuration selections.
  */
 gUserConfiguration = (function() {
-	var userConfigStore = {};
+	var userConfigStore = {
+			"sites" : {}
+	};
+
 	var tempConfigStore = {
 			"accessConfig" : {},
 			"portConfig" : {},
@@ -54,14 +57,19 @@ gUserConfiguration = (function() {
 	};
 	
 	return {
-		addConfigurationToSite : function(siteType) {
-			userConfigStore[siteType] = $.extend(true, {}, tempConfigStore);
+		addConfigurationToSite : function(siteName) {
+			//userConfigStore[siteType] = $.extend(true, {}, tempConfigStore);
+			userConfigStore["sites"][siteName] = ($.extend(true, {}, tempConfigStore));
 		},
 		
 		addConfigMetaInformation : function(key, value) {
 			userConfigStore[key] = value;
 		},
 		
+		addToSiteConfiguration : function(key, value) {
+			tempConfigStore[key] = value;
+		},
+
 		addAccessConfiguration : function(key, value) {
 			tempConfigStore["accessConfig"][key] = value;
 		},
@@ -123,17 +131,18 @@ function updateInMemoryConfigurationFromFormObject(form) {
 	var chkAccountReceivables = $('input[name="chkAccountReceivables"').is(":checked");
 	var chkDistributionCenter = $('input[name="chkDistributionCenter"').is(":checked");
 
+	
 	if (chkHeadequarters) {
+		gUserConfiguration.addToSiteConfiguration("siteId", $('input[name="chkHeadequarters"').val());
 		gUserConfiguration.addConfigurationToSite("headQuarters");
-		gUserConfiguration.getUserConfigurationData().headQuarters["siteId"] = $('input[name="chkHeadequarters"').val();
 	}	
 	if (chkAccountReceivables) {
+		gUserConfiguration.addToSiteConfiguration("siteId", $('input[name="chkAccountReceivables"').val());
 		gUserConfiguration.addConfigurationToSite("accountReceivables");
-		gUserConfiguration.getUserConfigurationData().accountReceivables["siteId"] = $('input[name="chkAccountReceivables"').val();
 	}    
 	if (chkDistributionCenter) {
+		gUserConfiguration.addToSiteConfiguration("siteId", $('input[name="chkDistributionCenter"').val());
 		gUserConfiguration.addConfigurationToSite("distributionCenter");
-		gUserConfiguration.getUserConfigurationData().distributionCenter["siteId"] = $('input[name="chkDistributionCenter"').val();
 	}    
 }
 
