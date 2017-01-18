@@ -320,14 +320,16 @@ function handleProceedToResults($thisRef, eventSource){
     location.replace(url); */
 	performTabChangeAction("results");
 	
-	var returnResultData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('resultsPageUrl'));
-	var resultData = { "packageData" : returnResultData};	
+	var resultData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('resultsPageUrl'), {
+		"portSpeed" : gUserConfiguration.getConfigurationData().portConfig.sliderPortSpeedValue,
+		"accessSpeed" : gUserConfiguration.getConfigurationData().accessConfig.sliderSpeedValue
+	});	
 	
-	displayAvailProdInLeftNav(returnResultData);
+	displayAvailProdInLeftNav(resultData);
 	
 	var formElement = $("form");
 	formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
-	var serviceFeaturesInit= $.tmpl("show_results_template", resultData);
+	var serviceFeaturesInit= $.tmpl("show_results_template", { "packageData" : resultData});
 	var topmenudiv = formElement.find("div.sachtopmenu");
 	topmenudiv.after(serviceFeaturesInit);
 	formElement.trigger('create');    	
