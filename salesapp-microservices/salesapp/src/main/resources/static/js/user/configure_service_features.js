@@ -319,9 +319,12 @@ function handleProceedToResults($thisRef, eventSource){
 /*	var url = $("#resultsPage").data('url');
     location.replace(url); */
 	performTabChangeAction("results");
-
-	var resultData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('resultsPageUrl'));	
-
+	
+	var returnResultData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('resultsPageUrl'));
+	var resultData = { "packageData" : returnResultData};	
+	
+	displayAvailProdInLeftNav(returnResultData);
+	
 	var formElement = $("form");
 	formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
 	var serviceFeaturesInit= $.tmpl("show_results_template", resultData);
@@ -350,4 +353,57 @@ function displayFeaturesAppliedInLeftNav(){
 		hrefDcFeatures.html("Features: " + "Applied" + "  "+glyphIconInfo);
 	}
 	
+}
+
+function displayAvailProdInLeftNav(returnResultData){
+		var hq_availableProducts= $("#hq_availableProducts");
+		var ar_availableProducts = $("#ar_availableProducts");
+		var dc_availableProducts = $("#dc_availableProducts");
+		var chkHeadequarters = $('input[name="chkHeadequarters"').is(":checked");
+		var chkAccountReceivables = $('input[name="chkAccountReceivables"').is(":checked");
+		var chkDistributionCenter = $('input[name="chkDistributionCenter"').is(":checked");
+		var thumbsUpIcon = "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>";
+		
+		if (chkHeadequarters) {
+			hq_availableProducts.find("li").remove();
+		}
+		if(chkAccountReceivables){
+			ar_availableProducts.find("li").remove();
+		}
+		if(chkDistributionCenter){
+			dc_availableProducts.find("li").remove();
+		}
+
+	
+	for(var i =0; i < returnResultData.length; i++){
+		if(i ==0){
+		if(chkHeadequarters){
+			hq_availableProducts.css("font-weight", "bold");
+			hq_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"  "+thumbsUpIcon+"</li>");
+		}
+		if(chkAccountReceivables){
+			ar_availableProducts.css("font-weight", "bold");
+			ar_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"  "+thumbsUpIcon+"</li>");
+			returnResultData[1]["PRODUCT"]
+		}
+		if(chkDistributionCenter){
+			dc_availableProducts.css("font-weight", "bold");
+			dc_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"  "+thumbsUpIcon+"</li>");
+		}	
+	}
+	else{
+		if(chkHeadequarters){
+			hq_availableProducts.css("font-weight", "bold");
+			hq_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"</li>");
+		}
+		if(chkAccountReceivables){
+			ar_availableProducts.css("font-weight", "bold");
+			ar_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"</li>");
+		}
+		if(chkDistributionCenter){
+			dc_availableProducts.css("font-weight", "bold");
+			dc_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"</li>");
+		}
+	}
+	}
 }

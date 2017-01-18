@@ -37,7 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Repository
 public class DbServiceImpl implements DbService {
 
-	static final Logger logger = LoggerFactory.getLogger(DbServiceImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	@Qualifier("hikariOraJdbcTemplate")
@@ -46,6 +46,7 @@ public class DbServiceImpl implements DbService {
 	@Override
 	@Transactional(readOnly = true)
 	public String getSiteMetaData(String siteType) {
+		logger.debug("inside getSiteMetaData debug mode");
 		logger.info("Inside getSiteMetaData() method with siteType {}", siteType);
 		String sql = "select SITE_DATA from SLEXP_SITE_CONFIG where SITE_NAME = ?";
 		String siteDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { siteType }, String.class);
@@ -201,11 +202,8 @@ public class DbServiceImpl implements DbService {
 
 		// return resultList;
 		ObjectMapper mapper = new ObjectMapper();
-		String JSONString = mapper.writeValueAsString(resultList);
-
-		String finalJsonString = "{ \"packageData\" : " + JSONString + " }";
-
-		/* return JSONString; */
+		String finalJsonString = mapper.writeValueAsString(resultList);
+		/*String finalJsonString = "{ \"packageData\" : " + JSONString + " }";*/
 		return finalJsonString;
 	}
 

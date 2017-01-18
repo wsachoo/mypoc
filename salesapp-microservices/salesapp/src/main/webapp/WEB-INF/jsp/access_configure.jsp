@@ -8,6 +8,7 @@
 	
 	<script>
 		document.write('<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />');
+		document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />');
 		document.write('<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />');
 		document.write('<link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css" />');
 		document.write('<link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css" />');
