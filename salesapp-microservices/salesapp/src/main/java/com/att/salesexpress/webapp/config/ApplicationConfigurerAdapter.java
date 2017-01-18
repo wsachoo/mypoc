@@ -35,6 +35,8 @@ public class ApplicationConfigurerAdapter extends WebMvcConfigurerAdapter {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		logger.info("Configuring login controller");
 		registry.addViewController("/login").setViewName("login");
+		registry.addViewController("/accessDenied").setViewName("accessDenied");
+		
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 	}
 

@@ -50,10 +50,10 @@ public class SalesAuthenticationSuccessHandler implements AuthenticationSuccessH
 		boolean isAdmin = false;
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		for (GrantedAuthority grantedAuthority : authorities) {
-			if (grantedAuthority.getAuthority().equals("USER")) {
+			if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
 				isUser = true;
 				break;
-			} else if (grantedAuthority.getAuthority().equals("ADMIN")) {
+			} else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
 				isAdmin = true;
 				break;
 			}
@@ -63,7 +63,8 @@ public class SalesAuthenticationSuccessHandler implements AuthenticationSuccessH
 		} else if (isAdmin) {
 			return "/admin";
 		} else {
-			throw new IllegalStateException();
+			logger.info("Authentication successful but user role not found");
+			return "/accessDenied";
 		}
 	}
 

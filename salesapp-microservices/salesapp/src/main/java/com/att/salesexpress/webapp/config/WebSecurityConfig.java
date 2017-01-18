@@ -27,11 +27,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers("/resources/**").permitAll()
-				.anyRequest().authenticated().and()
-				.formLogin()
-					.loginPage("/login")
-					.successHandler(salesAuthenticationSuccessHandler).permitAll().and()
-				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+		        .antMatchers("/", "/home", "/**").access("hasRole('USER')")
+				.and().formLogin().loginPage("/login").successHandler(salesAuthenticationSuccessHandler).permitAll()
+				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.and().csrf()
+				.and().exceptionHandling().accessDeniedPage("/accessDenied");
 	}
 
 	@Autowired
