@@ -1,18 +1,15 @@
 package com.att.salesexpress.webapp.db;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +53,10 @@ public class DbServiceImpl implements DbService {
 	@Transactional(readOnly = true)
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Long solutionId) {
 		logger.info("Inside findUserDetailByUserIdSolutionId() method.");
-		//String sql = "select * from SLEXP_USER_DETAIL where USER_ID = ? and SOLUTION_ID = ?";
-		//List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { userId, solutionId });
+		// String sql = "select * from SLEXP_USER_DETAIL where USER_ID = ? and
+		// SOLUTION_ID = ?";
+		// List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new
+		// Object[] { userId, solutionId });
 		String sql = "select a.SITE_ID, a.ADDRESS_NAME || ', ' || a.CITY || ', ' || a.STATE || ', ' || a.ZIP || ' ' || a.COUNTRY as site_addr from sales_site a where a.DESIGN_ID = ?";
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { solutionId });
 
@@ -153,60 +152,13 @@ public class DbServiceImpl implements DbService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Map<String, String> getAccessData(Long solutionId) throws IOException, JSONException {
-		logger.info("Inside getAccessData() method.");
-		logger.info("solutionId :" + solutionId);
-		Map<String, String> returnMap = new HashMap<String, String>();
-		String sqlQuery = "select ACCESS_DATA from SLEXP_SITEDETAIL_TX where SOLUTION_ID =?";
-		String accessDataJSON = (String) jdbcTemplate.queryForObject(sqlQuery, new Object[] { solutionId },
-				String.class);
-		String accessSpeed = "";
-		String portSpeed = "";
-
-		JSONObject json = new JSONObject(accessDataJSON);
-		Iterator itr = json.keys();
-		while (itr.hasNext()) {
-			String siteType = (String) itr.next();
-			if (siteType.contains("headQuarters") || siteType.contains("accountReceivables")
-					|| siteType.contains("distributionCenter")) {
-				JSONObject jsonSiteType = json.getJSONObject(siteType);
-				JSONObject accessConfig = jsonSiteType.getJSONObject("accessConfig");
-				accessSpeed = accessConfig.getString("sliderSpeedValue");
-				JSONObject portConfig = jsonSiteType.getJSONObject("portConfig");
-				portSpeed = portConfig.getString("sliderPortSpeedValue");
-				break;
-			}
-		}
-
-		logger.info("accessSpeedValue for HeadQuarter is : " + accessSpeed);
-		logger.info("portSpeedValue for HeadQUarter is :" + portSpeed);
-
-		/*
-		 * ObjectMapper mapper = new ObjectMapper(); AccessConfig
-		 * accessConfigFromJSON = mapper.readValue(json, AccessConfig.class);
-		 */
-		returnMap.put("accessSpeed", accessSpeed.toString());
-		returnMap.put("portSpeed", portSpeed.toString());
-		return returnMap;
-
-	}
-
-	@Override
-	@Transactional(readOnly = true)
 	public String getResultsData(String accessSpeed, String portSpeed) throws JsonProcessingException, JSONException {
-
-		logger.info("getAccessData");
+		logger.info("Inside getResultsData method.");
 		String sql = "select * from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_SPEED_ID = ? order by MRC asc, NRC asc";
 		List resultList = (List) jdbcTemplate.queryForList(sql, accessSpeed, portSpeed);
-
-		// return resultList;
 		ObjectMapper mapper = new ObjectMapper();
 		String JSONString = mapper.writeValueAsString(resultList);
-
-		String finalJsonString = "{ \"packageData\" : " + JSONString + " }";
-
-		/* return JSONString; */
-		return finalJsonString;
+		return JSONString;
 	}
 
 	@Override
@@ -235,17 +187,17 @@ public class DbServiceImpl implements DbService {
 		String sql = "select PORT_TYPE, ACCESS_SPEED_ID, min(MRC) || '-' || max(MRC) as MRC, min(NRC) || '-' || max(NRC) as NRC "
 				+ "from sales_rules  group by PORT_TYPE, ACCESS_SPEED_ID  order by PORT_TYPE, ACCESS_SPEED_ID";
 		List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
-		
+
 		Map<String, List<AccessSpeedDO>> outMap = new HashMap<>();
 		List<AccessSpeedDO> outList = null;
-		
+
 		for (Map<String, Object> map : result) {
 			AccessSpeedDO accessSpeedDO = new AccessSpeedDO();
 			accessSpeedDO.setPortType(map.get("PORT_TYPE").toString());
 			accessSpeedDO.setMrc(map.get("MRC").toString());
 			accessSpeedDO.setNrc(map.get("NRC").toString());
 			accessSpeedDO.setAccessSpeed(map.get("ACCESS_SPEED_ID").toString());
-			
+
 			outList = outMap.get(accessSpeedDO.getPortType());
 
 			if (outList == null) {
@@ -255,30 +207,30 @@ public class DbServiceImpl implements DbService {
 
 			outList.add(accessSpeedDO);
 		}
-		
+
 		return outMap;
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public Long fetchDefaultSolutionIdByUserId(String userId) {
 		String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?) and rownum=1";
 		Long solutionId = jdbcTemplate.queryForObject(sql, Long.class, userId);
 		logger.info("Solution id retrieved from database is  {}", solutionId);
 		return solutionId;
 	}
-	
+
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public Map<String, String> getSiteInfoBySolutionId(Long solutionId) {
 		Map<String, String> output = new HashMap<>();
-		
+
 		String sql = "select SITE_ID, SITE_NAME from SALES_SITE where DESIGN_ID = ?";
 		List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, solutionId);
 		for (Map<String, Object> map : result) {
 			output.put(map.get("SITE_NAME").toString(), map.get("SITE_ID").toString());
 		}
-		
+
 		return output;
 	}
 }

@@ -320,8 +320,11 @@ function handleProceedToResults($thisRef, eventSource){
     location.replace(url); */
 	performTabChangeAction("results");
 
-	var resultData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('resultsPageUrl'));	
-
+	var resultData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('resultsPageUrl'), {
+		"portSpeed" : gUserConfiguration.getConfigurationData().portConfig.sliderPortSpeedValue,
+		"accessSpeed" : gUserConfiguration.getConfigurationData().accessConfig.sliderSpeedValue
+	});	
+	
 	var formElement = $("form");
 	formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
 	var serviceFeaturesInit= $.tmpl("show_results_template", resultData);
