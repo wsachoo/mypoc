@@ -6754,39 +6754,3 @@ button.close {
     display: none !important;
   }
 }
-/*sachin*/
-footer.navbar-default.navbar-fixed-bottom
-{
-      background:white;
-      color:black;
-      /* padding:1em 0; sachin commneted from original copied code*/
-      height: 60px;
-}
-/* footer.navbar-default.navbar-fixed-bottom p
-{
-      margin:0;
-} */
-/*sachin*/
-#accessSpeedConfigPlaceholder {
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-	margin-bottom: 60px;
-}
-#serviceFeaturesConfigPlaceHolder {
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-	margin-bottom: 60px;
-}
-
-/*
-.footer {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	right: 0;
-	height: 60px;
-}
- *//*# sourceMappingURL=bootstrap.css.map */
