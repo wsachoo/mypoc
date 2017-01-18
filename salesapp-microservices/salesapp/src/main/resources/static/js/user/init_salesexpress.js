@@ -178,6 +178,11 @@ function httpGetWithJsonResponse(path, jsonData) {
  * It returns the promise that holds the json response from the server.
  */
 function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
+	
+    $.ajaxSetup({
+        headers: { 'X-CSRF-TOKEN' : $('meta[name="_csrf"]').attr('content') }
+    });
+    
   	return $.ajax({
 		url: postUrl,
 		data: postData,

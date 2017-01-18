@@ -71,8 +71,6 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	@Override
 	public String getSiteConfigurationMetaDataBySiteType(String siteType) {
 		String siteData = dbServiceImpl.getSiteMetaData(siteType);
-		logger.debug("Site configuration metadata json received is {}", siteData);
-
 		return siteData;
 	}
 

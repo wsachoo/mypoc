@@ -6,8 +6,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
 <body>
-   <h1>Login</h1>
+   <h1>Sales App Login</h1>
    <form name='f' action="login" method='POST'>
+   	  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       <table>
          <tr>
             <td>User:</td>

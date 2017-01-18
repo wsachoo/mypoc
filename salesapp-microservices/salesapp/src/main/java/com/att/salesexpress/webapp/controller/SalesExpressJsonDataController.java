@@ -77,7 +77,7 @@ public class SalesExpressJsonDataController {
 		logger.info("Inside saveServiceFeaturesData, user_id : " + userId + " solutionId :" + solutionId);
 		ObjectMapper mapper = new ObjectMapper();
 
-		String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(paramValues);
+		String jsonString = mapper.writeValueAsString(paramValues);
 		logger.info("JSON string for service features : " + jsonString);
 
 		Map<String, Object> returnValues = new HashMap<String, Object>();
