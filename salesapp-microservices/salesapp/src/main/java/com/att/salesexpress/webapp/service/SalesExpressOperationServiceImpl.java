@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.att.salesexpress.webapp.db.DbService;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
+import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -90,7 +91,7 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 
 		if (StringUtils.isBlank(strTransactionId)) {
 			transactionId = dbServiceImpl.insertSiteConfigurationData(userId.toString(), lSolutionId, jsonString);
-			dbServiceImpl.insertSiteConfigurationDataInRelational(userId.toString(), lSolutionId, jsonString);
+			dbServiceImpl.insertSiteConfigurationDataInRelational(new UserDesignSelectionDO());
 		} else {
 			transactionId = Long.parseLong(strTransactionId);
 			dbServiceImpl.updateSiteConfigurationData(transactionId, jsonString);

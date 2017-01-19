@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
+import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -100,14 +101,13 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	public void insertSiteConfigurationDataInRelational(final String userId, final long solutionId,
-			final String accessData) throws SQLException {
+	public void insertSiteConfigurationDataInRelational(final UserDesignSelectionDO userDesignDo) throws SQLException {
 		logger.info("Inside insertSiteConfigurationDataInRelational() method.");
 
 /*		String sqlSeq = "SELECT SLEXP_SITEDETAIL_TX_SEQ.nextval as trxn_seq FROM dual";
 		final Long seqNum = jdbcTemplate.queryForObject(sqlSeq, Long.class);
 */
-		final String sql = "INSERT INTO sales_design (SITE_ID, ACCESS_SPEED, PORT_SPEED, CREATED_DATE) VALUES (?, ?, ?, SYSDATE)";
+		final String sql = "INSERT INTO sales_design (SITE_ID, ACCESS_SPEED, PORT_SPEED, PORT_TYPE, CREATED_DATE) VALUES (?, ?, ?, ?, SYSDATE)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
@@ -115,7 +115,7 @@ public class DbServiceImpl implements DbService {
 				pstmt.setLong(1, 10);
 				pstmt.setLong(2, 11);
 				pstmt.setLong(3, 12);
-
+				pstmt.setString(4, "ETHERNET");
 				return pstmt;
 			}
 		});
