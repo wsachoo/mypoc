@@ -1,6 +1,5 @@
 package com.att.salesexpress.webapp.db;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +8,7 @@ import org.json.JSONException;
 
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
+import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
@@ -20,9 +20,9 @@ public interface DbService {
 	public String getSiteMetaData(String siteType);
 
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Long solutionId);
-	
-	public long insertSiteConfigurationData(final String userId, final long solutionId, final Integer siteId,
-			final String accessData) throws SQLException;
+
+	public long insertSiteConfigurationData(final String userId, final long solutionId, final String accessData)
+			throws SQLException;
 
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId);
 
@@ -30,7 +30,7 @@ public interface DbService {
 
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException;
 
-	public String getResultsData( String accessSpeed, String portSpeed) throws JsonProcessingException , JSONException;
+	public String getResultsData(String accessSpeed, String portSpeed) throws JsonProcessingException, JSONException;
 
 	public List<PortSpeedDO> getPortSpeedsByAccessData(String accessType, String accessSpeed);
 
@@ -39,5 +39,7 @@ public interface DbService {
 	public Long fetchDefaultSolutionIdByUserId(String userId);
 
 	Map<String, String> getSiteInfoBySolutionId(Long solutionId);
+
+	void insertSiteConfigurationDataInRelational(UserDesignSelectionDO userDesignDo) throws SQLException;
 
 }
