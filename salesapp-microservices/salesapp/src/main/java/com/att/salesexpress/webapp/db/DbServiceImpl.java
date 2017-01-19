@@ -9,12 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
 import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
+import com.att.salesexpress.webapp.pojos.UserSiteDesignDO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -103,20 +106,77 @@ public class DbServiceImpl implements DbService {
 	@Override
 	public void insertSiteConfigurationDataInRelational(final UserDesignSelectionDO userDesignDo) throws SQLException {
 		logger.info("Inside insertSiteConfigurationDataInRelational() method.");
+		final List<UserSiteDesignDO> userSiteDesignDOList = new ArrayList<>(userDesignDo.getSiteDesignList().values());
+		
+		final String sqlBatchInsert = "INSERT INTO sales_design ("
+													+ "SITE_ID, RATE_PLAN, PORT_TYPE, "
+													+ "ACCESS_SPEED, PORT_SPEED, L2_PROTOCOL, "
+													+ "HCF_MIN_COMMITMENT_ID, COS_YN, CREATED_DATE, "
+													+ "CREATED_ID, MODIFIED_DATE, MODIFIED_ID, SOLUTION_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE, ?, ?)";
+		
+		jdbcTemplate.batchUpdate(sqlBatchInsert, new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
+				UserSiteDesignDO objUserSiteDesignDO = userSiteDesignDOList.get(i);
+				pstmt.setLong(1, objUserSiteDesignDO.getSiteId()); //HCF_MIN_COMMITMENT_ID
+				pstmt.setString(2, StringUtils.EMPTY); //RATE_PLAN
+				pstmt.setString(3, objUserSiteDesignDO.getPortConfigDesign().getPortType()); //PORT_TYPE
+				pstmt.setLong(4, objUserSiteDesignDO.getAccessConfigDesign().getSliderSpeedValue()); //ACCESS_SPEED
+				pstmt.setLong(5, objUserSiteDesignDO.getPortConfigDesign().getSliderPortSpeedValue()); //PORT_SPEED
+				pstmt.setString(6, StringUtils.EMPTY); //L2_PROTOCOL
+				pstmt.setLong(7, -1); //HCF_MIN_COMMITMENT_ID
+				pstmt.setString(8, StringUtils.EMPTY); //COS_YN
+				pstmt.setString(9, userDesignDo.getUserId()); //CREATED_ID
+				pstmt.setString(10, userDesignDo.getUserId()); //MODIFIED_ID	
+				pstmt.setLong(11, userDesignDo.getSolutionId()); //HCF_MIN_COMMITMENT_ID
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return userDesignDo.getSiteDesignList().keySet().size();
+			}
+		});
+	}
+	
 
-/*		String sqlSeq = "SELECT SLEXP_SITEDETAIL_TX_SEQ.nextval as trxn_seq FROM dual";
-		final Long seqNum = jdbcTemplate.queryForObject(sqlSeq, Long.class);
-*/
-		final String sql = "INSERT INTO sales_design (SITE_ID, ACCESS_SPEED, PORT_SPEED, PORT_TYPE, CREATED_DATE) VALUES (?, ?, ?, ?, SYSDATE)";
-		jdbcTemplate.update(new PreparedStatementCreator() {
+	@Override
+	public void removePreviousSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO) {
+		logger.info("deleting previous site configuration data from relation tables");
+		String sqlDelete = "delete from sales_design where SOLUTION_ID = ?";
+		jdbcTemplate.update(sqlDelete, objUserDesignSelectionDO.getSolutionId());
+	}
 
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				pstmt.setLong(1, 10);
-				pstmt.setLong(2, 11);
-				pstmt.setLong(3, 12);
-				pstmt.setString(4, "ETHERNET");
-				return pstmt;
+	@Override
+	public void updateSiteConfigurationDataInRelational(final UserDesignSelectionDO userDesignDo) {
+		logger.info("Inside updateSiteConfigurationDataInRelational() method.");
+		final List<UserSiteDesignDO> userSiteDesignDOList = new ArrayList<>(userDesignDo.getSiteDesignList().values());
+		
+		final String sqlBatchInsert = "update sales_design set "
+													+ "RATE_PLAN = ?, PORT_TYPE= ?, "
+													+ "ACCESS_SPEED = ?, PORT_SPEED = ?, L2_PROTOCOL = ?, "
+													+ "HCF_MIN_COMMITMENT_ID = ?, COS_YN = ?, "
+													+ "MODIFIED_DATE = SYSDATE, MODIFIED_ID = ? where SITE_ID = ?";
+		
+		jdbcTemplate.batchUpdate(sqlBatchInsert, new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
+				UserSiteDesignDO objUserSiteDesignDO = userSiteDesignDOList.get(i);
+				pstmt.setString(1, StringUtils.EMPTY); //RATE_PLAN
+				pstmt.setString(2, objUserSiteDesignDO.getPortConfigDesign().getPortType()); //PORT_TYPE
+				pstmt.setLong(3, objUserSiteDesignDO.getAccessConfigDesign().getSliderSpeedValue()); //ACCESS_SPEED
+				pstmt.setLong(4, objUserSiteDesignDO.getPortConfigDesign().getSliderPortSpeedValue()); //PORT_SPEED
+				pstmt.setString(5, StringUtils.EMPTY); //L2_PROTOCOL
+				pstmt.setLong(6, -1); //HCF_MIN_COMMITMENT_ID
+				pstmt.setString(7, StringUtils.EMPTY); //COS_YN
+				pstmt.setString(8, userDesignDo.getUserId()); //MODIFIED_ID
+				pstmt.setLong(9, objUserSiteDesignDO.getSiteId()); //SITE_ID				
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return userDesignDo.getSiteDesignList().keySet().size();
 			}
 		});
 	}
@@ -136,7 +196,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional
 	public void updateSiteConfigurationData(long transactionId, String jsonString) throws SQLException {
 		logger.info("Inside updateSiteConfigurationData() method.");
 		String sqlUpdate = "UPDATE SLEXP_SITEDETAIL_TX SET ACCESS_DATA = ? WHERE ID = ?";

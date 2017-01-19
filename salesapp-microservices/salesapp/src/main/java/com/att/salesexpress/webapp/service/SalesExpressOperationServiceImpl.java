@@ -19,6 +19,7 @@ import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
 import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
@@ -82,19 +83,23 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	@Override
 	@Transactional
 	public Map<String, Object> saveSiteConfigurationData(Map<String, Object> paramValues, Object userId,
-			String strTransactionId, Long lSolutionId) throws JsonProcessingException, SQLException {
+			String strTransactionId, Long lSolutionId) throws SQLException, IOException {
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
-		// String jsonString = mapper.writeValueAsString(paramValues);
 		String jsonString = mapper.writeValueAsString(paramValues);
 		Long transactionId = -1L;
 
+		UserDesignSelectionDO objUserDesignSelectionDO = mapper.readValue(jsonString,
+				new TypeReference<UserDesignSelectionDO>(){});
+
 		if (StringUtils.isBlank(strTransactionId)) {
 			transactionId = dbServiceImpl.insertSiteConfigurationData(userId.toString(), lSolutionId, jsonString);
-			dbServiceImpl.insertSiteConfigurationDataInRelational(new UserDesignSelectionDO());
+			dbServiceImpl.insertSiteConfigurationDataInRelational(objUserDesignSelectionDO);
 		} else {
 			transactionId = Long.parseLong(strTransactionId);
 			dbServiceImpl.updateSiteConfigurationData(transactionId, jsonString);
+			dbServiceImpl.removePreviousSiteConfigurationDataInRelational(objUserDesignSelectionDO);
+			dbServiceImpl.insertSiteConfigurationDataInRelational(objUserDesignSelectionDO);
 		}
 		returnValues.put("status", "success");
 		returnValues.put("transactionId", transactionId);
