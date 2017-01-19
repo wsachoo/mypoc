@@ -21,8 +21,7 @@ public interface DbService {
 
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Long solutionId);
 	
-	public long insertSiteConfigurationData(final String userId, final long solutionId, final Integer siteId,
-			final String accessData) throws SQLException;
+	public long insertSiteConfigurationData(final String userId, final long solutionId, final String accessData) throws SQLException;
 
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId);
 
@@ -41,5 +40,7 @@ public interface DbService {
 	public Long fetchDefaultSolutionIdByUserId(String userId);
 
 	Map<String, String> getSiteInfoBySolutionId(Long solutionId);
+
+	void insertSiteConfigurationDataInRelational(String userId, long solutionId, String accessData) throws SQLException;
 
 }
