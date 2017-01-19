@@ -54,10 +54,6 @@ public class DbServiceImpl implements DbService {
 	@Transactional(readOnly = true)
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Long solutionId) {
 		logger.info("Inside findUserDetailByUserIdSolutionId() method.");
-		// String sql = "select * from SLEXP_USER_DETAIL where USER_ID = ? and
-		// SOLUTION_ID = ?";
-		// List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new
-		// Object[] { userId, solutionId });
 		String sql = "select a.SITE_ID, a.ADDRESS_NAME || ', ' || a.CITY || ', ' || a.STATE || ', ' || a.ZIP || ' ' || a.COUNTRY as site_addr from sales_site a where a.DESIGN_ID = ?";
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { solutionId });
 
@@ -78,16 +74,15 @@ public class DbServiceImpl implements DbService {
 		return returnValues;
 	}
 
-	@Transactional
 	@Override
-	public long insertSiteConfigurationData(final String userId, final long solutionId, final Integer siteId,
+	public long insertSiteConfigurationData(final String userId, final long solutionId,
 			final String accessData) throws SQLException {
-		logger.info("Inside updateAccessTypeData() method.");
+		logger.info("Inside insertSiteConfigurationData() method.");
 
 		String sqlSeq = "SELECT SLEXP_SITEDETAIL_TX_SEQ.nextval as trxn_seq FROM dual";
 		final Long seqNum = jdbcTemplate.queryForObject(sqlSeq, Long.class);
 
-		final String sql = "INSERT INTO SLEXP_SITEDETAIL_TX (ID, USER_ID, SOLUTION_ID, SITE_ID, ACCESS_DATA) VALUES (?, ?, ?, ?, ?)";
+		final String sql = "INSERT INTO SLEXP_SITEDETAIL_TX (ID, USER_ID, SOLUTION_ID, ACCESS_DATA) VALUES (?, ?, ?, ?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
@@ -95,8 +90,7 @@ public class DbServiceImpl implements DbService {
 				pstmt.setLong(1, seqNum);
 				pstmt.setString(2, userId);
 				pstmt.setLong(3, solutionId);
-				pstmt.setInt(4, siteId);
-				pstmt.setString(5, accessData);
+				pstmt.setString(4, accessData);
 
 				return pstmt;
 			}
@@ -105,6 +99,28 @@ public class DbServiceImpl implements DbService {
 		return seqNum;
 	}
 
+	@Override
+	public void insertSiteConfigurationDataInRelational(final String userId, final long solutionId,
+			final String accessData) throws SQLException {
+		logger.info("Inside insertSiteConfigurationDataInRelational() method.");
+
+/*		String sqlSeq = "SELECT SLEXP_SITEDETAIL_TX_SEQ.nextval as trxn_seq FROM dual";
+		final Long seqNum = jdbcTemplate.queryForObject(sqlSeq, Long.class);
+*/
+		final String sql = "INSERT INTO sales_design (SITE_ID, ACCESS_SPEED, PORT_SPEED, CREATED_DATE) VALUES (?, ?, ?, SYSDATE)";
+		jdbcTemplate.update(new PreparedStatementCreator() {
+
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				pstmt.setLong(1, 10);
+				pstmt.setLong(2, 11);
+				pstmt.setLong(3, 12);
+
+				return pstmt;
+			}
+		});
+	}
+	
 	@Override
 	@Transactional(readOnly = true)
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId) {
