@@ -28,8 +28,6 @@ public interface DbService {
 
 	public void updateSiteConfigurationData(long lTransactionId, String jsonString) throws SQLException;
 
-	public List getServices();
-	
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException;
 
 	public String getResultsData( String accessSpeed, String portSpeed) throws JsonProcessingException , JSONException;

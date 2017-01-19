@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +40,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class DbServiceImpl implements DbService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
+	
 	@Autowired
 	@Qualifier("hikariOraJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
@@ -128,19 +134,7 @@ public class DbServiceImpl implements DbService {
 		logger.info("Return value after update is {}", iReturnVal);
 	}
 
-	@Transactional(readOnly = true)
-	public List getServices() {
-		logger.info("Inside getServices method");
-		String sql = "select SERVICE_NAME from SLEXP_SERVICE_CONFIG";
-		List<Map> serviceList = (List) jdbcTemplate.queryForList(sql);
-		for (Map x : serviceList) {
-			logger.info("" + x.get("service_name"));
-
-		}
-		logger.info("" + serviceList);
-		return serviceList;
-	}
-
+	
 	@Override
 	@Transactional
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException {
