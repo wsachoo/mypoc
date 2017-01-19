@@ -44,4 +44,8 @@ public interface DbService {
 
 	void insertSiteConfigurationDataInRelational(UserDesignSelectionDO userDesignDo) throws SQLException;
 
+	public void updateSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO);
+
+	public void removePreviousSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO);
+
 }
