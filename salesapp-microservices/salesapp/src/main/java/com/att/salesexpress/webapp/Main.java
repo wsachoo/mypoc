@@ -29,62 +29,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class Main {
 	public static void main(String[] args) {
-		// SalesExpressPocApplication.main(args);
-
-		testJsonConversion();
-	}
-
-	public static void testJsonConversion() {
-		String json = getTestJson();
-		firstMethod(json);
-		secondMethod(json);
-	}
-
-	private static String getTestJson() {
-		try {
-			InputStream is = new FileInputStream("src/main/resources/test.json");
-			BufferedReader buf = new BufferedReader(new InputStreamReader(is));
-
-			String line = buf.readLine();
-			StringBuilder sb = new StringBuilder();
-
-			while (line != null) {
-				sb.append(line).append("\n");
-				line = buf.readLine();
-			}
-
-			String fileAsString = sb.toString();
-			return fileAsString;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
-		}
-	}
-
-	private static void firstMethod(String fileAsString) {
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> map;
-		try {
-			JsonNode rootNode = mapper.readTree(fileAsString);
-			JsonNode headQuartersNode = rootNode.path("sites").path("headQuarters");
-			JsonNode accessSpeedNode = headQuartersNode.path("accessConfig").path("sliderSpeedValue");
-			JsonNode portSpeedNode = headQuartersNode.path("portConfig").path("sliderPortSpeedValue");
-			System.out.println("Access Speed: " + accessSpeedNode.asText());
-			System.out.println("Port Speed: " + portSpeedNode.asText());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static void secondMethod(String fileAsString) {
-		ObjectMapper mapper = new ObjectMapper();
-		UserDesignSelectionDO obj;
-		try {
-			obj = mapper.readValue(fileAsString, new TypeReference<UserDesignSelectionDO>() {
-			});
-			System.out.println(obj);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SalesExpressPocApplication.main(args);
 	}
 }
