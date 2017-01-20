@@ -1,7 +1,9 @@
 package com.att.salesexpress.webapp.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AccessSpeedDO {
 
 	private String portType;

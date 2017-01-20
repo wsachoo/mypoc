@@ -21,6 +21,11 @@ $(document).ready(function() {
 
 function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 	updateInMemoryConfigurationFromFormObject($("#configureForm"));
+
+	if (gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes) {
+		gUserConfiguration.getConfigurationData().accessConfig.selectAccessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes;
+	}
+	
 	var formData = JSON.stringify(gUserConfiguration.getUserConfigurationData());
 	
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");
@@ -48,6 +53,11 @@ function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 
 function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 	updateInMemoryConfigurationFromFormObject($("#configureForm"));
+	
+	if (gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes) {
+		gUserConfiguration.getConfigurationData().accessConfig.selectAccessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes;
+	}
+	
 	var formData = JSON.stringify(gUserConfiguration.getUserConfigurationData());
 	
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");
