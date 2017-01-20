@@ -24,10 +24,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
 import com.att.salesexpress.webapp.service.SalesExpressOperationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class SalesExpressJsonDataController {
@@ -76,13 +74,9 @@ public class SalesExpressJsonDataController {
 		String userId = (String) session.getAttribute("userId");
 		Long solutionId = (Long) session.getAttribute("solutionId");
 		logger.info("Inside saveServiceFeaturesData, user_id : " + userId + " solutionId :" + solutionId);
-		ObjectMapper mapper = new ObjectMapper();
-
-		String jsonString = mapper.writeValueAsString(paramValues);
-		logger.info("JSON string for service features : " + jsonString);
 
 		Map<String, Object> returnValues = new HashMap<String, Object>();
-		salesExpressOperationServiceImpl.updateServiceFeaturesData(jsonString, solutionId, userId);
+		salesExpressOperationServiceImpl.updateServiceFeaturesData(paramValues, solutionId, userId);
 		returnValues.put("status", "success");
 		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
 
@@ -90,15 +84,16 @@ public class SalesExpressJsonDataController {
 
 	@ResponseBody
 	@RequestMapping(value = "results", method = RequestMethod.GET)
-	public ResponseEntity<String> getResults(HttpServletRequest request, @RequestParam Map<String, Object> paramValues) throws IOException, JSONException {
+	public ResponseEntity<String> getResults(HttpServletRequest request, @RequestParam Map<String, Object> paramValues)
+			throws IOException, JSONException {
 		logger.info("Inside results() method " + this.getClass());
 		HttpSession session = request.getSession();
 		Long solutionId = (Long) session.getAttribute("solutionId");
 		logger.debug("Solution is retrieved from session is {}", solutionId);
 		String resultDataJSON = salesExpressOperationServiceImpl.getResultsData(solutionId, paramValues);
-		/*salesExpressOperationServiceImpl.getResultDataByProc();*/
+		/* salesExpressOperationServiceImpl.getResultDataByProc(); */
 		return new ResponseEntity<String>(resultDataJSON, HttpStatus.OK);
-		
+
 	}
 
 	@ResponseBody

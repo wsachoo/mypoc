@@ -21,7 +21,7 @@ public interface SalesExpressOperationService {
 	Map<String, Object> saveSiteConfigurationData(Map<String, Object> paramValues, Object userId,
 			String strTransactionId, Long lSolutionId) throws JsonProcessingException, SQLException, IOException;
 
-	void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException;
+	void updateServiceFeaturesData(Map<String, Object> paramValues, Long solutionId, String userId) throws SQLException, JsonProcessingException;
 
 	String getResultsData(Long solutionId, Map<String, Object> paramValues) throws JSONException, IOException;
 

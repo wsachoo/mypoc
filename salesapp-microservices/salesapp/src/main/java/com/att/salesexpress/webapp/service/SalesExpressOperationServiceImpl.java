@@ -29,6 +29,9 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	@Autowired
 
 	private DbService dbServiceImpl;
+	
+	@Autowired
+	private ObjectMapper jacksonObjectMapper;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -38,8 +41,7 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 		valuesMap.put("solutionId", solutionId.toString());
 
 		Map<String, Object> objUserDetail = dbServiceImpl.findUserDetailByUserIdSolutionId(userId, solutionId);
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonString = mapper.writeValueAsString(objUserDetail);
+		String jsonString = jacksonObjectMapper.writeValueAsString(objUserDetail);
 
 		logger.debug("User site metadata json received is {}", jsonString);
 		return jsonString;
@@ -63,8 +65,7 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	@Transactional(readOnly = true)
 	public String getPortSpeedsByAccessData(String accessType, String accessSpeed) throws JsonProcessingException {
 		List<PortSpeedDO> portSpeedList = dbServiceImpl.getPortSpeedsByAccessData(accessType, accessSpeed);
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonString = mapper.writeValueAsString(portSpeedList);
+		String jsonString = jacksonObjectMapper.writeValueAsString(portSpeedList);
 		return jsonString;
 	}
 
@@ -72,8 +73,7 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	@Transactional(readOnly = true)
 	public String getAllAccessSpeeds() throws JsonProcessingException {
 		Map<String, List<AccessSpeedDO>> result = dbServiceImpl.getAllAccessSpeeds();
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonString = mapper.writeValueAsString(result);
+		String jsonString = jacksonObjectMapper.writeValueAsString(result);
 		return jsonString;
 	}
 
@@ -90,11 +90,10 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	public Map<String, Object> saveSiteConfigurationData(Map<String, Object> paramValues, Object userId,
 			String strTransactionId, Long lSolutionId) throws SQLException, IOException {
 		Map<String, Object> returnValues = new HashMap<String, Object>();
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonString = mapper.writeValueAsString(paramValues);
+		String jsonString = jacksonObjectMapper.writeValueAsString(paramValues);
 		Long transactionId = -1L;
 
-		UserDesignSelectionDO objUserDesignSelectionDO = mapper.readValue(jsonString,
+		UserDesignSelectionDO objUserDesignSelectionDO = jacksonObjectMapper.readValue(jsonString,
 				new TypeReference<UserDesignSelectionDO>(){});
 
 		if (StringUtils.isBlank(strTransactionId)) {
@@ -113,7 +112,8 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 
 	@Override
 	@Transactional
-	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException {
+	public void updateServiceFeaturesData(Map<String, Object> paramValues, Long solutionId, String userId) throws SQLException, JsonProcessingException {
+		String jsonString = jacksonObjectMapper.writeValueAsString(paramValues);
 		dbServiceImpl.updateServiceFeaturesData(jsonString, solutionId, userId);
 	}
 
@@ -127,8 +127,7 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	@Transactional(readOnly = true)
 	public String getSiteInfoBySolutionId(Long solutionId) throws JsonProcessingException {
 		Map<String, String> result = dbServiceImpl.getSiteInfoBySolutionId(solutionId);
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonString = mapper.writeValueAsString(result);
+		String jsonString = jacksonObjectMapper.writeValueAsString(result);
 		return jsonString;
 	}
 
@@ -137,8 +136,9 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	public String getResultsData(Long solutionId, Map<String, Object> paramValues) throws JSONException, IOException {
 		String portSpeed = (String) paramValues.get("portSpeed");
 		String accessSpeed = (String) paramValues.get("accessSpeed");
-		String resultDataJSON = dbServiceImpl.getResultsData(accessSpeed, portSpeed);
-		return resultDataJSON;
+		List<Map<String, Object>> resultList = dbServiceImpl.getResultsData(accessSpeed, portSpeed);
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(resultList);
 	}
 
 	@Override
