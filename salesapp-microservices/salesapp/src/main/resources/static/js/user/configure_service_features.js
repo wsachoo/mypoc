@@ -298,7 +298,6 @@ function handleSecurityService($thisRef, eventSource){
 		$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
 	}else{
 		$("#div_securityService").remove();
-		$("#configureForm #div_securityService").remove();
 	}
 }
 
@@ -309,7 +308,7 @@ function handleMiscService($thisRef, eventSource){
 		$(miscServiceOptions).insertBefore('.sachbottommenu');
 		$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
 	}else{
-		$("#configureForm #div_miscService").remove();
+		$("#div_miscService").remove();
 		
 	}
 }
