@@ -91,7 +91,10 @@ gUserConfiguration = (function() {
 		},
 		
 		clearConfiguration : function() {
-			userConfigStore = {};
+			userConfigStore = {
+					"sites" : {}
+			};
+			
 			tempConfigStore = {
 					"accessConfig" : {},
 					"portConfig" : {},
