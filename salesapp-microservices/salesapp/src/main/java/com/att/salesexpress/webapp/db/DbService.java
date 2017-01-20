@@ -41,5 +41,11 @@ public interface DbService {
 	Map<String, String> getSiteInfoBySolutionId(Long solutionId);
 
 	void insertSiteConfigurationDataInRelational(UserDesignSelectionDO userDesignDo) throws SQLException;
+	
+	public void getFinalResultDataByProc();
+
+	public void updateSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO);
+
+	public void removePreviousSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO);
 
 }

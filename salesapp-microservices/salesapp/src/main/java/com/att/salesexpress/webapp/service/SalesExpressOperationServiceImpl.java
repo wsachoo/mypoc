@@ -19,6 +19,7 @@ import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
 import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
@@ -30,6 +31,7 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	private DbService dbServiceImpl;
 
 	@Override
+	@Transactional(readOnly = true)
 	public String getJsonMetaDataByUserIdSolutionId(String userId, Long solutionId) throws JsonProcessingException {
 		Map<String, String> valuesMap = new HashMap<>();
 		valuesMap.put("userId", userId);
@@ -51,12 +53,14 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	 * getSiteConfigurationMetaDataBySiteType(java.lang.String)
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public String getSiteConfigurationMetaDataBySiteType(String siteType) {
 		String siteData = dbServiceImpl.getSiteMetaData(siteType);
 		return siteData;
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public String getPortSpeedsByAccessData(String accessType, String accessSpeed) throws JsonProcessingException {
 		List<PortSpeedDO> portSpeedList = dbServiceImpl.getPortSpeedsByAccessData(accessType, accessSpeed);
 		ObjectMapper mapper = new ObjectMapper();
@@ -65,6 +69,7 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public String getAllAccessSpeeds() throws JsonProcessingException {
 		Map<String, List<AccessSpeedDO>> result = dbServiceImpl.getAllAccessSpeeds();
 		ObjectMapper mapper = new ObjectMapper();
@@ -73,6 +78,7 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId) {
 		Integer transactionId = dbServiceImpl.getTransactionIdByUserIdSolutionId(userId, solutionId);
 		logger.debug("Transaction Id retrieved from database is {}", transactionId);
@@ -82,19 +88,23 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	@Override
 	@Transactional
 	public Map<String, Object> saveSiteConfigurationData(Map<String, Object> paramValues, Object userId,
-			String strTransactionId, Long lSolutionId) throws JsonProcessingException, SQLException {
+			String strTransactionId, Long lSolutionId) throws SQLException, IOException {
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
-		// String jsonString = mapper.writeValueAsString(paramValues);
 		String jsonString = mapper.writeValueAsString(paramValues);
 		Long transactionId = -1L;
 
+		UserDesignSelectionDO objUserDesignSelectionDO = mapper.readValue(jsonString,
+				new TypeReference<UserDesignSelectionDO>(){});
+
 		if (StringUtils.isBlank(strTransactionId)) {
 			transactionId = dbServiceImpl.insertSiteConfigurationData(userId.toString(), lSolutionId, jsonString);
-			dbServiceImpl.insertSiteConfigurationDataInRelational(new UserDesignSelectionDO());
+			dbServiceImpl.insertSiteConfigurationDataInRelational(objUserDesignSelectionDO);
 		} else {
 			transactionId = Long.parseLong(strTransactionId);
 			dbServiceImpl.updateSiteConfigurationData(transactionId, jsonString);
+			dbServiceImpl.removePreviousSiteConfigurationDataInRelational(objUserDesignSelectionDO);
+			dbServiceImpl.insertSiteConfigurationDataInRelational(objUserDesignSelectionDO);
 		}
 		returnValues.put("status", "success");
 		returnValues.put("transactionId", transactionId);
@@ -102,16 +112,19 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	}
 
 	@Override
+	@Transactional
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException {
 		dbServiceImpl.updateServiceFeaturesData(jsonString, solutionId, userId);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Long fetchDefaultSolutionIdByUserId(String userId) {
 		return dbServiceImpl.fetchDefaultSolutionIdByUserId(userId);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public String getSiteInfoBySolutionId(Long solutionId) throws JsonProcessingException {
 		Map<String, String> result = dbServiceImpl.getSiteInfoBySolutionId(solutionId);
 		ObjectMapper mapper = new ObjectMapper();
@@ -120,11 +133,21 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public String getResultsData(Long solutionId, Map<String, Object> paramValues) throws JSONException, IOException {
 		String portSpeed = (String) paramValues.get("portSpeed");
 		String accessSpeed = (String) paramValues.get("accessSpeed");
 		String resultDataJSON = dbServiceImpl.getResultsData(accessSpeed, portSpeed);
 		return resultDataJSON;
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public void getResultDataByProc() {
+		
+		dbServiceImpl.getFinalResultDataByProc();
+		
+	}
+	
 
 }

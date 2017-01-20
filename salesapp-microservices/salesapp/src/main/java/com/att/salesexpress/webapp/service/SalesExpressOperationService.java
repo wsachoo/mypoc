@@ -19,7 +19,7 @@ public interface SalesExpressOperationService {
 	Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId);
 
 	Map<String, Object> saveSiteConfigurationData(Map<String, Object> paramValues, Object userId,
-			String strTransactionId, Long lSolutionId) throws JsonProcessingException, SQLException;
+			String strTransactionId, Long lSolutionId) throws JsonProcessingException, SQLException, IOException;
 
 	void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException;
 
@@ -30,4 +30,6 @@ public interface SalesExpressOperationService {
 	Long fetchDefaultSolutionIdByUserId(String userId);
 
 	String getSiteInfoBySolutionId(Long solutionId) throws JsonProcessingException;
+	
+	public void getResultDataByProc();
 }

@@ -11,7 +11,7 @@
                 </pattern>>
             </PatternLayout>
         </Console>
-        <File name="App-Appender" fileName="${path}/app_log.log" >
+       <!--  <File name="App-Appender" fileName="${path}/app_log.log" >
             <PatternLayout>
                 <pattern>
                     [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
@@ -24,7 +24,7 @@
                     [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
                 </pattern>
             </PatternLayout>
-        </File>
+        </File> -->
     </Appenders>
     <Loggers>
         <Logger name="org.springframework.web" level="info" additivity="false">

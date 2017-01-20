@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
 import com.att.salesexpress.webapp.service.SalesExpressOperationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,8 +48,8 @@ public class SalesExpressJsonDataController {
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> postSiteConfiguration(@RequestBody Map<String, Object> paramValues,
 			final HttpServletRequest request, final HttpServletResponse response)
-			throws ServletRequestBindingException, JsonProcessingException, SQLException {
-		logger.info("Inside getValues() method ");
+			throws ServletRequestBindingException, SQLException, IOException {
+		logger.info("Inside postSiteConfiguration() method ");
 
 		Object userId = (String) paramValues.get("userId");
 		Object solutionId = paramValues.get("solutionId");
@@ -69,7 +70,7 @@ public class SalesExpressJsonDataController {
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> saveServiceFeaturesData(@RequestBody Map<String, Object> paramValues,
 			HttpServletRequest request) throws JsonProcessingException, SQLException {
-		logger.info("Inside saveServiceFeaturesData " + paramValues);
+		logger.info("Inside saveServiceFeaturesData method");
 		HttpSession session = request.getSession();
 
 		String userId = (String) session.getAttribute("userId");
@@ -94,9 +95,10 @@ public class SalesExpressJsonDataController {
 		HttpSession session = request.getSession();
 		Long solutionId = (Long) session.getAttribute("solutionId");
 		logger.debug("Solution is retrieved from session is {}", solutionId);
-
 		String resultDataJSON = salesExpressOperationServiceImpl.getResultsData(solutionId, paramValues);
+		/*salesExpressOperationServiceImpl.getResultDataByProc();*/
 		return new ResponseEntity<String>(resultDataJSON, HttpStatus.OK);
+		
 	}
 
 	@ResponseBody

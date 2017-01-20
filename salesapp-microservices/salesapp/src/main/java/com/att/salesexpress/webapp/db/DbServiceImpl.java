@@ -9,7 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
 import javax.sql.DataSource;
+
+
+
+import org.apache.commons.lang3.StringUtils;
 
 import org.json.JSONException;
 import org.slf4j.Logger;
@@ -17,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -29,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
 import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
+import com.att.salesexpress.webapp.pojos.UserSiteDesignDO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -48,7 +56,6 @@ public class DbServiceImpl implements DbService {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	@Transactional(readOnly = true)
 	public String getSiteMetaData(String siteType) {
 		logger.debug("inside getSiteMetaData debug mode");
 		logger.info("Inside getSiteMetaData() method with siteType {}", siteType);
@@ -58,7 +65,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Long solutionId) {
 		logger.info("Inside findUserDetailByUserIdSolutionId() method.");
 		String sql = "select a.SITE_ID, a.ADDRESS_NAME || ', ' || a.CITY || ', ' || a.STATE || ', ' || a.ZIP || ' ' || a.COUNTRY as site_addr from sales_site a where a.DESIGN_ID = ?";
@@ -109,26 +115,82 @@ public class DbServiceImpl implements DbService {
 	@Override
 	public void insertSiteConfigurationDataInRelational(final UserDesignSelectionDO userDesignDo) throws SQLException {
 		logger.info("Inside insertSiteConfigurationDataInRelational() method.");
+		final List<UserSiteDesignDO> userSiteDesignDOList = new ArrayList<>(userDesignDo.getSiteDesignList().values());
+		
+		final String sqlBatchInsert = "INSERT INTO sales_design ("
+													+ "SITE_ID, RATE_PLAN, PORT_TYPE, "
+													+ "ACCESS_SPEED, PORT_SPEED, L2_PROTOCOL, "
+													+ "HCF_MIN_COMMITMENT_ID, COS_YN, CREATED_DATE, "
+													+ "CREATED_ID, MODIFIED_DATE, MODIFIED_ID, SOLUTION_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE, ?, ?)";
+		
+		jdbcTemplate.batchUpdate(sqlBatchInsert, new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
+				UserSiteDesignDO objUserSiteDesignDO = userSiteDesignDOList.get(i);
+				pstmt.setLong(1, objUserSiteDesignDO.getSiteId()); //HCF_MIN_COMMITMENT_ID
+				pstmt.setString(2, StringUtils.EMPTY); //RATE_PLAN
+				pstmt.setString(3, objUserSiteDesignDO.getPortConfigDesign().getPortType()); //PORT_TYPE
+				pstmt.setLong(4, objUserSiteDesignDO.getAccessConfigDesign().getSliderSpeedValue()); //ACCESS_SPEED
+				pstmt.setLong(5, objUserSiteDesignDO.getPortConfigDesign().getSliderPortSpeedValue()); //PORT_SPEED
+				pstmt.setString(6, StringUtils.EMPTY); //L2_PROTOCOL
+				pstmt.setLong(7, -1); //HCF_MIN_COMMITMENT_ID
+				pstmt.setString(8, StringUtils.EMPTY); //COS_YN
+				pstmt.setString(9, userDesignDo.getUserId()); //CREATED_ID
+				pstmt.setString(10, userDesignDo.getUserId()); //MODIFIED_ID	
+				pstmt.setLong(11, userDesignDo.getSolutionId()); //HCF_MIN_COMMITMENT_ID
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return userDesignDo.getSiteDesignList().keySet().size();
+			}
+		});
+	}
+	
 
-/*		String sqlSeq = "SELECT SLEXP_SITEDETAIL_TX_SEQ.nextval as trxn_seq FROM dual";
-		final Long seqNum = jdbcTemplate.queryForObject(sqlSeq, Long.class);
-*/
-		final String sql = "INSERT INTO sales_design (SITE_ID, ACCESS_SPEED, PORT_SPEED, PORT_TYPE, CREATED_DATE) VALUES (?, ?, ?, ?, SYSDATE)";
-		jdbcTemplate.update(new PreparedStatementCreator() {
+	@Override
+	public void removePreviousSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO) {
+		logger.info("deleting previous site configuration data from relation tables");
+		String sqlDelete = "delete from sales_design where SOLUTION_ID = ?";
+		jdbcTemplate.update(sqlDelete, objUserDesignSelectionDO.getSolutionId());
+	}
 
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				pstmt.setLong(1, 10);
-				pstmt.setLong(2, 11);
-				pstmt.setLong(3, 12);
-				pstmt.setString(4, "ETHERNET");
-				return pstmt;
+	@Override
+	public void updateSiteConfigurationDataInRelational(final UserDesignSelectionDO userDesignDo) {
+		logger.info("Inside updateSiteConfigurationDataInRelational() method.");
+		final List<UserSiteDesignDO> userSiteDesignDOList = new ArrayList<>(userDesignDo.getSiteDesignList().values());
+		
+		final String sqlBatchInsert = "update sales_design set "
+													+ "RATE_PLAN = ?, PORT_TYPE= ?, "
+													+ "ACCESS_SPEED = ?, PORT_SPEED = ?, L2_PROTOCOL = ?, "
+													+ "HCF_MIN_COMMITMENT_ID = ?, COS_YN = ?, "
+													+ "MODIFIED_DATE = SYSDATE, MODIFIED_ID = ? where SITE_ID = ?";
+		
+		jdbcTemplate.batchUpdate(sqlBatchInsert, new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
+				UserSiteDesignDO objUserSiteDesignDO = userSiteDesignDOList.get(i);
+				pstmt.setString(1, StringUtils.EMPTY); //RATE_PLAN
+				pstmt.setString(2, objUserSiteDesignDO.getPortConfigDesign().getPortType()); //PORT_TYPE
+				pstmt.setLong(3, objUserSiteDesignDO.getAccessConfigDesign().getSliderSpeedValue()); //ACCESS_SPEED
+				pstmt.setLong(4, objUserSiteDesignDO.getPortConfigDesign().getSliderPortSpeedValue()); //PORT_SPEED
+				pstmt.setString(5, StringUtils.EMPTY); //L2_PROTOCOL
+				pstmt.setLong(6, -1); //HCF_MIN_COMMITMENT_ID
+				pstmt.setString(7, StringUtils.EMPTY); //COS_YN
+				pstmt.setString(8, userDesignDo.getUserId()); //MODIFIED_ID
+				pstmt.setLong(9, objUserSiteDesignDO.getSiteId()); //SITE_ID				
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return userDesignDo.getSiteDesignList().keySet().size();
 			}
 		});
 	}
 	
 	@Override
-	@Transactional(readOnly = true)
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId) {
 		String sql = "SELECT ID FROM SLEXP_SITEDETAIL_TX WHERE USER_ID = ? and SOLUTION_ID = ?";
 		try {
@@ -142,7 +204,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional
 	public void updateSiteConfigurationData(long transactionId, String jsonString) throws SQLException {
 		logger.info("Inside updateSiteConfigurationData() method.");
 		String sqlUpdate = "UPDATE SLEXP_SITEDETAIL_TX SET ACCESS_DATA = ? WHERE ID = ?";
@@ -152,7 +213,6 @@ public class DbServiceImpl implements DbService {
 
 	
 	@Override
-	@Transactional
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException {
 		logger.info("Inside updateServiceFeaturesData");
 		String sqlUpdate = "update SLEXP_SITEDETAIL_TX set SERVICE_FEATURE_DATA = ? where SOLUTION_ID = ? and USER_ID = ?";
@@ -162,7 +222,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public String getResultsData(String accessSpeed, String portSpeed) throws JsonProcessingException, JSONException {
 		logger.info("Inside getResultsData method.");
 		String sql = "select * from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_SPEED_ID = ? order by MRC asc, NRC asc";
@@ -173,7 +232,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<PortSpeedDO> getPortSpeedsByAccessData(final String accessType, final String accessSpeed) {
 		logger.info("Access Speed and Access Type received are {} and {}", accessSpeed, accessType);
 		String sql = "select PORT_SPEED_ID, MRC, NRC from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_TYPE = ?";
@@ -193,7 +251,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Map<String, List<AccessSpeedDO>> getAllAccessSpeeds() {
 		String sql = "select PORT_TYPE, ACCESS_SPEED_ID, min(MRC) || '-' || max(MRC) as MRC, min(NRC) || '-' || max(NRC) as NRC "
 				+ "from sales_rules  group by PORT_TYPE, ACCESS_SPEED_ID  order by PORT_TYPE, ACCESS_SPEED_ID";
@@ -223,7 +280,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Long fetchDefaultSolutionIdByUserId(String userId) {
 		String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?) and rownum=1";
 		Long solutionId = jdbcTemplate.queryForObject(sql, Long.class, userId);
@@ -232,7 +288,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Map<String, String> getSiteInfoBySolutionId(Long solutionId) {
 		Map<String, String> output = new HashMap<>();
 
@@ -243,5 +298,15 @@ public class DbServiceImpl implements DbService {
 		}
 
 		return output;
+	}
+	
+	@Override
+	public void getFinalResultDataByProc() {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("sample_procedure");
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		SqlParameterSource inParamSource = new MapSqlParameterSource(inParamMap);
+		simpleJdbcCall.execute(inParamSource);
+		logger.debug("logging resultSet of sample_procedure call");
+		
 	}
 }
