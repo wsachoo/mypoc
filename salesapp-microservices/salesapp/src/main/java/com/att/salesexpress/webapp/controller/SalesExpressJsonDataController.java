@@ -95,9 +95,10 @@ public class SalesExpressJsonDataController {
 		HttpSession session = request.getSession();
 		Long solutionId = (Long) session.getAttribute("solutionId");
 		logger.debug("Solution is retrieved from session is {}", solutionId);
-
 		String resultDataJSON = salesExpressOperationServiceImpl.getResultsData(solutionId, paramValues);
+		/*salesExpressOperationServiceImpl.getResultDataByProc();*/
 		return new ResponseEntity<String>(resultDataJSON, HttpStatus.OK);
+		
 	}
 
 	@ResponseBody

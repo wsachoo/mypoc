@@ -36,7 +36,6 @@ function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 								  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
 								  "<strong>Success!</strong> The request has been submitted successfully</div>";
 		$("#divPortConfigClickApplyMessage").html(successAlertMessage);
-		
 		displayPostSpeedSelectionInLeftNavigation();
 
 	})

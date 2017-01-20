@@ -9,7 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
+import javax.sql.DataSource;
+
+
+
 import org.apache.commons.lang3.StringUtils;
+
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +27,9 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,13 +49,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class DbServiceImpl implements DbService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
+	
 	@Autowired
 	@Qualifier("hikariOraJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	@Transactional(readOnly = true)
 	public String getSiteMetaData(String siteType) {
 		logger.debug("inside getSiteMetaData debug mode");
 		logger.info("Inside getSiteMetaData() method with siteType {}", siteType);
@@ -55,7 +65,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Long solutionId) {
 		logger.info("Inside findUserDetailByUserIdSolutionId() method.");
 		String sql = "select a.SITE_ID, a.ADDRESS_NAME || ', ' || a.CITY || ', ' || a.STATE || ', ' || a.ZIP || ' ' || a.COUNTRY as site_addr from sales_site a where a.DESIGN_ID = ?";
@@ -181,7 +190,6 @@ public class DbServiceImpl implements DbService {
 	}
 	
 	@Override
-	@Transactional(readOnly = true)
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId) {
 		String sql = "SELECT ID FROM SLEXP_SITEDETAIL_TX WHERE USER_ID = ? and SOLUTION_ID = ?";
 		try {
@@ -202,21 +210,8 @@ public class DbServiceImpl implements DbService {
 		logger.info("Return value after update is {}", iReturnVal);
 	}
 
-	@Transactional(readOnly = true)
-	public List getServices() {
-		logger.info("Inside getServices method");
-		String sql = "select SERVICE_NAME from SLEXP_SERVICE_CONFIG";
-		List<Map> serviceList = (List) jdbcTemplate.queryForList(sql);
-		for (Map x : serviceList) {
-			logger.info("" + x.get("service_name"));
-
-		}
-		logger.info("" + serviceList);
-		return serviceList;
-	}
-
+	
 	@Override
-	@Transactional
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException {
 		logger.info("Inside updateServiceFeaturesData");
 		String sqlUpdate = "update SLEXP_SITEDETAIL_TX set SERVICE_FEATURE_DATA = ? where SOLUTION_ID = ? and USER_ID = ?";
@@ -226,7 +221,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public String getResultsData(String accessSpeed, String portSpeed) throws JsonProcessingException, JSONException {
 		logger.info("Inside getResultsData method.");
 		String sql = "select * from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_SPEED_ID = ? order by MRC asc, NRC asc";
@@ -237,7 +231,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<PortSpeedDO> getPortSpeedsByAccessData(final String accessType, final String accessSpeed) {
 		logger.info("Access Speed and Access Type received are {} and {}", accessSpeed, accessType);
 		String sql = "select PORT_SPEED_ID, MRC, NRC from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_TYPE = ?";
@@ -257,7 +250,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Map<String, List<AccessSpeedDO>> getAllAccessSpeeds() {
 		String sql = "select PORT_TYPE, ACCESS_SPEED_ID, min(MRC) || '-' || max(MRC) as MRC, min(NRC) || '-' || max(NRC) as NRC "
 				+ "from sales_rules  group by PORT_TYPE, ACCESS_SPEED_ID  order by PORT_TYPE, ACCESS_SPEED_ID";
@@ -287,7 +279,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Long fetchDefaultSolutionIdByUserId(String userId) {
 		String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?) and rownum=1";
 		Long solutionId = jdbcTemplate.queryForObject(sql, Long.class, userId);
@@ -296,7 +287,6 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Map<String, String> getSiteInfoBySolutionId(Long solutionId) {
 		Map<String, String> output = new HashMap<>();
 
@@ -307,5 +297,15 @@ public class DbServiceImpl implements DbService {
 		}
 
 		return output;
+	}
+	
+	@Override
+	public void getFinalResultDataByProc() {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("sample_procedure");
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		SqlParameterSource inParamSource = new MapSqlParameterSource(inParamMap);
+		simpleJdbcCall.execute(inParamSource);
+		logger.debug("logging resultSet of sample_procedure call");
+		
 	}
 }

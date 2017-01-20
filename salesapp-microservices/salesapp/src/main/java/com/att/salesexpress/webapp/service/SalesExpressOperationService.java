@@ -30,4 +30,6 @@ public interface SalesExpressOperationService {
 	Long fetchDefaultSolutionIdByUserId(String userId);
 
 	String getSiteInfoBySolutionId(Long solutionId) throws JsonProcessingException;
+	
+	public void getResultDataByProc();
 }

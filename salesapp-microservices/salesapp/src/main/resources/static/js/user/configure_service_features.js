@@ -54,8 +54,6 @@ $(document).ready(function(){
 			  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
 			  "<strong>Success!</strong> Service and Features data has been submitted successfully</div>";
     		$("#divSubmitAlert").html(successAlertMessage);
-    		$("#btnApplyServiceFeatureOptions").attr("disabled", true);
-    		$("#btnProceedToResults").removeAttr("disabled");
     		displayFeaturesAppliedInLeftNav();
     		
     	})
@@ -386,7 +384,6 @@ function displayAvailProdInLeftNav(returnResultData){
 		if(chkAccountReceivables){
 			ar_availableProducts.css("font-weight", "bold");
 			ar_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"  "+thumbsUpIcon+"</li>");
-			returnResultData[1]["PRODUCT"]
 		}
 		if(chkDistributionCenter){
 			dc_availableProducts.css("font-weight", "bold");
