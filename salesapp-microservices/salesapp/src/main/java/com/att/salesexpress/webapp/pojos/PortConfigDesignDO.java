@@ -1,5 +1,8 @@
 package com.att.salesexpress.webapp.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PortConfigDesignDO {
 	Long sliderPortSpeedValue = -1L;
 	String portType;

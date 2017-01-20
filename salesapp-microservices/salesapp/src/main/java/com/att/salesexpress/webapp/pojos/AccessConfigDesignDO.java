@@ -2,7 +2,7 @@ package com.att.salesexpress.webapp.pojos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(value = { "accessRequired" })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AccessConfigDesignDO {
 	String selectAccessType;
 	Long sliderSpeedValue = -1L;

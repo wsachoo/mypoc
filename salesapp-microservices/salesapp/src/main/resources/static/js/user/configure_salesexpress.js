@@ -5,6 +5,7 @@ $(document).ready(function() {
 			
 			switch (eventSourceName) {
 				case 'btnCustomize':
+					gUserConfiguration.clearConfiguration();
 					handleBtnCustomizeClick($(this), e.target);
 					break;
 				case 'btnSetGreatestCompatibleSpeeds':
@@ -123,7 +124,7 @@ function handleBtnCustomizeClick($thisRef, eventSource) {
 
 function handleBtnCustomizePortSpeed($thisRef, eventSource) {
 	removeNextAllSiblingDivRows($(eventSource));
-	var accessType = gUserConfiguration.getConfigurationData().accessConfig.selectAccessType || gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes ;
+	var accessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes || gUserConfiguration.getConfigurationData().accessConfig.selectAccessType;
 	
 	var portConfigOptions = $.tmpl("port_config_options_template", { 
 		"portConfiguration" : siteMetaData.portSpeeds[accessType]

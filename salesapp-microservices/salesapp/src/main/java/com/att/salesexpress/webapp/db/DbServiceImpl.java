@@ -120,7 +120,7 @@ public class DbServiceImpl implements DbService {
 			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
 				UserSiteDesignDO objUserSiteDesignDO = userSiteDesignDOList.get(i);
 				pstmt.setLong(1, objUserSiteDesignDO.getSiteId()); //HCF_MIN_COMMITMENT_ID
-				pstmt.setString(2, StringUtils.EMPTY); //RATE_PLAN
+				pstmt.setString(2, objUserSiteDesignDO.getPortConfigDesign().getRatePlan()); //RATE_PLAN
 				pstmt.setString(3, objUserSiteDesignDO.getPortConfigDesign().getPortType()); //PORT_TYPE
 				pstmt.setLong(4, objUserSiteDesignDO.getAccessConfigDesign().getSliderSpeedValue()); //ACCESS_SPEED
 				pstmt.setLong(5, objUserSiteDesignDO.getPortConfigDesign().getSliderPortSpeedValue()); //PORT_SPEED
@@ -138,7 +138,6 @@ public class DbServiceImpl implements DbService {
 			}
 		});
 	}
-	
 
 	@Override
 	public void removePreviousSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO) {
@@ -163,7 +162,7 @@ public class DbServiceImpl implements DbService {
 			@Override
 			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
 				UserSiteDesignDO objUserSiteDesignDO = userSiteDesignDOList.get(i);
-				pstmt.setString(1, StringUtils.EMPTY); //RATE_PLAN
+				pstmt.setString(1, objUserSiteDesignDO.getPortConfigDesign().getRatePlan()); //RATE_PLAN
 				pstmt.setString(2, objUserSiteDesignDO.getPortConfigDesign().getPortType()); //PORT_TYPE
 				pstmt.setLong(3, objUserSiteDesignDO.getAccessConfigDesign().getSliderSpeedValue()); //ACCESS_SPEED
 				pstmt.setLong(4, objUserSiteDesignDO.getPortConfigDesign().getSliderPortSpeedValue()); //PORT_SPEED
