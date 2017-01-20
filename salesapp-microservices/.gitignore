@@ -22,4 +22,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-salesapp/logs
+salesapp/logs/
