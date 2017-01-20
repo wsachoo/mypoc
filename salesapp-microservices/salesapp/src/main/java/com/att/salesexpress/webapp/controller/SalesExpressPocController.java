@@ -67,7 +67,7 @@ public class SalesExpressPocController {
 	 * return view; }
 	 */
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public ModelAndView showMap(HttpServletRequest request) throws JsonProcessingException {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = user.getUsername();
