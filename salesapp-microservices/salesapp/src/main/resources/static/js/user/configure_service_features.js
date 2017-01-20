@@ -284,7 +284,8 @@ function handleDataService($thisRef, eventSource){
 			$(dataServiceOptions).insertBefore('.sachbottommenu');
 			$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
 		}else{
-			$thisRef.find('.div_dataService_tmpl').remove();
+			/*$thisRef.find('.div_dataService_tmpl').remove(); changing from class to id*/
+			$thisRef.find("#div_dataService").remove();
 		}
 			
 }
@@ -298,7 +299,8 @@ function handleSecurityService($thisRef, eventSource){
 		$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
 	}else{
 		$("#div_securityService").remove();
-		$("#configureForm .div_securityService_tmpl").remove();
+		/*$("#configureForm .div_securityService_tmpl").remove();*/
+		$("#configureForm #div_securityService").remove();
 	}
 }
 
@@ -309,7 +311,9 @@ function handleMiscService($thisRef, eventSource){
 		$(miscServiceOptions).insertBefore('.sachbottommenu');
 		$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
 	}else{
-		$("#configureForm .div_miscService_tmpl").remove();
+		/*$("#configureForm .div_miscService_tmpl").remove();*/
+		$("#configureForm #div_miscService").remove();
+		
 	}
 }
 
