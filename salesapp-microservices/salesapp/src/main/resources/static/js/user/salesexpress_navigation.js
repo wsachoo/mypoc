@@ -16,9 +16,24 @@ $(document).ready(function() {
     $('.sachtopmenu').on('click', "a", function(event) {
         var name = $(event.target).data('name');
         
-        if (("accessAndPort" === name) || ("siteMap" === name)) {
-        	var url = $(event.target).data('url');
-            location.replace(url);
+        if (("siteMap" === name)) {
+        	//var url = $(event.target).data('url');
+            //location.replace(url);
+        	performTabChangeAction(name);
+        	var topMenuDiv = $("div.sachtopmenu");
+        	removeNextAllSiblingDivRows(topMenuDiv);
+        	var initGmapTemplate = $.tmpl("init_gmap_template");
+        	topMenuDiv.after(initGmapTemplate);
+        	topMenuDiv.trigger('create');
+        	displayUserSitesOnGoogleMap();
+        }
+        else if ("accessAndPort" === name) {
+        	performTabChangeAction(name);
+        	var topMenuDiv = $("div.sachtopmenu");
+        	removeNextAllSiblingDivRows(topMenuDiv);
+        	var initAccessConfigTemplate = $.tmpl("init_access_config_template");
+        	topMenuDiv.after(initAccessConfigTemplate);
+        	topMenuDiv.trigger('create');
         }
         else if (("serviceAndFeatures" === name) ||  ("results" === name)) {
         	//performTabChangeAction(name);

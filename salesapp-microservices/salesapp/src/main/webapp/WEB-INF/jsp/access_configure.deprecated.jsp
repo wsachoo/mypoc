@@ -67,25 +67,7 @@
 					<a href="#" id="resultsPage" style="color: white" data-name="results" data-url="${pageContext.request.contextPath}/results">Results</a>
 				</div>				
 			</div>
-			
-			<div class="clearfix"></div>
-			<div class="row salesexpress-content-margin">
-				<div class="col-sm-12">
-					<label for="name">Do you have access requirements at any of your sites?</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="radio col-sm-11 col-sm-offset-1">
-					<label> <input type="radio" name="accessConfig-accessRequired"
-						id="accessRequiredNo" value="false"> No
-					</label>
-				</div>
-				<div class="radio col-sm-11 col-sm-offset-1">
-					<label> <input type="radio" name="accessConfig-accessRequired"
-						id="accessRequiredYes" value="true"> Yes
-					</label>
-				</div>
-			</div>
+			<!-- template for access configuration will be placed at this location -->
  			<div class="row sachbottommenu">
 				<div class="col-sm-12 sachfootermenuitem" id="divFooterMessage">
 					Need to apply an access and port speed to all sites before moving on
