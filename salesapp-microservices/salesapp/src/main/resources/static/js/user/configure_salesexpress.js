@@ -5,7 +5,7 @@ $(document).ready(function() {
 			
 			switch (eventSourceName) {
 				case 'btnCustomize':
-					gUserConfiguration.clearConfiguration();
+					//gUserConfiguration.clearConfiguration();
 					handleBtnCustomizeClick($(this), e.target);
 					break;
 				case 'btnSetGreatestCompatibleSpeeds':
