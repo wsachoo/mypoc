@@ -26,7 +26,7 @@
 			<ul class="sub-menu collapse" id="hq_availableProducts">
 				<li>Managed Internet Service</li>
 				<li>Standalone AVPN</li>
-				<li>FBB Express</li>
+				<li>VBB Express</li>
 			</ul>
 		</ul>
 		
@@ -59,7 +59,7 @@
 			<ul class="sub-menu collapse" id="ar_availableProducts">
 				<li>Managed Internet Service</li>
 				<li>Standalone AVPN</li>
-				<li>FBB Express</li>
+				<li>VBB Express</li>
 			</ul>
 		</ul>
 		
@@ -89,9 +89,9 @@
 						</a>					
 					</li>
 			<ul class="sub-menu collapse" id="dc_availableProducts">
-				<li>AVPN Over LightSpeed</li>
+				<li>Managed Internet Service</li>
 				<li>Standalone AVPN</li>
-				<li>VPN Value Bundle</li>
+				<li>VBB Express</li>
 			</ul>
 		</ul>
 		<hr style="border-top: 1px solid #c5bebe;"></hr>
