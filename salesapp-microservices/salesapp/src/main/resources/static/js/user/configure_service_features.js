@@ -14,9 +14,6 @@ $(document).ready(function(){
 			}
 		},
 		
-		
-		
-		
 		"change" : function(e) {
 			var eventSourceName = e.target.name;
 			

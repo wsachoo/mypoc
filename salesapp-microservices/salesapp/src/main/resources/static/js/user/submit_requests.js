@@ -31,13 +31,8 @@ function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");
 	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
 	
-	promise.done(function(data, textStatus, jqXHR ) {
-		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
-								  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
-								  "<strong>Success!</strong> The request has been submitted successfully</div>";
-		$("#divPortConfigClickApplyMessage").html(successAlertMessage);
-		displayPostSpeedSelectionInLeftNavigation();
-
+	promise.done(function(data, textStatus, jqXHR) {
+		handlePortConfigurationSuccess(data, textStatus, jqXHR);
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
 		var errorObject = $.parseJSON(jqXHR.responseText);
@@ -46,8 +41,25 @@ function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 		  						  "<strong>Failure!</strong> The request failed with this error: " + errorObject.reasonPhrase + "</div>";  
 		$("#divPortConfigClickApplyMessage").html(failureAlertMessage);
 	});	
-	$("#btnProceedToFeatures").css("display", "inline");
 	
+}
+
+function handlePortConfigurationSuccess(data, textStatus, jqXHR)
+{
+	displayPostSpeedSelectionInLeftNavigation();
+	if (isAllSitesConfigurationCompleted()) {
+		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
+		  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
+		  "<strong>Success!</strong> The request has been submitted successfully</div>";
+		$("#btnProceedToFeatures").css("display", "inline");
+		$("#divPortConfigClickApplyMessage").html(successAlertMessage);
+	}
+	else {
+		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
+		  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
+		  "<strong>Success!</strong> Please configure remaining sites to proceed further</div>";
+		$("#divPortConfigClickApplyMessage").html(successAlertMessage);		
+	}	
 }
 
 function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {

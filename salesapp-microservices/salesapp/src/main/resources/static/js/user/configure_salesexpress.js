@@ -44,6 +44,15 @@ $(document).ready(function() {
 });
 
 /*
+ * This method returns true if User has configured all the sites for the solution else it returns false.
+ */
+function isAllSitesConfigurationCompleted() {
+	var numberOfSitesToConfigure = Object.keys(gSiteIdNameMapping).length;
+	var numberOfSitesConfigured = Object.keys(gUserConfiguration.getUserConfigurationData().sites).length;
+	return (numberOfSitesToConfigure == numberOfSitesConfigured);
+}
+
+/*
  * This method is called from any action that requires removing the elements displayed after the clicked element
  */
 function removeNextAllSiblingDivRows($triggerElement) {

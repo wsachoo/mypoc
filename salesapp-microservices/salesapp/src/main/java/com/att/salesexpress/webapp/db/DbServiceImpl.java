@@ -202,7 +202,6 @@ public class DbServiceImpl implements DbService {
 		String sqlUpdate = "update SLEXP_SITEDETAIL_TX set SERVICE_FEATURE_DATA = ? where SOLUTION_ID = ? and USER_ID = ?";
 		int iReturnVal = jdbcTemplate.update(sqlUpdate, jsonString, solutionId, userId);
 		logger.info("Return value after service and features update : " + iReturnVal);
-
 	}
 
 	@Override
