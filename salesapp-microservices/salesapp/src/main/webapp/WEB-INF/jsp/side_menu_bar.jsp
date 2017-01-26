@@ -1,4 +1,4 @@
-<div class="nav-side-menu">
+<div class="nav-side-menu" id="sales_side_bar">
 	<div class="menu-list">
 		<ul id="menu-content" class="menu-content collapse out">
 			<li><input type="checkbox" name="chkHeadequarters">

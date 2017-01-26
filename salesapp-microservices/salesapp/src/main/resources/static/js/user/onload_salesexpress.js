@@ -45,7 +45,8 @@ function loadUserDetail() {
 		if (typeof gUserDetails === 'undefined') {
 			gUserDetails = JSON.parse($("#userDetail").html());
 		}
-	} catch (ex) {
+	} 
+	catch (ex) {
 	}
 }
 
@@ -60,8 +61,7 @@ function loadSiteIdNameMapping() {
 		$("input[name='chkHeadequarters']").val(gSiteIdNameMapping['Headquarters']);
 		$("input[name='chkDistributionCenter']").val(gSiteIdNameMapping['DistributionCenter']);
 		$("input[name='chkAccountReceivables']").val(gSiteIdNameMapping['Account Receivables']);
-
-
-	} catch (ex) {
+	} 
+	catch (ex) {
 	}
 }
