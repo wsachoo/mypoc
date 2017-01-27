@@ -40,7 +40,7 @@ $(document).ready(function(){
     	e.preventDefault();
     	
     	updateInMemoryServiceAndFeaturesFromFormObject($("#configureForm"));
-    	var formData = JSON.stringify(guserServiceFeatures.getServiceAndFeaturesData());
+    	var formData = JSON.stringify(guserServiceFeatures.getServiceAndFeaturesDataStore());
     	
     	var url = SALESEXPRESS_CONSTANTS.getUrlPath("postServiceFeaturesOptionsUrl");
     	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
@@ -69,8 +69,10 @@ $(document).ready(function(){
 });
 
 
-
 guserServiceFeatures = (function() {
+	var serviceAndFeaturesStore = {
+			"Services And Features" : {}
+	};
 	var serviceAndFeatures = {
 			"Data Service" : { 
 								"Performance" :{},
@@ -88,7 +90,7 @@ guserServiceFeatures = (function() {
 	
 	return {
 		addServiceAndFeaturesMetaInformation : function(key, value) {
-			serviceAndFeatures[key] = value;
+			serviceAndFeaturesStore[key] = value;
 		},
 		
 		//data service and features starts
@@ -150,11 +152,28 @@ guserServiceFeatures = (function() {
 		},
 		
 		//security service and feature ends
+		//new changes to put service and features config details inside sites
+		addServiceFeaturesConfigToSite : function(siteName) {
+			/*serviceAndFeaturesStore["Services And Features"] = {};*/
+			serviceAndFeaturesStore["Services And Features"][siteName] = ($.extend(true, {}, serviceAndFeatures));
+		},
+		addToSiteConfiguration : function(key, value) {
+			serviceAndFeatures[key] = value;
+		},
+		
 		getServiceAndFeaturesData : function() {
 			return serviceAndFeatures;
 		},
+		getServiceAndFeaturesDataStore : function() {
+			return serviceAndFeaturesStore;
+		},
 		
 		clearConfiguration : function() {
+			serviceAndFeaturesStore = {
+					"Services And Features" : {}
+			};
+		},
+		clearSiteConfiguration : function(){
 			serviceAndFeatures = {
 					"Data Service" : { 
 						"Performance" :{},
@@ -177,16 +196,8 @@ function updateInMemoryServiceAndFeaturesFromFormObject(form) {
 	var formData = form.serializeArray();
 	
     $.each(formData, function() {
-    	//alert(this.name);
     	var nameArray = this.name;
-    	/*
-    	if (nameArray.length == 1) {
-    		guserServiceFeatures.addServiceAndFeaturesMetaInformation(this.name, this.value);
-    	}*/
-    	/*else if (nameArray[0] === "dataService") {
-    		guserServiceFeatures.addDataServiceConfiguration(nameArray[1], this.value);
-    	}*/
-    	//misc service features starts
+    	
     	 if (nameArray === "miscService") {
     		/*guserServiceFeatures.addMiscServiceConfiguration(nameArray, this.value);*/
     	}
@@ -243,10 +254,27 @@ function updateInMemoryServiceAndFeaturesFromFormObject(form) {
     	 
     	//data service and features ends 
     	 
-    	else {
+    	else if ((nameArray === "solutionId") || (nameArray === "userId")||(nameArray === "transactionId")){
     		guserServiceFeatures.addServiceAndFeaturesMetaInformation(this.name, this.value);
     	}
     });
+    
+    var chkHeadequarters = $('input[name="chkHeadequarters"').is(":checked");
+    var chkAccountReceivables = $('input[name="chkAccountReceivables"').is(":checked");
+	var chkDistributionCenter = $('input[name="chkDistributionCenter"').is(":checked");
+	
+	if (chkHeadequarters) {
+		guserServiceFeatures.addToSiteConfiguration("siteId", $('input[name="chkHeadequarters"').val());
+		guserServiceFeatures.addServiceFeaturesConfigToSite("headQuarters");
+}
+	if (chkAccountReceivables) {
+		guserServiceFeatures.addToSiteConfiguration("siteId", $('input[name="chkAccountReceivables"').val());
+		guserServiceFeatures.addServiceFeaturesConfigToSite("accountReceivables");
+	}    
+	if (chkDistributionCenter) {
+		guserServiceFeatures.addToSiteConfiguration("siteId", $('input[name="chkDistributionCenter"').val());
+		guserServiceFeatures.addServiceFeaturesConfigToSite("distributionCenter");
+	} 
 }
 
 function handleActionRequiredActionServiceAndFeatures($thisRef, eventSource) {
