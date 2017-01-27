@@ -9,17 +9,19 @@ var gSiteIdNameMapping = {}; //Object to hold site_id and site_name mapping from
 
 SALESEXPRESS_CONSTANTS = (function() {
 	var _jQueryTemplates = {
-			"filter_access_type_template" : "templates/filter_access_type_template.html",
+			"filter_access_type_template" 	 : "templates/filter_access_type_template.html",
 			"access_config_options_template" : "templates/access_config_options_template.html",
 			"select_speed_configure_options" : "templates/select_speed_configure_options.html",
-			"modify_configuration_options" : "templates/modify_configuration_options.html",
-			"service_features_template" : "templates/service_features_template.html",
-			"service_features_data"		:"templates/service_features_data.html",
-			"service_features_security" : "templates/service_features_security.html",
-			"service_features_misc"		: "templates/service_features_misc.html",
-			"show_results_template"		: "templates/show_results_template.html",
-			"port_config_options_template" : "templates/port_config_options_template.html",
-			"service_features_init" : "templates/service_features_init.html"
+			"modify_configuration_options" 	 : "templates/modify_configuration_options.html",
+			"service_features_template" 	 : "templates/service_features_template.html",
+			"service_features_data"			 : "templates/service_features_data.html",
+			"service_features_security" 	 : "templates/service_features_security.html",
+			"service_features_misc"			 : "templates/service_features_misc.html",
+			"show_results_template"			 : "templates/show_results_template.html",
+			"port_config_options_template" 	 : "templates/port_config_options_template.html",
+			"service_features_init" 	 	 : "templates/service_features_init.html",
+			"init_access_config_template" 	 : "templates/init_access_config_template.html",
+			"init_gmap_template" 			 : "templates/init_gmap_template.html"
 	};
 	
 	var _jsonDataUrls = {

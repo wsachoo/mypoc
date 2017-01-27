@@ -47,26 +47,6 @@ public class SalesExpressPocController {
 		return view;
 	}
 
-	/*
-	 * @RequestMapping(value = "/login/{userId}/{solutionId}", method =
-	 * RequestMethod.GET) public ModelAndView showMap(HttpServletRequest
-	 * request, @PathVariable String userId, @PathVariable Long solutionId)
-	 * throws JsonProcessingException { logger.debug(
-	 * "Enter showMap with user id and solution id.");
-	 * 
-	 * HttpSession session = request.getSession();
-	 * session.setAttribute("userId", userId); session.setAttribute("loginId",
-	 * userId); session.setAttribute("solutionId", solutionId);
-	 * 
-	 * String jsonString = salesExpressMicroServiceCallerServiceImpl.
-	 * getJsonMetaDataByUserIdSolutionId(userId, solutionId);
-	 * 
-	 * ModelAndView view = new ModelAndView("show_map");
-	 * view.addObject("userDetail", jsonString);
-	 * 
-	 * return view; }
-	 */
-
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public ModelAndView showMap(HttpServletRequest request) throws JsonProcessingException {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -89,12 +69,20 @@ public class SalesExpressPocController {
 			siteIdNameMap = salesExpressOperationServiceImpl.getSiteInfoBySolutionId(solutionId);
 			session.setAttribute("siteIdNameMap", siteIdNameMap);
 		}
+		
+		Integer transactionId = (Integer) session.getAttribute("transactionId");
+		if (transactionId == null) {
+			transactionId = salesExpressOperationServiceImpl.getTransactionIdByUserIdSolutionId(userId, solutionId);
+			session.setAttribute("transactionId", transactionId);
+		}
 
+		ModelAndView view = new ModelAndView("home");
 		String jsonString = salesExpressOperationServiceImpl.getJsonMetaDataByUserIdSolutionId(userId, solutionId);
-
-		ModelAndView view = new ModelAndView("show_map");
 		view.addObject("userDetail", jsonString);
 		view.addObject("siteIdNameMap", siteIdNameMap);
+		view.addObject("userId", userId);
+		view.addObject("solutionId", solutionId);
+		view.addObject("transactionId", transactionId);
 
 		return view;
 	}
