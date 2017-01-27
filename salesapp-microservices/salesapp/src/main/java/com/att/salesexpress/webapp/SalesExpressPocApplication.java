@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.att.salesexpress.webapp" })
 public class SalesExpressPocApplication extends SpringBootServletInitializer implements CommandLineRunner {
-	static final Logger logger = LoggerFactory.getLogger(SalesExpressPocApplication.class);
+	protected static final Logger logger = LoggerFactory.getLogger(SalesExpressPocApplication.class);
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -28,7 +28,7 @@ public class SalesExpressPocApplication extends SpringBootServletInitializer imp
 	}
 
 	public static void main(String[] args) {
-		logger.info("Inside main method ");
+		logger.debug("Inside main method ");
 		SpringApplication.run(SalesExpressPocApplication.class, args);
 	}
 

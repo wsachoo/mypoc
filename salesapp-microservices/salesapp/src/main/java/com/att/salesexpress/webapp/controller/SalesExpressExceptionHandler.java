@@ -23,13 +23,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class SalesExpressExceptionHandler {
 
-	private static final Logger logger = LoggerFactory.getLogger(SalesExpressExceptionHandler.class);
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
 	public ExceptionDetail exceptionHandlerAjax(HttpServletRequest request, HttpServletResponse response,
 			Exception ex) {
-		logger.info("Inside exceptionHandlerAjax() method");
+		logger.debug("Inside exceptionHandlerAjax() method");
 		ResponseStatus responseStatusAnnotation = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
 		HttpStatus httpStatus = responseStatusAnnotation != null ? responseStatusAnnotation.value()
 				: HttpStatus.INTERNAL_SERVER_ERROR;
@@ -39,7 +39,7 @@ public class SalesExpressExceptionHandler {
 		exp.setErrorText(ex.getMessage());
 		String errStackTrace = ExceptionUtils.getStackTrace(ex);
 		exp.setStackTrace(errStackTrace);
-		logger.info("Exception stacktrace: " + errStackTrace);
+		logger.debug("Exception stacktrace: " + errStackTrace);
 		response.setStatus(exp.getErrorStatus());
 
 		return exp;
