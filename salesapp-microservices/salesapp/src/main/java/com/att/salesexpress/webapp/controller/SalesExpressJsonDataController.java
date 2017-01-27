@@ -29,7 +29,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Controller
 public class SalesExpressJsonDataController {
-	private static final Logger logger = LoggerFactory.getLogger(SalesExpressJsonDataController.class);
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private SalesExpressOperationService salesExpressOperationServiceImpl;
@@ -37,7 +37,7 @@ public class SalesExpressJsonDataController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "getMetaData/{siteType}")
 	public ResponseEntity<String> getSiteDataBySiteName(@PathVariable String siteType) {
-		logger.info("Inside getSiteDataBySiteName method, sitename : " + siteType);
+		logger.debug("Inside getSiteDataBySiteName method, sitename : " + siteType);
 		String siteMetaData = salesExpressOperationServiceImpl.getSiteConfigurationMetaDataBySiteType(siteType);
 		return new ResponseEntity<String>(siteMetaData, HttpStatus.OK);
 	}
@@ -47,13 +47,13 @@ public class SalesExpressJsonDataController {
 	public ResponseEntity<Map<String, Object>> postSiteConfiguration(@RequestBody Map<String, Object> paramValues,
 			final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletRequestBindingException, SQLException, IOException {
-		logger.info("Inside postSiteConfiguration() method ");
+		logger.debug("Inside postSiteConfiguration() method ");
 
 		Object userId = (String) paramValues.get("userId");
 		Object solutionId = paramValues.get("solutionId");
 		String strTransactionId = (String) paramValues.get("transactionId");
 
-		logger.info("Request parameters are userId: {}, solutionId: {}, transactionId: {}", userId, solutionId,
+		logger.debug("Request parameters are userId: {}, solutionId: {}, transactionId: {}", userId, solutionId,
 				strTransactionId);
 
 		Long lSolutionId = Long.parseLong(solutionId.toString());
@@ -68,12 +68,12 @@ public class SalesExpressJsonDataController {
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> saveServiceFeaturesData(@RequestBody Map<String, Object> paramValues,
 			HttpServletRequest request) throws JsonProcessingException, SQLException {
-		logger.info("Inside saveServiceFeaturesData method");
+		logger.debug("Inside saveServiceFeaturesData method");
 		HttpSession session = request.getSession();
 
 		String userId = (String) session.getAttribute("userId");
 		Long solutionId = (Long) session.getAttribute("solutionId");
-		logger.info("Inside saveServiceFeaturesData, user_id : " + userId + " solutionId :" + solutionId);
+		logger.debug("Inside saveServiceFeaturesData, user_id : " + userId + " solutionId :" + solutionId);
 
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		salesExpressOperationServiceImpl.updateServiceFeaturesData(paramValues, solutionId, userId);
@@ -86,7 +86,7 @@ public class SalesExpressJsonDataController {
 	@RequestMapping(value = "results", method = RequestMethod.GET)
 	public ResponseEntity<String> getResults(HttpServletRequest request, @RequestParam Map<String, Object> paramValues)
 			throws IOException, JSONException {
-		logger.info("Inside results() method " + this.getClass());
+		logger.debug("Inside results() method " + this.getClass());
 		HttpSession session = request.getSession();
 		Long solutionId = (Long) session.getAttribute("solutionId");
 		logger.debug("Solution is retrieved from session is {}", solutionId);
@@ -100,12 +100,12 @@ public class SalesExpressJsonDataController {
 	@RequestMapping(value = "getPortSpeedsByAccessSpeed", method = RequestMethod.GET)
 	public ResponseEntity<String> getPortSpeedsByAccessSpeed(@RequestParam Map<String, Object> paramValues)
 			throws IOException, JSONException {
-		logger.info("Inside getPortSpeedsByAccessSpeed() method " + this.getClass());
+		logger.debug("Inside getPortSpeedsByAccessSpeed() method " + this.getClass());
 		String accessType = (String) paramValues.get("accessType");
 		String accessSpeed = (String) paramValues.get("accessSpeed");
 
 		String resultDataJSON = salesExpressOperationServiceImpl.getPortSpeedsByAccessData(accessType, accessSpeed);
-		logger.info("Port speeds retrieved are {}", resultDataJSON);
+		logger.debug("Port speeds retrieved are {}", resultDataJSON);
 		return new ResponseEntity<String>(resultDataJSON, HttpStatus.OK);
 	}
 

@@ -23,14 +23,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
  */
 @Controller
 public class SalesExpressPocController {
-	private static final Logger logger = LoggerFactory.getLogger(SalesExpressPocController.class);
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private SalesExpressOperationService salesExpressOperationServiceImpl;
 
 	@RequestMapping(value = "/configure", method = RequestMethod.GET)
 	public ModelAndView configure(HttpServletRequest request) throws JsonProcessingException {
-		logger.info("Inside configure() method " + this.getClass());
+		logger.debug("Inside configure() method " + this.getClass());
 		ModelAndView view = new ModelAndView("access_configure");
 		HttpSession session = request.getSession();
 
@@ -51,7 +51,7 @@ public class SalesExpressPocController {
 	public ModelAndView showMap(HttpServletRequest request) throws JsonProcessingException {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = user.getUsername();
-		logger.info("Solution is retrieved from authentication object is {}", userId);
+		logger.debug("Solution is retrieved from authentication object is {}", userId);
 
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);

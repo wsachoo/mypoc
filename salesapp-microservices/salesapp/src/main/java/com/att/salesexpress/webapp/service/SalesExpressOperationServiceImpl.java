@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class SalesExpressOperationServiceImpl implements SalesExpressOperationService {
 
-	private static final Logger logger = LoggerFactory.getLogger(SalesExpressOperationServiceImpl.class);
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 
 	private DbService dbServiceImpl;

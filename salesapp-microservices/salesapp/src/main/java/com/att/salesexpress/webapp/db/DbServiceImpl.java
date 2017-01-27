@@ -39,7 +39,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Repository
 public class DbServiceImpl implements DbService {
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	@Qualifier("hikariOraJdbcTemplate")
@@ -48,7 +48,7 @@ public class DbServiceImpl implements DbService {
 	@Override
 	public String getSiteMetaData(String siteType) {
 		logger.debug("inside getSiteMetaData debug mode");
-		logger.info("Inside getSiteMetaData() method with siteType {}", siteType);
+		logger.debug("Inside getSiteMetaData() method with siteType {}", siteType);
 		String sql = "select SITE_DATA from SLEXP_SITE_CONFIG where SITE_NAME = ?";
 		String siteDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { siteType }, String.class);
 		return siteDataJson;
@@ -56,7 +56,7 @@ public class DbServiceImpl implements DbService {
 
 	@Override
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Long solutionId) {
-		logger.info("Inside findUserDetailByUserIdSolutionId() method.");
+		logger.debug("Inside findUserDetailByUserIdSolutionId() method.");
 		String sql = "select a.SITE_ID, a.ADDRESS_NAME || ', ' || a.CITY || ', ' || a.STATE || ', ' || a.ZIP || ' ' || a.COUNTRY as site_addr from sales_site a where a.DESIGN_ID = ?";
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { solutionId });
 
@@ -80,7 +80,7 @@ public class DbServiceImpl implements DbService {
 	@Override
 	public long insertSiteConfigurationData(final String userId, final long solutionId, final String accessData)
 			throws SQLException {
-		logger.info("Inside insertSiteConfigurationData() method.");
+		logger.debug("Inside insertSiteConfigurationData() method.");
 
 		String sqlSeq = "SELECT SLEXP_SITEDETAIL_TX_SEQ.nextval as trxn_seq FROM dual";
 		final Long seqNum = jdbcTemplate.queryForObject(sqlSeq, Long.class);
@@ -104,7 +104,7 @@ public class DbServiceImpl implements DbService {
 
 	@Override
 	public void insertSiteConfigurationDataInRelational(final UserDesignSelectionDO userDesignDo) throws SQLException {
-		logger.info("Inside insertSiteConfigurationDataInRelational() method.");
+		logger.debug("Inside insertSiteConfigurationDataInRelational() method.");
 		final List<UserSiteDesignDO> userSiteDesignDOList = new ArrayList<>(userDesignDo.getSiteDesignList().values());
 
 		final String sqlBatchInsert = "INSERT INTO sales_design (" + "SITE_ID, RATE_PLAN, PORT_TYPE, "
@@ -138,14 +138,14 @@ public class DbServiceImpl implements DbService {
 
 	@Override
 	public void removePreviousSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO) {
-		logger.info("deleting previous site configuration data from relation tables");
+		logger.debug("deleting previous site configuration data from relation tables");
 		String sqlDelete = "delete from sales_design where SOLUTION_ID = ?";
 		jdbcTemplate.update(sqlDelete, objUserDesignSelectionDO.getSolutionId());
 	}
 
 	@Override
 	public void updateSiteConfigurationDataInRelational(final UserDesignSelectionDO userDesignDo) {
-		logger.info("Inside updateSiteConfigurationDataInRelational() method.");
+		logger.debug("Inside updateSiteConfigurationDataInRelational() method.");
 		final List<UserSiteDesignDO> userSiteDesignDOList = new ArrayList<>(userDesignDo.getSiteDesignList().values());
 
 		final String sqlBatchInsert = "update sales_design set " + "RATE_PLAN = ?, PORT_TYPE= ?, "
@@ -183,31 +183,31 @@ public class DbServiceImpl implements DbService {
 					String.class);
 			return Integer.parseInt(strTransactionId);
 		} catch (EmptyResultDataAccessException erdaex) {
-			logger.info("Transaction not found in database for userId: {}, solutionId: {}", userId, solutionId);
+			logger.debug("Transaction not found in database for userId: {}, solutionId: {}", userId, solutionId);
 			return null;
 		}
 	}
 
 	@Override
 	public void updateSiteConfigurationData(long transactionId, String jsonString) throws SQLException {
-		logger.info("Inside updateSiteConfigurationData() method.");
+		logger.debug("Inside updateSiteConfigurationData() method.");
 		String sqlUpdate = "UPDATE SLEXP_SITEDETAIL_TX SET ACCESS_DATA = ? WHERE ID = ?";
 		int iReturnVal = jdbcTemplate.update(sqlUpdate, jsonString, transactionId);
-		logger.info("Return value after update is {}", iReturnVal);
+		logger.debug("Return value after update is {}", iReturnVal);
 	}
 
 	@Override
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException {
-		logger.info("Inside updateServiceFeaturesData");
+		logger.debug("Inside updateServiceFeaturesData");
 		String sqlUpdate = "update SLEXP_SITEDETAIL_TX set SERVICE_FEATURE_DATA = ? where SOLUTION_ID = ? and USER_ID = ?";
 		int iReturnVal = jdbcTemplate.update(sqlUpdate, jsonString, solutionId, userId);
-		logger.info("Return value after service and features update : " + iReturnVal);
+		logger.debug("Return value after service and features update : " + iReturnVal);
 	}
 
 	@Override
 	public List<Map<String, Object>> getResultsData(String accessSpeed, String portSpeed)
 			throws JsonProcessingException, JSONException {
-		logger.info("Inside getResultsData method.");
+		logger.debug("Inside getResultsData method.");
 		String sql = "select * from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_SPEED_ID = ? order by MRC asc, NRC asc";
 		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, accessSpeed, portSpeed);
 		return resultList;
@@ -215,7 +215,7 @@ public class DbServiceImpl implements DbService {
 
 	@Override
 	public List<PortSpeedDO> getPortSpeedsByAccessData(final String accessType, final String accessSpeed) {
-		logger.info("Access Speed and Access Type received are {} and {}", accessSpeed, accessType);
+		logger.debug("Access Speed and Access Type received are {} and {}", accessSpeed, accessType);
 		String sql = "select PORT_SPEED_ID, MRC, NRC from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_TYPE = ?";
 		List<PortSpeedDO> list = jdbcTemplate.query(sql, new RowMapper<PortSpeedDO>() {
 			@Override
@@ -265,7 +265,7 @@ public class DbServiceImpl implements DbService {
 	public Long fetchDefaultSolutionIdByUserId(String userId) {
 		String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?) and rownum=1";
 		Long solutionId = jdbcTemplate.queryForObject(sql, Long.class, userId);
-		logger.info("Solution id retrieved from database is  {}", solutionId);
+		logger.debug("Solution id retrieved from database is  {}", solutionId);
 		return solutionId;
 	}
 
