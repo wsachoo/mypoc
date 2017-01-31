@@ -105,7 +105,7 @@ public class SalesExpressJsonDataController {
 		String accessSpeed = (String) paramValues.get("accessSpeed");
 
 		String resultDataJSON = salesExpressOperationServiceImpl.getPortSpeedsByAccessData(accessType, accessSpeed);
-		logger.info("Port speeds retrieved are {}", resultDataJSON);
+		logger.debug("Port speeds retrieved are {}", resultDataJSON);
 		return new ResponseEntity<String>(resultDataJSON, HttpStatus.OK);
 	}
 
