@@ -7,10 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * 
@@ -18,9 +15,12 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.att.salesexpress.webapp" })
+@ComponentScan(basePackages = { "com.att.salesexpress.webapp", 
+								"com.att.cio.commonheader.v3", 
+								"com.att.salesexpress.igloo.consumer", 
+								"com.att.edb.accessquote" })
 public class SalesExpressPocApplication extends SpringBootServletInitializer implements CommandLineRunner {
-	protected static final Logger logger = LoggerFactory.getLogger(SalesExpressPocApplication.class);
+	static final Logger logger = LoggerFactory.getLogger(SalesExpressPocApplication.class);
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -28,17 +28,11 @@ public class SalesExpressPocApplication extends SpringBootServletInitializer imp
 	}
 
 	public static void main(String[] args) {
-		logger.debug("Inside main method ");
+		logger.info("Inside main method ");
 		SpringApplication.run(SalesExpressPocApplication.class, args);
 	}
 
 	@Override
 	public void run(String... arg0) throws Exception {
-	}
-
-	@LoadBalanced
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
 	}
 }
