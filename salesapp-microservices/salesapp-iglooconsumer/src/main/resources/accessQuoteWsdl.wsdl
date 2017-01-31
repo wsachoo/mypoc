@@ -1,0 +1,620 @@
+<wsdl:definitions xmlns:ch="http://cio.att.com/commonheader/v3" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://edb.att.com/accessQuote" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://giom.att.com/accessQuote" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://edb.att.com/accessQuote" name="accessQuote">
+<!-- =========================================================================
+AT&T Proprietary (Internal Use Only)
+Not for use or disclosure outside the AT&T companies except under written agreement
+(c) 2007 AT&T Intellectual Property. All rights reserved. AT&T and
+the AT&T logo are trademarks of AT&T Intellectual Property.
+======================================================================= -->
+<!-- ================================================================
+Description: accessQuote web service that IGLOO hosts and is used by the client systems Adopt, GIOM, GCSM, e-Order.
+================================================================
+Version Number: 1.0
+================================================================
+Change Log:
+================================================================ -->
+	<wsdl:types>
+		<xs:schema elementFormDefault="qualified" targetNamespace="http://edb.att.com/accessQuote" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:acc="http://edb.att.com/accessQuote">
+			<xs:import namespace="http://cio.att.com/commonheader/v3" schemaLocation="CommonHeaderV3_3.xsd"/>
+
+			<xs:element name="getAccessQuote">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="acc:accessQuoteRequest"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getAccessQuoteResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="acc:accessQuoteResponse"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getAccessQuoteAlternate">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="acc:accessQuoteAlternateRequest"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getAccessQuoteAlternateResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="acc:accessQuoteAlternateResponse"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="accessQuoteRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="ch:WSHeader"/>
+						<xs:element name="accessQuoteBody">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DQ_ID" type="xs:string"/>
+									<xs:element name="country" type="xs:string"/>
+									<xs:element name="service" type="xs:int"/>
+									<xs:element name="accessType" type="xs:int"/>
+									<xs:element name="accessTransport" type="xs:int"/>
+									<xs:element name="accessBandwidth" type="xs:int"/>
+									<xs:element name="EGRFlag" type="xs:int"/>
+									<xs:element name="custAddr1" type="xs:string"/>
+									<xs:element name="custAddr2" type="xs:string"/>
+									<xs:element name="houseNo" type="xs:int"/>
+									<xs:element name="bldgName" type="xs:string"/>
+									<xs:element name="city" type="xs:string"/>
+									<xs:element name="state" type="xs:string"/>
+									<xs:element name="postalCode" type="xs:string"/>
+									<xs:element name="telephoneCode" type="xs:string"/>
+									<!-- 246433 (+) -->
+									<xs:element name="freeFormAddr" type="xs:string"/>
+									<xs:element name="tailTechnology" type="xs:int"/>
+									<xs:element name="accessInterconnect" type="xs:int"/>
+									<xs:element name="orderingCode" type="xs:string"/>
+									<xs:element name="onNetCheck" type="xs:string"/>
+									<!-- PF181 CR11 (+) -->
+									<xs:element name="queryType" type="xs:string"/>
+									<xs:element name="accessArch" type="xs:string"/>
+									<xs:element name="misPNT" type="xs:string"/>
+									<xs:element name="accesArrangement" type="xs:string"/>
+									<xs:element name="physicalInterface" type="xs:string"/>
+									<xs:element name="contractTerm" type="xs:string"/>
+									<xs:element name="userReferenceNum" type="xs:string"/>
+									<xs:element name="quoteRequestType" type="xs:string"/>
+									<!-- PD303 Yogesh Begin (+) -->
+									<xs:element name="meetPointIndicator" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="1"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="meetPointVCoordinate" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="50"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="meetPointHCoordinate" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="50"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="iPAGCLLI" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="50"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="connectionType" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:int"/>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="cos" type="xs:int" minOccurs="0"/>
+									<!-- PD303 Yogesh End (+) -->
+									<xs:element name="CMTU" type="xs:int" minOccurs="0"/>
+									<xs:element name="circuitQuantity" type="xs:string" minOccurs="0"/>
+									<!-- PD789 ct332r -->
+									<xs:element name="discountPercentage" type="xs:int" minOccurs="0"/>
+									<!--121156b(CR716) ct332r -->
+									<xs:element name="lnsClecStrId" type="xs:string" minOccurs="0"/>
+									<!-- 189553 ct332r -->
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="accessQuoteResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="ch:WSResponseHeader"/>
+						<xs:element name="accessQuoteBody">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="EGRFlag" type="xs:int"/>
+									<xs:element name="URL" type="xs:string"/>
+									<xs:element name="cityURL" type="xs:string"/>
+									<xs:element name="Customer_name" type="xs:string"/>
+									<xs:element name="Cust_addr1" type="xs:string"/>
+									<xs:element name="Cust_addr2" type="xs:string"/>
+									<xs:element name="Cust_city" type="xs:string"/>
+									<xs:element name="Cust_postalcode" type="xs:string"/>
+									<xs:element name="Cust_state" type="xs:string"/>
+									<!-- 246433 -->
+									<xs:element name="geoAddr" type="xs:string"/>
+									<xs:element name="latitude" type="xs:decimal"/>
+									<xs:element name="longitude" type="xs:decimal"/>
+									<xs:element name="matchStatus" type="xs:string"/>
+									<xs:element name="matchScore" type="xs:string"/>
+									<xs:element name="matchLevel" type="xs:string"/>
+									<xs:element name="Cust_country" type="xs:string"/>
+									<xs:element name="Cust_telephone" type="xs:string"/>
+									<xs:element name="Speed" type="xs:string"/>
+									<xs:element name="Service" type="xs:string"/>
+									<xs:element name="tokenID" type="xs:string"/>
+									<xs:element name="onNetCheck" type="xs:string"/>
+									<!-- PF181 CR11 (+) -->
+									<xs:element name="accessArch" type="xs:string"/>
+									<xs:element name="availability" type="xs:string"/>
+									<xs:element name="misPNT" type="xs:string"/>
+									<xs:element name="accessArrangement" type="xs:string"/>
+									<xs:element name="ethernetIOC" type="xs:string"/>
+									<xs:element name="accessSupplierList">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="AccessSupplier" minOccurs="0" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="ITUCode" type="xs:string"/>
+															<xs:element name="supplierName" type="xs:string"/>
+															<xs:element name="supplierTier" type="xs:string"/>
+															<xs:element name="leadTime" type="xs:int"/>
+															<xs:element name="PMTU" type="xs:string"/>
+															<!-- mv414c 225966 -->
+															<xs:element name="mtuSupportMessage" type="xs:string"/>
+															<!-- vj2914 225966 -->
+															<xs:element ref="acc:nodeList"/>
+															<xs:element ref="acc:interfaceList"/>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<!-- PD303 Yogesh Begin (+) -->
+									<xs:element name="meetPointIndicator" type="xs:string" minOccurs="0"/>
+									<xs:element name="meetPointVCoordinate" type="xs:string" minOccurs="0"/>
+									<xs:element name="meetPointHCoordinate" type="xs:string" minOccurs="0"/>
+									<xs:element name="iPAGCLLI" type="xs:string" minOccurs="0"/>
+									<xs:element name="connectionType" type="xs:string" minOccurs="0"/>
+									<xs:element name="cos" type="xs:string" minOccurs="0"/>
+									<!-- PD303 Yogesh End (+) -->
+									<xs:element name="serviceGuideEligibleIndicator" type="xs:string" minOccurs="0"/>
+									<!-- 121156b(CR716) ct332r -->
+									<xs:element name="discountPercentage" type="xs:int" minOccurs="0"/>
+									<!-- 121156b(CR716) ct332r -->
+									<xs:element name="quoteRequestDate" type="xs:date" minOccurs="0"/>
+									<!-- 238118 dm3637 -->
+									<xs:element name="CMTU" type="xs:int" minOccurs="0"/>
+									<xs:element name="circuitQuantity" type="xs:string" minOccurs="0"/>
+									<!-- PD789 ct332r -->
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="nodeList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="nodeObj" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="nodeName" type="xs:string"/>
+									<xs:element name="CLLI" type="xs:string"/>
+									<xs:element name="address" type="xs:string"/>
+									<xs:element name="signalType" type="xs:int"/>
+									<xs:element ref="acc:contractTermList"/>
+									<xs:element name="monthlyCostLocal" type="xs:decimal"/>
+									<xs:element name="oneTimeCostLocal" type="xs:decimal"/>
+									<xs:element name="monthlyCostUSD" type="xs:decimal"/>
+									<xs:element name="oneTimeCostUSD" type="xs:decimal"/>
+									<xs:element name="localCurrency" type="xs:string"/>
+									<xs:element name="coverageIndicator" type="xs:string"/>
+									<xs:element name="supplierService" type="xs:string"/>
+									<xs:element name="accessBandwidth" type="xs:int"/>
+									<xs:element name="tailTechnology" type="xs:int"/>
+									<xs:element name="technology" type="xs:string"/>
+									<!-- 238118 dm3637 -->
+									<xs:element name="Serial_Number" type="xs:string"/>
+									<xs:element name="Expiration_date" type="xs:string"/>
+									<xs:element name="accessInterconnect" type="xs:int"/>
+									<xs:element name="Caveat_Ids" type="xs:string"/>
+									<xs:element name="notes" type="xs:string"/>
+									<xs:element name="providerProductCode" type="xs:string"/>
+									<xs:element name="providerProductName" type="xs:string"/>
+									<xs:element name="upStreamSpeed" type="xs:int"/>
+									<xs:element name="downStreamSpeed" type="xs:int"/>
+									<xs:element name="orderingCode" type="xs:string"/>
+									<xs:element name="accessType" type="xs:int"/>
+									<xs:element name="bestPrice" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="interfaceList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="interfaceObj" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="electricalInterface" type="xs:int"/>
+									<xs:element name="physicalConnector" type="xs:int"/>
+									<xs:element name="impedance" type="xs:int"/>
+									<xs:element name="physicalInterface" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="contractTermList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contractTermObj" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="contractTerm" type="xs:string"/>
+									<xs:element name="baseMonthlyPriceLocal" type="xs:decimal" minOccurs="0"/>
+									<!-- 121156b(CR716) ct332r -->
+									<xs:element name="monthlyPriceLocal" type="xs:decimal"/>
+									<xs:element name="oneTimePriceLocal" type="xs:decimal"/>
+									<xs:element name="baseMonthlyPriceUSD" type="xs:decimal" minOccurs="0"/>
+									<!-- 121156b(CR716) ct332r -->
+									<xs:element name="monthlyPriceUSD" type="xs:decimal"/>
+									<xs:element name="oneTimePriceUSD" type="xs:decimal"/>
+									<!-- 246433 -->
+									<xs:element name="baseMACCarrierCurrency" type="xs:decimal"/>
+									<xs:element name="baseOTICarrierCurrency" type="xs:decimal"/>
+									<xs:element name="baseOTCCarrierCurrency" type="xs:decimal"/>
+									<xs:element name="carrierQuotedCurrency" type="xs:string"/>
+									<xs:element name="markupPercentMAC" type="xs:decimal"/>
+									<xs:element name="markupPercentOTI" type="xs:decimal"/>
+									<xs:element name="markupPercentOTC" type="xs:decimal"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="accessQuoteAlternateRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="ch:WSHeader"/>
+						<xs:element name="AccessQuoteAlternateBody">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DQ_ID" type="xs:string"/>
+									<xs:element name="country" type="xs:string"/>
+									<xs:element name="service" type="xs:int"/>
+									<xs:element name="accessType" type="xs:int"/>
+									<xs:element name="accessTransport" type="xs:int"/>
+									<xs:element name="accessBandwidth" type="xs:int"/>
+									<xs:element name="EGRFlag" type="xs:int"/>
+									<xs:element name="custAddr1" type="xs:string"/>
+									<xs:element name="custAddr2" type="xs:string"/>
+									<xs:element name="houseNo" type="xs:int"/>
+									<xs:element name="bldgName" type="xs:string"/>
+									<xs:element name="city" type="xs:string"/>
+									<xs:element name="state" type="xs:string"/>
+									<xs:element name="postalCode" type="xs:string"/>
+									<xs:element name="telephoneCode" type="xs:string"/>
+									<!-- 246433 (+) -->
+									<xs:element name="freeFormAddr" type="xs:string"/>
+									<xs:element name="tailTechnology" type="xs:int"/>
+									<xs:element name="accessInterconnect" type="xs:int"/>
+									<xs:element name="orderingCode" type="xs:string"/>
+									<xs:element name="queryType" type="xs:string"/>
+									<xs:element name="onNetCheck" type="xs:string"/>
+									<!-- PF181 CR11 (+) -->
+									<xs:element name="accessArch" type="xs:string"/>
+									<xs:element name="misPNT" type="xs:string"/>
+									<xs:element name="accesArrangement" type="xs:string"/>
+									<xs:element name="physicalInterface" type="xs:string"/>
+									<xs:element name="contractTerm" type="xs:string"/>
+									<xs:element name="userReferenceNum" type="xs:string"/>
+									<xs:element name="quoteRequestType" type="xs:string"/>
+									<!-- PD303 Yogesh Begin (+) -->
+									<xs:element name="meetPointIndicator" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="1"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="meetPointVCoordinate" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="50"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="meetPointHCoordinate" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="50"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="iPAGCLLI" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="50"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="connectionType" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:int"/>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="cos" type="xs:int" minOccurs="0"/>
+									<!-- PD303 Yogesh End (+) -->
+									<xs:element name="CMTU" type="xs:int" minOccurs="0"/>
+									<xs:element name="circuitQuantity" type="xs:string" minOccurs="0"/>
+									<!-- PD789 ct332r -->
+									<xs:element name="discountPercentage" type="xs:int" minOccurs="0"/>
+									<!--121156b(CR716) ct332r !-->
+									<xs:element name="lnsClecStrId" type="xs:string" minOccurs="0"/>
+									<!-- 189553 ct332r -->
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="accessQuoteAlternateResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="ch:WSResponseHeader"/>
+						<xs:element name="AccessQuoteAlternateBody">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="EGRFlag" type="xs:int"/>
+									<xs:element name="URL" type="xs:string"/>
+									<xs:element name="cityURL" type="xs:string"/>
+									<xs:element name="Customer_name" type="xs:string"/>
+									<xs:element name="Cust_addr1" type="xs:string"/>
+									<xs:element name="Cust_addr2" type="xs:string"/>
+									<xs:element name="Cust_city" type="xs:string"/>
+									<xs:element name="Cust_postalcode" type="xs:string"/>
+									<xs:element name="Cust_state" type="xs:string"/>
+									<!-- 246433 -->
+									<xs:element name="geoAddr" type="xs:string"/>
+									<xs:element name="latitude" type="xs:decimal"/>
+									<xs:element name="longitude" type="xs:decimal"/>
+									<xs:element name="matchStatus" type="xs:string"/>
+									<xs:element name="matchScore" type="xs:string"/>
+									<xs:element name="matchLevel" type="xs:string"/>
+									<xs:element name="Cust_country" type="xs:string"/>
+									<xs:element name="Cust_telephone" type="xs:string"/>
+									<xs:element name="Speed" type="xs:string"/>
+									<xs:element name="Service" type="xs:string"/>
+									<xs:element name="tokenID" type="xs:string"/>
+									<xs:element name="onNetCheck" type="xs:string"/>
+									<!-- PF181 CR11 (+) -->
+									<xs:element name="accessArch" type="xs:string"/>
+									<xs:element name="availability" type="xs:string"/>
+									<xs:element name="misPNT" type="xs:string"/>
+									<xs:element name="accessArrangement" type="xs:string"/>
+									<xs:element name="ethernetIOC" type="xs:string"/>
+									<xs:element name="accessSupplierList">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="AccessSupplier" minOccurs="0" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="ITUCode" type="xs:string"/>
+															<xs:element name="supplierName" type="xs:string"/>
+															<xs:element name="supplierTier" type="xs:string"/>
+															<xs:element name="leadTime" type="xs:int"/>
+															<xs:element name="PMTU" type="xs:string"/>
+															<!-- mv414c 225966 -->
+															<xs:element name="mtuSupportMessage" type="xs:string"/>
+															<!-- vj2914 225966 -->
+															<xs:element ref="acc:altNodeList"/>
+															<xs:element ref="acc:altInterfaceList"/>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<!-- PD303 Yogesh Begin (+) -->
+									<xs:element name="meetPointIndicator" type="xs:string" minOccurs="0"/>
+									<xs:element name="meetPointVCoordinate" type="xs:string" minOccurs="0"/>
+									<xs:element name="meetPointHCoordinate" type="xs:string" minOccurs="0"/>
+									<xs:element name="iPAGCLLI" type="xs:string" minOccurs="0"/>
+									<xs:element name="connectionType" type="xs:string" minOccurs="0"/>
+									<xs:element name="cos" type="xs:string" minOccurs="0"/>
+									<!-- PD303 Yogesh End (+) -->
+									<xs:element name="serviceGuideEligibleIndicator" type="xs:string" minOccurs="0"/>
+									<!-- 121156b(CR716) ct332r -->
+									<xs:element name="discountPercentage" type="xs:int" minOccurs="0"/>
+									<!-- 121156b(CR716) ct332r -->
+									<xs:element name="quoteRequestDate" type="xs:date" minOccurs="0"/>
+									<!-- 238118 dm3637 -->
+									<xs:element name="CMTU" type="xs:int" minOccurs="0"/>
+									<xs:element name="circuitQuantity" type="xs:string" minOccurs="0"/>
+									<!-- PD789 ct332r -->
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="altNodeList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="nodeObj" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="nodeName" type="xs:string"/>
+									<xs:element name="CLLI" type="xs:string"/>
+									<xs:element name="address" type="xs:string"/>
+									<xs:element name="signalType" type="xs:int"/>
+									<xs:element ref="acc:altContractTermList"/>
+									<xs:element name="monthlyCostLocal" type="xs:decimal"/>
+									<xs:element name="oneTimeCostLocal" type="xs:decimal"/>
+									<xs:element name="monthlyCostUSD" type="xs:decimal"/>
+									<xs:element name="oneTimeCostUSD" type="xs:decimal"/>
+									<xs:element name="localCurrency" type="xs:string"/>
+									<xs:element name="coverageIndicator" type="xs:string"/>
+									<xs:element name="supplierService" type="xs:string"/>
+									<xs:element name="accessBandwidth" type="xs:int"/>
+									<xs:element name="tailTechnology" type="xs:int"/>
+									<xs:element name="technology" type="xs:string"/>
+									<!-- 238118 dm3637 -->
+									<xs:element name="Serial_Number" type="xs:string"/>
+									<xs:element name="Expiration_date" type="xs:string"/>
+									<xs:element name="accessInterconnect" type="xs:int"/>
+									<xs:element name="Caveat_Ids" type="xs:string"/>
+									<xs:element name="notes" type="xs:string"/>
+									<xs:element name="providerProductCode" type="xs:string"/>
+									<xs:element name="providerProductName" type="xs:string"/>
+									<xs:element name="upStreamSpeed" type="xs:int"/>
+									<xs:element name="downStreamSpeed" type="xs:int"/>
+									<xs:element name="orderingCode" type="xs:string"/>
+									<xs:element name="accessType" type="xs:int"/>
+									<xs:element name="bestPrice" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="altInterfaceList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="interfaceObj" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="electricalInterface" type="xs:int"/>
+									<xs:element name="physicalConnector" type="xs:int"/>
+									<xs:element name="impedance" type="xs:int"/>
+									<xs:element name="physicalInterface" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- new contract term list, inside access supplier list -->
+			<xs:element name="altContractTermList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contractTermObj" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="contractTerm" type="xs:string"/>
+									<xs:element name="baseMonthlyPriceLocal" type="xs:decimal" minOccurs="0"/>
+									<!-- 121156b(CR716) ct332r -->
+									<xs:element name="monthlyPriceLocal" type="xs:decimal"/>
+									<xs:element name="oneTimePriceLocal" type="xs:decimal"/>
+									<xs:element name="baseMonthlyPriceUSD" type="xs:decimal" minOccurs="0"/>
+									<!-- 121156b(CR716) ct332r -->
+									<xs:element name="monthlyPriceUSD" type="xs:decimal"/>
+									<xs:element name="oneTimePriceUSD" type="xs:decimal"/>
+									<!-- 246433 -->
+									<xs:element name="baseMACCarrierCurrency" type="xs:decimal"/>
+									<xs:element name="baseOTICarrierCurrency" type="xs:decimal"/>
+									<xs:element name="baseOTCCarrierCurrency" type="xs:decimal"/>
+									<xs:element name="carrierQuotedCurrency" type="xs:string"/>
+									<xs:element name="markupPercentMAC" type="xs:decimal"/>
+									<xs:element name="markupPercentOTI" type="xs:decimal"/>
+									<xs:element name="markupPercentOTC" type="xs:decimal"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="getAccessQuoteSoapIn">
+		<wsdl:part name="parameters" element="s:getAccessQuote"/>
+	</wsdl:message>
+	<wsdl:message name="getAccessQuoteSoapOut">
+		<wsdl:part name="parameters" element="s:getAccessQuoteResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getAccessQuoteAlternateSoapIn">
+		<wsdl:part name="parameters" element="s:getAccessQuoteAlternate"/>
+	</wsdl:message>
+	<wsdl:message name="getAccessQuoteAlternateSoapOut">
+		<wsdl:part name="parameters" element="s:getAccessQuoteAlternateResponse"/>
+	</wsdl:message>
+	<wsdl:message name="WSException">
+		<wsdl:part name="WSException" element="ch:WSException"/>
+	</wsdl:message>
+	<wsdl:portType name="accessQuoteSoap">
+		<wsdl:operation name="getAccessQuote">
+			<wsdl:input message="s:getAccessQuoteSoapIn"/>
+			<wsdl:output message="s:getAccessQuoteSoapOut"/>
+			<wsdl:fault name="WSException" message="s:WSException"/>
+		</wsdl:operation>
+		<wsdl:operation name="getAccessQuoteAlternate">
+			<wsdl:input message="s:getAccessQuoteAlternateSoapIn"/>
+			<wsdl:output message="s:getAccessQuoteAlternateSoapOut"/>
+			<wsdl:fault name="WSException" message="s:WSException"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="accessQuoteSoap" type="s:accessQuoteSoap">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getAccessQuote">
+			<soap:operation soapAction="http://edb.att.com/accessQuote/getAccessQuote" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="WSException">
+				<soap:fault name="WSException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getAccessQuoteAlternate">
+			<soap:operation soapAction="http://edb.att.com/accessQuote/getAccessQuoteAlternate" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="WSException">
+				<soap:fault name="WSException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="accessQuote">
+		<wsdl:port name="accessQuoteSoap" binding="s:accessQuoteSoap">
+			<!-- <soap:address location="http://localhost:7001/accessQuoteWS/accessQuote.jws"/> -->
+			<soap:address location="http://zlt06098.vci.att.com:51101/accessQuoteWS/accessQuote.jws"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
