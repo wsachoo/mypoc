@@ -48,13 +48,15 @@ $(document).ready(function() {
             	var refFirstItemOnPage = $(".salesexpress-content-margin");
             	var refCutOffItem = refFirstItemOnPage.next("div");
             	removeNextAllSiblingDivRows(refCutOffItem);
-            	$("input[name=accessConfig-accessRequired]").prop("checked", false)        		
+            	$("input[name=accessConfig-accessRequired]").prop("checked", false);     
+            	gUserConfiguration.clearSiteConfiguration();//to clear existing access & port config data
         	}
         	else if ("serviceAndFeatures" == activeTabName) {
             	var refFirstItemOnPage = $(".salesexpress-content-margin");
             	var refCutOffItem = refFirstItemOnPage.next("div");
             	removeNextAllSiblingDivRows(refCutOffItem);
-            	$("input[name=serviceConfig-serviceRequired]").prop("checked", false)        		
+            	$("input[name=serviceConfig-serviceRequired]").prop("checked", false);
+            	 guserServiceFeatures.clearSiteConfiguration();//to clear existing siteFeatures Object Data
         	}        	
     	}
     });
