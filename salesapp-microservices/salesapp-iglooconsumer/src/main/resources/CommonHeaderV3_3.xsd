@@ -1,0 +1,185 @@
+<schema xmlns:ch="http://cio.att.com/commonheader/v3" xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://cio.att.com/commonheader/v3"
+	elementFormDefault="qualified">
+
+	<!-- ============================================================================================ 
+		AT&T Proprietary (Internal Use Only) Not for use or disclosure outside the 
+		AT&T companies except under written agreement (c) 2007 AT&T Intellectual 
+		Property. All rights reserved. AT&T and the AT&T logo are trademarks of AT&T 
+		Intellectual Property. ============================================================================================ 
+		Version Number: 3.3 ============================================================================================ 
+		Change Log: Date Version Name Description ==== ======= ==== =========== 2008-3-12 
+		1.0 bd1891 Changes since 3.1 - WSCallback - added FaultURL - WSContext - 
+		added FromAppId, ToAppId, Version, SourceIPAddress - WSEndUserToken - added 
+		WSNameValue - WSException - added ErrorType, FailoverRequired, RetryRequired, 
+		AdditionalErrors, WSNameValue - Named type WSNameValueType was added and 
+		used by the elements thatrequire it. This was done, instead of adding them 
+		as annonymous types in the relevant elements, because some toolkits generate 
+		the Java class names associated with annnymous types and the result is naming 
+		conflicts. As a result, you can't tell which generated WSName value class 
+		is associated with which WSNameValue element. Note that the annonymous WSNameValue 
+		type in WSContext was not changed to retain compatibility with the previous 
+		header version. ============================================================================================ -->
+
+	<element name="WSCallback">
+
+		<complexType>
+
+			<sequence>
+				<element name="URL" type="string" minOccurs="0" />
+				<element ref="ch:WSCorrelationId" minOccurs="0" />
+				<element name="FaultURL" type="anyURI" minOccurs="0" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="WSContext">
+
+		<complexType>
+
+			<sequence>
+				<element name="FromAppId" type="string" minOccurs="0" />
+				<element name="ToAppId" type="string" minOccurs="0" />
+
+				<element name="Version" minOccurs="0">
+
+					<complexType>
+
+						<sequence>
+							<element name="major" type="int" />
+							<element name="minor" type="int" />
+						</sequence>
+					</complexType>
+				</element>
+				<element name="SourceIPAddress" type="string" minOccurs="0" />
+
+				<element name="WSNameValue" minOccurs="0" maxOccurs="unbounded">
+
+					<complexType>
+
+						<sequence>
+							<element name="Name" type="string" />
+							<element name="Value" type="string" />
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="WSCorrelationId" type="string" />
+	<element name="WSConversationId" type="string" />
+
+	<element name="WSEndUserToken">
+
+		<complexType>
+
+			<sequence>
+				<element name="Token" type="string" minOccurs="0" />
+				<element name="TokenType" type="string" minOccurs="0" />
+				<element name="WSNameValue" type="ch:WSNameValueType"
+					minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="WSEnterpriseLogging">
+
+		<complexType>
+
+			<sequence>
+				<element name="ApplicationID" type="string" minOccurs="0" />
+				<element name="LoggingKey" type="string" minOccurs="0" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="WSMessageData">
+
+		<complexType>
+
+			<sequence>
+				<element name="MessageId" type="string" minOccurs="0" />
+				<element name="RefToMessageId" type="string" minOccurs="0" />
+				<element name="Timestamp" type="dateTime" minOccurs="0" />
+			</sequence>
+		</complexType>
+	</element>
+	<element name="WSResponseMessageExpiration" type="long" />
+
+	<element name="WSHeader">
+
+		<complexType>
+
+			<sequence>
+				<element ref="ch:WSEndUserToken" minOccurs="0" />
+				<element ref="ch:WSContext" minOccurs="0" />
+				<element ref="ch:WSCallback" minOccurs="0" />
+				<element ref="ch:WSConversationId" minOccurs="0" />
+				<element ref="ch:WSMessageData" minOccurs="0" />
+				<element ref="ch:WSResponseMessageExpiration" minOccurs="0" />
+				<element ref="ch:WSEnterpriseLogging" minOccurs="0" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="WSResponseHeader">
+
+		<complexType>
+
+			<sequence>
+				<element ref="ch:WSContext" minOccurs="0" />
+				<element ref="ch:WSCorrelationId" minOccurs="0" />
+				<element ref="ch:WSConversationId" minOccurs="0" />
+				<element ref="ch:WSMessageData" minOccurs="0" />
+				<element ref="ch:WSEnterpriseLogging" minOccurs="0" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="WSException">
+
+		<complexType>
+
+			<sequence>
+				<element name="Message" type="string" />
+				<element name="ErrorCode" type="string" />
+
+				<element name="ErrorType" default="Functional" minOccurs="0">
+
+					<simpleType>
+
+						<restriction base="string">
+							<enumeration value="Functional" />
+							<enumeration value="System" />
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="FailoverRequired" type="boolean" default="false"
+					minOccurs="0" />
+				<element name="RetryRequired" type="boolean" default="false"
+					minOccurs="0" />
+
+				<element name="AdditionalErrors" minOccurs="0" maxOccurs="unbounded">
+
+					<complexType>
+
+						<sequence>
+							<element name="Message" type="string" />
+							<element name="ErrorCode" type="string" />
+						</sequence>
+					</complexType>
+				</element>
+				<element name="WSNameValue" type="ch:WSNameValueType"
+					minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="WSNameValueType">
+
+		<sequence>
+			<element name="Name" type="string" />
+			<element name="Value" type="string" />
+		</sequence>
+	</complexType>
+</schema>
