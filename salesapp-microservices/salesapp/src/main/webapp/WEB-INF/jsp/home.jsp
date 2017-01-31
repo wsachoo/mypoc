@@ -78,7 +78,7 @@
 			<div class="clearfix"></div>
 			
 			<div id="over_map" class="sachbuttonsonmap"
-				style="text-align: center;">
+				style="text-align: center; display: none;">
 				<div class="button-wrapper">
 					<button type="button" class="btn btn-primary">Solution
 						Template</button>
