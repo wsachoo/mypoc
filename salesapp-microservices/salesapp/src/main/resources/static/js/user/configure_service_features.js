@@ -343,10 +343,19 @@ function handleProceedToResults($thisRef, eventSource){
     location.replace(url); */
 	performTabChangeAction("results");
 	
-	var resultData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('resultsPageUrl'), {
-		"portSpeed" : gUserConfiguration.getConfigurationData().portConfig.sliderPortSpeedValue,
-		"accessSpeed" : gUserConfiguration.getConfigurationData().accessConfig.sliderSpeedValue
-	});	
+	var requestParam = {
+			//"portSpeed" : gUserConfiguration.getConfigurationData().portConfig.sliderPortSpeedValue,
+			//"accessSpeed" : gUserConfiguration.getConfigurationData().accessConfig.sliderSpeedValue
+			
+			"accessSpeed" : JSON.stringify($.map(gUserConfiguration.getUserConfigurationData().sites, function(v, k) {
+			    return v.accessConfig.sliderSpeedValue;
+			})),
+			"portSpeed" : JSON.stringify($.map(gUserConfiguration.getUserConfigurationData().sites, function(v, k) {
+			    return v.portConfig.sliderPortSpeedValue;
+			}))			
+	};
+	
+	var resultData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('resultsPageUrl'), requestParam);
 	
 	displayAvailProdInLeftNav(resultData);
 	
@@ -380,54 +389,33 @@ function displayFeaturesAppliedInLeftNav(){
 	
 }
 
-function displayAvailProdInLeftNav(returnResultData){
-		var hq_availableProducts= $("#hq_availableProducts");
-		var ar_availableProducts = $("#ar_availableProducts");
-		var dc_availableProducts = $("#dc_availableProducts");
-		var chkHeadequarters = $('input[name="chkHeadequarters"').is(":checked");
-		var chkAccountReceivables = $('input[name="chkAccountReceivables"').is(":checked");
-		var chkDistributionCenter = $('input[name="chkDistributionCenter"').is(":checked");
-		var thumbsUpIcon = "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>";
-		
-		if (chkHeadequarters) {
-			hq_availableProducts.find("li").remove();
-		}
-		if(chkAccountReceivables){
-			ar_availableProducts.find("li").remove();
-		}
-		if(chkDistributionCenter){
-			dc_availableProducts.find("li").remove();
-		}
+function displayAvailProdInLeftNav(returnResultData) {
+	var thumbsUpIcon = "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>";
+	var productsBySiteId = {};
 
+	$.each(gSiteIdNameMapping, function(siteName, siteKey) {
+		var productsFound = 
+			$.grep(returnResultData, function(site, ind) {
+	  		    var productExists = site['SITED_IDS'].split(",").indexOf(siteKey) != -1;
+	            return productExists;
+		});
+		productsBySiteId[siteKey] = productsFound;
+	});
 	
-	for(var i =0; i < returnResultData.length; i++){
-		if(i ==0){
-		if(chkHeadequarters){
-			hq_availableProducts.css("font-weight", "bold");
-			hq_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"  "+thumbsUpIcon+"</li>");
-		}
-		if(chkAccountReceivables){
-			ar_availableProducts.css("font-weight", "bold");
-			ar_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"  "+thumbsUpIcon+"</li>");
-		}
-		if(chkDistributionCenter){
-			dc_availableProducts.css("font-weight", "bold");
-			dc_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"  "+thumbsUpIcon+"</li>");
-		}	
-	}
-	else{
-		if(chkHeadequarters){
-			hq_availableProducts.css("font-weight", "bold");
-			hq_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"</li>");
-		}
-		if(chkAccountReceivables){
-			ar_availableProducts.css("font-weight", "bold");
-			ar_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"</li>");
-		}
-		if(chkDistributionCenter){
-			dc_availableProducts.css("font-weight", "bold");
-			dc_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"</li>");
-		}
-	}
-	}
+	 $.each(productsBySiteId, function(k, productArrayPerSite){
+		 
+		 var ulElemProductList = $("ul").find("[data-menu_site_id='" + k + "']");
+		 ulElemProductList.find("li").remove();
+		 
+		 for(var i=0; i < productArrayPerSite.length; i++){
+			 if (i == 0) {
+				 ulElemProductList.css("font-weight", "bold");
+				 ulElemProductList.append("<li>" + productArrayPerSite[i].PRODUCT + thumbsUpIcon+ "</li>");					 
+			 }
+			 else {
+				 ulElemProductList.css("font-weight", "bold");
+				 ulElemProductList.append("<li>" + productArrayPerSite[i].PRODUCT + "</li>");					 
+			 }
+		 }
+	 });
 }

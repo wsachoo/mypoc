@@ -61,6 +61,10 @@ function loadSiteIdNameMapping() {
 		$("input[name='chkHeadequarters']").val(gSiteIdNameMapping['Headquarters']);
 		$("input[name='chkDistributionCenter']").val(gSiteIdNameMapping['DistributionCenter']);
 		$("input[name='chkAccountReceivables']").val(gSiteIdNameMapping['Account Receivables']);
+		
+		$("#dc_availableProducts").attr("data-menu_site_id", gSiteIdNameMapping['DistributionCenter']);
+		$("#ar_availableProducts").attr("data-menu_site_id", gSiteIdNameMapping['Account Receivables']);
+		$("#hq_availableProducts").attr("data-menu_site_id", gSiteIdNameMapping['Headquarters']);
 	} 
 	catch (ex) {
 	}
