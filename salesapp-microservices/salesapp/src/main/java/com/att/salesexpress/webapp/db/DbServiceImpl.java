@@ -205,11 +205,18 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getResultsData(String accessSpeed, String portSpeed)
+	public List<Map<String, Object>> getResultsData(Long solutionId, String accessSpeed, String portSpeed)
 			throws JsonProcessingException, JSONException {
 		logger.debug("Inside getResultsData method.");
-		String sql = "select * from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_SPEED_ID = ? order by MRC asc, NRC asc";
-		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, accessSpeed, portSpeed);
+/*		String sql = "select * from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_SPEED_ID = ? order by MRC asc, NRC asc";
+		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, accessSpeed, portSpeed);*/
+		
+		String sql = "select a.PRODUCT, a.MRC, a.NRC, LISTAGG(b.SITE_ID, ',') WITHIN GROUP (ORDER BY b.SITE_ID) AS SITED_IDS "
+				    + "from SALES_RULES a, sales_design b "
+				    + "where a.ACCESS_SPEED_ID = b.ACCESS_SPEED "
+				    + "and a.PORT_SPEED_ID=b.PORT_SPEED and b.SOLUTION_ID=?"
+				    + "group by a.PRODUCT, a.MRC, a.NRC";
+		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, solutionId);
 		return resultList;
 	}
 
