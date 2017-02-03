@@ -2,11 +2,14 @@ package com.att.salesexpress.webapp.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -136,9 +139,22 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	public String getResultsData(Long solutionId, Map<String, Object> paramValues) throws JSONException, IOException {
 		String portSpeed = (String) paramValues.get("portSpeed");
 		String accessSpeed = (String) paramValues.get("accessSpeed");
-		List<Map<String, Object>> resultList = dbServiceImpl.getResultsData(accessSpeed, portSpeed);
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(resultList);
+		List<Map<String, Object>> finalResultList = dbServiceImpl.getResultsData(solutionId, accessSpeed, portSpeed);
+		
+/*		JSONArray portSpeedArray = new JSONArray(portSpeed);
+		JSONArray accessSpeedArray = new JSONArray(accessSpeed);
+		List<Map<String, Object>> resultList = null;
+		List<Map<String, Object>> finalResultList = new ArrayList<>(); 
+				
+		int noOfSites = portSpeedArray.length();
+		for (int i = 0; i < noOfSites; i++) {
+			portSpeed = portSpeedArray.getString(i);
+			accessSpeed = accessSpeedArray.getString(i);
+			resultList = dbServiceImpl.getResultsData(solutionId, accessSpeed, portSpeed);
+			finalResultList.addAll(resultList);
+		}
+*/		
+		return jacksonObjectMapper.writeValueAsString(finalResultList);
 	}
 
 	@Override

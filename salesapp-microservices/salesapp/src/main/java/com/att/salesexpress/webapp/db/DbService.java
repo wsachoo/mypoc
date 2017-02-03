@@ -30,7 +30,7 @@ public interface DbService {
 
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException;
 
-	public List<Map<String, Object>> getResultsData(String accessSpeed, String portSpeed) throws JsonProcessingException, JSONException;
+	public List<Map<String, Object>> getResultsData(Long solutionId, String accessSpeed, String portSpeed) throws JsonProcessingException, JSONException;
 
 	public List<PortSpeedDO> getPortSpeedsByAccessData(String accessType, String accessSpeed);
 
