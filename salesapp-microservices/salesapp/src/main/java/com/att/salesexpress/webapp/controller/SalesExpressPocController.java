@@ -61,11 +61,11 @@ public class SalesExpressPocController {
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public ModelAndView showMap(HttpServletRequest request) throws JsonProcessingException {
-		GetAccessQuote quote = getTestAccessQuote();
+/*		GetAccessQuote quote = getTestAccessQuote();
 		GetAccessQuoteResponse resp = iglooWSConsumerService.getAccessQuote(quote);
 		String data = resp.getAccessQuoteResponse().getAccessQuoteBody().getCustCountry();
 		System.out.println(data);
-
+*/
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = user.getUsername();
 		logger.debug("Solution is retrieved from authentication object is {}", userId);

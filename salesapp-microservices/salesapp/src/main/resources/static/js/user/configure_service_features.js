@@ -396,7 +396,7 @@ function displayAvailProdInLeftNav(returnResultData) {
 	$.each(gSiteIdNameMapping, function(siteName, siteKey) {
 		var productsFound = 
 			$.grep(returnResultData, function(site, ind) {
-	  		    var productExists = site['SITED_IDS'].split(",").indexOf(siteKey) != -1;
+	  		    var productExists = site['SITE_IDS'].split(",").indexOf(siteKey) != -1;
 	            return productExists;
 		});
 		productsBySiteId[siteKey] = productsFound;
