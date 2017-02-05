@@ -1,4 +1,4 @@
-package com.att.salesexpress.webapp.db;
+package com.att.salesexpress.webapp.service.db;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.json.JSONException;
 
+import com.att.salesexpress.webapp.entity.SalesSite;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
 import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
@@ -47,5 +48,7 @@ public interface DbService {
 	public void updateSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO);
 
 	public void removePreviousSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO);
+	
+	public List<SalesSite> findSalesSiteBySiteId(final Long solutionId);
 
 }

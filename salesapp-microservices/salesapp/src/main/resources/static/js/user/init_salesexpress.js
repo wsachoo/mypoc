@@ -21,7 +21,8 @@ SALESEXPRESS_CONSTANTS = (function() {
 			"port_config_options_template" 	 : "templates/port_config_options_template.html",
 			"service_features_init" 	 	 : "templates/service_features_init.html",
 			"init_access_config_template" 	 : "templates/init_access_config_template.html",
-			"init_gmap_template" 			 : "templates/init_gmap_template.html"
+			"init_gmap_template" 			 : "templates/init_gmap_template.html",
+			"generate_contract_template"     : "templates/generate_contract.html"
 	};
 	
 	var _jsonDataUrls = {

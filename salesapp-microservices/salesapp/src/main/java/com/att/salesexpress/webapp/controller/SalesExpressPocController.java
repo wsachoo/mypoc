@@ -19,6 +19,7 @@ import com.att.cio.commonheader.v3.WSHeader;
 import com.att.cio.commonheader.v3.WSMessageData;
 import com.att.edb.accessquote.AccessQuoteRequest;
 import com.att.edb.accessquote.AccessQuoteRequest.AccessQuoteBody;
+import com.att.edb.accessquote.AccessQuoteResponse;
 import com.att.edb.accessquote.GetAccessQuote;
 import com.att.edb.accessquote.GetAccessQuoteResponse;
 import com.att.salesexpress.igloo.consumer.service.IglooWSConsumerService;
@@ -33,9 +34,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Controller
 public class SalesExpressPocController {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	@Autowired
-	private IglooWSConsumerService iglooWSConsumerService;
 
 	@Autowired
 	private SalesExpressOperationService salesExpressOperationServiceImpl;
@@ -61,11 +59,6 @@ public class SalesExpressPocController {
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public ModelAndView showMap(HttpServletRequest request) throws JsonProcessingException {
-/*		GetAccessQuote quote = getTestAccessQuote();
-		GetAccessQuoteResponse resp = iglooWSConsumerService.getAccessQuote(quote);
-		String data = resp.getAccessQuoteResponse().getAccessQuoteBody().getCustCountry();
-		System.out.println(data);
-*/
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = user.getUsername();
 		logger.debug("Solution is retrieved from authentication object is {}", userId);
@@ -102,42 +95,5 @@ public class SalesExpressPocController {
 		view.addObject("transactionId", transactionId);
 
 		return view;
-	}
-
-	private GetAccessQuote getTestAccessQuote() {
-		AccessQuoteBody bd = new AccessQuoteBody();
-		bd.setDQID("ETH3469324");
-		bd.setCountry("US");
-		bd.setService(0);
-		bd.setAccessType(0);
-		bd.setAccessTransport(0);
-		bd.setAccessBandwidth(0);
-		bd.setEGRFlag(0);
-		bd.setHouseNo(0);
-		bd.setAccessTransport(0);
-		bd.setAccessInterconnect(0);
-		bd.setQueryType("Get Previous Results");
-		bd.setQuoteRequestType("1");
-
-		WSNameValue wsNV = new WSNameValue();
-		wsNV.setName("Application Name");
-		wsNV.setValue("ADOPT");
-		WSContext wsCtx = new WSContext();
-		wsCtx.getWSNameValue().add(wsNV);
-
-		WSMessageData wsMsgData = new WSMessageData();
-		wsMsgData.setMessageId("ADOPT_43798472909");
-
-		WSHeader wsHeader = new WSHeader();
-		wsHeader.setWSContext(wsCtx);
-		wsHeader.setWSMessageData(wsMsgData);
-
-		AccessQuoteRequest req = new AccessQuoteRequest();
-		req.setAccessQuoteBody(bd);
-		req.setWSHeader(wsHeader);
-
-		GetAccessQuote quote = new GetAccessQuote();
-		quote.setAccessQuoteRequest(req);
-		return quote;
 	}
 }

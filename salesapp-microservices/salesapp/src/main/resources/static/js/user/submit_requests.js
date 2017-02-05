@@ -69,6 +69,7 @@ function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 		gUserConfiguration.getConfigurationData().accessConfig.selectAccessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes;
 	}
 	
+	gUserConfiguration.addConfigMetaInformation("iglooCallRequired", "Y"); //Add parameter iglooCallRequired to indicate that IGLOO call is needed on server side
 	var formData = JSON.stringify(gUserConfiguration.getUserConfigurationData());
 	
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");
@@ -95,7 +96,9 @@ function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 		  						  "<strong>Failure!</strong> The request failed with this error: " + errorObject.reasonPhrase + "</div>";  
 		$("#divAccessTypeclickApplyMessage").html(failureAlertMessage);
 		console.log(errorObject.stackTrace);
-	});	
+	});
+	
+	gUserConfiguration.addConfigMetaInformation("iglooCallRequired", "N"); //Remove parameter iglooCallRequired after IGLOO call is done.
 }
 
 function fetchPortSpeedsForSelectedAccessSpeed() {

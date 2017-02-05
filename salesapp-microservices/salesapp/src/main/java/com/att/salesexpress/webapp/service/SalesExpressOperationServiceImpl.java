@@ -17,10 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.att.salesexpress.webapp.db.DbService;
+import com.att.salesexpress.webapp.entity.SalesSite;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
 import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
+import com.att.salesexpress.webapp.service.db.DbService;
+import com.att.salesexpress.webapp.service.igloo.IglooConsumerService;
+import com.att.salesexpress.webapp.util.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,8 +32,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class SalesExpressOperationServiceImpl implements SalesExpressOperationService {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
-
+	private IglooConsumerService iglooConsumerService;
+	
+	@Autowired
 	private DbService dbServiceImpl;
 	
 	@Autowired
@@ -98,7 +104,6 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 
 		UserDesignSelectionDO objUserDesignSelectionDO = jacksonObjectMapper.readValue(jsonString,
 				new TypeReference<UserDesignSelectionDO>(){});
-
 		if (StringUtils.isBlank(strTransactionId)) {
 			transactionId = dbServiceImpl.insertSiteConfigurationData(userId.toString(), lSolutionId, jsonString);
 			dbServiceImpl.insertSiteConfigurationDataInRelational(objUserDesignSelectionDO);
@@ -108,6 +113,13 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 			dbServiceImpl.removePreviousSiteConfigurationDataInRelational(objUserDesignSelectionDO);
 			dbServiceImpl.insertSiteConfigurationDataInRelational(objUserDesignSelectionDO);
 		}
+
+		String iglooCallRequired = (String) paramValues.get(Constants.KEY_PARAM_IGLOO_CALL_REQUIRED);
+		if ("Y".equalsIgnoreCase(iglooCallRequired)) {
+			List<SalesSite> userSites = dbServiceImpl.findSalesSiteBySiteId(lSolutionId);
+			iglooConsumerService.call(objUserDesignSelectionDO, userSites);
+		}
+		
 		returnValues.put("status", "success");
 		returnValues.put("transactionId", transactionId);
 		return returnValues;
@@ -164,6 +176,5 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 		dbServiceImpl.getFinalResultDataByProc();
 		
 	}
-	
 
 }
