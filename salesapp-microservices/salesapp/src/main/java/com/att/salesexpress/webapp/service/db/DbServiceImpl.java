@@ -25,6 +25,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
+import com.att.edb.accessquote.GetAccessQuoteResponse;
 import com.att.salesexpress.webapp.entity.SalesSite;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
@@ -328,5 +329,13 @@ public class DbServiceImpl implements DbService {
 		simpleJdbcCall.execute(inParamSource);
 		logger.debug("logging resultSet of sample_procedure call");
 
+	}
+
+	@Override
+	public void saveIglooResponseInDb(Long transactionId, String iglooResponsString) {
+		logger.debug("Inside saveIglooResponseInDb() method.");
+		String sqlUpdate = "UPDATE SLEXP_SITEDETAIL_TX SET IGLOO_RESPONSE = ? WHERE ID = ?";
+		int iReturnVal = jdbcTemplate.update(sqlUpdate, iglooResponsString, transactionId);
+		logger.debug("Return value after saveIglooResponseInDb is {}", iReturnVal);
 	}
 }

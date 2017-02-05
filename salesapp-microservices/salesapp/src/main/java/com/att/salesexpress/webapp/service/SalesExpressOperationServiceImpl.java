@@ -2,14 +2,11 @@ package com.att.salesexpress.webapp.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.att.cio.commonheader.v3.WSException;
+import com.att.edb.accessquote.GetAccessQuoteResponse;
 import com.att.salesexpress.webapp.entity.SalesSite;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
@@ -32,13 +31,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class SalesExpressOperationServiceImpl implements SalesExpressOperationService {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private IglooConsumerService iglooConsumerService;
-	
+
 	@Autowired
 	private DbService dbServiceImpl;
-	
+
 	@Autowired
 	private ObjectMapper jacksonObjectMapper;
 
@@ -103,7 +102,8 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 		Long transactionId = -1L;
 
 		UserDesignSelectionDO objUserDesignSelectionDO = jacksonObjectMapper.readValue(jsonString,
-				new TypeReference<UserDesignSelectionDO>(){});
+				new TypeReference<UserDesignSelectionDO>() {
+				});
 		if (StringUtils.isBlank(strTransactionId)) {
 			transactionId = dbServiceImpl.insertSiteConfigurationData(userId.toString(), lSolutionId, jsonString);
 			dbServiceImpl.insertSiteConfigurationDataInRelational(objUserDesignSelectionDO);
@@ -117,9 +117,34 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 		String iglooCallRequired = (String) paramValues.get(Constants.KEY_PARAM_IGLOO_CALL_REQUIRED);
 		if ("Y".equalsIgnoreCase(iglooCallRequired)) {
 			List<SalesSite> userSites = dbServiceImpl.findSalesSiteBySiteId(lSolutionId);
-			iglooConsumerService.call(objUserDesignSelectionDO, userSites);
+			List<Object> iglooResponseList = iglooConsumerService.call(objUserDesignSelectionDO, userSites);
+
+			Map<String, Object> jsonIglooResp = new HashMap<>();
+
+			for (int i = 0; i < iglooResponseList.size(); i++) {
+				Object object = iglooResponseList.get(i);
+
+				if (object instanceof GetAccessQuoteResponse) {
+					GetAccessQuoteResponse resp = (GetAccessQuoteResponse) object;
+					jsonIglooResp.put(userSites.get(i).getSiteId().toString(),
+							resp.getAccessQuoteResponse().getAccessQuoteBody().getAccessSupplierList());
+				} else if (object instanceof String) {
+					logger.debug(object.toString());
+					jsonIglooResp.put(userSites.get(i).getSiteId().toString(), object.toString());
+				} else if (object instanceof List<?>) {
+					logger.debug("SOAP Fault occurred");
+					jsonIglooResp.put(userSites.get(i).getSiteId().toString(), (List<WSException>) object);
+				} else {
+					logger.debug("Unknown exception occurred while calling Igloo Web Service");
+					jsonIglooResp.put(userSites.get(i).getSiteId().toString(),
+							"Unknown exception occurred while calling Igloo Web Service");
+				}
+			}
+
+			String iglooResponsString = jacksonObjectMapper.writeValueAsString(jsonIglooResp);
+			dbServiceImpl.saveIglooResponseInDb(transactionId, iglooResponsString);
 		}
-		
+
 		returnValues.put("status", "success");
 		returnValues.put("transactionId", transactionId);
 		return returnValues;
@@ -127,7 +152,8 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 
 	@Override
 	@Transactional
-	public void updateServiceFeaturesData(Map<String, Object> paramValues, Long solutionId, String userId) throws SQLException, JsonProcessingException {
+	public void updateServiceFeaturesData(Map<String, Object> paramValues, Long solutionId, String userId)
+			throws SQLException, JsonProcessingException {
 		String jsonString = jacksonObjectMapper.writeValueAsString(paramValues);
 		dbServiceImpl.updateServiceFeaturesData(jsonString, solutionId, userId);
 	}
@@ -152,29 +178,28 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 		String portSpeed = (String) paramValues.get("portSpeed");
 		String accessSpeed = (String) paramValues.get("accessSpeed");
 		List<Map<String, Object>> finalResultList = dbServiceImpl.getResultsData(solutionId, accessSpeed, portSpeed);
-		
-/*		JSONArray portSpeedArray = new JSONArray(portSpeed);
-		JSONArray accessSpeedArray = new JSONArray(accessSpeed);
-		List<Map<String, Object>> resultList = null;
-		List<Map<String, Object>> finalResultList = new ArrayList<>(); 
-				
-		int noOfSites = portSpeedArray.length();
-		for (int i = 0; i < noOfSites; i++) {
-			portSpeed = portSpeedArray.getString(i);
-			accessSpeed = accessSpeedArray.getString(i);
-			resultList = dbServiceImpl.getResultsData(solutionId, accessSpeed, portSpeed);
-			finalResultList.addAll(resultList);
-		}
-*/		
+
+		/*
+		 * JSONArray portSpeedArray = new JSONArray(portSpeed); JSONArray
+		 * accessSpeedArray = new JSONArray(accessSpeed); List<Map<String,
+		 * Object>> resultList = null; List<Map<String, Object>> finalResultList
+		 * = new ArrayList<>();
+		 * 
+		 * int noOfSites = portSpeedArray.length(); for (int i = 0; i <
+		 * noOfSites; i++) { portSpeed = portSpeedArray.getString(i);
+		 * accessSpeed = accessSpeedArray.getString(i); resultList =
+		 * dbServiceImpl.getResultsData(solutionId, accessSpeed, portSpeed);
+		 * finalResultList.addAll(resultList); }
+		 */
 		return jacksonObjectMapper.writeValueAsString(finalResultList);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public void getResultDataByProc() {
-		
+
 		dbServiceImpl.getFinalResultDataByProc();
-		
+
 	}
 
 }

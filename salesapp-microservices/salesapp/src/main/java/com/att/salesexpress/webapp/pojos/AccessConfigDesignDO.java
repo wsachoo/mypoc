@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccessConfigDesignDO {
 	String selectAccessType;
-	Long sliderSpeedValue = -1L;
+	Integer sliderSpeedValue = -1;
 	String physicalInterferenceOptions;
-	String accessInterconnectTechnology;
+	Integer accessInterconnectTechnology;
 	String localAccessManagement;
-	String accessTailTechnology;
+	Integer accessTailTechnology;
 	String accessArchitecture;
 
 	public String getSelectAccessType() {
@@ -20,11 +20,11 @@ public class AccessConfigDesignDO {
 		this.selectAccessType = selectAccessType;
 	}
 
-	public Long getSliderSpeedValue() {
+	public Integer getSliderSpeedValue() {
 		return sliderSpeedValue;
 	}
 
-	public void setSliderSpeedValue(Long sliderSpeedValue) {
+	public void setSliderSpeedValue(Integer sliderSpeedValue) {
 		this.sliderSpeedValue = sliderSpeedValue;
 	}
 
@@ -36,11 +36,11 @@ public class AccessConfigDesignDO {
 		this.physicalInterferenceOptions = physicalInterferenceOptions;
 	}
 
-	public String getAccessInterconnectTechnology() {
+	public Integer getAccessInterconnectTechnology() {
 		return accessInterconnectTechnology;
 	}
 
-	public void setAccessInterconnectTechnology(String accessInterconnectTechnology) {
+	public void setAccessInterconnectTechnology(Integer accessInterconnectTechnology) {
 		this.accessInterconnectTechnology = accessInterconnectTechnology;
 	}
 
@@ -52,11 +52,11 @@ public class AccessConfigDesignDO {
 		this.localAccessManagement = localAccessManagement;
 	}
 
-	public String getAccessTailTechnology() {
+	public Integer getAccessTailTechnology() {
 		return accessTailTechnology;
 	}
 
-	public void setAccessTailTechnology(String accessTailTechnology) {
+	public void setAccessTailTechnology(Integer accessTailTechnology) {
 		this.accessTailTechnology = accessTailTechnology;
 	}
 

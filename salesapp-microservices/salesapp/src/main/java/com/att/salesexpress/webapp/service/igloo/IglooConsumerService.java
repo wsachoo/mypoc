@@ -8,6 +8,6 @@ import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
 public interface IglooConsumerService {
 	public static final String KEY_PARAM_IGLOO_CALL_REQUIRED = "iglooCallRequired";
 
-	boolean call(UserDesignSelectionDO objUserDesignSelectionDO, List<SalesSite> objSalesSite);
+	List<Object> call(UserDesignSelectionDO objUserDesignSelectionDO, List<SalesSite> objSalesSite);
 
 }
