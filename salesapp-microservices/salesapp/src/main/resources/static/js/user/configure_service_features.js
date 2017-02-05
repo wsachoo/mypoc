@@ -11,6 +11,10 @@ $(document).ready(function(){
 				case 'btnProceedToResults':
 					handleProceedToResults($(this), e.target);
 					break;
+					
+				case 'btnProceedToContractGeneration':
+					handleProceedToGenerateContract($(this), e.target);
+					break;					
 			}
 		},
 		
@@ -418,4 +422,21 @@ function displayAvailProdInLeftNav(returnResultData) {
 			 }
 		 }
 	 });
+}
+
+
+function handleProceedToGenerateContract($thisRef, eventSource) {
+
+    $("#sachtopmenu_serviceFeatures").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem'); //changes span of existing tabs
+    $("#sachtopmenu_results").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem'); //changes span of existing tabs
+
+    $("#sachtopmenu_generateContract").css("display", "inline");
+    $("#sachtopmenu_generateContract").addClass('col-sm-2 col-xs-12 sachmenuitemactive');
+
+    var formElement = $("form");
+    formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
+    var generateContractInit = $.tmpl("generate_contract_template");
+    var topmenudiv = formElement.find("div.sachtopmenu");
+    topmenudiv.after(generateContractInit);
+    formElement.trigger('create');
 }

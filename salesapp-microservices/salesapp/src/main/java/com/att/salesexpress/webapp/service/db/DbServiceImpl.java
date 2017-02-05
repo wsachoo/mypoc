@@ -1,4 +1,4 @@
-package com.att.salesexpress.webapp.db;
+package com.att.salesexpress.webapp.service.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,6 +25,8 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
+import com.att.edb.accessquote.GetAccessQuoteResponse;
+import com.att.salesexpress.webapp.entity.SalesSite;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
 import com.att.salesexpress.webapp.pojos.UserDesignSelectionDO;
@@ -75,6 +77,34 @@ public class DbServiceImpl implements DbService {
 			siteAddresses.add(siteMap);
 		}
 		return returnValues;
+	}
+
+	public List<SalesSite> findSalesSiteBySiteId(final Long solutionId) {
+		logger.debug("Inside findSalesSiteBySiteId for solutionId {}", solutionId);
+		String sql = "select * from SALES_SITE where DESIGN_ID= ?";
+
+		List<SalesSite> returnObject = jdbcTemplate.query(sql, new RowMapper<SalesSite>() {
+			@Override
+			public SalesSite mapRow(ResultSet rs, int rowNum) throws SQLException {
+				SalesSite salesSiteDO = new SalesSite();
+				salesSiteDO.setSiteId(rs.getLong("SITE_ID"));
+				salesSiteDO.setDesignId(solutionId);
+				salesSiteDO.setSiteName(rs.getString("SITE_NAME"));
+				salesSiteDO.setAddressName(rs.getString("ADDRESS_NAME"));
+				salesSiteDO.setCity(rs.getString("CITY"));
+				salesSiteDO.setState(rs.getString("STATE"));
+				salesSiteDO.setCountry(rs.getString("COUNTRY"));
+				salesSiteDO.setCreatedDate(rs.getDate("CREATED_DATE"));
+				salesSiteDO.setCreatedId(rs.getBigDecimal("CREATED_ID"));
+				salesSiteDO.setModifiedDate(rs.getDate("MODIFIED_DATE"));
+				salesSiteDO.setModifiedId(rs.getBigDecimal("MODIFIED_ID"));
+				salesSiteDO.setZip(rs.getString("ZIP"));
+				salesSiteDO.setNpanxx(rs.getBigDecimal("NPANXX"));
+				return salesSiteDO;
+			}
+		}, solutionId);
+
+		return returnObject;
 	}
 
 	@Override
@@ -208,14 +238,16 @@ public class DbServiceImpl implements DbService {
 	public List<Map<String, Object>> getResultsData(Long solutionId, String accessSpeed, String portSpeed)
 			throws JsonProcessingException, JSONException {
 		logger.debug("Inside getResultsData method.");
-/*		String sql = "select * from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_SPEED_ID = ? order by MRC asc, NRC asc";
-		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, accessSpeed, portSpeed);*/
-		
+		/*
+		 * String sql =
+		 * "select * from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_SPEED_ID = ? order by MRC asc, NRC asc"
+		 * ; List<Map<String, Object>> resultList =
+		 * jdbcTemplate.queryForList(sql, accessSpeed, portSpeed);
+		 */
+
 		String sql = "select a.PRODUCT, a.MRC, a.NRC, LISTAGG(b.SITE_ID, ',') WITHIN GROUP (ORDER BY b.SITE_ID) AS SITE_IDS "
-				    + "from SALES_RULES a, sales_design b "
-				    + "where a.ACCESS_SPEED_ID = b.ACCESS_SPEED "
-				    + "and a.PORT_SPEED_ID=b.PORT_SPEED and b.SOLUTION_ID=?"
-				    + "group by a.PRODUCT, a.MRC, a.NRC";
+				+ "from SALES_RULES a, sales_design b " + "where a.ACCESS_SPEED_ID = b.ACCESS_SPEED "
+				+ "and a.PORT_SPEED_ID=b.PORT_SPEED and b.SOLUTION_ID=?" + "group by a.PRODUCT, a.MRC, a.NRC";
 		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, solutionId);
 		return resultList;
 	}
@@ -297,5 +329,13 @@ public class DbServiceImpl implements DbService {
 		simpleJdbcCall.execute(inParamSource);
 		logger.debug("logging resultSet of sample_procedure call");
 
+	}
+
+	@Override
+	public void saveIglooResponseInDb(Long transactionId, String iglooResponsString) {
+		logger.debug("Inside saveIglooResponseInDb() method.");
+		String sqlUpdate = "UPDATE SLEXP_SITEDETAIL_TX SET IGLOO_RESPONSE = ? WHERE ID = ?";
+		int iReturnVal = jdbcTemplate.update(sqlUpdate, iglooResponsString, transactionId);
+		logger.debug("Return value after saveIglooResponseInDb is {}", iReturnVal);
 	}
 }
