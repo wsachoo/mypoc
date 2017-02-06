@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +41,9 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 
 	@Autowired
 	private ObjectMapper jacksonObjectMapper;
+	
+	@Value("${iglooCallRequiredFlag}")
+	private String iglooCallRequiredFlag;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -115,7 +119,8 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 		}
 
 		String iglooCallRequired = (String) paramValues.get(Constants.KEY_PARAM_IGLOO_CALL_REQUIRED);
-		if ("Y".equalsIgnoreCase(iglooCallRequired)) {
+		
+		if ("Y".equalsIgnoreCase(iglooCallRequired) && "Y".equalsIgnoreCase(iglooCallRequiredFlag)) {
 			List<SalesSite> userSites = dbServiceImpl.findSalesSiteBySiteId(lSolutionId);
 			List<Object> iglooResponseList = iglooConsumerService.call(objUserDesignSelectionDO, userSites);
 

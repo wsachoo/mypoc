@@ -28,7 +28,7 @@ public interface DbService {
 
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId);
 
-	public void updateSiteConfigurationData(long lTransactionId, String jsonString) throws SQLException;
+	public void updateSiteConfigurationData(Long lTransactionId, String jsonString) throws SQLException;
 
 	public void updateServiceFeaturesData(String jsonString, Long solutionId, String userId) throws SQLException;
 
