@@ -190,6 +190,13 @@ function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
         headers: { 'X-CSRF-TOKEN' : $('meta[name="_csrf"]').attr('content') }
     });
     
+    $(document).ajaxStart(function(){ 
+        $("body").addClass('ajaxLoading');
+    });
+    $(document).ajaxStop(function(){ 
+        $("body").removeClass('ajaxLoading');
+    });
+    
   	return $.ajax({
 		url: postUrl,
 		data: postData,
