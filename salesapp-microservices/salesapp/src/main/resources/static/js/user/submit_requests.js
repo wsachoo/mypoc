@@ -75,7 +75,11 @@ function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");
 	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
 	
+	var textBeforeLoading = $(eventSource).text();
+	$(eventSource).html("<b>Processing....</b>")
+	
 	promise.done(function(data, textStatus, jqXHR ) {
+		$(eventSource).text(textBeforeLoading);
 		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
 								  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
 								  "<strong>Success!</strong> The request has been submitted successfully</div>";
@@ -88,6 +92,7 @@ function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 		fetchPortSpeedsForSelectedAccessSpeed();
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
+		$(eventSource).text(textBeforeLoading);
 		//var errorObject = $.parseJSON(jqXHR.responseText);
 		var errorObject = jqXHR.responseJSON;
 		
