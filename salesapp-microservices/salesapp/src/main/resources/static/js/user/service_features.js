@@ -22,7 +22,16 @@ $(document).ready(function(){
 				handleMiscServiceReporting($(this), e.target);
 				break;
 			}
-		}
+		},
+	
+		"click" : function(e) {
+			var eventSourceName = e.target.name;
+			switch (eventSourceName) {
+			case 'btnGenerateContract':
+			handleGenerateContract($(this), e.target);
+			break;
+			}
+		},	
 	});
 	
 });
@@ -67,4 +76,11 @@ function handleMiscServiceReporting($thisRef, eventSource){
 	}else{
 		$("#miscService_reporting_features").css("display", "none");
 	}
+}
+
+function handleGenerateContract(){
+	var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
+	"<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
+	"<strong>Success!</strong> Contract has been generated successfully</div>";
+	$("#divGenerateContractAlert").html(successAlertMessage);
 }
