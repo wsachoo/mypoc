@@ -1,0 +1,31 @@
+{{each(i, item) objectToServiceFeaturesTemplate}}
+<div id="div_FeatureService_${i}" class="container-fluid">
+	<div class="clearfix"></div>
+	<div class="row"><label class=""> ${i}</label></div><!--  Data Level -->
+			{{each(j, subItem) item}}
+				<div class="clearfix"></div>
+				<div class="checkbox col-sm-4" style=""><input type="checkbox" id="${i}Service-${j}" name="${i}Service-${j}" value="${j}"/>${j}</div> <!-- performance Level -->
+					{{each(k, subSubItem) subItem}}
+						<div class="clearfix"></div>
+							
+								{{if k != 'serviceType'}}
+									<div style="display:none;" id="${i}Service-${j}-Features">
+										<div class=" col-sm-3" style="">${k}</div> <!-- select your cosType Level -->
+										{{each(l, subsubSubItem) subSubItem}}
+											{{if item[j]['serviceType']['key'] == 'single-service'}}
+												<div class="radio col-sm-11 col-sm-offset-1">
+													<input type="radio" name="${i}Service-${j}-${k}" id="" value="${subsubSubItem}"> ${subsubSubItem}
+												</div>
+											{{else}}
+												<div class="checkbox col-sm-11 col-sm-offset-1">
+													<input type="checkbox" name="${i}Service-${j}-${l}" id="" value="${subsubSubItem}"> ${subsubSubItem}
+												</div>
+											{{/if}}
+										{{/each}}
+									</div>
+								{{/if}}
+							
+					{{/each}}			
+			{{/each}}
+</div>
+{{/each}}

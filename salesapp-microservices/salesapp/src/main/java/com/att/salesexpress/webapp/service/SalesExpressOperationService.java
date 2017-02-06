@@ -32,4 +32,6 @@ public interface SalesExpressOperationService {
 	String getSiteInfoBySolutionId(Long solutionId) throws JsonProcessingException;
 	
 	public void getResultDataByProc();
+	
+	public String getServiceFeaturesMetaDataBySiteName(String siteType);
 }

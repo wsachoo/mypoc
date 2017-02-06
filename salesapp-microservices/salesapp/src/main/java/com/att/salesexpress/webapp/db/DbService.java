@@ -47,5 +47,6 @@ public interface DbService {
 	public void updateSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO);
 
 	public void removePreviousSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO);
-
+	
+	public String getServiceFeaturesMetaDataBySiteName(String siteType);
 }

@@ -148,6 +148,11 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 		dbServiceImpl.getFinalResultDataByProc();
 		
 	}
+
+	@Override
+	public String getServiceFeaturesMetaDataBySiteName(String siteType) {
+		return dbServiceImpl.getServiceFeaturesMetaDataBySiteName(siteType);
+	}
 	
 
 }

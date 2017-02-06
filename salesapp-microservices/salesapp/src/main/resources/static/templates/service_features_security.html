@@ -1,34 +1,31 @@
-<div class="col-sm-12" id="div_securityService">
-		
-		<label for="name">Security Services</label>
-		
-		 <div class="row">
-		    <div class="col-sm-3 " style=""><input type="checkbox" id="securityService_vpn" name="securityService_vpn" value="Virtual Private Network"> Virtual Private Network</div>
-		   	<div class="clearfix"></div>
-		    <div id ="securityService_vpn_features" style="display: none;">
-				    <div class="col-sm-3" style=""> Do you want to add VPN?</div>
-						<div class="row" id="securityService_selectVPN">
-								<div class="radio col-sm-11 col-sm-offset-1">
-									<label> <input type="radio" name="securityService_selectVPN_required" id="" value="Yes"> Yes</label>
-								</div>
-								<div class="radio col-sm-11 col-sm-offset-1">
-									<label> <input type="radio" name="securityService_selectVPN_required" id="" value="No"> No</label>
-								</div>
+ <div id="div_securityService" class="container-fluid">
+ 	<div class="clearfix"></div>
+	<div class="row"><label class=""> Security Services</label></div> 
+     {{each(i, item) objectToSecurityTemplate}}
+     <div class="clearfix"></div>
+      <!-- <div class="row"> --> 
+        <div class="checkbox col-sm-3" style=""><input type="checkbox" id="securityService_${i}" name="securityService_${i}" value="${i}"/>${i}</div> <!-- virtual Private network level -->
+        	<div style="display:none;" id="securityService_${i}_features">
+        	{{each(j, subItem) item}}
+        		<div class="clearfix"></div>
+        		<div class="col-sm-3" style="">${j}</div> <!-- Do you want VPN Level ? -->
+        			{{each(k, subSubItem) subItem}}
+        				{{if k != 'Additional Features'}} 
+        				<div class="radio col-sm-11 col-sm-offset-1">
+							<label> <input type="radio" name="securityService_selectVPN_required" id="securityService_selectVPN_required" value="${subSubItem}"> ${subSubItem}</label> <!-- inner most level -->
 						</div>
-						<div class="col-sm-3" style=""> Additional Features</div>
-						<div class="row" id="">
-								<div class="row col-sm-11 col-sm-offset-1">
-									<div class="col-sm-6 " style=""><input type="checkbox" name="securityService_af_cbs" id="securityService_af_cbs"value="Cloud Based Security"> Cloud Based Security</div>
-									<div class="col-sm-6 " style=""><input type="checkbox" name="securityService_af_fw"id="securityService_af_fw"value="Firewall"> Firewall</div>
+						{{else}}
+							<div class="row col-sm-3 col-sm-offset-1" style="">${k}</div> <!-- To print additional features -->
+							 {{each(l, subsubSubItem) subSubItem}}
+							 <div class="clearfix"></div>
+								<div class="col-sm-11 col-sm-offset-2">
+								<div class="row col-sm-3" style=""><input type="checkbox" name="securityService_af_${l}" id="securityService_af_${l}" value="${subsubSubItem}"> ${subsubSubItem}</div> <!-- inner most level check boxes-->
 								</div>
-						</div>
-						<div class="row" id="">
-								<div class="row col-sm-11 col-sm-offset-1">
-									<div class="col-sm-6 " style=""><input type="checkbox" name="securityService_af_wbs" id="securityService_af_wbs"value="Wireless Based Security"> Wireless Based Security</div>
-									
-								</div>
-						</div>
-				</div>	
-		 </div> 
-		  
+							{{/each}} 
+						 {{/if}}
+        			{{/each}}
+        	{{/each}}
+        	</div>
+      <!-- </div>   --> 
+    {{/each}}
 </div>

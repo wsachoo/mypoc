@@ -130,6 +130,9 @@ left: calc((100% - 225px)/2);
 	padding-left:1em;
 	font-size:40px;
 }
+.tab-space{
+	padding-left:1em;
+}
 
 #showPackages {
 		margin-top: 70px;
@@ -162,7 +165,7 @@ footer.navbar-default.navbar-fixed-bottom
 }
 .ribbon {
    position: absolute;
-   right: 11px; top: 102px;
+   right: 11px; top: 90px;
    z-index: 1;
    overflow: hidden;
    width: 75px; height: 75px; 

@@ -6,6 +6,8 @@ var siteMetaData; //Object to store site configuration meta information from sit
 var gUserDetails = {}; //Object to store user's information from user_detail table.
 var gUserConfiguration = {}; //Object to store the configuration choices made by user. Holds the object to be submitted to server for storage in DB.
 var gSiteIdNameMapping = {}; //Object to hold site_id and site_name mapping from database table.
+var serviceFeaturesMetaData;//Object to hold serviceFeatures meta data 110392
+var guserServiceFeatures = {};
 
 SALESEXPRESS_CONSTANTS = (function() {
 	var _jQueryTemplates = {
@@ -21,7 +23,9 @@ SALESEXPRESS_CONSTANTS = (function() {
 			"port_config_options_template" 	 : "templates/port_config_options_template.html",
 			"service_features_init" 	 	 : "templates/service_features_init.html",
 			"init_access_config_template" 	 : "templates/init_access_config_template.html",
-			"init_gmap_template" 			 : "templates/init_gmap_template.html"
+			"init_gmap_template" 			 : "templates/init_gmap_template.html",
+			"generate_contract_template" 	 : "templates/generate_contract.html",
+			"common_services_features_template": "templates/common_services_features.html"
 	};
 	
 	var _jsonDataUrls = {
@@ -30,7 +34,8 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"postServiceFeaturesOptionsUrl":"postServiceFeaturesOptions",
 		"resultsPageUrl" : "results",
 		"postSpeedsBySelectedAccessSpeedUrl" : "getPortSpeedsByAccessSpeed",
-		"getAllAccessSpeedsUrl" : "getAllAccessSpeeds"
+		"getAllAccessSpeedsUrl" : "getAllAccessSpeeds",
+		"getServiceFeaturesMetaDataUrl" : "getServiceFeaturesMetaData/testSite"
 	};
 	
 	return {

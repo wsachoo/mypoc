@@ -291,4 +291,13 @@ public class DbServiceImpl implements DbService {
 		logger.debug("logging resultSet of sample_procedure call");
 
 	}
+
+	@Override
+	public String getServiceFeaturesMetaDataBySiteName(String siteType) {
+		logger.debug("inside getServiceFeaturesMetaDataBySiteName debug mode");
+		logger.info("Inside getServiceFeaturesMetaDataBySiteName() method with siteType {}", siteType);
+		String sql = "select SERVICE_FEATURES_METADATA from SLEXP_SITE_CONFIG where SITE_NAME = ?";
+		String servFeaturesMDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { siteType }, String.class);
+		return servFeaturesMDataJson ;
+	}
 }

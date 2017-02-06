@@ -1,21 +1,19 @@
-<div class="col-sm-12" id="div_miscService">
-		
-		<label for="name">Miscellaneous</label>
-		
-		 <div class="row">
-		    <div class="col-sm-3 " style=""><input type="checkbox" id="miscService_Reporting" name="miscService_Reporting" value="Reporting"> Reporting</div>
-		   	<div class="clearfix"></div>
-		    <div id ="miscService_reporting_features" style="display: none;">
-				<div class="col-sm-3 " style=""> Select your type of reporting</div>
-				<div class="clearfix"></div>
-					<div class="row" id="miscService_selectReporting">
-					  <div class="row col-sm-offset-1"><input type="checkbox" id="miscService_selectMPLSPort" name="miscService_selectMPLSPort" value="MPLS Port Reports"> MPLS Port Reports</div>
-					  <div class="row col-sm-offset-1"><input type="checkbox" id="miscService_selectManagedRouter" name="miscService_selectManagedRouter" value="Managed Router Reports"> Managed Router Reports</div>	
-					  <div class="row col-sm-offset-1"><input type="checkbox" id="miscService_selectEnhanced" name="miscService_selectEnhanced" value="Enhanced Reports"> Enhanced Reports</div>
-					  <div class="row col-sm-offset-1"><input type="checkbox" id="miscService_selectCos" name="miscService_selectCos" value="Class of Service Reports"> Class of Service Reports</div>
-					  <div class="row col-sm-offset-1"><input type="checkbox" id="miscService_selectFirewall" name="miscService_selectFirewall" value="Firewall Reports"> Firewall Reports</div>
-					</div>
-				</div>	
-		 </div> 
-		  
-</div>
+<div id="div_miscService" class="container-fluid">
+<div class="clearfix"></div>
+ <div class="row"><label class=""> Miscellaneous</label></div> 
+    {{each(i, item) objectToMiscTemplate}}
+     <div class="clearfix"></div>
+        	<div class="checkbox col-sm-4" style=""><input type="checkbox" id="Service_${i}" name="Service_${i}" value="${i}"/>${i}</div>  <!-- Reporting level check box -->
+        	<div class="clearfix"></div>
+        		<div style="display:inline;" id="Service_${i}_features">
+		         {{each(j, subItem) item}} 		
+			         <div class=" col-sm-3" style="">${j}</div> <!-- select your type of reporting level -->
+						 {{each(k, subSubItem) subItem}}
+			         		<div class="radio col-sm-11 col-sm-offset-1">
+								<label> <input type="checkbox" name="Service_${k}" id="" value="${subSubItem}"> ${subSubItem}</label> <!-- inner most level -->
+							</div>
+			         	{{/each}}
+		         {{/each}}
+	       </div>
+    {{/each}}
+</div>  

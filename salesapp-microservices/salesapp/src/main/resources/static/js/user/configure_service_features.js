@@ -1,5 +1,8 @@
-var guserServiceFeatures = {};
 
+var tempServiceAndFeatures = {};
+	var serviceAndFeatures = {
+			"sites" : {}
+	};
 $(document).ready(function(){
 	
 	$("#accessSpeedConfigPlaceholder").on({
@@ -11,6 +14,9 @@ $(document).ready(function(){
 				case 'btnProceedToResults':
 					handleProceedToResults($(this), e.target);
 					break;
+				case 'btnProceedToContractGeneration':
+					handleProceedToGenerateContract($(this), e.target);
+					break;
 			}
 		},
 		
@@ -18,19 +24,13 @@ $(document).ready(function(){
 			var eventSourceName = e.target.name;
 			
 			switch (eventSourceName) {
-			case 'serviceConfig-serviceRequired':
+			case 'serviceConfigServiceRequired':
 				handleActionRequiredActionServiceAndFeatures($(this), e.target);
 				break;
-			case 'dataService' :
-				handleDataService($(this), e.target);
-				break;
-			case 'securityService':
-				handleSecurityService($(this), e.target);
-				break;	
-			case 'miscService':
-				handleMiscService($(this), e.target);
-				break;
 			
+			default :
+				handleCommonService($(this), e.target);
+				break;
 			}
 		}
 		
@@ -40,24 +40,33 @@ $(document).ready(function(){
     	e.preventDefault();
     	
     	updateInMemoryServiceAndFeaturesFromFormObject($("#configureForm"));
-    	var formData = JSON.stringify(guserServiceFeatures.getServiceAndFeaturesDataStore());
-    	
+    	var formData = JSON.stringify(serviceAndFeatures);
+    	//var formData = JSON.stringify(guserServiceFeatures.getServiceFeaturesConfigurationData);
+    	console.log("formData : ", formData);
     	var url = SALESEXPRESS_CONSTANTS.getUrlPath("postServiceFeaturesOptionsUrl");
     	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
     	
     	promise.done(function(data, textStatus, jqXHR ) {
-    	/*	alert("success");*/
-    		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
-			  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
-			  "<strong>Success!</strong> Service and Features data has been submitted successfully</div>";
-    		$("#divSubmitAlert").html(successAlertMessage);
+    		if(isAllSitesConfigCompleteForServiceFeatures()){
+	    	//user configured all the sites
+    			var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
+				  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
+				  "<strong>Success!</strong> Service and Features data has been submitted successfully</div>";
+    			$("#divSubmitAlert").html(successAlertMessage);
+    		}
+    		else{
+    			//user should configure remaining sites
+	    		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
+				  "<a href='#' class='close' data-dismiss='alert alert-warning' data-applybutton='success' aria-label='close'>&times;</a>" +
+				  "<strong>Success!</strong> Please configure remaining sites to proceed further</div>";
+	    		$("#divSubmitAlert").html(successAlertMessage);
+    		}
     		displayFeaturesAppliedInLeftNav();
-    		
     	})
     	.fail(function(jqXHR, textStatus, errorThrown) {
     		var errorObject = $.parseJSON(jqXHR.responseText);
     		var failureAlertMessage = "<div class='alert alert-danger alert-dismissible'>" +
-    		  						  "<a href='#' class='close' data-dismiss='alert' data-applybutton='failure' aria-label='close'>&times;</a>" +
+    		  						  "<a href='#' class='close' data-dismiss='alert alert-danger' data-applybutton='failure' aria-label='close'>&times;</a>" +
     		  						  "<strong>Failure!</strong> The request failed with this error: " + errorObject.reasonPhrase + "</div>";  
     		$("#divSubmitAlert").html(failureAlertMessage);
     	});
@@ -70,124 +79,37 @@ $(document).ready(function(){
 
 
 guserServiceFeatures = (function() {
-	var serviceAndFeaturesStore = {
-			"Services And Features" : {}
-	};
-	var serviceAndFeatures = {
-			"Data Service" : { 
-								"Performance" :{},
-								"ManagedRouter" :{},
-								"Service Diversity Options" : {},
-							},
-			"Miscellaneous Service" : 	{
-											"Reporting" : {},
-										},
-			"Security Service" : {
-								"Virtual Private Network" : {},
-								"Additional Features" : {},
-								},
-	};
 	
+	/*var tempServiceAndFeatures = {};
+	var serviceAndFeatures = {
+			"sites" : {}
+	};*/
 	return {
-		addServiceAndFeaturesMetaInformation : function(key, value) {
-			serviceAndFeaturesStore[key] = value;
+		addToSiteConfiguration : function(siteName) {
+			//userConfigStore[siteType] = $.extend(true, {}, tempConfigStore);
+			serviceAndFeatures["sites"][siteName] = ($.extend(true, {}, tempServiceAndFeatures));
 		},
 		
-		//data service and features starts
-		addDataServiceConfiguration : function(key, value) {
-			serviceAndFeatures["Data Service"][key] = value;
-		},
-		addDataServicePerformanceConfiguration :function(key, value){
-			serviceAndFeatures["Data Service"]["Performance"][key] = value;
-			
-		},
-		addDataServiceManagedRouterConfiguration :function(key, value){
-			serviceAndFeatures["Data Service"]["ManagedRouter"][key] = value;
-			
-		},
-		addDataServiceDiversityOptionsConfiguration :function(key, value){
-			serviceAndFeatures["Data Service"]["Service Diversity Options"][key] = value;
-			
-		},
-		
-		//data service and features ends
-		//misc service and features starts
-		addMiscServiceConfiguration : function(key, value) {
-			serviceAndFeatures["Miscellaneous Service"][key] = value;
+		addServiceFeaturesConfigToSite : function(key, value) {
+			tempServiceAndFeatures[key] = value;
 		},
 		
 		
-		addMiscServiceMPLSReportingConfiguration : function(key, value){
-			serviceAndFeatures["Miscellaneous Service"]["Reporting"][key] = value;
-		},
-		addMiscServiceManagedRouterReportingConfiguration : function(key, value){
-			serviceAndFeatures["Miscellaneous Service"]["Reporting"][key] = value;
-		},
-		addMiscServiceEnhancedReportingConfiguration : function(key, value){
-			serviceAndFeatures["Miscellaneous Service"]["Reporting"][key] = value;
-		},
-		addMiscServiceCOSReportingConfiguration : function(key, value){
-			serviceAndFeatures["Miscellaneous Service"]["Reporting"][key] = value;
-		},
-		addMiscServiceFirewallReportingConfiguration : function(key, value){
-			serviceAndFeatures["Miscellaneous Service"]["Reporting"][key] = value;
-		},
-		//misc service and features ends
-		//security service and feature starts
-		addSecurityServiceConfiguration : function(key, value) {
-			serviceAndFeatures["Security Service"][key] = value;
+		getServiceFeaturesData : function() {
+			return tempServiceAndFeatures;
 		},
 		
-		addSecurityServiceVPNConfiguration : function(key, value) {
-			serviceAndFeatures["Security Service"]["Virtual Private Network"][key] = value;
-		},
-		addSecurityServiceCBSConfiguration : function(key, value){
-			serviceAndFeatures["Security Service"]["Additional Features"][key] = value;
-		},
-		addSecurityServiceFirewallConfiguration : function(key, value){
-			serviceAndFeatures["Security Service"]["Additional Features"][key] = value;
-		},
-		addSecurityServiceWBSConfiguration : function(key, value){
-			serviceAndFeatures["Security Service"]["Additional Features"][key] = value;
-		},
-		
-		//security service and feature ends
-		//new changes to put service and features config details inside sites
-		addServiceFeaturesConfigToSite : function(siteName) {
-			/*serviceAndFeaturesStore["Services And Features"] = {};*/
-			serviceAndFeaturesStore["Services And Features"][siteName] = ($.extend(true, {}, serviceAndFeatures));
-		},
-		addToSiteConfiguration : function(key, value) {
-			serviceAndFeatures[key] = value;
-		},
-		
-		getServiceAndFeaturesData : function() {
+		getServiceFeaturesConfigurationData : function() {
 			return serviceAndFeatures;
 		},
-		getServiceAndFeaturesDataStore : function() {
-			return serviceAndFeaturesStore;
-		},
 		
-		clearConfiguration : function() {
-			serviceAndFeaturesStore = {
-					"Services And Features" : {}
+		clearSiteConfiguration : function() {
+			serviceAndFeatures = {
+					"sites" : {}
 			};
 		},
-		clearSiteConfiguration : function(){
-			serviceAndFeatures = {
-					"Data Service" : { 
-						"Performance" :{},
-						"ManagedRouter" :{},
-						"Service Diversity Options" : {},
-					},
-					"Miscellaneous Service" : {
-						"Reporting" : {},
-					},
-					"Security Service" : {
-						"Virtual Private Network" : {},
-						"Additional Features" : {},
-					},
-			};
+		clearServiceFeaturesConfiguration : function(){
+			tempServiceAndFeatures = {}; //to empty the current object while clubbing
 		}
 	};
 }());
@@ -195,92 +117,50 @@ guserServiceFeatures = (function() {
 function updateInMemoryServiceAndFeaturesFromFormObject(form) {
 	var formData = form.serializeArray();
 	
-    $.each(formData, function() {
-    	var nameArray = this.name;
-    	
-    	 if (nameArray === "miscService") {
-    		/*guserServiceFeatures.addMiscServiceConfiguration(nameArray, this.value);*/
-    	}
-    	 else if(nameArray === "miscService_selectMPLSPort"){
-    		 guserServiceFeatures.addMiscServiceMPLSReportingConfiguration("MPLS Port Reports", "Yes");
-    	 }
-    	 else if(nameArray === "miscService_selectManagedRouter"){
-    		 guserServiceFeatures.addMiscServiceManagedRouterReportingConfiguration("Managed Router Reports", "Yes");
-    	 }
-    	 else if(nameArray === "miscService_selectEnhanced"){
-    		 guserServiceFeatures.addMiscServiceEnhancedReportingConfiguration("Enhanced Reports", "Yes");
-    	 }
-    	 else if(nameArray === "miscService_selectCos"){
-    		 guserServiceFeatures.addMiscServiceCOSReportingConfiguration("Class of Service Reports", "Yes");
-    	 }
-    	 else if(nameArray === "miscService_selectFirewall"){
-    		 guserServiceFeatures.addMiscServiceFirewallReportingConfiguration("Firewall Reports", "Yes");
-    	 }
-    	 //misc service and features ends
-    	//security service and feature starts 
-    	/*else if (nameArray === "securityService") {
-    		guserServiceFeatures.addSecurityServiceConfiguration(nameArray, this.value);
-    	}*/
-    	else if (nameArray === "securityService_selectVPN_required") {
-    		guserServiceFeatures.addSecurityServiceVPNConfiguration("VPN Required", this.value);
-    	}
-    	else if (nameArray === "securityService_selectVPN_required") {
-    		guserServiceFeatures.addSecurityServiceVPNConfiguration("VPN Required", this.value);
-    	}
-    	else if (nameArray === "securityService_af_cbs"){
-    		guserServiceFeatures.addSecurityServiceCBSConfiguration("CloudBasedSecurity", "Yes");
-    	}
-    	else if(nameArray === "securityService_af_fw"){
-    		guserServiceFeatures.addSecurityServiceFirewallConfiguration("FireWall", "Yes");
-    	}
-    	else if(nameArray === "securityService_af_wbs"){
-    		guserServiceFeatures.addSecurityServiceWBSConfiguration("WireLessBasedSecurity", "Yes");
-    	}
-    	//security service and features ends 
-    	//data service and features starts 
-    	else if(nameArray === "dataService_performanceCos_type"){
-    		
-    		guserServiceFeatures.addDataServicePerformanceConfiguration("CosType", this.value);
-    	}
-    	else if(nameArray === "dataService_performanceCos_package"){
-    		guserServiceFeatures.addDataServicePerformanceConfiguration("CosPackage", this.value);
-    	}
-    	else if(nameArray === "dataService_managedRouter_required"){
-    		guserServiceFeatures.addDataServiceManagedRouterConfiguration("RouterOption", this.value);
-    	}
-    	else if(nameArray === "dataService_diversityOption_required"){
-    		guserServiceFeatures.addDataServiceDiversityOptionsConfiguration("DiversityOption", this.value);
-    	}
-    	 
-    	//data service and features ends 
-    	 
-    	else if ((nameArray === "solutionId") || (nameArray === "userId")||(nameArray === "transactionId")){
-    		guserServiceFeatures.addServiceAndFeaturesMetaInformation(this.name, this.value);
-    	}
-    });
-    
-    var chkHeadequarters = $('input[name="chkHeadequarters"').is(":checked");
+	$.each(formData, function(k, vx) {
+	    var keyArr = vx.name.split('-');
+	    if(keyArr.length > 1){
+	    var newObj = tempServiceAndFeatures;
+	    $.each((keyArr), function(i, v) {
+	    	
+	      if (i != keyArr.length - 1) { 
+	        if (!newObj[v]) {
+	          newObj[v] = {};
+	        }
+	        newObj = newObj[v];
+	      } else {
+	        newObj[v] = vx;
+	      }
+	    });
+	}
+	  });
+	
+	var chkHeadequarters = $('input[name="chkHeadequarters"').is(":checked");
     var chkAccountReceivables = $('input[name="chkAccountReceivables"').is(":checked");
 	var chkDistributionCenter = $('input[name="chkDistributionCenter"').is(":checked");
 	
 	if (chkHeadequarters) {
-		guserServiceFeatures.addToSiteConfiguration("siteId", $('input[name="chkHeadequarters"').val());
-		guserServiceFeatures.addServiceFeaturesConfigToSite("headQuarters");
-}
+		guserServiceFeatures.addServiceFeaturesConfigToSite("siteId", $('input[name="chkHeadequarters"').val());
+		guserServiceFeatures.addToSiteConfiguration("headQuarters");
+	}
 	if (chkAccountReceivables) {
-		guserServiceFeatures.addToSiteConfiguration("siteId", $('input[name="chkAccountReceivables"').val());
-		guserServiceFeatures.addServiceFeaturesConfigToSite("accountReceivables");
+		guserServiceFeatures.addServiceFeaturesConfigToSite("siteId", $('input[name="chkAccountReceivables"').val());
+		guserServiceFeatures.addToSiteConfiguration("accountReceivables");
 	}    
 	if (chkDistributionCenter) {
-		guserServiceFeatures.addToSiteConfiguration("siteId", $('input[name="chkDistributionCenter"').val());
-		guserServiceFeatures.addServiceFeaturesConfigToSite("distributionCenter");
+		guserServiceFeatures.addServiceFeaturesConfigToSite("siteId", $('input[name="chkDistributionCenter"').val());
+		guserServiceFeatures.addToSiteConfiguration("distributionCenter");
 	} 
-}
+	
+	
+	}
 
 function handleActionRequiredActionServiceAndFeatures($thisRef, eventSource) {
 	var isServiceRequiredValue = $(eventSource).val();
 	if ('true' === isServiceRequiredValue) {
-		var servicesOffered = $.tmpl("service_features_template", siteMetaData);
+		var serviceOptions = Object.keys(serviceFeaturesMetaData.serviceAndFeatures);
+		console.log(serviceOptions);
+		var servicesOffered = $.tmpl("service_features_template", {"serviceOptionsKeys" : serviceOptions});
 		var lastDiv = findLastDivRowOfElement($thisRef);
 		lastDiv.after(servicesOffered);
 	} else {
@@ -295,47 +175,6 @@ function removeNextAllSiblingDivRows($triggerElement) {
 
 function findLastDivRowOfElement($thisRef) {
 	return $thisRef.find("div.row:not('.sachbottommenu'):last");
-}
-
-function handleDataService($thisRef, eventSource){
-	
-	var isDataServiceRequiredValue = $(eventSource).val();
-	
-	if('data' == isDataServiceRequiredValue){
-		
-		if (($("#dataService").is(':checked'))) {
-			var dataServiceOptions = $.tmpl("service_features_data", siteMetaData);
-			var lastDiv = findLastDivRowOfElement($thisRef);
-			$(dataServiceOptions).insertBefore('.sachbottommenu');
-			$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
-		}else{
-			$thisRef.find("#div_dataService").remove();
-		}
-			
-}
-}
-
-function handleSecurityService($thisRef, eventSource){
-	if (($("#securityService").is(':checked'))) {
-		var securityServiceOptions = $.tmpl("service_features_security", siteMetaData);
-		var lastDiv = findLastDivRowOfElement($thisRef);
-		$(securityServiceOptions).insertBefore('.sachbottommenu');
-		$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
-	}else{
-		$("#div_securityService").remove();
-	}
-}
-
-function handleMiscService($thisRef, eventSource){
-	if(($("#miscService").is(':checked'))){
-		var miscServiceOptions = $.tmpl("service_features_misc", siteMetaData);
-		var lastDiv = findLastDivRowOfElement($thisRef);
-		$(miscServiceOptions).insertBefore('.sachbottommenu');
-		$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
-	}else{
-		$("#div_miscService").remove();
-		
-	}
 }
 
 function handleProceedToResults($thisRef, eventSource){
@@ -431,3 +270,58 @@ function displayAvailProdInLeftNav(returnResultData){
 	}
 	}
 }
+
+function handleProceedToGenerateContract($thisRef, eventSource) {
+	
+	$("#sachtopmenu_serviceFeatures").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem');//changes span of existing tabs
+	$("#sachtopmenu_results").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem');//changes span of existing tabs
+	
+	$("#sachtopmenu_generateContract").css("display","inline");
+	$("#sachtopmenu_generateContract").addClass('col-sm-2 col-xs-12 sachmenuitemactive');
+	
+	var formElement = $("form");
+	formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
+	var generateContractInit= $.tmpl("generate_contract_template");
+	var topmenudiv = formElement.find("div.sachtopmenu");
+	topmenudiv.after(generateContractInit);
+	formElement.trigger('create');    	
+}
+
+function isAllSitesConfigCompleteForServiceFeatures(){
+	var numberOfSitesToConfigure = Object.keys(gSiteIdNameMapping).length;
+	var numberOfSitesConfigured = Object.keys(serviceAndFeatures.sites).length;
+	return (numberOfSitesToConfigure == numberOfSitesConfigured);
+}
+
+
+function handleCommonService($thisRef, eventSource){
+	var isServiceRequiredValue = $(eventSource).val();
+	if (($(eventSource).is(':checked'))) {
+		var objectToServiceFeaturesTemplate = serviceFeaturesMetaData.serviceAndFeatures[isServiceRequiredValue];
+		var securityServiceOptions = $.tmpl("common_services_features_template", {"objectToServiceFeaturesTemplate":objectToServiceFeaturesTemplate});
+		var lastDiv = findLastDivRowOfElement($thisRef);
+		$(securityServiceOptions).insertBefore('.sachbottommenu');
+		$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
+	}else{
+		$("#div_FeatureService_"+isServiceRequiredValue).remove();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

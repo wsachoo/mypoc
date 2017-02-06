@@ -116,4 +116,12 @@ public class SalesExpressJsonDataController {
 		logger.debug("Access speed json retrived is: {}", accessSpeedsJson);
 		return new ResponseEntity<String>(accessSpeedsJson, HttpStatus.OK);
 	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "getServiceFeaturesMetaData/{siteType}")
+	public ResponseEntity<String> getServFeaturesMDataBySiteName(@PathVariable String siteType) {
+		logger.info("Inside getServFeaturesMDataBySiteName method, sitename : " + siteType);
+		String servFeaturesMetaData = salesExpressOperationServiceImpl.getServiceFeaturesMetaDataBySiteName(siteType);
+		return new ResponseEntity<String>(servFeaturesMetaData, HttpStatus.OK);
+	}
 }

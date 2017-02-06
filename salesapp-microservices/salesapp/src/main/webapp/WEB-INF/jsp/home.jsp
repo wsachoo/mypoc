@@ -54,19 +54,22 @@
 			<input type="hidden" value="${transactionId}" name="transactionId" id="transactionId">
 		
 			<div class="row sachtopmenu">
-				<div class="col-sm-3 col-xs-12 sachmenuitemactive">
+				<div class="col-sm-3 col-xs-12 sachmenuitemactive" id="sachtopmenu_gMap">
 					<%-- <a href="#" style="color: white" data-name="siteMap" data-url="${pageContext.request.contextPath}/login/${userId}/${solutionId}">Site Map</a> --%>
 					<a href="#" style="color: white" data-name="siteMap" data-url="${pageContext.request.contextPath}/home">Site Map</a>
 				</div>
-				<div class="col-sm-3 col-xs-12 sachmenuitem">
+				<div class="col-sm-3 col-xs-12 sachmenuitem" id="sachtopmenu_accessPort">
 					<a href="#" style="color: white" data-name="accessAndPort" data-url="${pageContext.request.contextPath}/configure">Access & Port</a>
 				</div>
-				<div class="col-sm-3 col-xs-12 sachmenuitem">
+				<div class="col-sm-3 col-xs-12 sachmenuitem" id="sachtopmenu_serviceFeatures">
 					<a href="#" id="serviceFeaturesPage" style="color: white" data-name="serviceAndFeatures" data-url="${pageContext.request.contextPath}/serviceFeatures">Service & Features</a>
 				</div>
-				<div class="col-sm-3 col-xs-12 sachmenuitem">
+				<div class="col-sm-3 col-xs-12 sachmenuitem" id="sachtopmenu_results">
 					<a href="#" id="#resultsPage" style="color: white" data-name="results" data-url="${pageContext.request.contextPath}/results">Results</a>
 				</div>
+				 <div class="sachmenuitem" style="display: none;" id="sachtopmenu_generateContract">
+					<a href="#" id="#contractPage" style="color: white;" data-name="contractGeneration" data-url="${pageContext.request.contextPath}/generateContract">Contract</a>
+				</div> 
 			</div>
 			
 			<!-- following div snippet is also present in init_gmap_template.html 
