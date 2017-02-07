@@ -399,11 +399,11 @@ function displayAvailProdInLeftNav(returnResultData) {
 		 for(var i=0; i < productArrayPerSite.length; i++){
 			 if (i == 0) {
 				 ulElemProductList.css("font-weight", "bold");
-				 ulElemProductList.append("<li>" + productArrayPerSite[i].PRODUCT + productArrayPerSite[i].MRC + thumbsUpIcon+ "</li>");					 
+				 ulElemProductList.append("<li>" + productArrayPerSite[i].PRODUCT + thumbsUpIcon+ "</li>");					 
 			 }
 			 else {
 				 ulElemProductList.css("font-weight", "bold");
-				 ulElemProductList.append("<li>" + productArrayPerSite[i].PRODUCT + productArrayPerSite[i].MRC  + "</li>");					 
+				 ulElemProductList.append("<li>" + productArrayPerSite[i].PRODUCT + "</li>");					 
 			 }
 		 }
 	 });
