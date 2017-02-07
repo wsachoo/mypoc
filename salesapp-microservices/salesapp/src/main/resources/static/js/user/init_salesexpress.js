@@ -5,7 +5,6 @@ var SALESEXPRESS_CONSTANTS; //Object to store URLs for all jQuery templates
 var siteMetaData; //Object to store site configuration meta information from sitedetail table. It is populated from onload_salesexpress script.
 var gUserDetails = {}; //Object to store user's information from user_detail table.
 var gUserConfiguration = {}; //Object to store the configuration choices made by user. Holds the object to be submitted to server for storage in DB.
-var gSiteIdNameMapping = {}; //Object to hold site_id and site_name mapping from database table.
 
 SALESEXPRESS_CONSTANTS = (function() {
 	var _jQueryTemplates = {
@@ -134,23 +133,15 @@ function updateInMemoryConfigurationFromFormObject(form) {
     	}
     });
 
-	var chkHeadequarters = $('input[name="chkHeadequarters"').is(":checked");
-	var chkAccountReceivables = $('input[name="chkAccountReceivables"').is(":checked");
-	var chkDistributionCenter = $('input[name="chkDistributionCenter"').is(":checked");
-
-	
-	if (chkHeadequarters) {
-		gUserConfiguration.addToSiteConfiguration("siteId", $('input[name="chkHeadequarters"').val());
-		gUserConfiguration.addConfigurationToSite("headQuarters");
-	}	
-	if (chkAccountReceivables) {
-		gUserConfiguration.addToSiteConfiguration("siteId", $('input[name="chkAccountReceivables"').val());
-		gUserConfiguration.addConfigurationToSite("accountReceivables");
-	}    
-	if (chkDistributionCenter) {
-		gUserConfiguration.addToSiteConfiguration("siteId", $('input[name="chkDistributionCenter"').val());
-		gUserConfiguration.addConfigurationToSite("distributionCenter");
-	}    
+    $("#salesexpress-side-bar").find(":checkbox").each(function() {
+    	if ( $(this).is(':checked') ) {
+    		var siteId = $(this).val();
+    		var siteName =  $(this).data('name');
+    		gUserConfiguration.addToSiteConfiguration("siteId", siteId);
+    		gUserConfiguration.addToSiteConfiguration("siteName", siteName);
+    		gUserConfiguration.addConfigurationToSite(siteId);    		
+    	}
+    });
 }
 
 function getTemplateDefinition(templatePath) {
@@ -163,7 +154,8 @@ function getTemplateDefinition(templatePath) {
 }
 
 function httpGetWithJsonResponse(path, jsonData) {
-    var jqXHR = $.ajax({
+
+	var jqXHR = $.ajax({
     	  method: "GET",
     	  url: path,
     	  data: jsonData,
@@ -187,7 +179,9 @@ function httpGetWithJsonResponse(path, jsonData) {
 function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
 	
     $.ajaxSetup({
-        headers: { 'X-CSRF-TOKEN' : $('meta[name="_csrf"]').attr('content') }
+        headers : { 
+        	'X-CSRF-TOKEN' : $('meta[name="_csrf"]').attr('content') 
+        }
     });
     
     $(document).ajaxStart(function(){ 
@@ -197,7 +191,7 @@ function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
         $("body").removeClass('ajaxLoading');
     });
     
-  	return $.ajax({
+  	var postResp = $.ajax({
 		url: postUrl,
 		data: postData,
 		type: 'POST',
@@ -205,4 +199,8 @@ function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
 		dataType: 'json',
         contentType : "application/json"
     });	
+  	
+  	delete $.ajaxSettings.headers["X-CSRF-TOKEN"];
+  	
+  	return postResp;
 }

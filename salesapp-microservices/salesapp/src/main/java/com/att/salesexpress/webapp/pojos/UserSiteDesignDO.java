@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserSiteDesignDO {
+	@JsonProperty("siteName")
+	private String siteName;
+
 	@JsonProperty("siteId")
 	private Long siteId;
 
@@ -16,13 +19,21 @@ public class UserSiteDesignDO {
 
 	@JsonProperty("portConfig")
 	private PortConfigDesignDO portConfigDesign;
-
+	
 	public Long getSiteId() {
 		return siteId;
 	}
 
 	public void setSiteId(Long siteId) {
 		this.siteId = siteId;
+	}
+
+	public String getSiteName() {
+		return siteName;
+	}
+
+	public void setSiteName(String siteId) {
+		this.siteName = siteId;
 	}
 
 	public ResiliencyDesignDO getResiliencyDesign() {
@@ -51,7 +62,7 @@ public class UserSiteDesignDO {
 
 	@Override
 	public String toString() {
-		return "UserSiteDesignDO [siteId=" + siteId + ", resiliencyDesign=" + resiliencyDesign + ", accessConfigDesign="
+		return "UserSiteDesignDO [siteId=" + siteName + ", resiliencyDesign=" + resiliencyDesign + ", accessConfigDesign="
 				+ accessConfigDesign + ", portConfigDesign=" + portConfigDesign + "]";
 	}
 }

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface SalesExpressOperationService {
 
-	String getJsonMetaDataByUserIdSolutionId(String userId, Long solutionId) throws JsonProcessingException;
+	Map<String, Object> getJsonMetaDataByUserIdSolutionId(String userId, Long solutionId) throws JsonProcessingException;
 
 	String getSiteConfigurationMetaDataBySiteType(String siteType);
 	
