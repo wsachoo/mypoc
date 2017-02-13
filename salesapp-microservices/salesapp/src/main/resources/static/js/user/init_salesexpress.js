@@ -224,8 +224,5 @@ function httpAsyncPostWithJsonRequestResponseToBluemix(postUrl, postData) {
 		url: postUrl,
 		data: JSON.stringify(postData),
 		dataType: "json",
-		success: function(json){
-		console.log(json);
-		}
 		});
 }
