@@ -169,9 +169,10 @@ function updateInMemoryServiceAndFeaturesFromFormObject(form) {
 	    	if ( $(this).is(':checked') ) {
 	    		var siteId = $(this).val();
 	    		var siteName =  $(this).data('name');
-	    		guserServiceFeatures.addToSiteConfiguration("siteId", siteId);
-	    		guserServiceFeatures.addToSiteConfiguration("siteName", siteName);
-	    		guserServiceFeatures.addServiceFeaturesConfigToSite(siteId);    		
+	    		guserServiceFeatures.addServiceFeaturesConfigToSite("siteId", siteId);
+	    		guserServiceFeatures.addToSiteConfiguration(siteName);
+	    		/*guserServiceFeatures.addServiceFeaturesConfigToSite(siteId);*/ 
+	    	
 	    	}
 	    });
 	}
@@ -273,7 +274,7 @@ function displayAvailProdInLeftNav(returnResultData) {
 }
 
 function isAllSitesConfigCompleteForServiceFeatures(){
-	var numberOfSitesToConfigure = Object.keys(gSiteIdNameMapping).length;
+	var numberOfSitesToConfigure = gUserDetails.siteAddresses.length;
 	var numberOfSitesConfigured = Object.keys(serviceAndFeatures.sites).length;
 	return (numberOfSitesToConfigure == numberOfSitesConfigured);
 }
