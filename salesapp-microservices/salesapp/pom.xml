@@ -59,6 +59,11 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.att.salesexpress.igloo.consumer</groupId>
+			<artifactId>salesapp-iglooconsumer</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 </project>

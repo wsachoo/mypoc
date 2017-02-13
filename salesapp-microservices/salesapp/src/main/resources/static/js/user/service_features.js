@@ -1,7 +1,15 @@
 $(document).ready(function(){
 	
 	$("#accessSpeedConfigPlaceholder").on({
-
+		
+		"click" : function(e) {
+			var eventSourceName = e.target.name;
+			switch (eventSourceName) {
+			case 'btnGenerateContract':
+				handleGenerateContract($(this), e.target);
+				break;
+			}
+		},
 		"change" : function(e) {
 			var eventSourceName = e.target.name;
 			
@@ -10,20 +18,15 @@ $(document).ready(function(){
 				//handleDataServicePerformanceFeature($(this), e.target);
 				handleCommonServiceFeatures($(this), e.target);
 				break;
-			
-			default :
+			/*case 'dataService-performance' :
 				handleCommonServiceFeatures($(this), e.target);
-				break;
+				break;*/
+			/*default :
+				handleCommonServiceFeatures($(this), e.target);
+				break;*/
 			}
-		},
-		"click" : function(e) {
-			var eventSourceName = e.target.name;
-			switch (eventSourceName) {
-				case 'btnGenerateContract':
-					handleGenerateContract($(this), e.target);
-					break;
-			}
-		},
+		}
+		
 	});
 });
 
@@ -38,7 +41,7 @@ function handleCommonServiceFeatures($thisRef, eventSource){
 
 function handleGenerateContract(){
 	var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
-	  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
-	  "<strong>Success!</strong> Contract has been generated successfully</div>";
+	"<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
+	"<strong>Success!</strong> Contract has been generated successfully</div>";
 	$("#divGenerateContractAlert").html(successAlertMessage);
 }

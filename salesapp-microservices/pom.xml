@@ -14,6 +14,7 @@
 		<module>salesapp-microservices-common</module>
 		<module>salesapp-microservices-webapp</module>
 		<module>salesapp</module>
+		<module>salesapp-iglooconsumer</module>
 	</modules>
 
 	<name>salesapp-microservices</name>

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 public class ApplicationConfigurerAdapter extends WebMvcConfigurerAdapter {
 
-	static final Logger logger = LoggerFactory.getLogger(WebMvcConfigurerAdapter.class);
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/META-INF/resources/",
 			"classpath:/resources/", "classpath:/static/", "classpath:/public/" };
@@ -33,7 +33,7 @@ public class ApplicationConfigurerAdapter extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		logger.info("Configuring login controller");
+		logger.debug("Configuring login controller");
 		registry.addViewController("/login").setViewName("login");
 		registry.addViewController("/accessDenied").setViewName("access_denied");
 		

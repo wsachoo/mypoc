@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +15,7 @@
 		document.write('<link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css" />');
 		document.write('<link rel="stylesheet" href="css/salesexpress.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
 		document.write('<link rel="stylesheet" href="css/sidenav.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
+		document.write('<link rel="stylesheet" href="css/chatbox.css?id='+ Math.floor(Math.random() * 100) + 'type="text/css" />');
 	</script>
 	
 	<script type="text/javascript" src="js/lib/jquery-1.12.4.js"></script>
@@ -34,6 +35,8 @@
 		document.write('<script type="text/javascript" defer="defer" src="js/user/configure_service_features.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script type="text/javascript" defer="defer" src="js/user/service_features.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script src="js/user/salesexpress_gmap.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		document.write('<script src="js/user/sales_utility_functions.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		document.write('<script src="js/user/chatbox.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 	</script>
 
 	<script type="text/javascript">
@@ -54,23 +57,24 @@
 			<input type="hidden" value="${transactionId}" name="transactionId" id="transactionId">
 		
 			<div class="row sachtopmenu">
-				<div class="col-sm-3 col-xs-12 sachmenuitemactive" id="sachtopmenu_gMap">
-					<%-- <a href="#" style="color: white" data-name="siteMap" data-url="${pageContext.request.contextPath}/login/${userId}/${solutionId}">Site Map</a> --%>
-					<a href="#" style="color: white" data-name="siteMap" data-url="${pageContext.request.contextPath}/home">Site Map</a>
-				</div>
-				<div class="col-sm-3 col-xs-12 sachmenuitem" id="sachtopmenu_accessPort">
-					<a href="#" style="color: white" data-name="accessAndPort" data-url="${pageContext.request.contextPath}/configure">Access & Port</a>
-				</div>
-				<div class="col-sm-3 col-xs-12 sachmenuitem" id="sachtopmenu_serviceFeatures">
-					<a href="#" id="serviceFeaturesPage" style="color: white" data-name="serviceAndFeatures" data-url="${pageContext.request.contextPath}/serviceFeatures">Service & Features</a>
-				</div>
-				<div class="col-sm-3 col-xs-12 sachmenuitem" id="sachtopmenu_results">
-					<a href="#" id="#resultsPage" style="color: white" data-name="results" data-url="${pageContext.request.contextPath}/results">Results</a>
-				</div>
-				 <div class="sachmenuitem" style="display: none;" id="sachtopmenu_generateContract">
-					<a href="#" id="#contractPage" style="color: white;" data-name="contractGeneration" data-url="${pageContext.request.contextPath}/generateContract">Contract</a>
-				</div> 
-			</div>
+
+			    <div class="col-sm-3 col-xs-12 sachmenuitemactive" id="sachtopmenu_gMap">
+			        <%-- <a href="#" style="color: white" data-name="siteMap" data-url="${pageContext.request.contextPath}/login/${userId}/${solutionId}">Site Map</a> --%>
+			            <a href="#" style="color: white" data-name="siteMap" data-url="${pageContext.request.contextPath}/home">Site Map</a>
+			    </div>
+			    <div class="col-sm-3 col-xs-12 sachmenuitem" id="sachtopmenu_accessPort">
+			        <a href="#" style="color: white" data-name="accessAndPort" data-url="${pageContext.request.contextPath}/configure">Access & Port</a>
+			    </div>
+			    <div class="col-sm-3 col-xs-12 sachmenuitem" id="sachtopmenu_serviceFeatures">
+			        <a href="#" id="serviceFeaturesPage" style="color: white" data-name="serviceAndFeatures" data-url="${pageContext.request.contextPath}/serviceFeatures">Service & Features</a>
+			    </div>
+			    <div class="col-sm-3 col-xs-12 sachmenuitem" id="sachtopmenu_results">
+			        <a href="#" id="#resultsPage" style="color: white" data-name="results" data-url="${pageContext.request.contextPath}/results">Results</a>
+			    </div>
+			    <div class="sachmenuitem" style="display: none;" id="sachtopmenu_generateContract">
+			        <a href="#" id="#contractPage" style="color: white;" data-name="contractGeneration" data-url="${pageContext.request.contextPath}/generateContract">Contract</a>
+			    </div>
+			</div>			
 			
 			<!-- following div snippet is also present in init_gmap_template.html 
 			It has been included to avoid server side trip if user pressed the top 'Site Map' menu button again while on other tabs -->
@@ -81,7 +85,7 @@
 			<div class="clearfix"></div>
 			
 			<div id="over_map" class="sachbuttonsonmap"
-				style="text-align: center;">
+				style="text-align: center; display: none;">
 				<div class="button-wrapper">
 					<button type="button" class="btn btn-primary">Solution
 						Template</button>
@@ -95,11 +99,16 @@
 			</div>
 			
 			<div class="row sachbottommenu">
-				<div class="col-sm-12 sachfootermenuitem" id="divFooterMessage">
+				<div class="col-sm-11 sachfootermenuitem" id="divFooterMessage">
 					Need to apply an access and port speed to all sites before moving on
 				</div>
-			</div>			
+				 <div class="col-sm-1 sachfootermenuitem">
+					 <a href="#" style="font-weight: bold;" id="open-Chat"></a>
+				</div> 
+			</div>	
+			 <div class="chat-box" id="chat_div" style="display: none;"><jsp:include page="chatBox.jsp"/></div>
 		</form>
+		
 	</div> 
 </body>
 </html>

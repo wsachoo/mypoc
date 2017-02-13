@@ -203,3 +203,22 @@ function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
         contentType : "application/json"
     });	
 }
+
+
+function httpAsyncPostWithJsonRequestResponseToBluemix(postUrl, postData) {
+	  
+
+	return $.ajax({
+		beforeSend: function(xhrObj){
+		xhrObj.setRequestHeader("Content-Type","application/json");
+		xhrObj.setRequestHeader("Accept","application/json");
+		},
+		type: "POST",
+		url: postUrl,
+		data: JSON.stringify(postData),
+		dataType: "json",
+		success: function(json){
+		console.log(json);
+		}
+		});
+}

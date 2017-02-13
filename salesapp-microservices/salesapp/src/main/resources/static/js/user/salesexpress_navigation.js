@@ -36,8 +36,10 @@ $(document).ready(function() {
         	topMenuDiv.trigger('create');
         }
         else if (("serviceAndFeatures" === name) ||  ("results" === name)) {
-        	//performTabChangeAction(name);
-        	//handleProceedToFeatures(); // added to test being on the same page
+        	if(Object.keys(gUserConfiguration.getUserConfigurationData().sites).length > 0){
+        		performTabChangeAction(name);
+        		handleProceedToFeatures(); // added to test being on the same page
+        	}
         }
     });
     

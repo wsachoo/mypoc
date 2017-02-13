@@ -69,12 +69,17 @@ function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 		gUserConfiguration.getConfigurationData().accessConfig.selectAccessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes;
 	}
 	
+	gUserConfiguration.addConfigMetaInformation("iglooCallRequired", "Y"); //Add parameter iglooCallRequired to indicate that IGLOO call is needed on server side
 	var formData = JSON.stringify(gUserConfiguration.getUserConfigurationData());
 	
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath("siteConfigurationPostUrl");
 	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
 	
+	var textBeforeLoading = $(eventSource).text();
+	$(eventSource).html("<b>Processing....</b>")
+	
 	promise.done(function(data, textStatus, jqXHR ) {
+		$(eventSource).text(textBeforeLoading);
 		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
 								  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
 								  "<strong>Success!</strong> The request has been submitted successfully</div>";
@@ -87,6 +92,7 @@ function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 		fetchPortSpeedsForSelectedAccessSpeed();
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
+		$(eventSource).text(textBeforeLoading);
 		//var errorObject = $.parseJSON(jqXHR.responseText);
 		var errorObject = jqXHR.responseJSON;
 		
@@ -95,7 +101,9 @@ function handleBtnApplyAccessConfigurationOptionsClick($thisRef, eventSource) {
 		  						  "<strong>Failure!</strong> The request failed with this error: " + errorObject.reasonPhrase + "</div>";  
 		$("#divAccessTypeclickApplyMessage").html(failureAlertMessage);
 		console.log(errorObject.stackTrace);
-	});	
+	});
+	
+	gUserConfiguration.addConfigMetaInformation("iglooCallRequired", "N"); //Remove parameter iglooCallRequired after IGLOO call is done.
 }
 
 function fetchPortSpeedsForSelectedAccessSpeed() {
@@ -113,7 +121,7 @@ function fetchPortSpeedsForSelectedAccessSpeed() {
 
 function configureModifyUserOptionsAfterAccessApplySuccess() {
 	var $divAccessConfigOptions = $("#divAccessConfigOptions");
-	$divAccessConfigOptions.nextAll('div').not('.sachbottommenu').remove();
+	$divAccessConfigOptions.nextAll('div').not('.sachbottommenu, .chat-box').remove();
 	$divAccessConfigOptions.remove();			
 	$('#divOnBtnCustomize').remove();
 	

@@ -28,7 +28,7 @@ public class SalesAuthenticationSuccessHandler implements AuthenticationSuccessH
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		logger.info("Authentication successful");
+		logger.debug("Authentication successful");
 		handle(request, response, authentication);
 		clearAuthenticationAttributes(request);
 	}
@@ -63,7 +63,7 @@ public class SalesAuthenticationSuccessHandler implements AuthenticationSuccessH
 		} else if (isAdmin) {
 			return "/admin";
 		} else {
-			logger.info("Authentication successful but user role not found");
+			logger.debug("Authentication successful but user role not found");
 			return "/accessDenied";
 		}
 	}

@@ -1,31 +1,32 @@
-{{each(i, item) objectToServiceFeaturesTemplate}}
-<div id="div_FeatureService_${i}" class="container-fluid">
+
+<div id="div_FeatureService_${objectToServiceFeaturesTemplate['id']}" class="container-fluid">
 	<div class="clearfix"></div>
-	<div class="row"><label class=""> ${i}</label></div><!--  Data Level -->
-			{{each(j, subItem) item}}
-				<div class="clearfix"></div>
-				<div class="checkbox col-sm-4" style=""><input type="checkbox" id="${i}Service-${j}" name="${i}Service-${j}" value="${j}"/>${j}</div> <!-- performance Level -->
-					{{each(k, subSubItem) subItem}}
-						<div class="clearfix"></div>
-							
-								{{if k != 'serviceType'}}
-									<div style="display:none;" id="${i}Service-${j}-Features">
-										<div class=" col-sm-3" style="">${k}</div> <!-- select your cosType Level -->
-										{{each(l, subsubSubItem) subSubItem}}
-											{{if item[j]['serviceType']['key'] == 'single-service'}}
-												<div class="radio col-sm-11 col-sm-offset-1">
-													<input type="radio" name="${i}Service-${j}-${k}" id="" value="${subsubSubItem}"> ${subsubSubItem}
-												</div>
-											{{else}}
-												<div class="checkbox col-sm-11 col-sm-offset-1">
-													<input type="checkbox" name="${i}Service-${j}-${l}" id="" value="${subsubSubItem}"> ${subsubSubItem}
-												</div>
-											{{/if}}
-										{{/each}}
+	<div class="row"><label class=""> ${objectToServiceFeaturesTemplate["label"]}</label></div><!--  Data Level -->
+		{{each(h, item )  objectToServiceFeaturesTemplate["values"]}}
+			<div class="clearfix"></div>
+			<div class="checkbox col-sm-4" style=""><input type="checkbox" id="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}" 
+				name="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}" 
+					value="${objectToServiceFeaturesTemplate['values'][h]['displayValue']}"/>${objectToServiceFeaturesTemplate["values"][h]["displayValue"]}</div> <!-- performance Level -->
+					
+					<div style="display:none;" id="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}-Features">
+						{{each(i, subItem) objectToServiceFeaturesTemplate.values[h].children}}
+							<div class="clearfix"></div>
+							<div class=" col-sm-3" style="">${objectToServiceFeaturesTemplate.values[h].children[i]["label"]}</div> <!--  select your cosType level-->
+							{{each(j, subSubItem) objectToServiceFeaturesTemplate.values[h].children[i].options}}
+								{{if objectToServiceFeaturesTemplate.values[h].children[i].type == 'radio-button'}}
+									<div class="radio col-sm-11 col-sm-offset-1">
+										<input type="radio" name="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}-${objectToServiceFeaturesTemplate.values[h].children[i].name}" 
+										id="" value="${j}"> ${objectToServiceFeaturesTemplate.values[h].children[i].options[j]}
+									</div>
+								{{else}}
+									<div class="checkbox col-sm-11 col-sm-offset-1">
+										<input type="checkbox" name="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}-${objectToServiceFeaturesTemplate.values[h].children[i].name}" 
+										id="" value="${j}"> ${objectToServiceFeaturesTemplate.values[h].children[i].options[j]}
 									</div>
 								{{/if}}
-							
-					{{/each}}			
-			{{/each}}
+							{{/each}}
+						{{/each}}
+					</div>
+		{{/each}}
 </div>
-{{/each}}
+

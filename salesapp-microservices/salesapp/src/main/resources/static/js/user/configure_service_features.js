@@ -1,10 +1,10 @@
 
 var tempServiceAndFeatures = {};
-	var serviceAndFeatures = {
+var serviceAndFeatures = {
 			"sites" : {}
-	};
+					};
 $(document).ready(function(){
-	
+
 	$("#accessSpeedConfigPlaceholder").on({
 		"click" : function(e) {
 			var eventSourceName = e.target.name;
@@ -17,6 +17,7 @@ $(document).ready(function(){
 				case 'btnProceedToContractGeneration':
 					handleProceedToGenerateContract($(this), e.target);
 					break;
+
 			}
 		},
 		
@@ -27,10 +28,13 @@ $(document).ready(function(){
 			case 'serviceConfigServiceRequired':
 				handleActionRequiredActionServiceAndFeatures($(this), e.target);
 				break;
-			
 			default :
-				handleCommonService($(this), e.target);
-				break;
+				if(eventSourceName.includes("-"))
+					handleCommonServiceFeatures($(this), e.target);
+				else
+					handleCommonService($(this), e.target);
+				break;	
+			
 			}
 		}
 		
@@ -117,23 +121,49 @@ guserServiceFeatures = (function() {
 function updateInMemoryServiceAndFeaturesFromFormObject(form) {
 	var formData = form.serializeArray();
 	
-	$.each(formData, function(k, vx) {
-	    var keyArr = vx.name.split('-');
-	    if(keyArr.length > 1){
-	    var newObj = tempServiceAndFeatures;
-	    $.each((keyArr), function(i, v) {
-	    	
-	      if (i != keyArr.length - 1) { 
-	        if (!newObj[v]) {
-	          newObj[v] = {};
-	        }
-	        newObj = newObj[v];
-	      } else {
-	        newObj[v] = vx;
-	      }
-	    });
-	}
-	  });
+	var chkNames = [];
+
+	form.find(':checkbox').each(function(i) {	
+        chkNames[i] = ($(this).attr('name'));
+	});
+
+	var tempArr = {};
+	var checkBoxElements = $.unique(chkNames);
+	checkBoxElements.forEach(function(v) {
+
+		var temp = "input[name='" + v + "']";
+
+		var arr = [];
+		$(temp).filter(':checked').each(function(i) {
+			arr[i] = ($(this).val());
+		});
+		tempArr[v] = arr.join();
+	});
+	
+	formData.forEach(function(ob) {
+		if (tempArr[ob.name]) {
+			ob.value = tempArr[ob.name];
+		}
+	});
+	
+	var newObj = null;
+	$.each(formData, function(index, formLevelValue) {
+		var keyArr = formLevelValue.name.split('-'); // change to id
+		if (keyArr.length > 1) {
+			newObj = tempServiceAndFeatures;
+			$.each((keyArr), function(keyArrIndex, keyArrValue) {
+
+				if (keyArrIndex != keyArr.length - 1) {
+					if (!newObj[keyArrValue]) {
+						newObj[keyArrValue] = {};
+					}
+					newObj = newObj[keyArrValue];
+				} else {
+					newObj[keyArrValue] = formLevelValue;
+				}
+			});
+		}
+	});
 	
 	var chkHeadequarters = $('input[name="chkHeadequarters"').is(":checked");
     var chkAccountReceivables = $('input[name="chkAccountReceivables"').is(":checked");
@@ -158,8 +188,8 @@ function updateInMemoryServiceAndFeaturesFromFormObject(form) {
 function handleActionRequiredActionServiceAndFeatures($thisRef, eventSource) {
 	var isServiceRequiredValue = $(eventSource).val();
 	if ('true' === isServiceRequiredValue) {
-		var serviceOptions = Object.keys(serviceFeaturesMetaData.serviceAndFeatures);
-		console.log(serviceOptions);
+		var serviceOptions = serviceFeaturesMetaData.serviceAndFeatures;
+		console.log("serviceOptions :" + serviceOptions);
 		var servicesOffered = $.tmpl("service_features_template", {"serviceOptionsKeys" : serviceOptions});
 		var lastDiv = findLastDivRowOfElement($thisRef);
 		lastDiv.after(servicesOffered);
@@ -170,11 +200,11 @@ function handleActionRequiredActionServiceAndFeatures($thisRef, eventSource) {
 
 function removeNextAllSiblingDivRows($triggerElement) {
 	var $closestDiv = $triggerElement.closest("div.row");
-	$closestDiv.nextAll('div').not('.sachbottommenu').remove();
+	$closestDiv.nextAll('div').not('.sachbottommenu, .chat-box').remove();
 }
 
 function findLastDivRowOfElement($thisRef) {
-	return $thisRef.find("div.row:not('.sachbottommenu'):last");
+	return $thisRef.find("div.row:not('.sachbottommenu,.chat-box, #chat_window_1, .msg_container'):last");
 }
 
 function handleProceedToResults($thisRef, eventSource){
@@ -182,15 +212,24 @@ function handleProceedToResults($thisRef, eventSource){
     location.replace(url); */
 	performTabChangeAction("results");
 	
-	var resultData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('resultsPageUrl'), {
-		"portSpeed" : gUserConfiguration.getConfigurationData().portConfig.sliderPortSpeedValue,
-		"accessSpeed" : gUserConfiguration.getConfigurationData().accessConfig.sliderSpeedValue
-	});	
+	var requestParam = {
+			//"portSpeed" : gUserConfiguration.getConfigurationData().portConfig.sliderPortSpeedValue,
+			//"accessSpeed" : gUserConfiguration.getConfigurationData().accessConfig.sliderSpeedValue
+			
+			"accessSpeed" : JSON.stringify($.map(gUserConfiguration.getUserConfigurationData().sites, function(v, k) {
+			    return v.accessConfig.sliderSpeedValue;
+			})),
+			"portSpeed" : JSON.stringify($.map(gUserConfiguration.getUserConfigurationData().sites, function(v, k) {
+			    return v.portConfig.sliderPortSpeedValue;
+			}))			
+	};
+	
+	var resultData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('resultsPageUrl'), requestParam);
 	
 	displayAvailProdInLeftNav(resultData);
 	
 	var formElement = $("form");
-	formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
+	formElement.children('div').not('.sachtopmenu,.sachbottommenu,.chat-box').remove();
 	var serviceFeaturesInit= $.tmpl("show_results_template", { "packageData" : resultData});
 	var topmenudiv = formElement.find("div.sachtopmenu");
 	topmenudiv.after(serviceFeaturesInit);
@@ -219,72 +258,35 @@ function displayFeaturesAppliedInLeftNav(){
 	
 }
 
-function displayAvailProdInLeftNav(returnResultData){
-		var hq_availableProducts= $("#hq_availableProducts");
-		var ar_availableProducts = $("#ar_availableProducts");
-		var dc_availableProducts = $("#dc_availableProducts");
-		var chkHeadequarters = $('input[name="chkHeadequarters"').is(":checked");
-		var chkAccountReceivables = $('input[name="chkAccountReceivables"').is(":checked");
-		var chkDistributionCenter = $('input[name="chkDistributionCenter"').is(":checked");
-		var thumbsUpIcon = "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>";
-		
-		if (chkHeadequarters) {
-			hq_availableProducts.find("li").remove();
-		}
-		if(chkAccountReceivables){
-			ar_availableProducts.find("li").remove();
-		}
-		if(chkDistributionCenter){
-			dc_availableProducts.find("li").remove();
-		}
+function displayAvailProdInLeftNav(returnResultData) {
+	var thumbsUpIcon = "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>";
+	var productsBySiteId = {};
 
+	$.each(gSiteIdNameMapping, function(siteName, siteKey) {
+		var productsFound = 
+			$.grep(returnResultData, function(site, ind) {
+	  		    var productExists = site['SITE_IDS'].split(",").indexOf(siteKey) != -1;
+	            return productExists;
+		});
+		productsBySiteId[siteKey] = productsFound;
+	});
 	
-	for(var i =0; i < returnResultData.length; i++){
-		if(i ==0){
-		if(chkHeadequarters){
-			hq_availableProducts.css("font-weight", "bold");
-			hq_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"  "+thumbsUpIcon+"</li>");
-		}
-		if(chkAccountReceivables){
-			ar_availableProducts.css("font-weight", "bold");
-			ar_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"  "+thumbsUpIcon+"</li>");
-		}
-		if(chkDistributionCenter){
-			dc_availableProducts.css("font-weight", "bold");
-			dc_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"  "+thumbsUpIcon+"</li>");
-		}	
-	}
-	else{
-		if(chkHeadequarters){
-			hq_availableProducts.css("font-weight", "bold");
-			hq_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"</li>");
-		}
-		if(chkAccountReceivables){
-			ar_availableProducts.css("font-weight", "bold");
-			ar_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"</li>");
-		}
-		if(chkDistributionCenter){
-			dc_availableProducts.css("font-weight", "bold");
-			dc_availableProducts.append("<li>"+ returnResultData[i]["PRODUCT"] +"</li>");
-		}
-	}
-	}
-}
-
-function handleProceedToGenerateContract($thisRef, eventSource) {
-	
-	$("#sachtopmenu_serviceFeatures").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem');//changes span of existing tabs
-	$("#sachtopmenu_results").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem');//changes span of existing tabs
-	
-	$("#sachtopmenu_generateContract").css("display","inline");
-	$("#sachtopmenu_generateContract").addClass('col-sm-2 col-xs-12 sachmenuitemactive');
-	
-	var formElement = $("form");
-	formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
-	var generateContractInit= $.tmpl("generate_contract_template");
-	var topmenudiv = formElement.find("div.sachtopmenu");
-	topmenudiv.after(generateContractInit);
-	formElement.trigger('create');    	
+	 $.each(productsBySiteId, function(k, productArrayPerSite){
+		 
+		 var ulElemProductList = $("ul").find("[data-menu_site_id='" + k + "']");
+		 ulElemProductList.find("li").remove();
+		 
+		 for(var i=0; i < productArrayPerSite.length; i++){
+			 if (i == 0) {
+				 ulElemProductList.css("font-weight", "bold");
+				 ulElemProductList.append("<li>" + productArrayPerSite[i].PRODUCT + thumbsUpIcon+ "</li>");					 
+			 }
+			 else {
+				 ulElemProductList.css("font-weight", "bold");
+				 ulElemProductList.append("<li>" + productArrayPerSite[i].PRODUCT + "</li>");					 
+			 }
+		 }
+	 });
 }
 
 function isAllSitesConfigCompleteForServiceFeatures(){
@@ -295,33 +297,38 @@ function isAllSitesConfigCompleteForServiceFeatures(){
 
 
 function handleCommonService($thisRef, eventSource){
+	var objectToServiceFeaturesTemplate;
 	var isServiceRequiredValue = $(eventSource).val();
+	var divServiceRequired = $(eventSource).attr('id');
 	if (($(eventSource).is(':checked'))) {
-		var objectToServiceFeaturesTemplate = serviceFeaturesMetaData.serviceAndFeatures[isServiceRequiredValue];
+		for(var i=0; i < serviceFeaturesMetaData["serviceAndFeatures"].length; i++){
+			if(serviceFeaturesMetaData.serviceAndFeatures[i]["displayValue"] == isServiceRequiredValue){
+				objectToServiceFeaturesTemplate = serviceFeaturesMetaData.serviceAndFeatures[i]["children"];
+			}
+		}
+		//var objectToServiceFeaturesTemplate = serviceFeaturesMetaData.serviceAndFeatures[isServiceRequiredValue];
 		var securityServiceOptions = $.tmpl("common_services_features_template", {"objectToServiceFeaturesTemplate":objectToServiceFeaturesTemplate});
 		var lastDiv = findLastDivRowOfElement($thisRef);
 		$(securityServiceOptions).insertBefore('.sachbottommenu');
 		$("#serviceFeaturesApplyBtnDiv").insertBefore('.sachbottommenu');
 	}else{
-		$("#div_FeatureService_"+isServiceRequiredValue).remove();
+		$("#div_FeatureService_"+divServiceRequired).remove();
 	}
 }
 
+function handleProceedToGenerateContract($thisRef, eventSource) {
 
+    $("#sachtopmenu_serviceFeatures").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem'); //changes span of existing tabs
+    $("#sachtopmenu_results").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem'); //changes span of existing tabs
 
+    $("#sachtopmenu_generateContract").css("display", "inline");
+    $("#sachtopmenu_generateContract").addClass('col-sm-2 col-xs-12 sachmenuitemactive');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    var formElement = $("form");
+    formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
+    var generateContractInit = $.tmpl("generate_contract_template");
+    var topmenudiv = formElement.find("div.sachtopmenu");
+    topmenudiv.after(generateContractInit);
+    formElement.trigger('create');
+}
 

@@ -57,11 +57,11 @@ function isAllSitesConfigurationCompleted() {
  */
 function removeNextAllSiblingDivRows($triggerElement) {
 	var $closestDiv = $triggerElement.closest("div.row");
-	$closestDiv.nextAll('div').not('.sachbottommenu').remove();
+	$closestDiv.nextAll('div').not('.sachbottommenu,.chat-box, #chat_window_1,.msg_container').remove();
 }
 
 function findLastDivRowOfElement($thisRef) {
-	return $thisRef.find("div.row:not('.sachbottommenu'):last");
+	return $thisRef.find("div.row:not('.sachbottommenu, .chat-box, #chat_window_1, .msg_container'):last");
 }
 
 function configureDefaultAccessSpeedSlider() {
@@ -143,7 +143,7 @@ function handleBtnCustomizePortSpeed($thisRef, eventSource) {
 	lastDiv.after(portConfigOptions);
 
 	var $divPortConfigOptionsData = $("#divPortConfigOptionsData");
-	$divPortConfigOptionsData.nextAll('div').not('.sachbottommenu').remove();
+	$divPortConfigOptionsData.nextAll('div').not('.sachbottommenu,.chat-box').remove();
 	configureDefaultPortSpeedSlider();
 	
 	$thisRef.trigger('create');
@@ -299,7 +299,7 @@ function handleProceedToFeatures(){
     });*/
 	//110392
     var formElement = $("form");
-	formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
+	formElement.children('div').not('.sachtopmenu,.sachbottommenu,.chat-box').remove();
 	var serviceFeaturesInit= $.tmpl("service_features_init");
 	var topmenudiv = formElement.find("div.sachtopmenu");
 	topmenudiv.after(serviceFeaturesInit);
@@ -332,7 +332,7 @@ $("#divSliderAccessSpeed").slider("option", "slide", function( event, ui ) {
 */
 
 function performTabChangeAction(tabDataName) {
-	
+
 	var div1 = $('a[data-name="siteMap"]').closest("div");
 	var div2 = $('a[data-name="accessAndPort"]').closest("div");
 	var div3 = $('a[data-name="serviceAndFeatures"]').closest("div");
@@ -358,4 +358,5 @@ function performTabChangeAction(tabDataName) {
 	}
 	selectedTabElementDiv.removeClass("sachmenuitem");
 	selectedTabElementDiv.addClass("sachmenuitemactive");
+
 }

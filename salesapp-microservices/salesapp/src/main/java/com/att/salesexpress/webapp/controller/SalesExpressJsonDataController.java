@@ -105,7 +105,7 @@ public class SalesExpressJsonDataController {
 		String accessSpeed = (String) paramValues.get("accessSpeed");
 
 		String resultDataJSON = salesExpressOperationServiceImpl.getPortSpeedsByAccessData(accessType, accessSpeed);
-		logger.info("Port speeds retrieved are {}", resultDataJSON);
+		logger.debug("Port speeds retrieved are {}", resultDataJSON);
 		return new ResponseEntity<String>(resultDataJSON, HttpStatus.OK);
 	}
 
@@ -113,7 +113,6 @@ public class SalesExpressJsonDataController {
 	@RequestMapping(value = "getAllAccessSpeeds", method = RequestMethod.GET)
 	public ResponseEntity<String> getAllAccessSpeeds() throws JsonProcessingException {
 		String accessSpeedsJson = salesExpressOperationServiceImpl.getAllAccessSpeeds();
-		logger.debug("Access speed json retrived is: {}", accessSpeedsJson);
 		return new ResponseEntity<String>(accessSpeedsJson, HttpStatus.OK);
 	}
 	

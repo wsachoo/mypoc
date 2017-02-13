@@ -3,6 +3,7 @@ package com.att.salesexpress.webapp.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.att.cio.commonheader.v3.WSContext;
+import com.att.cio.commonheader.v3.WSContext.WSNameValue;
+import com.att.cio.commonheader.v3.WSHeader;
+import com.att.cio.commonheader.v3.WSMessageData;
+import com.att.edb.accessquote.AccessQuoteRequest;
+import com.att.edb.accessquote.AccessQuoteRequest.AccessQuoteBody;
+import com.att.edb.accessquote.AccessQuoteResponse;
+import com.att.edb.accessquote.GetAccessQuote;
+import com.att.edb.accessquote.GetAccessQuoteResponse;
+import com.att.salesexpress.igloo.consumer.service.IglooWSConsumerService;
 import com.att.salesexpress.webapp.service.SalesExpressOperationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -23,14 +34,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
  */
 @Controller
 public class SalesExpressPocController {
-	private static final Logger logger = LoggerFactory.getLogger(SalesExpressPocController.class);
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private SalesExpressOperationService salesExpressOperationServiceImpl;
 
 	@RequestMapping(value = "/configure", method = RequestMethod.GET)
 	public ModelAndView configure(HttpServletRequest request) throws JsonProcessingException {
-		logger.info("Inside configure() method " + this.getClass());
+		logger.debug("Inside configure() method " + this.getClass());
 		ModelAndView view = new ModelAndView("access_configure");
 		HttpSession session = request.getSession();
 
@@ -51,7 +62,7 @@ public class SalesExpressPocController {
 	public ModelAndView showMap(HttpServletRequest request) throws JsonProcessingException {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = user.getUsername();
-		logger.info("Solution is retrieved from authentication object is {}", userId);
+		logger.debug("Solution is retrieved from authentication object is {}", userId);
 
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);
@@ -63,13 +74,16 @@ public class SalesExpressPocController {
 			session.setAttribute("solutionId", solutionId);
 		}
 		logger.debug("Solution is saved in session is: {}", solutionId);
-
+		
 		String siteIdNameMap = (String) session.getAttribute("siteIdNameMap");
+		
+		
 		if (siteIdNameMap == null) {
 			siteIdNameMap = salesExpressOperationServiceImpl.getSiteInfoBySolutionId(solutionId);
 			session.setAttribute("siteIdNameMap", siteIdNameMap);
 		}
 		
+
 		Integer transactionId = (Integer) session.getAttribute("transactionId");
 		if (transactionId == null) {
 			transactionId = salesExpressOperationServiceImpl.getTransactionIdByUserIdSolutionId(userId, solutionId);
@@ -83,7 +97,6 @@ public class SalesExpressPocController {
 		view.addObject("userId", userId);
 		view.addObject("solutionId", solutionId);
 		view.addObject("transactionId", transactionId);
-
 		return view;
 	}
 }
