@@ -35,11 +35,14 @@ $(document).ready(function() {
         	topMenuDiv.after(initAccessConfigTemplate);
         	topMenuDiv.trigger('create');
         }
-        else if (("serviceAndFeatures" === name) ||  ("results" === name)) {
+        else if (("serviceAndFeatures" === name)) {
         	if(Object.keys(gUserConfiguration.getUserConfigurationData().sites).length > 0){
         		performTabChangeAction(name);
         		handleProceedToFeatures(); // added to test being on the same page
         	}
+        }
+        else if(("results" === name)){
+        	handleProceedToResults();
         }
     });
     

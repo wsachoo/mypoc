@@ -308,7 +308,7 @@ function handleProceedToGenerateContract($thisRef, eventSource) {
     $("#sachtopmenu_generateContract").addClass('col-sm-2 col-xs-12 sachmenuitemactive');
 
     var formElement = $("form");
-    formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
+    formElement.children('div').not('.sachtopmenu,.sachbottommenu,.chat-box, #chat_window_1, .msg_container').remove();
     var generateContractInit = $.tmpl("generate_contract_template");
     var topmenudiv = formElement.find("div.sachtopmenu");
     topmenudiv.after(generateContractInit);
