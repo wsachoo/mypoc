@@ -46,7 +46,6 @@ $(document).ready(function(){
     	updateInMemoryServiceAndFeaturesFromFormObject($("#configureForm"));
     	var formData = JSON.stringify(serviceAndFeatures);
     	//var formData = JSON.stringify(guserServiceFeatures.getServiceFeaturesConfigurationData);
-    	console.log("formData : ", formData);
     	var url = SALESEXPRESS_CONSTANTS.getUrlPath("postServiceFeaturesOptionsUrl");
     	var promise = httpAsyncPostWithJsonRequestResponse(url, formData);
     	
@@ -189,7 +188,6 @@ function handleActionRequiredActionServiceAndFeatures($thisRef, eventSource) {
 	var isServiceRequiredValue = $(eventSource).val();
 	if ('true' === isServiceRequiredValue) {
 		var serviceOptions = serviceFeaturesMetaData.serviceAndFeatures;
-		console.log("serviceOptions :" + serviceOptions);
 		var servicesOffered = $.tmpl("service_features_template", {"serviceOptionsKeys" : serviceOptions});
 		var lastDiv = findLastDivRowOfElement($thisRef);
 		lastDiv.after(servicesOffered);
