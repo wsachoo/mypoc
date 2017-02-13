@@ -1,5 +1,7 @@
 package com.att.salesexpress.webapp.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +27,7 @@ import com.att.edb.accessquote.GetAccessQuoteResponse;
 import com.att.salesexpress.igloo.consumer.service.IglooWSConsumerService;
 import com.att.salesexpress.webapp.service.SalesExpressOperationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -34,6 +37,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Controller
 public class SalesExpressPocController {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+	private ObjectMapper jacksonObjectMapper;
 
 	@Autowired
 	private SalesExpressOperationService salesExpressOperationServiceImpl;
@@ -87,8 +93,9 @@ public class SalesExpressPocController {
 		}
 
 		ModelAndView view = new ModelAndView("home");
-		String jsonString = salesExpressOperationServiceImpl.getJsonMetaDataByUserIdSolutionId(userId, solutionId);
-		view.addObject("userDetail", jsonString);
+		Map<String, Object> userSitesData = salesExpressOperationServiceImpl.getJsonMetaDataByUserIdSolutionId(userId, solutionId);
+		view.addObject("userSitesData", userSitesData);
+		view.addObject("userDetail", jacksonObjectMapper.writeValueAsString(userSitesData));
 		view.addObject("siteIdNameMap", siteIdNameMap);
 		view.addObject("userId", userId);
 		view.addObject("solutionId", solutionId);

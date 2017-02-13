@@ -47,7 +47,7 @@ $(document).ready(function() {
  * This method returns true if User has configured all the sites for the solution else it returns false.
  */
 function isAllSitesConfigurationCompleted() {
-	var numberOfSitesToConfigure = Object.keys(gSiteIdNameMapping).length;
+	var numberOfSitesToConfigure = Object.keys(gUserDetails.siteAddresses).length;
 	var numberOfSitesConfigured = Object.keys(gUserConfiguration.getUserConfigurationData().sites).length;
 	return (numberOfSitesToConfigure == numberOfSitesConfigured);
 }
