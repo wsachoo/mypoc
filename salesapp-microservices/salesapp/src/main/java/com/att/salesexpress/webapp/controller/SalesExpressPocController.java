@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,12 +80,15 @@ public class SalesExpressPocController {
 			session.setAttribute("solutionId", solutionId);
 		}
 		logger.debug("Solution is saved in session is: {}", solutionId);
-
+		
 		String siteIdNameMap = (String) session.getAttribute("siteIdNameMap");
+		
+		
 		if (siteIdNameMap == null) {
 			siteIdNameMap = salesExpressOperationServiceImpl.getSiteInfoBySolutionId(solutionId);
 			session.setAttribute("siteIdNameMap", siteIdNameMap);
 		}
+		
 
 		Integer transactionId = (Integer) session.getAttribute("transactionId");
 		if (transactionId == null) {
@@ -100,7 +104,6 @@ public class SalesExpressPocController {
 		view.addObject("userId", userId);
 		view.addObject("solutionId", solutionId);
 		view.addObject("transactionId", transactionId);
-
 		return view;
 	}
 }

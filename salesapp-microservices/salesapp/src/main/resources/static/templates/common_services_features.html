@@ -1,0 +1,32 @@
+
+<div id="div_FeatureService_${objectToServiceFeaturesTemplate['id']}" class="container-fluid">
+	<div class="clearfix"></div>
+	<div class="row"><label class=""> ${objectToServiceFeaturesTemplate["label"]}</label></div><!--  Data Level -->
+		{{each(h, item )  objectToServiceFeaturesTemplate["values"]}}
+			<div class="clearfix"></div>
+			<div class="checkbox col-sm-4" style=""><input type="checkbox" id="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}" 
+				name="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}" 
+					value="${objectToServiceFeaturesTemplate['values'][h]['displayValue']}"/>${objectToServiceFeaturesTemplate["values"][h]["displayValue"]}</div> <!-- performance Level -->
+					
+					<div style="display:none;" id="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}-Features">
+						{{each(i, subItem) objectToServiceFeaturesTemplate.values[h].children}}
+							<div class="clearfix"></div>
+							<div class=" col-sm-3" style="">${objectToServiceFeaturesTemplate.values[h].children[i]["label"]}</div> <!--  select your cosType level-->
+							{{each(j, subSubItem) objectToServiceFeaturesTemplate.values[h].children[i].options}}
+								{{if objectToServiceFeaturesTemplate.values[h].children[i].type == 'radio-button'}}
+									<div class="radio col-sm-11 col-sm-offset-1">
+										<input type="radio" name="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}-${objectToServiceFeaturesTemplate.values[h].children[i].name}" 
+										id="" value="${j}"> ${objectToServiceFeaturesTemplate.values[h].children[i].options[j]}
+									</div>
+								{{else}}
+									<div class="checkbox col-sm-11 col-sm-offset-1">
+										<input type="checkbox" name="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}-${objectToServiceFeaturesTemplate.values[h].children[i].name}" 
+										id="" value="${j}"> ${objectToServiceFeaturesTemplate.values[h].children[i].options[j]}
+									</div>
+								{{/if}}
+							{{/each}}
+						{{/each}}
+					</div>
+		{{/each}}
+</div>
+

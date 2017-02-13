@@ -121,7 +121,7 @@ function fetchPortSpeedsForSelectedAccessSpeed() {
 
 function configureModifyUserOptionsAfterAccessApplySuccess() {
 	var $divAccessConfigOptions = $("#divAccessConfigOptions");
-	$divAccessConfigOptions.nextAll('div').not('.sachbottommenu').remove();
+	$divAccessConfigOptions.nextAll('div').not('.sachbottommenu, .chat-box').remove();
 	$divAccessConfigOptions.remove();			
 	$('#divOnBtnCustomize').remove();
 	

@@ -50,8 +50,12 @@ public interface DbService {
 
 	public void removePreviousSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO);
 	
+
+	public String getServiceFeaturesMetaDataBySiteName(String siteType);
+
 	public List<SalesSite> findSalesSiteBySiteId(final Long solutionId);
 
 	public void saveIglooResponseInDb(Long lSolutionId, String iglooResponsString);
+
 
 }

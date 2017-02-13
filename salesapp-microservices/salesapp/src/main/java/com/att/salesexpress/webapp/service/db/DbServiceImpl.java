@@ -301,10 +301,21 @@ public class DbServiceImpl implements DbService {
 
 	}
 
+	@Override
+	public String getServiceFeaturesMetaDataBySiteName(String siteType) {
+		logger.debug("inside getServiceFeaturesMetaDataBySiteName debug mode");
+		logger.info("Inside getServiceFeaturesMetaDataBySiteName() method with siteType {}", siteType);
+		String sql = "select SERVICE_FEATURES_METADATA from SLEXP_SITE_CONFIG where SITE_NAME = ?";
+		String servFeaturesMDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { siteType }, String.class);
+		return servFeaturesMDataJson ;
+	}
+
+
 	public void saveIglooResponseInDb(Long transactionId, String iglooResponsString) {
 		logger.debug("Inside saveIglooResponseInDb() method.");
 		String sqlUpdate = "UPDATE SLEXP_SITEDETAIL_TX SET IGLOO_RESPONSE = ? WHERE ID = ?";
 		int iReturnVal = jdbcTemplate.update(sqlUpdate, iglooResponsString, transactionId);
 		logger.debug("Return value after saveIglooResponseInDb is {}", iReturnVal);
+
 	}
 }

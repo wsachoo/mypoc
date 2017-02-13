@@ -1,9 +1,10 @@
-<div class="col-sm-12">
-		<label for="name">What type of Services would you like at these sites?</label>
+
+<div  class = "container-fluid ">
+		<div class="row"><label for="name">What type of Services would you like at these sites?</label></div>
 		<div class="clearfix"></div>
 		(select all sites that have the same feature needs)
-	<div id="div_services" class="div_services">
-	  <div class="row">
+	<div id="div_services" class="checkbox">
+	 <!--   <div class="row">
 	    <div class="col-sm-2 " style=""><input type="checkbox" name="dataService" id="dataService" value="data"> Data</div>
 	    <div class="col-sm-2 " style=""><input type="checkbox" disabled="disabled" name="voiceService" id="voiceService" value="voice"> Voice</div>
 	    <div class="col-sm-2 " style=""><input type="checkbox" name="securityService" id="securityService" value="securityservice"> Security Services</label></div>
@@ -16,7 +17,10 @@
 	    <div class="col-sm-2 " style=""><input type="checkbox" disabled="disabled" name="cloudService" id="cloudService" value="cloud"> Cloud</div>
 	    <div class="col-sm-2 " style=""><input type="checkbox" disabled="disabled" name="entertainmentService" id="entertainmentService" value="entertainment"> Entertainment</div>
 	    <div class="col-sm-2 " style=""></div>
-	  </div>
+	  </div>  -->
+ {{each serviceOptionsKeys}}
+		<div class="col-sm-2 " style=""><input type="checkbox" name="${serviceOptionsKeys[$index]['id']}Service" id="${serviceOptionsKeys[$index]['id']}Service" value="${serviceOptionsKeys[$index]['displayValue']}">${serviceOptionsKeys[$index]['displayValue']}</div>
+ {{/each}} 
 	</div>	
 	 <div class="col-sm-3 col-sm-offset-8" id="serviceFeaturesApplyBtnDiv">
 	 <div class="" id="divSubmitAlert"></div>
@@ -26,5 +30,4 @@
 	</div>
 	 
 </div>
-
 

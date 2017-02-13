@@ -204,4 +204,12 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 
 	}
 
+
+	@Override
+	@Transactional(readOnly = true)
+	public String getServiceFeaturesMetaDataBySiteName(String siteType) {
+		return dbServiceImpl.getServiceFeaturesMetaDataBySiteName(siteType);
+	}
+
+
 }

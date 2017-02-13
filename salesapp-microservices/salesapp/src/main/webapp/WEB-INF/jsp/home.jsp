@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,9 +17,7 @@
 		document.write('<link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css" />');
 		document.write('<link rel="stylesheet" href="css/salesexpress.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
 		document.write('<link rel="stylesheet" href="css/sidenav.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
-
-		document.write('<link type="text/css" rel="stylesheet" media="all" href="css/chat.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
-		document.write('<link type="text/css" rel="stylesheet" media="all" href="css/screen.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
+		document.write('<link rel="stylesheet" href="css/chatbox.css?id='+ Math.floor(Math.random() * 100) + 'type="text/css" />');
 	</script>
 	
 	<script type="text/javascript" src="js/lib/jquery-1.12.4.js"></script>
@@ -40,6 +38,7 @@
 		document.write('<script type="text/javascript" defer="defer" src="js/user/service_features.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script src="js/user/salesexpress_gmap.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script src="js/user/sales_utility_functions.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
+		document.write('<script src="js/user/chatbox.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script src="js/user/sales_utility_functions.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 	</script>
 
@@ -121,13 +120,14 @@
 
 			<div class="row sachbottommenu">
 				<div class="col-sm-11 sachfootermenuitem" id="divFooterMessage">
-					Need to apply an access and port speed to all sites before moving
-					on</div>
-				<div class="col-sm-1 sachfootermenuitem">
-					<a href="#" style="font-weight: bold;" id="openChat">Open Chat</a>
+					Need to apply an access and port speed to all sites before moving on
 				</div>
-			</div>
+				 <div class="col-sm-1 sachfootermenuitem">
+					 <a href="#" style="font-weight: bold;" id="open-Chat"></a>
+				</div> 
+			</div>	
+			 <div class="chat-box" id="chat_div" style="display: none;"><jsp:include page="chatBox.jsp"/></div>
 		</form>
-	</div>
+	</div> 
 </body>
 </html>

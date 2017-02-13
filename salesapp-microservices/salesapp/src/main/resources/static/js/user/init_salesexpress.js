@@ -5,6 +5,10 @@ var SALESEXPRESS_CONSTANTS; //Object to store URLs for all jQuery templates
 var siteMetaData; //Object to store site configuration meta information from sitedetail table. It is populated from onload_salesexpress script.
 var gUserDetails = {}; //Object to store user's information from user_detail table.
 var gUserConfiguration = {}; //Object to store the configuration choices made by user. Holds the object to be submitted to server for storage in DB.
+var gSiteIdNameMapping = {}; //Object to hold site_id and site_name mapping from database table.
+var serviceFeaturesMetaData;//Object to hold serviceFeatures meta data 
+var guserServiceFeatures = {};
+
 
 SALESEXPRESS_CONSTANTS = (function() {
 	var _jQueryTemplates = {
@@ -21,7 +25,8 @@ SALESEXPRESS_CONSTANTS = (function() {
 			"service_features_init" 	 	 : "templates/service_features_init.html",
 			"init_access_config_template" 	 : "templates/init_access_config_template.html",
 			"init_gmap_template" 			 : "templates/init_gmap_template.html",
-			"generate_contract_template"     : "templates/generate_contract.html"
+			"generate_contract_template" 	 : "templates/generate_contract.html",
+			"common_services_features_template": "templates/common_services_features.html"
 	};
 	
 	var _jsonDataUrls = {
@@ -30,7 +35,8 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"postServiceFeaturesOptionsUrl":"postServiceFeaturesOptions",
 		"resultsPageUrl" : "results",
 		"postSpeedsBySelectedAccessSpeedUrl" : "getPortSpeedsByAccessSpeed",
-		"getAllAccessSpeedsUrl" : "getAllAccessSpeeds"
+		"getAllAccessSpeedsUrl" : "getAllAccessSpeeds",
+		"getServiceFeaturesMetaDataUrl" : "getServiceFeaturesMetaData/testSite"
 	};
 	
 	return {
@@ -203,4 +209,23 @@ function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
   	delete $.ajaxSettings.headers["X-CSRF-TOKEN"];
   	
   	return postResp;
+}
+
+
+function httpAsyncPostWithJsonRequestResponseToBluemix(postUrl, postData) {
+	  
+
+	return $.ajax({
+		beforeSend: function(xhrObj){
+		xhrObj.setRequestHeader("Content-Type","application/json");
+		xhrObj.setRequestHeader("Accept","application/json");
+		},
+		type: "POST",
+		url: postUrl,
+		data: JSON.stringify(postData),
+		dataType: "json",
+		success: function(json){
+		console.log(json);
+		}
+		});
 }

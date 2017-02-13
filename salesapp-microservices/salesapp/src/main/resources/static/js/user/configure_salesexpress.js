@@ -57,11 +57,11 @@ function isAllSitesConfigurationCompleted() {
  */
 function removeNextAllSiblingDivRows($triggerElement) {
 	var $closestDiv = $triggerElement.closest("div.row");
-	$closestDiv.nextAll('div').not('.sachbottommenu').remove();
+	$closestDiv.nextAll('div').not('.sachbottommenu,.chat-box, #chat_window_1,.msg_container').remove();
 }
 
 function findLastDivRowOfElement($thisRef) {
-	return $thisRef.find("div.row:not('.sachbottommenu'):last");
+	return $thisRef.find("div.row:not('.sachbottommenu, .chat-box, #chat_window_1, .msg_container'):last");
 }
 
 function configureDefaultAccessSpeedSlider() {
@@ -143,7 +143,7 @@ function handleBtnCustomizePortSpeed($thisRef, eventSource) {
 	lastDiv.after(portConfigOptions);
 
 	var $divPortConfigOptionsData = $("#divPortConfigOptionsData");
-	$divPortConfigOptionsData.nextAll('div').not('.sachbottommenu').remove();
+	$divPortConfigOptionsData.nextAll('div').not('.sachbottommenu,.chat-box').remove();
 	configureDefaultPortSpeedSlider();
 	
 	$thisRef.trigger('create');
@@ -285,9 +285,21 @@ function handleProceedToFeatures(){
 /*	var url = $("#serviceFeaturesPage").data('url');
     location.replace(url);*/
     performTabChangeAction("serviceAndFeatures");
-	
+    //110392
+    var servFeaturesMDataUrl = SALESEXPRESS_CONSTANTS.getUrlPath('getServiceFeaturesMetaDataUrl');
+    serviceFeaturesMetaData = httpGetWithJsonResponse(servFeaturesMDataUrl);
+	console.log("serviceFeaturesMetaData : " + serviceFeaturesMetaData);
+    
+	var  serviceOptions = Object.keys(serviceFeaturesMetaData);
+	console.log("serviceOptions : " +serviceOptions);
+	/*var serviceFeatures= $.tmpl("service_features_template", { "services" : serviceOptions});*/
+	/*var serviceOptions = $.tmpl("access_config_options_template", { 
+		"serviceConfiguration" : Object.keys(serviceFeaturesMetaData.Services),
+		//"userSelectedAccessConfiguration" : gUserConfiguration
+    });*/
+	//110392
     var formElement = $("form");
-	formElement.children('div').not('.sachtopmenu,.sachbottommenu').remove();
+	formElement.children('div').not('.sachtopmenu,.sachbottommenu,.chat-box').remove();
 	var serviceFeaturesInit= $.tmpl("service_features_init");
 	var topmenudiv = formElement.find("div.sachtopmenu");
 	topmenudiv.after(serviceFeaturesInit);
@@ -321,29 +333,30 @@ $("#divSliderAccessSpeed").slider("option", "slide", function( event, ui ) {
 
 function performTabChangeAction(tabDataName) {
 
-    var div1 = $('a[data-name="siteMap"]').closest("div");
-    var div2 = $('a[data-name="accessAndPort"]').closest("div");
-    var div3 = $('a[data-name="serviceAndFeatures"]').closest("div");
-    var div4 = $('a[data-name="results"]').closest("div");
-    var div5 = $('a[data-name="contractGeneration"]').closest("div");
-    div1.removeClass("sachmenuitemactive");
-    div1.addClass("sachmenuitem");
-    div2.removeClass("sachmenuitemactive");
-    div2.addClass("sachmenuitem");
-    div3.removeClass("sachmenuitemactive");
-    div3.addClass("sachmenuitem");
-    div4.removeClass("sachmenuitemactive");
-    div4.addClass("sachmenuitem");
-    div5.removeClass("sachmenuitemactive"); //added to show contract generation tab
-    div5.addClass("sachmenuitem");
-    var searchPattern = 'a[data-name="' + tabDataName + '"]';
-    var selectedTabElementDiv = $(searchPattern).closest("div");
-    var topMenuDivId = selectedTabElementDiv.attr('id');
-    if (topMenuDivId != 'sachtopmenu_generateContract') { // added to show contract generation tab
-        $("#sachtopmenu_generateContract").css("display", "none");
-        $("#sachtopmenu_results").removeClass('col-sm-2 col-xs-12').addClass('col-sm-3 col-xs-12');
-        $("#sachtopmenu_serviceFeatures").removeClass('col-sm-2 col-xs-12').addClass('col-sm-3 col-xs-12');
-    }
-    selectedTabElementDiv.removeClass("sachmenuitem");
-    selectedTabElementDiv.addClass("sachmenuitemactive");
+	var div1 = $('a[data-name="siteMap"]').closest("div");
+	var div2 = $('a[data-name="accessAndPort"]').closest("div");
+	var div3 = $('a[data-name="serviceAndFeatures"]').closest("div");
+	var div4 = $('a[data-name="results"]').closest("div");
+	var div5 = $('a[data-name="contractGeneration"]').closest("div");
+	div1.removeClass("sachmenuitemactive");
+	div1.addClass("sachmenuitem");
+	div2.removeClass("sachmenuitemactive");
+	div2.addClass("sachmenuitem");
+	div3.removeClass("sachmenuitemactive");
+	div3.addClass("sachmenuitem");
+	div4.removeClass("sachmenuitemactive");
+	div4.addClass("sachmenuitem");
+	div5.removeClass("sachmenuitemactive");//added to show contract generation tab
+	div5.addClass("sachmenuitem");
+	var searchPattern = 'a[data-name="' + tabDataName + '"]';
+	var selectedTabElementDiv =  $(searchPattern).closest("div");
+	var topMenuDivId = selectedTabElementDiv.attr('id');
+	if(topMenuDivId != 'sachtopmenu_generateContract'){ // added to show contract generation tab
+		$("#sachtopmenu_generateContract").css("display", "none");
+		$("#sachtopmenu_results").removeClass('col-sm-2 col-xs-12').addClass('col-sm-3 col-xs-12');
+		$("#sachtopmenu_serviceFeatures").removeClass('col-sm-2 col-xs-12').addClass('col-sm-3 col-xs-12');
+	}
+	selectedTabElementDiv.removeClass("sachmenuitem");
+	selectedTabElementDiv.addClass("sachmenuitemactive");
+
 }
