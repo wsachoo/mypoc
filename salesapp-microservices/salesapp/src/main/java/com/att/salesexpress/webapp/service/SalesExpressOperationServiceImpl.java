@@ -47,18 +47,15 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 
 	@Override
 	@Transactional(readOnly = true)
-	public String getJsonMetaDataByUserIdSolutionId(String userId, Long solutionId) throws JsonProcessingException {
+	public Map<String, Object> getJsonMetaDataByUserIdSolutionId(String userId, Long solutionId) throws JsonProcessingException {
 		Map<String, String> valuesMap = new HashMap<>();
 		valuesMap.put("userId", userId);
 		valuesMap.put("solutionId", solutionId.toString());
 
-		Map<String, Object> objUserDetail = dbServiceImpl.findUserDetailByUserIdSolutionId(userId, solutionId);
-		String jsonString = jacksonObjectMapper.writeValueAsString(objUserDetail);
-
-		logger.debug("User site metadata json received is {}", jsonString);
-		return jsonString;
+		Map<String, Object> objUserSitesDetail = dbServiceImpl.findUserDetailByUserIdSolutionId(userId, solutionId);
+		return objUserSitesDetail;
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 

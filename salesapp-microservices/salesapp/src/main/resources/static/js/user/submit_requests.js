@@ -139,41 +139,29 @@ function displayAccessSelectionInLeftNavigation() {
 	    	accessType = obj.value;
 	    }
 	});
-		
-	if ($('input[name="chkHeadequarters"').is(":checked")) {
-		var hrefAccess = $('#hqAccessId');
-		hrefAccess.css("font-weight", "bold");
-		hrefAccess.html("Access: " + sliderSpeedValue + " " + accessType);
-	}
-	if ($('input[name="chkAccountReceivables"').is(":checked")) {
-		var hrefAccess = $('#arAccessId');
-		hrefAccess.css("font-weight", "bold");
-		hrefAccess.html("Access: " + sliderSpeedValue + " " + accessType);
-	}
-	if ($('input[name="chkDistributionCenter"').is(":checked")) {
-		var hrefAccess = $('#dcAccessId');
-		hrefAccess.css("font-weight", "bold");
-		hrefAccess.html("Access: " + sliderSpeedValue + " " + accessType);
-	}
+	
+    $("#salesexpress-side-bar").find(":checkbox").each(function() {
+    	if ( $(this).is(':checked') ) {
+    		var siteId = $(this).val();
+    		var siteName =  $(this).data('name');
+    		var hrefAccess = $('#access_id_' + siteId);
+    		hrefAccess.css("font-weight", "bold");
+    		hrefAccess.html("Access: " + sliderSpeedValue + " " + accessType);
+    	}
+    });
 }
 
 function displayPostSpeedSelectionInLeftNavigation() {
 	var sliderPortSpeedValue = gUserConfiguration.getConfigurationData().portConfig.sliderPortSpeedValue;
-	
-	if ($('input[name="chkHeadequarters"').is(":checked")) {
-		var hrefAccess = $('#hqPortId');
-		hrefAccess.css("font-weight", "bold");
-		hrefAccess.html("Port: " + sliderPortSpeedValue);
-	}
-	if ($('input[name="chkAccountReceivables"').is(":checked")) {
-		var hrefAccess = $('#arPortId');
-		hrefAccess.css("font-weight", "bold");
-		hrefAccess.html("Port: " + sliderPortSpeedValue);
-	}
-	if ($('input[name="chkDistributionCenter"').is(":checked")) {
-		var hrefAccess = $('#dcPortId');
-		hrefAccess.css("font-weight", "bold");
-		hrefAccess.html("Port: " + sliderPortSpeedValue);
-	}	
+
+    $("#salesexpress-side-bar").find(":checkbox").each(function() {
+    	if ( $(this).is(':checked') ) {
+    		var siteId = $(this).val();
+    		var siteName =  $(this).data('name');
+    		var hrefPort = $('#port_id_' + siteId);
+    		hrefPort.css("font-weight", "bold");
+    		hrefPort.html("Port: " + sliderPortSpeedValue);
+    	}
+    });
 }
 

@@ -120,6 +120,7 @@ guserServiceFeatures = (function() {
 function updateInMemoryServiceAndFeaturesFromFormObject(form) {
 	var formData = form.serializeArray();
 	
+
 	var chkNames = [];
 
 	form.find(':checkbox').each(function(i) {	
@@ -164,25 +165,17 @@ function updateInMemoryServiceAndFeaturesFromFormObject(form) {
 		}
 	});
 	
-	var chkHeadequarters = $('input[name="chkHeadequarters"').is(":checked");
-    var chkAccountReceivables = $('input[name="chkAccountReceivables"').is(":checked");
-	var chkDistributionCenter = $('input[name="chkDistributionCenter"').is(":checked");
-	
-	if (chkHeadequarters) {
-		guserServiceFeatures.addServiceFeaturesConfigToSite("siteId", $('input[name="chkHeadequarters"').val());
-		guserServiceFeatures.addToSiteConfiguration("headQuarters");
+	 $("#salesexpress-side-bar").find(":checkbox").each(function() {
+	    	if ( $(this).is(':checked') ) {
+	    		var siteId = $(this).val();
+	    		var siteName =  $(this).data('name');
+	    		guserServiceFeatures.addToSiteConfiguration("siteId", siteId);
+	    		guserServiceFeatures.addToSiteConfiguration("siteName", siteName);
+	    		guserServiceFeatures.addServiceFeaturesConfigToSite(siteId);    		
+	    	}
+	    });
 	}
-	if (chkAccountReceivables) {
-		guserServiceFeatures.addServiceFeaturesConfigToSite("siteId", $('input[name="chkAccountReceivables"').val());
-		guserServiceFeatures.addToSiteConfiguration("accountReceivables");
-	}    
-	if (chkDistributionCenter) {
-		guserServiceFeatures.addServiceFeaturesConfigToSite("siteId", $('input[name="chkDistributionCenter"').val());
-		guserServiceFeatures.addToSiteConfiguration("distributionCenter");
-	} 
-	
-	
-	}
+    
 
 function handleActionRequiredActionServiceAndFeatures($thisRef, eventSource) {
 	var isServiceRequiredValue = $(eventSource).val();
@@ -236,40 +229,32 @@ function handleProceedToResults($thisRef, eventSource){
 
 function displayFeaturesAppliedInLeftNav(){
 	var glyphIconInfo = "<span class='badge'>i</span>";
-	if ($('input[name="chkHeadequarters"').is(":checked")) {
-		var hrefHqFeatures = $('#hqFeaturesAppliedId');
-		hrefHqFeatures.css("font-weight", "bold");
-		hrefHqFeatures.html("Features: " + "Applied" + "  "+glyphIconInfo);
-	}
-	if ($('input[name="chkAccountReceivables"').is(":checked")) {
-		var hrefArFeatures = $('#arFeaturesAppliedId');
-		hrefArFeatures.css("font-weight", "bold");
-		hrefArFeatures.html("Features: " + "Applied");
-		hrefArFeatures.html("Features: " + "Applied" + "  "+glyphIconInfo);
-	}
-	if ($('input[name="chkDistributionCenter"').is(":checked")) {
-		var hrefDcFeatures = $('#dcFeaturesAppliedId');
-		hrefDcFeatures.css("font-weight", "bold");
-		hrefDcFeatures.html("Access: " + "Applied");
-		hrefDcFeatures.html("Features: " + "Applied" + "  "+glyphIconInfo);
-	}
 	
+    $("#salesexpress-side-bar").find(":checkbox").each(function() {
+    	if ( $(this).is(':checked') ) {
+    		var siteId = $(this).val();
+    		var siteName =  $(this).data('name');
+    		var hrefHqFeatures = $('#feature_tag_id_' + siteId);
+    		hrefHqFeatures.css("font-weight", "bold");
+    		hrefHqFeatures.html("Features: " + "Applied" + "  " + glyphIconInfo);
+    	}
+    });
 }
 
 function displayAvailProdInLeftNav(returnResultData) {
 	var thumbsUpIcon = "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>";
 	var productsBySiteId = {};
 
-	$.each(gSiteIdNameMapping, function(siteName, siteKey) {
+	$.each(gUserDetails.siteAddresses, function(i, value) {
 		var productsFound = 
 			$.grep(returnResultData, function(site, ind) {
-	  		    var productExists = site['SITE_IDS'].split(",").indexOf(siteKey) != -1;
+	  		    var productExists = site['SITE_IDS'].split(",").indexOf("" + value.SITE_ID) != -1;
 	            return productExists;
 		});
-		productsBySiteId[siteKey] = productsFound;
+		productsBySiteId[value.SITE_ID] = productsFound;
 	});
 	
-	 $.each(productsBySiteId, function(k, productArrayPerSite){
+	 $.each(productsBySiteId, function(k, productArrayPerSite) {
 		 
 		 var ulElemProductList = $("ul").find("[data-menu_site_id='" + k + "']");
 		 ulElemProductList.find("li").remove();

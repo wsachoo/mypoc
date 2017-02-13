@@ -220,3 +220,6 @@ footer.navbar-default.navbar-fixed-bottom
 }
  *//*# sourceMappingURL=bootstrap.css.map */
 
+.ajaxLoading {  
+  cursor: progress !important;  
+} 

@@ -25,7 +25,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
-import com.att.edb.accessquote.GetAccessQuoteResponse;
 import com.att.salesexpress.webapp.entity.SalesSite;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
@@ -47,7 +46,6 @@ public class DbServiceImpl implements DbService {
 	@Qualifier("hikariOraJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
 
-
 	public String getSiteMetaData(String siteType) {
 		logger.debug("inside getSiteMetaData debug mode");
 		logger.debug("Inside getSiteMetaData() method with siteType {}", siteType);
@@ -56,26 +54,15 @@ public class DbServiceImpl implements DbService {
 		return siteDataJson;
 	}
 
-
 	public Map<String, Object> findUserDetailByUserIdSolutionId(String userId, Long solutionId) {
 		logger.debug("Inside findUserDetailByUserIdSolutionId() method.");
-		String sql = "select a.SITE_ID, a.ADDRESS_NAME || ', ' || a.CITY || ', ' || a.STATE || ', ' || a.ZIP || ' ' || a.COUNTRY as site_addr from sales_site a where a.DESIGN_ID = ?";
+		String sql = "select a.SITE_ID, a.SITE_NAME, a.ADDRESS_NAME || ', ' || a.CITY || ', ' || a.STATE || ', ' || a.ZIP || ' ' || a.COUNTRY as SITE_ADDR from sales_site a where a.DESIGN_ID = ?";
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { solutionId });
 
 		Map<String, Object> returnValues = new HashMap<String, Object>();
-
 		returnValues.put("user_id", userId);
 		returnValues.put("solution_id", solutionId);
-		returnValues.put("siteAddresses", new ArrayList<Map<String, Object>>());
-
-		for (Map<String, Object> map : rows) {
-			Map<String, Object> siteMap = new HashMap<String, Object>();
-			siteMap.put("site_id", map.get("site_id").toString());
-			siteMap.put("site_addr", map.get("site_addr").toString());
-			@SuppressWarnings("unchecked")
-			List<Map<String, Object>> siteAddresses = (List<Map<String, Object>>) returnValues.get("siteAddresses");
-			siteAddresses.add(siteMap);
-		}
+		returnValues.put("siteAddresses", rows);
 		return returnValues;
 	}
 
@@ -84,7 +71,7 @@ public class DbServiceImpl implements DbService {
 		String sql = "select * from SALES_SITE where DESIGN_ID= ?";
 
 		List<SalesSite> returnObject = jdbcTemplate.query(sql, new RowMapper<SalesSite>() {
-		
+
 			public SalesSite mapRow(ResultSet rs, int rowNum) throws SQLException {
 				SalesSite salesSiteDO = new SalesSite();
 				salesSiteDO.setSiteId(rs.getLong("SITE_ID"));
@@ -106,7 +93,6 @@ public class DbServiceImpl implements DbService {
 
 		return returnObject;
 	}
-
 
 	public long insertSiteConfigurationData(final String userId, final long solutionId, final String accessData)
 			throws SQLException {
@@ -132,7 +118,6 @@ public class DbServiceImpl implements DbService {
 		return seqNum;
 	}
 
-
 	public void insertSiteConfigurationDataInRelational(final UserDesignSelectionDO userDesignDo) throws SQLException {
 		logger.debug("Inside insertSiteConfigurationDataInRelational() method.");
 		final List<UserSiteDesignDO> userSiteDesignDOList = new ArrayList<>(userDesignDo.getSiteDesignList().values());
@@ -143,7 +128,6 @@ public class DbServiceImpl implements DbService {
 
 		jdbcTemplate.batchUpdate(sqlBatchInsert, new BatchPreparedStatementSetter() {
 
-		
 			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
 				UserSiteDesignDO objUserSiteDesignDO = userSiteDesignDOList.get(i);
 				pstmt.setLong(1, objUserSiteDesignDO.getSiteId()); // HCF_MIN_COMMITMENT_ID
@@ -159,20 +143,17 @@ public class DbServiceImpl implements DbService {
 				pstmt.setLong(11, userDesignDo.getSolutionId()); // HCF_MIN_COMMITMENT_ID
 			}
 
-		
 			public int getBatchSize() {
 				return userDesignDo.getSiteDesignList().keySet().size();
 			}
 		});
 	}
 
-
 	public void removePreviousSiteConfigurationDataInRelational(UserDesignSelectionDO objUserDesignSelectionDO) {
 		logger.debug("deleting previous site configuration data from relation tables");
 		String sqlDelete = "delete from sales_design where SOLUTION_ID = ?";
 		jdbcTemplate.update(sqlDelete, objUserDesignSelectionDO.getSolutionId());
 	}
-
 
 	public void updateSiteConfigurationDataInRelational(final UserDesignSelectionDO userDesignDo) {
 		logger.debug("Inside updateSiteConfigurationDataInRelational() method.");
@@ -184,7 +165,6 @@ public class DbServiceImpl implements DbService {
 
 		jdbcTemplate.batchUpdate(sqlBatchInsert, new BatchPreparedStatementSetter() {
 
-		
 			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
 				UserSiteDesignDO objUserSiteDesignDO = userSiteDesignDOList.get(i);
 				pstmt.setString(1, objUserSiteDesignDO.getPortConfigDesign().getRatePlan()); // RATE_PLAN
@@ -198,13 +178,11 @@ public class DbServiceImpl implements DbService {
 				pstmt.setLong(9, objUserSiteDesignDO.getSiteId()); // SITE_ID
 			}
 
-		
 			public int getBatchSize() {
 				return userDesignDo.getSiteDesignList().keySet().size();
 			}
 		});
 	}
-
 
 	public Integer getTransactionIdByUserIdSolutionId(String userId, Long solutionId) {
 		String sql = "SELECT ID FROM SLEXP_SITEDETAIL_TX WHERE USER_ID = ? and SOLUTION_ID = ?";
@@ -249,12 +227,11 @@ public class DbServiceImpl implements DbService {
 		return resultList;
 	}
 
-
 	public List<PortSpeedDO> getPortSpeedsByAccessData(final String accessType, final String accessSpeed) {
 		logger.debug("Access Speed and Access Type received are {} and {}", accessSpeed, accessType);
 		String sql = "select PORT_SPEED_ID, MRC, NRC from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_TYPE = ?";
 		List<PortSpeedDO> list = jdbcTemplate.query(sql, new RowMapper<PortSpeedDO>() {
-		
+
 			public PortSpeedDO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				PortSpeedDO portSpeedDO = new PortSpeedDO();
 				portSpeedDO.setPortType(accessType);
@@ -267,7 +244,6 @@ public class DbServiceImpl implements DbService {
 		}, accessSpeed, accessType);
 		return list;
 	}
-
 
 	public Map<String, List<AccessSpeedDO>> getAllAccessSpeeds() {
 		String sql = "select PORT_TYPE, ACCESS_SPEED_ID, min(MRC) || '-' || max(MRC) as MRC, min(NRC) || '-' || max(NRC) as NRC "
@@ -297,14 +273,12 @@ public class DbServiceImpl implements DbService {
 		return outMap;
 	}
 
-
 	public Long fetchDefaultSolutionIdByUserId(String userId) {
 		String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?) and rownum=1";
 		Long solutionId = jdbcTemplate.queryForObject(sql, Long.class, userId);
 		logger.debug("Solution id retrieved from database is  {}", solutionId);
 		return solutionId;
 	}
-
 
 	public Map<String, String> getSiteInfoBySolutionId(Long solutionId) {
 		Map<String, String> output = new HashMap<>();
@@ -318,7 +292,6 @@ public class DbServiceImpl implements DbService {
 		return output;
 	}
 
-
 	public void getFinalResultDataByProc() {
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("sample_procedure");
 		Map<String, Object> inParamMap = new HashMap<String, Object>();
@@ -328,7 +301,6 @@ public class DbServiceImpl implements DbService {
 
 	}
 
-
 	@Override
 	public String getServiceFeaturesMetaDataBySiteName(String siteType) {
 		logger.debug("inside getServiceFeaturesMetaDataBySiteName debug mode");
@@ -337,6 +309,7 @@ public class DbServiceImpl implements DbService {
 		String servFeaturesMDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { siteType }, String.class);
 		return servFeaturesMDataJson ;
 	}
+
 
 	public void saveIglooResponseInDb(Long transactionId, String iglooResponsString) {
 		logger.debug("Inside saveIglooResponseInDb() method.");

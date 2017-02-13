@@ -6,7 +6,6 @@ $(document).ready(function() {
     if (pageLoaded.indexOf("/home/") == -1) {
     	loadJQueryTemplates();
     	loadSiteMetaData();
-    	loadSiteIdNameMapping();
     }
 });
 
@@ -45,25 +44,6 @@ function loadUserDetail() {
 		if (typeof gUserDetails === 'undefined') {
 			gUserDetails = JSON.parse($("#userDetail").html());
 		}
-	} 
-	catch (ex) {
-	}
-}
-
-function loadSiteIdNameMapping() {
-	try {
-		gSiteIdNameMapping = $.parseJSON($("#siteIdNameMap").html());
-		
-		if (typeof gSiteIdNameMapping === 'undefined') {
-			gSiteIdNameMapping = JSON.parse($("#siteIdNameMap").html());
-		}
-		$("input[name='chkHeadequarters']").val(gSiteIdNameMapping['Headquarters']);
-		$("input[name='chkDistributionCenter']").val(gSiteIdNameMapping['DistributionCenter']);
-		$("input[name='chkAccountReceivables']").val(gSiteIdNameMapping['Account Receivables']);
-		
-		$("#dc_availableProducts").attr("data-menu_site_id", gSiteIdNameMapping['DistributionCenter']);
-		$("#ar_availableProducts").attr("data-menu_site_id", gSiteIdNameMapping['Account Receivables']);
-		$("#hq_availableProducts").attr("data-menu_site_id", gSiteIdNameMapping['Headquarters']);
 	} 
 	catch (ex) {
 	}
