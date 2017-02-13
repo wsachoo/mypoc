@@ -123,7 +123,7 @@
 					Need to apply an access and port speed to all sites before moving on
 				</div>
 				 <div class="col-sm-1 sachfootermenuitem">
-					 <a href="#" style="font-weight: bold;" id="open-Chat"></a>
+					 <a href="#"  id="open-Chat"></a>
 				</div> 
 			</div>	
 			 <div class="chat-box" id="chat_div" style="display: none;"><jsp:include page="chatBox.jsp"/></div>

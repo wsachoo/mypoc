@@ -139,6 +139,10 @@ img {
     left:0px;
     bottom:0;
 }
+#open-Chat{
+	font-weight: bold; 
+	font-size:40px;
+}
 
 
 /* #div-chatbox-footer{
