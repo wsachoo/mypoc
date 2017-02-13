@@ -57,11 +57,11 @@ function isAllSitesConfigurationCompleted() {
  */
 function removeNextAllSiblingDivRows($triggerElement) {
 	var $closestDiv = $triggerElement.closest("div.row");
-	$closestDiv.nextAll('div').not('.sachbottommenu,.msg_container').remove();
+	$closestDiv.nextAll('div').not('.sachbottommenu,.chat-box, #chat_window_1,.msg_container').remove();
 }
 
 function findLastDivRowOfElement($thisRef) {
-	return $thisRef.find("div.row:not('.sachbottommenu,.msg_container'):last");
+	return $thisRef.find("div.row:not('.sachbottommenu, .chat-box, #chat_window_1, .msg_container'):last");
 }
 
 function configureDefaultAccessSpeedSlider() {
@@ -299,7 +299,7 @@ function handleProceedToFeatures(){
     });*/
 	//110392
     var formElement = $("form");
-	formElement.children('div').not('.sachtopmenu,.chat-box').remove();
+	formElement.children('div').not('.sachtopmenu,.sachbottommenu,.chat-box').remove();
 	var serviceFeaturesInit= $.tmpl("service_features_init");
 	var topmenudiv = formElement.find("div.sachtopmenu");
 	topmenudiv.after(serviceFeaturesInit);
