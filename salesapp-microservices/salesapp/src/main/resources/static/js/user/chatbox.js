@@ -1,7 +1,8 @@
 $(document).ready(function(){
 	
 	$("#show_user_id").html(gUserDetails.user_id);
-	$("#open-Chat").html("Open Chat");
+	$("#open-Chat").addClass('glyphicon glyphicon-comment');
+	var chatWindow = $("#chat_window_1");
 	
 	var chatMessagesTemplate = {
 		formatWatsonResponse  : function(receivedMessage) {
@@ -34,7 +35,7 @@ $(document).ready(function(){
 		} 
 	};
 
-	$("#chat_window_1").on('click', '.panel-heading span.icon_minim', function (e) {
+	chatWindow.on('click', '.panel-heading span.icon_minim', function (e) {
 	    var $this = $(this);
 	    if (!$this.hasClass('panel-collapsed')) {
 	        $this.parents('.panel').find('.panel-body').slideUp();
@@ -47,13 +48,13 @@ $(document).ready(function(){
 	        $this.removeClass('panel-collapsed');
 	        $this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
 	        $("#chat_window_1").css("margin-bottom", "50px");
-	        $("#open-Chat").html(" ");
+	        $("#open-Chat").removeClass('glyphicon glyphicon-comment');
 	        //$("#div-chatbox-footer").css("margin-bottom","50px");
 	        //$("#chat_window_1").css("margin-bottom", "-42px");
 	    }
 	});
 
-	$("#chat_window_1").on('focus', '.panel-footer input.chat_input', function (e) {
+	chatWindow.on('focus', '.panel-footer input.chat_input', function (e) {
 	    var $this = $(this);
 	    if ($('#minim_chat_window').hasClass('panel-collapsed')) {
 	        $this.parents('.panel').find('.panel-body').slideDown();
@@ -62,7 +63,7 @@ $(document).ready(function(){
 	    }
 	});
 	
-	$("#chat_window_1").on('click', '#new_chat', function (e) {
+	chatWindow.on('click', '#new_chat', function (e) {
 	    var size = $( ".chat-window:last-child" ).css("margin-left");
 	     size_total = parseInt(size) + 400;
 	    alert(size_total);
@@ -70,18 +71,19 @@ $(document).ready(function(){
 	    clone.css("margin-left", size_total);
 	});
 	
-	$("#chat_window_1").on('click', '.icon_close', function (e) {
+	chatWindow.on('click', '.icon_close', function (e) {
 	    $( "#chat_window_1" ).hide();
-	    $("#open-Chat").html("Open Chat");
+	    $("#open-Chat").addClass('glyphicon glyphicon-comment');
 	});
 	
 	$("#open-Chat").on('click', function(e){ 
 		$("#chat_window_1").show();
 		$("#chat_div").css("display","inline");
+		$(this).removeClass('glyphicon glyphicon-comment');
 		
 	});
 	
-	$("#chat_window_1").on('click', '#btn-chat', function(e){
+	chatWindow.on('click', '#btn-chat', function(e){
 		var inputMessageByUser = $("#btn-input-message").val();
 		if(inputMessageByUser != null && inputMessageByUser != ""){
 		var sentMessageDiv =  chatMessagesTemplate.getRequestMessageTemplate(inputMessageByUser, new Date().getHours()+ ":" + new Date().getMinutes());

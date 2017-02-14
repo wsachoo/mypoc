@@ -5,7 +5,7 @@
         		<!-- top bar starts -->	
                 <div class="panel-heading top-bar">
                     <div class="col-md-8 col-xs-8">
-                        <h3 class="panel-title"><span id="show_user_id" class="glyphicon glyphicon-comment"></span ></h3>
+                        <h3 class="panel-title"><label id="show_user_id" ></label></h3>
                     </div>
                     <div class="col-md-4 col-xs-4" style="text-align: right;">
                         <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
