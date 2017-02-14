@@ -42,7 +42,11 @@ $(document).ready(function() {
         	}
         }
         else if(("results" === name)){
-        	handleProceedToResults();
+        	if(Object.keys(gUserConfiguration.getUserConfigurationData().sites).length > 0){
+        		performTabChangeAction(name);
+        		handleProceedToResults(); 
+        	}
+        	
         }
     });
     
