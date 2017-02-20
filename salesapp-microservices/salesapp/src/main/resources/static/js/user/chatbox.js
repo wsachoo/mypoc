@@ -8,7 +8,7 @@ $(document).ready(function(){
 		formatWatsonResponse  : function(receivedMessage) {
 			return "<div class='row msg_container base_receive'>"+
 					"<div class='col-md-2 col-xs-2 avatar'>"+
-					"<img src='images/watson-analytics.jpg' class=' img-responsive '>"+
+					"<img src='/images/watson-analytics.jpg' class=' img-responsive '>"+
 					"</div>"+
 					"<div class='col-md-10 col-xs-10'>"+
 					"<div class='messages msg_receive'>"+
@@ -29,7 +29,7 @@ $(document).ready(function(){
 					"</div>"+
 					"</div>"+
 					"<div class='col-md-2 col-xs-2 avatar1'>"+
-					"<img src='images/userImg.jpg' class=' img-responsive'>"+
+					"<img src='/images/userImg.jpg' class=' img-responsive'>"+
 					"</div>"+
 					"</div>";
 		} 

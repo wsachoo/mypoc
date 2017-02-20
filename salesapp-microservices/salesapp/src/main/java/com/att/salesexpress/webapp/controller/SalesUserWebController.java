@@ -36,7 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 @Controller
-public class SalesExpressPocController {
+public class SalesUserWebController {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -45,7 +45,7 @@ public class SalesExpressPocController {
 	@Autowired
 	private SalesExpressOperationService salesExpressOperationServiceImpl;
 
-	@RequestMapping(value = "/configure", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/configure", method = RequestMethod.GET)
 	public ModelAndView configure(HttpServletRequest request) throws JsonProcessingException {
 		logger.debug("Inside configure() method " + this.getClass());
 		ModelAndView view = new ModelAndView("access_configure");
@@ -64,7 +64,7 @@ public class SalesExpressPocController {
 		return view;
 	}
 
-	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/user", "/user/home" }, method = RequestMethod.GET)
 	public ModelAndView showMap(HttpServletRequest request) throws JsonProcessingException {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = user.getUsername();
