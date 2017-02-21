@@ -1,4 +1,7 @@
 @media (min-width: 767px) {
+	.cls_available_products {
+		border-top: 1px solid white;
+	}
 	.nav-side-menu {
 	  overflow: auto;
 	  font-family: verdana;
@@ -10,6 +13,7 @@
 	  width: 225px;
 	  height: 100%;
 	  color: #000000;
+	  border-right: 1px solid white;
 	}
 	.nav-side-menu .brand {
 	  /* background-color: #23282e; */
@@ -26,7 +30,7 @@
 	  list-style: none;
 	  padding: 0px;
 	  margin: 0px;
-	  line-height: 35px;
+	  line-height: 48px;
 	  cursor: pointer;
 	  /*    
 	    .collapsed{

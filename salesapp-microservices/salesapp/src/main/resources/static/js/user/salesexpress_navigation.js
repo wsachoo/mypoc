@@ -2,13 +2,20 @@ $(document).ready(function() {
 	/*
 	 * Event handler for side naviation
 	 */
-    $("#salesexpress-side-bar").on("click", ".menu-list #menu-content > li[data-toggle='collapse']", function(e){   
+    $("#salesexpress-side-bar").on("click", ".menu-list #menu-content > div > li[data-toggle='collapse']", function(e) {   
     		var eul = $(this).closest("li");
     		var elem = eul.find("span:nth-child(2)");
-    		elem.toggleClass("glyphicon glyphicon-minus");
+    		elem.toggleClass("glyphicon-plus glyphicon-minus");
 
     		//var parentEls = $( this ).parents().map(function() {   return this.tagName; }).get() .join( ", " );
-    } );
+    });
+    
+    $("#salesexpress-side-bar").on("click", ".menu-list #menu-content > li > a[data-toggle='collapse']", function(e) {   
+		var elem = $(this).find(".more-less");
+		elem.toggleClass("glyphicon-plus glyphicon-minus");
+
+		//var parentEls = $( this ).parents().map(function() {   return this.tagName; }).get() .join( ", " );
+    });
     
     /*
      * Event handler for top navigation
