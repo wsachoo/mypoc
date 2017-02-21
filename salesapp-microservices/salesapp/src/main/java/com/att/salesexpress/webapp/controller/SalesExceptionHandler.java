@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 @ControllerAdvice
-public class SalesExpressExceptionHandler {
+public class SalesExceptionHandler {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 

@@ -28,21 +28,21 @@ import com.att.salesexpress.webapp.service.SalesExpressOperationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Controller
-public class SalesExpressJsonDataController {
-	private static final Logger logger = LoggerFactory.getLogger(SalesExpressJsonDataController.class);
+public class SalesUserRestController {
+	private static final Logger logger = LoggerFactory.getLogger(SalesUserRestController.class);
 
 	@Autowired
 	private SalesExpressOperationService salesExpressOperationServiceImpl;
 
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET, value = "getMetaData/{siteType}")
+	@RequestMapping(method = RequestMethod.GET, value = "user/getMetaData/{siteType}")
 	public ResponseEntity<String> getSiteDataBySiteName(@PathVariable String siteType) {
 		logger.info("Inside getSiteDataBySiteName method, sitename : " + siteType);
 		String siteMetaData = salesExpressOperationServiceImpl.getSiteConfigurationMetaDataBySiteType(siteType);
 		return new ResponseEntity<String>(siteMetaData, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/postSiteConfiguration", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/postSiteConfiguration", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> postSiteConfiguration(@RequestBody Map<String, Object> paramValues,
 			final HttpServletRequest request, final HttpServletResponse response)
@@ -64,7 +64,7 @@ public class SalesExpressJsonDataController {
 
 	}
 
-	@RequestMapping(value = "/postServiceFeaturesOptions", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/postServiceFeaturesOptions", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> saveServiceFeaturesData(@RequestBody Map<String, Object> paramValues,
 			HttpServletRequest request) throws JsonProcessingException, SQLException {
@@ -83,7 +83,7 @@ public class SalesExpressJsonDataController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "results", method = RequestMethod.GET)
+	@RequestMapping(value = "user/results", method = RequestMethod.GET)
 	public ResponseEntity<String> getResults(HttpServletRequest request, @RequestParam Map<String, Object> paramValues)
 			throws IOException, JSONException {
 		logger.info("Inside results() method " + this.getClass());
@@ -97,7 +97,7 @@ public class SalesExpressJsonDataController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "getPortSpeedsByAccessSpeed", method = RequestMethod.GET)
+	@RequestMapping(value = "user/getPortSpeedsByAccessSpeed", method = RequestMethod.GET)
 	public ResponseEntity<String> getPortSpeedsByAccessSpeed(@RequestParam Map<String, Object> paramValues)
 			throws IOException, JSONException {
 		logger.info("Inside getPortSpeedsByAccessSpeed() method " + this.getClass());
@@ -110,14 +110,14 @@ public class SalesExpressJsonDataController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "getAllAccessSpeeds", method = RequestMethod.GET)
+	@RequestMapping(value = "user/getAllAccessSpeeds", method = RequestMethod.GET)
 	public ResponseEntity<String> getAllAccessSpeeds() throws JsonProcessingException {
 		String accessSpeedsJson = salesExpressOperationServiceImpl.getAllAccessSpeeds();
 		return new ResponseEntity<String>(accessSpeedsJson, HttpStatus.OK);
 	}
 	
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET, value = "getServiceFeaturesMetaData/{siteType}")
+	@RequestMapping(method = RequestMethod.GET, value = "user/getServiceFeaturesMetaData/{siteType}")
 	public ResponseEntity<String> getServFeaturesMDataBySiteName(@PathVariable String siteType) {
 		logger.info("Inside getServFeaturesMDataBySiteName method, sitename : " + siteType);
 		String servFeaturesMetaData = salesExpressOperationServiceImpl.getServiceFeaturesMetaDataBySiteName(siteType);
