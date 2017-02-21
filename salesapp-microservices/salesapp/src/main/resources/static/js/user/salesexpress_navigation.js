@@ -88,3 +88,4 @@ function  getActiveTabName() {
 	var activeTabName = activeTabHref.data("name");
 	return activeTabName;
 }
+
