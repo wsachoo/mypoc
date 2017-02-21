@@ -10,3 +10,4 @@ public class PasswordEncoder {
 		System.out.println(passwordEncoder.encode(password));
 	}
 }
+

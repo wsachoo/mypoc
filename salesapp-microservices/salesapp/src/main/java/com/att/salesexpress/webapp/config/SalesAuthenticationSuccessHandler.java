@@ -84,3 +84,4 @@ public class SalesAuthenticationSuccessHandler implements AuthenticationSuccessH
 		return redirectStrategy;
 	}
 }
+

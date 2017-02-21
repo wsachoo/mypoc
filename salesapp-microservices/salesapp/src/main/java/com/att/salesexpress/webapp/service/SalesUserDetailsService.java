@@ -84,3 +84,4 @@ public class SalesUserDetailsService implements UserDetailsService {
 		return salesUser;
 	}
 }
+
