@@ -1,10 +1,10 @@
 
-<div id="div_FeatureService_${objectToServiceFeaturesTemplate['id']}" class="container-fluid">
+<div id="div_FeatureService_${objectToServiceFeaturesTemplate['id']}" class="container-fluid" style="margin-top:10px;">
 	<div class="clearfix"></div>
 	<div class="row"><label class=""> ${objectToServiceFeaturesTemplate["label"]}</label></div><!--  Data Level -->
 		{{each(h, item )  objectToServiceFeaturesTemplate["values"]}}
 			<div class="clearfix"></div>
-			<div class="checkbox col-sm-4" style=""><input type="checkbox" id="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}" 
+			<div class=" col-sm-4" style=""><input type="checkbox" id="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}" 
 				name="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}" 
 					value="${objectToServiceFeaturesTemplate['values'][h]['displayValue']}"/>${objectToServiceFeaturesTemplate["values"][h]["displayValue"]}</div> <!-- performance Level -->
 					
