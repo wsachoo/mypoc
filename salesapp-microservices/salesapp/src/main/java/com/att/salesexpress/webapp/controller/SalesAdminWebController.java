@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Controller
-// @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 public class SalesAdminWebController {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -28,4 +27,3 @@ public class SalesAdminWebController {
 		return view;
 	}
 }
-

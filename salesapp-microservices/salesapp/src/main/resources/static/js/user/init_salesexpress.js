@@ -227,3 +227,4 @@ function httpAsyncPostWithJsonRequestResponseToBluemix(postUrl, postData) {
 		dataType: "json",
 		});
 }
+

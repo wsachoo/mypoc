@@ -36,4 +36,3 @@ public class SalesUser extends User {
 	private String firstName;
 	private String lastName;
 }
-

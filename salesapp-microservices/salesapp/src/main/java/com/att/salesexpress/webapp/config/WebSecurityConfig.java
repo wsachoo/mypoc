@@ -37,10 +37,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/resources/**").permitAll().antMatchers("/", "/user/home", "/user/**")
-				.access("hasRole('USER')").antMatchers("/admin/home", "/admin/**").access("hasRole('ADMIN')").and()
-				.formLogin().loginPage("/login").successHandler(salesAuthenticationSuccessHandler).permitAll().and()
-				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().csrf().and()
+		http.authorizeRequests()
+				.antMatchers("/resources/**").permitAll()
+				.antMatchers("/", "/user/home", "/user/**").access("hasRole('USER')")
+				.antMatchers("/admin/home", "/admin/**").access("hasRole('ADMIN')")
+				.and()
+				.formLogin().loginPage("/login").successHandler(salesAuthenticationSuccessHandler).permitAll()
+				.and()
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().csrf()
+				.and()
 				.exceptionHandling().accessDeniedPage("/accessDenied");
 	}
 
