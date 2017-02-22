@@ -76,6 +76,9 @@ body {
 	color: red
 }
 </style>
+<script>
+	var contextPath = "${pageContext.request.contextPath}";
+</script>
 </head>
 
 <body>

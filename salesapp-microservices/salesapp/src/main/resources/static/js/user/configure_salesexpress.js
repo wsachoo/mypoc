@@ -95,7 +95,7 @@ function setAccessSpeedSliderLimit(objAccessSpeeds) {
 	$("#sliderSpeedValue").val(objAccessSpeeds.range[startIndex].speed);
 	
 	$("#divMRCNRC").text("MRC:" + objAccessSpeeds.range[startIndex].MRC + "    NRC:" + objAccessSpeeds.range[startIndex].NRC);
-	$("#imgAccessType").attr("src", objAccessSpeeds.accessSpeedImagePath);
+	$("#imgAccessType").attr("src", contextPath + objAccessSpeeds.accessSpeedImagePath);
 	
     $divSliderAccessSpeed.slider("option", "slide", function( event, ui ) {
 		$(this).slider('value', 0);
@@ -107,6 +107,7 @@ function setAccessSpeedSliderLimit(objAccessSpeeds) {
 
 function handleBtnCustomizeClick($thisRef, eventSource) {
 	removeNextAllSiblingDivRows($(eventSource));
+	siteMetaData.contextPath = contextPath;
 	var accessTypes = $.tmpl("filter_access_type_template", siteMetaData);
 	var lastDiv = findLastDivRowOfElement($thisRef);
 	lastDiv.after(accessTypes);
