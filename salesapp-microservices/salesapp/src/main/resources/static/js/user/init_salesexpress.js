@@ -1,4 +1,3 @@
-console.log("START: " + new Date().toLocaleString());
 /*
  * Global variables declaration
  */
@@ -10,24 +9,23 @@ var gSiteIdNameMapping = {}; //Object to hold site_id and site_name mapping from
 var serviceFeaturesMetaData;//Object to hold serviceFeatures meta data 
 var guserServiceFeatures = {};
 
-
 SALESEXPRESS_CONSTANTS = (function() {
 	var _jQueryTemplates = {
-			"filter_access_type_template" 	 : "/templates/filter_access_type_template.html",
-			"access_config_options_template" : "/templates/access_config_options_template.html",
-			"select_speed_configure_options" : "/templates/select_speed_configure_options.html",
-			"modify_configuration_options" 	 : "/templates/modify_configuration_options.html",
-			"service_features_template" 	 : "/templates/service_features_template.html",
-			"service_features_data"			 : "/templates/service_features_data.html",
-			"service_features_security" 	 : "/templates/service_features_security.html",
-			"service_features_misc"			 : "/templates/service_features_misc.html",
-			"show_results_template"			 : "/templates/show_results_template.html",
-			"port_config_options_template" 	 : "/templates/port_config_options_template.html",
-			"service_features_init" 	 	 : "/templates/service_features_init.html",
-			"init_access_config_template" 	 : "/templates/init_access_config_template.html",
-			"init_gmap_template" 			 : "/templates/init_gmap_template.html",
-			"generate_contract_template" 	 : "/templates/generate_contract.html",
-			"common_services_features_template": "/templates/common_services_features.html"
+			"filter_access_type_template" 	 : contextPath + "/templates/filter_access_type_template.html",
+			"access_config_options_template" : contextPath + "/templates/access_config_options_template.html",
+			"select_speed_configure_options" : contextPath + "/templates/select_speed_configure_options.html",
+			"modify_configuration_options" 	 : contextPath + "/templates/modify_configuration_options.html",
+			"service_features_template" 	 : contextPath + "/templates/service_features_template.html",
+			"service_features_data"			 : contextPath + "/templates/service_features_data.html",
+			"service_features_security" 	 : contextPath + "/templates/service_features_security.html",
+			"service_features_misc"			 : contextPath + "/templates/service_features_misc.html",
+			"show_results_template"			 : contextPath + "/templates/show_results_template.html",
+			"port_config_options_template" 	 : contextPath + "/templates/port_config_options_template.html",
+			"service_features_init" 	 	 : contextPath + "/templates/service_features_init.html",
+			"init_access_config_template" 	 : contextPath + "/templates/init_access_config_template.html",
+			"init_gmap_template" 			 : contextPath + "/templates/init_gmap_template.html",
+			"generate_contract_template" 	 : contextPath + "/templates/generate_contract.html",
+			"common_services_features_template": contextPath + "/templates/common_services_features.html"
 	};
 	
 	var _jsonDataUrls = {
