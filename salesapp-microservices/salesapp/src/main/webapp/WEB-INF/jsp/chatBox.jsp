@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <div class="container">
     <div class="row chat-window col-sm-3" id="chat_window_1" style="margin-left:55%; z-index: 2000">
         <div class="col-xs-12 col-md-12">
@@ -17,8 +19,8 @@
                 <div class="panel-body msg_container_base" id="message-container">
                     
                     <div class="row msg_container base_receive">
-                        <div class="col-md-2 col-xs-2 avatar">
-                             <img src="/images/watson-analytics.jpg" class="img-responsive ">
+                        <div class="col-md-2 col-xs-2 avatar roger ${contextPath} federer">
+                             <img src="${contextPath}/images/watson-analytics.jpg" class="img-responsive ">
                         </div>
                         <div class="col-md-10 col-xs-10">
                             <div class="messages msg_receive">
