@@ -10,7 +10,7 @@
 	  background-color: #dcdad9;
 	  position: fixed;
 	  top: 0px;
-	  width: 225px;
+	  width: 250px;
 	  height: 100%;
 	  color: #000000;
 	  border-right: 1px solid white;
@@ -134,7 +134,7 @@
     display: block;
   }
   .salesexpress-content-area {
-  	width:calc(100% - 225px);
+  	width:calc(100% - 250px);
   	float: right;
   	display: block;
   }
