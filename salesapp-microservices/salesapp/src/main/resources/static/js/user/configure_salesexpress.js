@@ -137,7 +137,8 @@ function handleBtnCustomizePortSpeed($thisRef, eventSource) {
 	var accessType = gUserConfiguration.getConfigurationData().accessConfig.radiofilteredAccessTypes || gUserConfiguration.getConfigurationData().accessConfig.selectAccessType;
 	
 	var portConfigOptions = $.tmpl("port_config_options_template", { 
-		"portConfiguration" : siteMetaData.portSpeeds[accessType]
+		"portConfiguration" : siteMetaData.portSpeeds[accessType],
+		"contextPath" : contextPath
     });
 	
 	lastDiv = findLastDivRowOfElement($thisRef);
@@ -257,7 +258,7 @@ function setPortOptionSpeedSliderLimit(objPortOption) {
 	$("#portConfig-divMRCNRC").text("MRC:" + objPortOption.range[startIndex].MRC + "    NRC:" + objPortOption.range[startIndex].NRC);
 	$("#divSelectedPortOption").text(objPortOption.displayValue);
 	
-	$("#imgPortOption").attr("src", objPortOption.portOptionImagePath);
+	$("#imgPortOption").attr("src", contextPath + objPortOption.portOptionImagePath);
 	
 	$divSliderPortSpeed.slider("option", "slide", function( event, ui ) {
 		$(this).slider('value', 0);
