@@ -127,7 +127,9 @@
 					 <a href="#"  id="open-Chat"></a>
 				</div> 
 			</div>	
-			 <div class="chat-box" id="chat_div" style="display: none;"><jsp:include page="chatBox.jsp"/></div>
+			 <div class="chat-box" id="chat_div" style="display: none;">
+			 	<jsp:include page="chatBox.jsp"/>
+			 </div>
 		</form>
 	</div> 
 </body>
