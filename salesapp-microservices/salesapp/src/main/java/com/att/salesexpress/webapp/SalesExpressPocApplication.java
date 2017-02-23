@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -15,10 +16,8 @@ import org.springframework.context.annotation.ComponentScan;
  *
  */
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.att.salesexpress.webapp", 
-								"com.att.cio.commonheader.v3", 
-								"com.att.salesexpress.igloo.consumer", 
-								"com.att.edb.accessquote" })
+@ComponentScan(basePackages = { "com.att.salesexpress.webapp", "com.att.cio.commonheader.v3",
+		"com.att.salesexpress.igloo.consumer", "com.att.edb.accessquote" })
 public class SalesExpressPocApplication extends SpringBootServletInitializer implements CommandLineRunner {
 	static final Logger logger = LoggerFactory.getLogger(SalesExpressPocApplication.class);
 
@@ -29,7 +28,7 @@ public class SalesExpressPocApplication extends SpringBootServletInitializer imp
 
 	public static void main(String[] args) {
 		logger.info("Inside main method ");
-		SpringApplication.run(SalesExpressPocApplication.class, args);
+		ApplicationContext ctx = SpringApplication.run(SalesExpressPocApplication.class, args);
 	}
 
 	@Override

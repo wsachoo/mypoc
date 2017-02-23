@@ -30,7 +30,6 @@ public class JacksonConfiguration {
 
 @SuppressWarnings("serial")
 class MyModule extends SimpleModule {
-	@SuppressWarnings("serial")
 	public MyModule() {
 		addDeserializer(String.class, new StdScalarDeserializer<String>(String.class) {
 			@Override
