@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,8 +28,8 @@ public class SalesExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
-	public ExceptionDetail exceptionHandlerAjax(HttpServletRequest request, HttpServletResponse response,
-			Exception ex) {
+	public ResponseEntity<ExceptionDetail> exceptionHandlerAjax(HttpServletRequest request,
+			HttpServletResponse response, Exception ex) {
 		logger.debug("Inside exceptionHandlerAjax() method");
 		ResponseStatus responseStatusAnnotation = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
 		HttpStatus httpStatus = responseStatusAnnotation != null ? responseStatusAnnotation.value()
@@ -42,7 +43,7 @@ public class SalesExceptionHandler {
 		logger.debug("Exception stacktrace: " + errStackTrace);
 		response.setStatus(exp.getErrorStatus());
 
-		return exp;
+		return new ResponseEntity<ExceptionDetail>(exp, HttpStatus.OK);
 	}
 }
 
