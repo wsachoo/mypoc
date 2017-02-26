@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.json.JSONException;
 
-import com.att.edb.accessquote.GetAccessQuoteResponse;
 import com.att.salesexpress.webapp.entity.SalesSite;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
@@ -57,5 +56,8 @@ public interface DbService {
 
 	public void saveIglooResponseInDb(Long lSolutionId, String iglooResponsString);
 
+	public String retrieveServicesFeaturesConfiguration();
+
+	void updateServiceFeaturesConfiguration(String jsonString) throws SQLException;
 
 }
