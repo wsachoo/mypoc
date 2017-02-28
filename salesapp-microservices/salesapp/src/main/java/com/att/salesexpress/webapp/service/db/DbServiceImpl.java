@@ -318,4 +318,19 @@ public class DbServiceImpl implements DbService {
 		logger.debug("Return value after saveIglooResponseInDb is {}", iReturnVal);
 
 	}
+
+	@Override
+	public String retrieveServicesFeaturesConfiguration() {
+		String strServiceFeaturesConfig = jdbcTemplate.queryForObject(
+				"select SERVICE_FEATURES_METADATA from SLEXP_SITE_CONFIG where SITE_NAME='testSite'", String.class);
+		return strServiceFeaturesConfig;
+	}
+	
+	@Override
+	public void updateServiceFeaturesConfiguration(String jsonString) throws SQLException {
+		logger.debug("Inside updateServiceFeaturesConfiguration() method.");
+		String sqlUpdate = "update SLEXP_SITE_CONFIG set SERVICE_FEATURES_METADATA = ? ";
+		int iReturnVal = jdbcTemplate.update(sqlUpdate, jsonString);
+		logger.debug("Return value after service and features update : " + iReturnVal);	
+	}
 }
