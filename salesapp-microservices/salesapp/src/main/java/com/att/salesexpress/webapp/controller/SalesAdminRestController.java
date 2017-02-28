@@ -28,16 +28,16 @@ public class SalesAdminRestController {
 	@Autowired
 	private SalesAdminOperationService salesAdminOperationService;
 
-	@RequestMapping(value = "/admin/updateServicesFeatures", method = RequestMethod.POST, produces = {
+	@RequestMapping(value = "/admin/addServicesFeatures", method = RequestMethod.POST, produces = {
 			"application/json" })
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> updateServicesFeatures(@RequestBody Map<String, Object> paramValues,
 			HttpServletRequest request) throws SQLException, IOException {
-		logger.debug("Inside updateServicesFeatures() method");
+		logger.debug("Inside addServicesFeatures() method");
 		salesAdminOperationService.updateServicesFeaturesConfiguration(paramValues);
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		returnValues.put("status", "success");
-		logger.debug("Services and features configuration updated successfully.");
+		logger.debug("Services and features configuration added successfully.");
 		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
 
 	}

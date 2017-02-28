@@ -38,7 +38,7 @@
 
 				$("#btnAddService").on( "click", function() 
 					{
-						var promise = httpAsyncPostWithJsonRequestResponse("/admin/updateServicesFeatures", $("#addServiceData").val());
+						var promise = httpAsyncPostWithJsonRequestResponse("/admin/addServicesFeatures", $("#addServiceData").val());
 
 						promise.done(function(data, textStatus, jqXHR) {
 							alert("Updated successfully.");
