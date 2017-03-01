@@ -210,6 +210,4 @@ public class SalesExpressOperationServiceImpl implements SalesExpressOperationSe
 	public String getServiceFeaturesMetaDataBySiteName(String siteType) {
 		return dbServiceImpl.getServiceFeaturesMetaDataBySiteName(siteType);
 	}
-
-
 }

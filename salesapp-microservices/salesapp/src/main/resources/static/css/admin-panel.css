@@ -1,0 +1,42 @@
+#optionType{
+	width:35%;
+	margin-left: 5px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;	
+}
+
+#btnAddOptions{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#txtLabelName{
+	width:25%;
+	
+}
+
+#txtFieldName{
+	width:25%;
+}
+
+#btnRemoveOption{
+	margin-left: 5px;
+}
+
+#btnRemoveLabel{
+	margin-top : 5px;
+}
+
+#txtAddOptionLabelName{
+	width: 32%;
+}
+#txtAddOptionFieldName{
+	width: 32%;
+}

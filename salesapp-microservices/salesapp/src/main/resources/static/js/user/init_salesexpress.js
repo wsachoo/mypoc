@@ -35,7 +35,9 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"resultsPageUrl" : "results",
 		"postSpeedsBySelectedAccessSpeedUrl" : "getPortSpeedsByAccessSpeed",
 		"getAllAccessSpeedsUrl" : "getAllAccessSpeeds",
-		"getServiceFeaturesMetaDataUrl" : "getServiceFeaturesMetaData/testSite"
+		"getServiceFeaturesMetaDataUrl" : "getServiceFeaturesMetaData/testSite",
+		"addAdminServiceFeaturesUrl" : "addServicesFeatures",
+		"deleteAdminServiceFeaturesUrl" : "deleteServicesFeatures"
 	};
 	
 	return {
