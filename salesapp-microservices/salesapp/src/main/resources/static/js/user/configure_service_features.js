@@ -195,7 +195,13 @@ function handleActionRequiredActionServiceAndFeatures($thisRef, eventSource) {
 function refreshServicesAndFeatures($thisRef) {
 	performTabChangeAction("serviceAndFeatures");
 	handleProceedToFeatures(); // added to test being on the same page
-	handleActionRequiredActionServiceAndFeatures($thisRef, $("input[name='serviceConfigServiceRequired']"));
+
+	
+	$("input[name='serviceConfigServiceRequired']").prop('checked', true)
+	var serviceOptions = serviceFeaturesMetaData.serviceAndFeatures;
+	var servicesOffered = $.tmpl("service_features_template", {"serviceOptionsKeys" : serviceOptions});
+	var lastDiv = findLastDivRowOfElement($thisRef);
+	lastDiv.after(servicesOffered);	
 }
 
 function removeNextAllSiblingDivRows($triggerElement) {
