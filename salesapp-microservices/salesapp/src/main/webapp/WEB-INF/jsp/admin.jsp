@@ -14,20 +14,20 @@
 		
 		document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />');
 		/* document.write('<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />'); */
-		document.write('<link rel="stylesheet" href="/css/bootstrap-multiselect.css" type="text/css" />');
-		document.write('<link rel="stylesheet" href="/css/bootstrap-theme.min.css" type="text/css" />');
-		document.write('<link rel="stylesheet" href="/css/salesexpress.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
-		document.write('<link rel="stylesheet" href="/css/sidenav.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
-		document.write('<link rel="stylesheet" href="/css/chatbox.css?id='+ Math.floor(Math.random() * 100) + 'type="text/css" />');
-		document.write('<link rel="stylesheet" href="/css/admin-panel.css?id='+ Math.floor(Math.random() * 100) + 'type="text/css" />');
+		document.write('<link rel="stylesheet" href="${contextPath}/css/bootstrap-multiselect.css" type="text/css" />');
+		document.write('<link rel="stylesheet" href="${contextPath}/css/bootstrap-theme.min.css" type="text/css" />');
+		document.write('<link rel="stylesheet" href="${contextPath}/css/salesexpress.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
+		document.write('<link rel="stylesheet" href="${contextPath}/css/sidenav.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
+		document.write('<link rel="stylesheet" href="${contextPath}/css/chatbox.css?id='+ Math.floor(Math.random() * 100) + 'type="text/css" />');
+		document.write('<link rel="stylesheet" href="${contextPath}/css/admin-panel.css?id='+ Math.floor(Math.random() * 100) + 'type="text/css" />');
 	</script>
 	
-	<script type="text/javascript" src="/js/lib/jquery-1.12.4.js"></script>
-	<script type="text/javascript" src="/js/lib/jquery-ui.1.12.1.js"></script>
-	<script type="text/javascript" src="/js/lib/jquery.tmpl.js"></script>
-	<script type="text/javascript" src="/js/lib/jquery.serialize-object.js"></script>
-	<script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/js/lib/bootstrap-multiselect.js"></script>
+	<script type="text/javascript" src="${contextPath}/js/lib/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="${contextPath}/js/lib/jquery-ui.1.12.1.js"></script>
+	<script type="text/javascript" src="${contextPath}/js/lib/jquery.tmpl.js"></script>
+	<script type="text/javascript" src="${contextPath}/js/lib/jquery.serialize-object.js"></script>
+	<script type="text/javascript" src="${contextPath}/js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/js/lib/bootstrap-multiselect.js"></script>
 
 	<script>
 		document.write('<script src="${contextPath}/js/user/init_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
