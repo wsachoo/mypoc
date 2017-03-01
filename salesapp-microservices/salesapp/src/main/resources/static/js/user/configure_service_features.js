@@ -17,7 +17,9 @@ $(document).ready(function(){
 				case 'btnProceedToContractGeneration':
 					handleProceedToGenerateContract($(this), e.target);
 					break;
-
+				case 'btnRefreshServicesAndFeatures':
+					refreshServicesAndFeatures($(this));
+					break;
 			}
 		},
 		
@@ -188,6 +190,16 @@ function handleActionRequiredActionServiceAndFeatures($thisRef, eventSource) {
 	} else {
 		removeNextAllSiblingDivRows($(eventSource));
 	}	
+}
+
+function refreshServicesAndFeatures($thisRef) {
+	var firstElementOnServiceFeaturesPage = $("input[name='serviceConfigServiceRequired']");
+	removeNextAllSiblingDivRows(firstElementOnServiceFeaturesPage);
+    serviceFeaturesMetaData = httpGetWithJsonResponse(SALESEXPRESS_CONSTANTS.getUrlPath('getServiceFeaturesMetaDataUrl'));
+	var serviceOptions = serviceFeaturesMetaData.serviceAndFeatures;
+	var servicesOffered = $.tmpl("service_features_template", {"serviceOptionsKeys" : serviceOptions});
+	var lastDiv = findLastDivRowOfElement($thisRef);
+	lastDiv.after(servicesOffered);
 }
 
 function removeNextAllSiblingDivRows($triggerElement) {
