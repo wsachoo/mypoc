@@ -193,9 +193,10 @@ function handleActionRequiredActionServiceAndFeatures($thisRef, eventSource) {
 }
 
 function refreshServicesAndFeatures($thisRef) {
-	performTabChangeAction("serviceAndFeatures");
+	//performTabChangeAction("serviceAndFeatures");
 	handleProceedToFeatures(); // added to test being on the same page
-
+    var servFeaturesMDataUrl = SALESEXPRESS_CONSTANTS.getUrlPath('getServiceFeaturesMetaDataUrl');
+    serviceFeaturesMetaData = httpGetWithJsonResponse(servFeaturesMDataUrl);
 	
 	$("input[name='serviceConfigServiceRequired']").prop('checked', true)
 	var serviceOptions = serviceFeaturesMetaData.serviceAndFeatures;
