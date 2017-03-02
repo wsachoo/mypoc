@@ -17,7 +17,9 @@ $(document).ready(function(){
 				case 'btnProceedToContractGeneration':
 					handleProceedToGenerateContract($(this), e.target);
 					break;
-
+				case 'btnRefreshServicesAndFeatures':
+					refreshServicesAndFeatures($(this));
+					break;
 			}
 		},
 		
@@ -188,6 +190,19 @@ function handleActionRequiredActionServiceAndFeatures($thisRef, eventSource) {
 	} else {
 		removeNextAllSiblingDivRows($(eventSource));
 	}	
+}
+
+function refreshServicesAndFeatures($thisRef) {
+	//performTabChangeAction("serviceAndFeatures");
+	handleProceedToFeatures(); // added to test being on the same page
+    var servFeaturesMDataUrl = SALESEXPRESS_CONSTANTS.getUrlPath('getServiceFeaturesMetaDataUrl');
+    serviceFeaturesMetaData = httpGetWithJsonResponse(servFeaturesMDataUrl);
+	
+	$("input[name='serviceConfigServiceRequired']").prop('checked', true)
+	var serviceOptions = serviceFeaturesMetaData.serviceAndFeatures;
+	var servicesOffered = $.tmpl("service_features_template", {"serviceOptionsKeys" : serviceOptions});
+	var lastDiv = findLastDivRowOfElement($thisRef);
+	lastDiv.after(servicesOffered);	
 }
 
 function removeNextAllSiblingDivRows($triggerElement) {

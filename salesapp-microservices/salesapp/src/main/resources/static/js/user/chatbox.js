@@ -1,5 +1,10 @@
 $(document).ready(function(){
 	
+	var isServiceUp = isLanguageTranslationServiceUp();
+	if (! isServiceUp) {
+		$("#chatWatsonLanguage").hide();
+	}
+	
 	$("#show_user_id").html(gUserDetails.user_id);
 	$("#open-Chat").addClass('glyphicon glyphicon-comment');
 	var chatWindow = $("#chat_window_1");
@@ -85,19 +90,31 @@ $(document).ready(function(){
 	
 	chatWindow.on('click', '#btn-chat', function(e){
 		var inputMessageByUser = $("#btn-input-message").val();
-		if(inputMessageByUser != null && inputMessageByUser != ""){
+		
+		if (inputMessageByUser != null && inputMessageByUser != ""){
 		var sentMessageDiv =  chatMessagesTemplate.getRequestMessageTemplate(inputMessageByUser, new Date().getHours()+ ":" + new Date().getMinutes());
 		$(".msg_container_base").append(sentMessageDiv);
 		//$("#message-container p:last").html(inputMessageByUser);
 		var setEmpty = "";
 		$("#btn-input-message").val(setEmpty);
+		
+		var chatLanguage = $("#chatWatsonLanguage").val();
+		
+		inputMessageByUser = translateTextLanguage(inputMessageByUser, chatLanguage, "ENGLISH");
+		
 		var requestObj = {};
 		requestObj.user = gUserDetails.user_id;
 		requestObj.input = {};
 		requestObj.input.text = inputMessageByUser;
-		var promise = httpAsyncPostWithJsonRequestResponseToBluemix("https://watson-sales.mybluemix.net/api/smart",requestObj)
+		
+		var promise = httpAsyncPostWithJsonRequestResponseToBluemix(
+				SALESEXPRESS_CONSTANTS.getUrlPath("IBM_WATSON_CHAT_URL"), 
+				requestObj)
 			promise.done(function(data, textStatus, jqXHR) {
 				var receivedResponseFromWatson = data.output.text;
+				
+				receivedResponseFromWatson = translateTextLanguage(receivedResponseFromWatson[0], "ENGLISH", chatLanguage);
+				
 				var receiveMessageDiv = chatMessagesTemplate.formatWatsonResponse(receivedResponseFromWatson);
 				$(".msg_container_base").append(receiveMessageDiv);
 				//$("#message-container p:last").html(receivedResponseFromWatson);
@@ -114,3 +131,64 @@ $(document).ready(function(){
 		return false;
 	});
 });
+
+
+function translateTextLanguage(inputText, fromLang, toLang) {
+	
+	if (("ENGLISH" == fromLang) && ("ENGLISH" == toLang)) {
+		return inputText;
+	}
+	var promise = httpAsyncPostWithJsonRequestResponseToBluemixSynchronous(
+			SALESEXPRESS_CONSTANTS.getUrlPath("IBM_WATSON_LANGUAGE_TRANSLATOR_URL"), {
+	//var promise = httpAsyncPostWithJsonRequestResponseToBluemix("http://localhost:9901/salesLanguageTranslator", {
+		"fromLanguage" : fromLang,
+		"toLanguage" : toLang,
+		"text" : inputText		
+	});
+
+	var result = "";
+	promise.done(function(data, textStatus, jqXHR) {
+		result = data.outputText; 
+	})
+	.fail(function(jqXHR, textStatus, errorThrown) {
+		var errorObject = $.parseJSON(jqXHR.responseText);
+	 	console.log("error : " + errorObject);
+	 	result = inputText;
+	});
+	
+	return result;
+}
+
+
+function isLanguageTranslationServiceUp() {
+	var returnStatus = true;
+	try {
+	$.ajax({
+		beforeSend: function(xhrObj){
+			xhrObj.setRequestHeader("Content-Type","application/json");
+			xhrObj.setRequestHeader("Accept","application/json");
+			},
+			
+        type : "POST",
+        url : SALESEXPRESS_CONSTANTS.getUrlPath("IBM_WATSON_LANGUAGE_TRANSLATOR_URL"),      
+        jsonp : "jsonp",
+        async: false,
+        data: JSON.stringify({
+        	"fromLanguage" : "ENGLISH",
+    		"toLanguage" : "SPANISH",
+    		"text" : "hello"
+    	}),
+        success : function (response, textS, xhr) {
+        	returnStatus = true;
+        },
+        error : function (xmlHttpRequest, textStatus, errorThrown) {           
+        	returnStatus = false;
+        }
+    });
+	}
+	catch (ex) {
+		return false;
+	}
+	
+	return returnStatus;
+}

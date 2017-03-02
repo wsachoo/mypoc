@@ -37,7 +37,9 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"getAllAccessSpeedsUrl" : "getAllAccessSpeeds",
 		"getServiceFeaturesMetaDataUrl" : "getServiceFeaturesMetaData/testSite",
 		"addAdminServiceFeaturesUrl" : "addServicesFeatures",
-		"deleteAdminServiceFeaturesUrl" : "deleteServicesFeatures"
+		"deleteAdminServiceFeaturesUrl" : "deleteServicesFeatures",
+		"IBM_WATSON_CHAT_URL" : "https://watson-sales.mybluemix.net/api/smart",
+		"IBM_WATSON_LANGUAGE_TRANSLATOR_URL" : "https://saleslangconvapp.mybluemix.net/salesLanguageTranslator"
 	};
 	
 	return {
@@ -215,7 +217,6 @@ function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
 
 function httpAsyncPostWithJsonRequestResponseToBluemix(postUrl, postData) {
 	  
-
 	return $.ajax({
 		beforeSend: function(xhrObj){
 		xhrObj.setRequestHeader("Content-Type","application/json");
@@ -225,6 +226,21 @@ function httpAsyncPostWithJsonRequestResponseToBluemix(postUrl, postData) {
 		url: postUrl,
 		data: JSON.stringify(postData),
 		dataType: "json",
+		});
+}
+
+function httpAsyncPostWithJsonRequestResponseToBluemixSynchronous(postUrl, postData) {
+	  
+	return $.ajax({
+		beforeSend: function(xhrObj){
+		xhrObj.setRequestHeader("Content-Type","application/json");
+		xhrObj.setRequestHeader("Accept","application/json");
+		},
+		type: "POST",
+		url: postUrl,
+		data: JSON.stringify(postData),
+		dataType: "json",
+		async: false
 		});
 }
 
