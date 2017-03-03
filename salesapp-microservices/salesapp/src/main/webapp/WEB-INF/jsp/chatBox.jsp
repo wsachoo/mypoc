@@ -35,8 +35,7 @@
                         </div>
                         <div class="col-md-10 col-xs-10">
                             <div class="messages msg_receive">
-                            	<strong>Watson:</strong>
-                                <p>Hi, I am Watson.</p>
+                            	<strong>IBM Watson</strong>
                             </div>
                         </div>
                     </div>
