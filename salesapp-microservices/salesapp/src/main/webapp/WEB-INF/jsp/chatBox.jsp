@@ -12,12 +12,12 @@
                     <div class="col-md-4 col-xs-4">
                         <select id="chatWatsonLanguage" name="chatWatsonLanguage">
                         	<option value="ENGLISH">Select Language</option>
+                        	<option>ARABIC</option>
                         	<option>ENGLISH</option>
-                        	<option>SPANISH</option>
                         	<option>FRENCH</option>
                         	<option>ITALIAN</option>
                         	<option>PORTUGUESE</option>
-                        	<option>ARABIC</option>
+                        	<option>SPANISH</option>
                         </select>
                     </div>
                     <div class="col-md-4 col-xs-4" style="text-align: right;">
