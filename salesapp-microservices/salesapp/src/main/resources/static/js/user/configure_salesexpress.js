@@ -283,7 +283,7 @@ function updateFooterMessage(msg) {
 	$("#divFooterMessage").text(msg);
 }
 
-function handleProceedToFeatures(){
+function handleProceedToFeatures($thisRef, eventSource){
 /*	var url = $("#serviceFeaturesPage").data('url');
     location.replace(url);*/
     performTabChangeAction("serviceAndFeatures");

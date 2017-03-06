@@ -49,15 +49,6 @@ $(document).ready(function() {
 
 
 function handleAddServicesAndFeatures($thisRef, eventSource){
-	/*var isAdditionalServices = $(eventSource).val();
-	if ('Add' === isAdditionalServices) {
-		var initServicesTemplate = $.tmpl("init_add_services_template");
-		var lastDiv = findLastDivRowOfElement($thisRef);
-		lastDiv.after(initServicesTemplate);
-	} else {
-		removeNextAllSiblingDivRows($(eventSource));
-	}*/	
-	
 	$("#addServices").css('display','inline');
 }
 
@@ -78,18 +69,24 @@ function handleBtnAddFeatures($thisRef, eventSource){
 	 tempFeatureDiv = "divAddFeatures_"+ featureIndex++ ;
 		var addFeaturesDiv   = 	'<div class="col-sm-12" id='+tempFeatureDiv +'>'+
 								'<label for="name">Add Feature name:<input type="text" name="serviceName" id="serviceName" value="" class="form-control"></label>'+
-								'<select name="optionType" id="optionType"><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
-								'<option value="radio-button">Single-AddOn</option>'+
-								'</select>'+
-								'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+
+								
+								/*'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+*/
 								'<input type="button" value="Remove Feature" id="btnRemoveFeature" name="btnRemoveFeature" class="btn btn-primary">'+
 								'<br>'+
 								'<input type="button" value="Add Label" id="btnAddLabel" name="btnAddLabel" class="btn btn-primary">'+
+								'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+
 								'<br>'+
-								'<label for="name" id="" class="col-sm-offset-1">Add Label name:</label>'+
-								'<input type="text" name="labelName" class="form-control col-sm-offset-1" style="width:30%;" id="txtLabelName">'+
-								'<label for="name" class="col-sm-offset-1" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
-								'<input type="text" name="fieldName" class="form-control col-sm-offset-1" style="width:30%;" id="txtFieldName">'+
+								'<label for="name" id="" class="">Add Label name:</label>'+
+								'<input type="text" name="labelName" class="form-control" style="width:30%;" id="txtLabelName">'+
+								/*'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
+								'<option value="radio-button">Single-AddOn</option>'+
+								'</select>'+*/
+								'<br>'+
+								'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
+								'<input type="text" name="fieldName" class="form-control" style="width:30%;" id="txtFieldName">'+
+								'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
+								'<option value="radio-button">Single-AddOn</option>'+
+								'</select>'+
 								'</div>';
 		$("#addServices").append(addFeaturesDiv);
 	}else{
@@ -97,27 +94,60 @@ function handleBtnAddFeatures($thisRef, eventSource){
 		var tempOptionDiv = "divAddOptions_"+ optionIndex++ ;
 		var addOptionsDiv    =  '<div class="row  col-sm-12 col-sm-offset-2" id='+ tempOptionDiv+'>'+
 								'<label for="name" class="">Option name:<input type="text" name="txtAddOption" id="txtAddOption" class="form-control"></label>'+
-								'<input type="button" value="Remove Option" id="btnRemoveOption" name="btnRemoveOption" class="btn btn-primary">'+
-								/*'<input type="button" value="Save Option" id="btnSaveOption" name="btnSaveOption" class="btn btn-primary">'+*/
+								/*'<input type="button" value="Remove Option" id="btnRemoveOption" name="btnRemoveOption" class="btn btn-primary">'+*/
+								'<button type="button" id="btnRemoveOption" name="btnRemoveOption" class="btn">'+
+									'<span class="glyphicon glyphicon-minus" name="btnRemoveOption" id="btnRemoveOptionSpan"></span>'+
+								'</button>'+
+								/*'<input type="button" value="Add Option" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+*/
+								'<button type="button" id="btnAddOptions" name="btnAddOptions" class="btn">'+
+									'<span class="glyphicon glyphicon-plus" name="btnAddOptions"></span>'+
+								'</button>'+
 								'<br>'+
-								'<div style="display:none; left=-90px;" class="col-sm-12">'+
-								'<label for="name" class="" id="divOptionsLabel">Add Label name:</label>'+
-								'<input type="text" class=" form-control" name="labelName" id="txtAddOptionLabelName">'+
-								'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
-								'<input type="text" name="fieldName" class="form-control"  id="txtAddOptionFieldName">'+
-								'<input type="button" value="Remove Label" id="btnRemoveLabel" name="btnRemoveLabel" style="display:none;" class="btn btn-primary">'+
-								'</div>'+
+									'<div style="display:none; left=-212px;" class="col-sm-12 addOptionsInternal">'+
+									'<label for="name" id="" class="">Add Label name:</label>'+
+									'<input type="text" name="labelName" class="form-control" style="width:30%;" id="txtLabelName">'+
+									/*'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
+									'<option value="radio-button">Single-AddOn</option>'+
+									'</select>'+*/
+									'<br>'+
+									'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
+									'<input type="text" name="fieldName" class="form-control"  style="width:30%;" id="txtAddOptionFieldName">'+
+									'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
+									'<option value="radio-button">Single-AddOn</option>'+
+									'</select>'+
+									'<input type="button" value="Remove Label" id="btnRemoveLabel" name="btnRemoveLabel" style="display:none;" class="btn btn-primary">'+
+									'</div>'+
 								'</div>';
+
 		
 		var btnAddFeatureDivId = $(eventSource).parent().attr('id');
-		//var btnAddFeatureDiv = $(eventSource).parent();
+		var btnAddOptionDivId = $(eventSource).parent().attr('id');
 		var lastElemAddOptionStyle =  $("#"+btnAddFeatureDivId).children().last().find('div'); 
 				
 		if(lastElemAddOptionStyle.css('display') == 'inline' || lastElemAddOptionStyle.css('display') == 'block'){
 			lastElemAddOptionStyle.find('input[name="btnRemoveLabel"]').css('display', 'none');
 		}
-		$("#"+btnAddFeatureDivId).append(addOptionsDiv);
 		
+		if(btnAddFeatureDivId.match('divAddFeatures')){
+			$("#"+btnAddFeatureDivId).append(addOptionsDiv);
+			$("#"+btnAddFeatureDivId).find('input[name="btnAddOptions"]').first().css('display', 'none');
+		}
+		else{
+			var labelName;
+			var fieldName;
+			var chooseType;
+			$(addOptionsDiv).insertAfter($("#"+btnAddFeatureDivId));
+			if($("#"+btnAddFeatureDivId).find('div').css('display') == 'block' || $("#"+btnAddFeatureDivId).find('div').css('display') == 'inline'){
+				labelName = $("#"+btnAddFeatureDivId).find('input[name="labelName"]').val();
+				fieldName = $("#"+btnAddFeatureDivId).find('input[name="fieldName"]').val();
+				chooseType = $("#"+btnAddFeatureDivId).find('select[name="optionType"]').val();
+				$("#"+btnAddFeatureDivId).find('div').css('display','none');
+				$("#"+btnAddFeatureDivId).next().find('div').css('display','inline');
+				$("#"+btnAddFeatureDivId).next().find('input[name="labelName"]').val(labelName);
+				$("#"+btnAddFeatureDivId).next().find('input[name="fieldName"]').val(fieldName);
+				$("#"+btnAddFeatureDivId).next().find('select[name="optionType"]').val(chooseType);
+			}
+		}
 	}
 }
 
@@ -135,17 +165,18 @@ function handleBtnRemoveFeature($thisRef, eventSource) {
 	if(previousDiv != undefined && childDivStyle == 'inline'){
 		var labelValue = closestDiv.find('div').find('input[name="labelName"]').val();
 		var fieldValue = closestDiv.find('div').find('input[name="fieldName"]').val();
+		var chooseType = closestDiv.find('div').find('select[name="optionType"]').val();
 		if(previousDiv.is('input')){
-			var labelValue = closestDiv.find('div').find('input[name="labelName"]').val();
-			/*previousDiv.val(labelValue);*/
-			previousDiv.prev().prev().val(labelValue);
-			var fieldValue = closestDiv.find('div').find('input[name="fieldName"]').val();
-			previousDiv.val(fieldValue);
+			var thisFeatureDiv = previousDiv.parent();
+			thisFeatureDiv.find('input[name="labelName"]').first().val(labelValue);
+			thisFeatureDiv.find('input[name="fieldName"]').first().val(fieldValue);
+			thisFeatureDiv.find('select[name="optionType"]').first().val(chooseType);
+			
 		}else{
-			var divPrevLabelName = previousDiv.find('div');
+			previousDiv.find('div').css('display','inline');
 			previousDiv.find('div').find('input[name="labelName"]').val(labelValue);
-			divPrevLabelName.css('display','inline');
 			previousDiv.find('div').find('input[name="fieldName"]').val(fieldValue);
+			previousDiv.find('div').find('select[name="optionType"]').val(chooseType);
 		}
 	}
 	
@@ -158,17 +189,18 @@ function handleBtnRemoveFeature($thisRef, eventSource) {
 	}
 }
 
-
 function handleAddLabel($thisRef, eventSource) {
 	/*var divElement = $("#configureForm input[name='btnRemoveOption']:last").next();*/
 	var currentDiv = $(eventSource).closest('div').attr('id');
-	var divElement = $("#"+currentDiv+" "+"input[name='btnRemoveOption']:last").closest('div').find('div');
+	/*var divElement = $("#"+currentDiv+" "+"input[name='btnRemoveOption']:last").closest('div').find('div');*/
+	var divElement = $("#"+currentDiv+" "+"button[name='btnRemoveOption']:last").closest('div').find('div');
 	var divElementDisplayStyle = divElement.css('display');
 	if(divElementDisplayStyle == 'none'){
 		divElement.css('display', 'inline');
-		divElement.css('left', '-128px' );
+		divElement.css('left', '-212px' );
 		divElement.find('input[name="btnRemoveLabel"]').css('display','inline');
 	}
+	$(eventSource).siblings('input[name="btnAddOptions"]').css('display','inline');
 }
 
 function handleRemoveLabel($thisRef, eventSource) {
@@ -177,9 +209,7 @@ function handleRemoveLabel($thisRef, eventSource) {
 }
 
 function handleBtnSaveService($thisRef, eventSource) {
-	
 	 var serviceDiv = $("#addServices");
-	 
 	 var serviceName = $("#addService").val();
 		addUserServFeaturesObj.id = serviceName.toLowerCase();
 		addUserServFeaturesObj.displayValue = serviceName;
@@ -190,7 +220,7 @@ function handleBtnSaveService($thisRef, eventSource) {
 		
 		var featureDivArray = serviceDiv.children('div');
 		$.each(featureDivArray, function(key, value) {
-				var featureName = $(value).find("input[type='text']").val();
+				var featureName = $(value).find("input[name='serviceName']").val();
 				addUserServFeaturesObj.children.values[key] = {};
 				addUserServFeaturesObj.children.values[key].id = featureName.toLowerCase(); 
 				addUserServFeaturesObj.children.values[key].displayValue = featureName;
@@ -202,23 +232,26 @@ function handleBtnSaveService($thisRef, eventSource) {
 				var tempOptionsArray = [];
 				var labelName;
 				var fieldName;
+				var chooseType;
 				$.each(optionsDivArray, function(optionKey, optionValue) {
 					
 					if(tempIndex == 0){
 						labelName = $(value).find("input[name='labelName']").val();
 						fieldName = $(value).find("input[name='fieldName']").val();
+						chooseType = $(value).find("select[name ='optionType']").val();
 					}
 					/*if(tempIndex > 0 && ($(optionValue).prev('div').css('display') == 'block'))*/
 					if(tempIndex > 0 && ($(optionValue).prev().find('div').css('display') == 'block')){
 						labelName = $(optionValue).prev('div').find("input[name ='labelName']").val();
 						fieldName = $(optionValue).prev('div').find("input[name ='fieldName']").val();
+						chooseType = $(optionValue).prev('div').find("select[name ='optionType']").val();
 					}
 					
 					if( $(optionValue).children('div').css('display') != 'none' ||  $(optionValue).next().length == 0){
 						
 						addUserServFeaturesObj.children.values[key].children[tempIndex]={};
 						addUserServFeaturesObj.children.values[key].children[tempIndex].label = labelName;
-						addUserServFeaturesObj.children.values[key].children[tempIndex].type = $(value).find('select[name="optionType"]').val();
+						addUserServFeaturesObj.children.values[key].children[tempIndex].type = chooseType;
 						addUserServFeaturesObj.children.values[key].children[tempIndex].name = fieldName;
 						addUserServFeaturesObj.children.values[key].children[tempIndex].options = {};
 						var optionNameVal = $(optionValue).find("input[type=text]").val();
@@ -228,12 +261,15 @@ function handleBtnSaveService($thisRef, eventSource) {
 							addUserServFeaturesObj.children.values[key].children[tempIndex].options[temOptionsArrayValue.toLowerCase()] = temOptionsArrayValue;
 							tempOptionIndex = temOptionsArrayKey;
 						});
-						addUserServFeaturesObj.children.values[key].children[tempIndex].options[optionNameVal.toLowerCase()] = optionNameVal;
+						var optionNameValAsKey = optionNameVal.toLowerCase();
+						optionNameValAsKey = optionNameValAsKey.replace(/\s/g, '');
+						addUserServFeaturesObj.children.values[key].children[tempIndex].options[optionNameValAsKey] = optionNameVal;
 						tempIndex++;
 						tempOptionsArray = [];
 					}else{
 						var optionNameVal = $(optionValue).find("input[type=text]").val();
 						var optionNameAsKey = optionNameVal.toLowerCase();
+						optionNameAsKey = optionNameAsKey.replace(/\s/g, '');
 						tempOptionsArray.push(optionNameAsKey); 
 					}
 				});	
@@ -254,7 +290,7 @@ function saveAdminUserServFeatures(addUserServFeaturesObj) {
 	console.log("after adding addUserServFeaturesObj");
 }
 
-function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource){
+function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
 	
 	var serviceToBeDeleted = { "id" : $("#labelDeleteService").val() };
 

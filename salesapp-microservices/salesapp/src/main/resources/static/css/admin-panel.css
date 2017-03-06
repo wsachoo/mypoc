@@ -13,8 +13,9 @@
 }
 
 #btnAddOptions{
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left : 5px;
+    margin-right : 5px;
+    margin-bottom : 5px;
 }
 
 #txtLabelName{
@@ -24,6 +25,9 @@
 
 #txtFieldName{
 	width:25%;
+	margin-top : 5px;
+	margin-left: 5px;
+	margin-bottom : 5px;
 }
 
 #btnRemoveOption{
@@ -31,7 +35,7 @@
 }
 
 #btnRemoveLabel{
-	margin-top : 5px;
+	margin-left: 5px;
 }
 
 #txtAddOptionLabelName{
@@ -39,4 +43,14 @@
 }
 #txtAddOptionFieldName{
 	width: 32%;
+	margin-top : 5px;
+	margin-bottom : 5px;
+	margin-left : 5px;
+}
+#btnRemoveFeature{
+	margin-left: 5px;
+}
+
+.addOptionsInternal{
+	left : -212px;
 }
