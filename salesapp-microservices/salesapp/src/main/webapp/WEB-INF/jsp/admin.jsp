@@ -38,7 +38,7 @@
 <body>
 	<div class="container"
 		id="accessSpeedConfigPlaceholder">
-		<form id="configureForm" data-ajax="false" class="form-horizontal">
+		<form id="configureForm" data-ajax="false" class="form-inline">
 		<div class="tabbable boxed parentTabs">
 			    <ul class="nav nav-tabs">
 			        <li class="active"><a href="#set1">Services and Features</a>
@@ -59,10 +59,14 @@
 				             <div class="tab-pane fade active in" id="sub11">
 					             <div class=" salesexpress-content-margin ">
 									<div class="" id="addServices" style="display:inline;">
-										<label for="name">Add Service Name : <input type="text" id="addService" name="serviceName" class="form-control"></label>
-										<input type="button" value="Add Features" id="btnAddFeatures" name="btnAddFeatures" class="btn btn-primary">
-										<input type="button" value="Save Service" id="btnSaveService" name="btnSaveService" class="btn btn-primary">
+										<label for="name">Add Service Name : 
+										<input type="text" id="addService" name="serviceName" class="form-control"></label>
 										<br>
+										<input type="button" value="Add Features" id="btnAddFeatures" name="btnAddFeatures" class="btn btn-primary">
+										<br>
+									</div>
+									<div id="divBtnSaveService" class="col-sm-offset-11">
+									<input type="button" value="Save Service" id="btnSaveService" name="btnSaveService" class="btn btn-primary">
 									</div>
 									<br>
 								</div>
