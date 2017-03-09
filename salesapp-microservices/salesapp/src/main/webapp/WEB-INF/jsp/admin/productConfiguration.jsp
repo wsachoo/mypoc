@@ -32,41 +32,12 @@
 		document.write('<script src="${contextPath}/js/user/init_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script src="${contextPath}/js/admin/admin_panel_config.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 	</script>
-<script type="text/javascript">
-		function submitAjax() {
-			httpAsyncPostWithJsonRequestResponse("http://localhost:9090/salesapp/admin/saveProductConfiguration",
-			JSON.stringify({
-				"product": ["AVPN", "MISPNT"],
-				"accessSpeed": "1000",
-				"accessType": "Ethernet",
-				"portType": "Ethernet",
-				"portSpeeds": [{
-						"speed": "999",
-						"speedUnit": "Kbps",
-						"MRC": "99",
-						"NRC": "9"
-					}, {
-						"speed": "888",
-						"speedUnit": "Kbps",
-						"MRC": "88",
-						"NRC": "8"
-					}, {
-						"speed": "777",
-						"speedUnit": "Kbps",
-						"MRC": "77",
-						"NRC": "7"
-					}
-				]
-			})				
-			);
-		}
-	</script>
 </head>
 <body>
 
 	<div class="container-fluid" id="accessSpeedConfigPlaceholder">
 		<div id="sales_navigation_menu">
-			<jsp:include page="../sales_navigation_menu.jsp" />
+			<jsp:include page="../sales_navigation_menu_admin.jsp" />
 		</div>
 
 		<ul id=adminPanelTopMenu class="nav nav-tabs nav-tabs-responsive"
@@ -228,6 +199,5 @@
 					page="../chatBox.jsp" /></div>
 		</form>
 	</div>
-	<button onclick="submitAjax()">Click me</button>
 </body>
 </html>
