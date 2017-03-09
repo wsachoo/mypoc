@@ -36,20 +36,49 @@ $(document).ready(function() {
 				case 'btnDeleteService':
 					handleDeleteAdminUserServFeaturesObj($(this), e.target);
 					break;
+				case 'btnSaveProductConfigData':
+					handleSaveProductConfigData($(this), e.target);
+					break;
+				case 'btnAddPortSpeedDiv':
+					handleAddPortSpeedDiv($(this), e.target);
+					break;
+				case 'btnRemovePortSpeedDiv':
+					handleRemovePortSpeedDiv($(this), e.target);
+					break;
 			}
 		}
 		
 	});
 	
-	$("ul.nav-tabs a").click(function (e) {
-		  e.preventDefault();
-		  $(this).tab('show');
-		});
+	  $(document).on('show.bs.tab', '.nav-tabs-responsive [data-toggle="tab"]', function(e) {
+		    var $target = $(e.target);
+		    var $tabs = $target.closest('.nav-tabs-responsive');
+		    var $current = $target.closest('li');
+		    var $parent = $current.closest('li.dropdown');
+		    	$current = $parent.length > 0 ? $parent : $current;
+		    var $next = $current.next();
+		    var $prev = $current.prev();
+		    var updateDropdownMenu = function($el, position){
+		      $el
+		      	.find('.dropdown-menu')
+		        .removeClass('pull-xs-left pull-xs-center pull-xs-right')
+		      	.addClass( 'pull-xs-' + position );
+		    };
+
+		    $tabs.find('>li').removeClass('next prev');
+		    $prev.addClass('prev');
+		    $next.addClass('next');
+		    
+		    updateDropdownMenu( $prev, 'left' );
+		    updateDropdownMenu( $current, 'center' );
+		    updateDropdownMenu( $next, 'right' );
+		  });
+
 });
 
 
 function handleAddServicesAndFeatures($thisRef, eventSource){
-	$("#addServices").css('display','inline');
+	$("#addServiceFeatures").css('display','inline');
 }
 
 function removeNextAllSiblingDivRows($triggerElement) {
@@ -84,11 +113,11 @@ function handleBtnAddFeatures($thisRef, eventSource){
 								'<br>'+
 								'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
 								'<input type="text" name="fieldName" class="form-control" style="width:30%;" id="txtFieldName">'+
-								'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
+								'<select name="optionType" id="optionType" class="selectType"><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 								'<option value="radio-button">Single-AddOn</option>'+
 								'</select>'+
 								'</div>';
-		$("#addServices").append(addFeaturesDiv);
+		$("#addServiceFeatures").append(addFeaturesDiv);
 	}else{
 		
 		var tempOptionDiv = "divAddOptions_"+ optionIndex++ ;
@@ -96,7 +125,7 @@ function handleBtnAddFeatures($thisRef, eventSource){
 								'<label for="name" class="">Option name:<input type="text" name="txtAddOption" id="txtAddOption" class="form-control"></label>'+
 								/*'<input type="button" value="Remove Option" id="btnRemoveOption" name="btnRemoveOption" class="btn btn-primary">'+*/
 								'<button type="button" id="btnRemoveOption" name="btnRemoveOption" class="btn">'+
-									'<span class="glyphicon glyphicon-minus" name="btnRemoveOption" id="btnRemoveOptionSpan"></span>'+
+									'<span class="glyphicon glyphicon-minus" name="btnRemoveOption" id=""></span>'+
 								'</button>'+
 								/*'<input type="button" value="Add Option" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+*/
 								'<button type="button" id="btnAddOptions" name="btnAddOptions" class="btn">'+
@@ -112,10 +141,10 @@ function handleBtnAddFeatures($thisRef, eventSource){
 									'<br>'+
 									'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
 									'<input type="text" name="fieldName" class="form-control"  style="width:30%;" id="txtAddOptionFieldName">'+
-									'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
+									'<select name="optionType" id="optionType" class="selectType"><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 									'<option value="radio-button">Single-AddOn</option>'+
 									'</select>'+
-									'<input type="button" value="Remove Label" id="btnRemoveLabel" name="btnRemoveLabel" style="display:none;" class="btn btn-primary">'+
+									/*'<input type="button" value="Remove Label" id="btnRemoveLabel" name="btnRemoveLabel" style="display:none;" class="btn btn-primary">'+*/
 									'</div>'+
 								'</div>';
 
@@ -171,7 +200,6 @@ function handleBtnRemoveFeature($thisRef, eventSource) {
 			thisFeatureDiv.find('input[name="labelName"]').first().val(labelValue);
 			thisFeatureDiv.find('input[name="fieldName"]').first().val(fieldValue);
 			thisFeatureDiv.find('select[name="optionType"]').first().val(chooseType);
-			
 		}else{
 			previousDiv.find('div').css('display','inline');
 			previousDiv.find('div').find('input[name="labelName"]').val(labelValue);
@@ -179,7 +207,6 @@ function handleBtnRemoveFeature($thisRef, eventSource) {
 			previousDiv.find('div').find('select[name="optionType"]').val(chooseType);
 		}
 	}
-	
 	if($(eventSource).attr('id') == 'btnRemoveOption'){
 		var prevoptionChildDiv = $(previousDiv).find('div');
 		var prevoptionChildDivStyle = $(prevoptionChildDiv).css('display');
@@ -205,11 +232,10 @@ function handleAddLabel($thisRef, eventSource) {
 
 function handleRemoveLabel($thisRef, eventSource) {
 	$(eventSource).closest('div').css('display','none');
-	
 }
 
 function handleBtnSaveService($thisRef, eventSource) {
-	 var serviceDiv = $("#addServices");
+	 var serviceDiv = $("#addServiceFeatures");
 	 var serviceName = $("#addService").val();
 		addUserServFeaturesObj.id = serviceName.toLowerCase();
 		addUserServFeaturesObj.displayValue = serviceName;
@@ -225,7 +251,6 @@ function handleBtnSaveService($thisRef, eventSource) {
 				addUserServFeaturesObj.children.values[key].id = featureName.toLowerCase(); 
 				addUserServFeaturesObj.children.values[key].displayValue = featureName;
 				addUserServFeaturesObj.children.values[key].children = [];
-				
 				
 				var optionsDivArray = $(value).children('div');
 				var tempIndex = 0;
@@ -248,7 +273,6 @@ function handleBtnSaveService($thisRef, eventSource) {
 					}
 					
 					if( $(optionValue).children('div').css('display') != 'none' ||  $(optionValue).next().length == 0){
-						
 						addUserServFeaturesObj.children.values[key].children[tempIndex]={};
 						addUserServFeaturesObj.children.values[key].children[tempIndex].label = labelName;
 						addUserServFeaturesObj.children.values[key].children[tempIndex].type = chooseType;
@@ -293,7 +317,6 @@ function saveAdminUserServFeatures(addUserServFeaturesObj) {
 function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
 	
 	var serviceToBeDeleted = { "id" : $("#labelDeleteService").val() };
-
 	var deleteAdminUserServFeaturesUrl = SALESEXPRESS_CONSTANTS.getUrlPath('deleteAdminServiceFeaturesUrl');
 	var promise = httpAsyncPostWithJsonRequestResponse(deleteAdminUserServFeaturesUrl, JSON.stringify(serviceToBeDeleted));
 	promise.done(function(data, textStatus, jqXHR) {
@@ -303,3 +326,44 @@ function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
 	});
 }
 
+function handleSaveProductConfigData($thisRef, eventSource) {
+	var form = $("#configureForm")
+	var formData = $("div [class='classPortSpeed']");
+	var portSpeeds = [];
+	$(".classPortSpeed").each(function() {
+	    var portSpeedObj = {};
+	    portSpeedObj.speed = $(this).find("input[name='txtSpeed_portType']").val();
+	    portSpeedObj.speedUnit = $(this).find("select[name='speedUnit_portType']").val();
+	    portSpeedObj.MRC = $(this).find("input[name='txtMRC_portType']").val();
+	    portSpeedObj.NRC = $(this).find("input[name='txtNRC_portType']").val();
+	    portSpeeds.push(portSpeedObj);
+	});
+	console.log("portSpeeds : " + JSON.stringify(portSpeeds));
+}
+
+function handleAddPortSpeedDiv($thisRef, eventSource) {
+	var divAddPortSpeeds =	'<div class="row classPortSpeed" id="divPortSpeed">'+
+					       	'<div class="marginTopBuffer col-sm-2">'+
+					       	'<label for="name">Port Speed : </label>'+
+					       	'</div>'+
+					       	'<div class="marginTopBuffer col-sm-10">'+
+					       	'<input type="text" class="form-control" name="txtSpeed_portType">'+
+					       		'<select name="speedUnit_portType" class="productManagementselectType">'+
+					       				'<option value="Kbps">Kbps</option>'+
+						          		'<option value="Mbps">Mbps</option>'+
+						          		'<option value="Gbps">Gbps</option>'+
+								'</select>'+
+								'<input type="text" class="form-control" name="txtMRC_portType" placeholder="MRC" style="width:15%">'+
+								'<input type="text" class="form-control" name="txtNRC_portType" placeholder="NRC" style="width:15%">'+
+								'<input type="button" class="btn" name="btnAddPortSpeedDiv" id="btnAddPortSpeedDiv" value="Add PortSpeeds">'+
+								'<input type="button" class="btn" name="btnRemovePortSpeedDiv" id="btnRemovePortSpeedDiv" value="Remove PortSpeeds">'+
+							'</div>'+
+							'</div>';
+
+	var currentDiv = $(eventSource).closest('div').parent();
+	$(divAddPortSpeeds).insertAfter(currentDiv);
+}
+
+function handleRemovePortSpeedDiv($thisRef, eventSource) {
+	$(eventSource).closest('div').parent().remove();
+}

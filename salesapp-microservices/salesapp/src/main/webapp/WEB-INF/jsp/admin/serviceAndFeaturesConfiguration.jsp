@@ -102,75 +102,7 @@
 					 </div>
 			        </div>
 			        <div role="tabpanel" class="tab-pane fade" id="configureProducts" aria-labelledby="configureProducts-tab">
-			        <div class="row">
-			          <div class="marginTopBuffer col-sm-2">
-			          	<label for="name">Product : </label>
-			          </div>
-			          <div class="marginTopBuffer col-sm-10">
-			          	<select name="productType" id="productType" class="productManagementselectType">
-			          			<option value="AVPN">AVPN</option>
-				          		<option value="misPnt">MIS-PNT</option>
-						</select>
-			          </div>
-			         </div> 
-			         <div class="row">
-				          <div class="marginTopBuffer col-sm-2">
-				          	<label for="name">Access Speed : </label>
-				          </div>
-				          <div class="marginTopBuffer col-sm-10">
-				          	<input type="text" class="form-control" id="txtAccessSpeed" name="txtAccessSpeed">
-				          	<select name="speedUnit" id="speedUnit" class="productManagementselectType">
-				          			<option value="Kbps">Kbps</option>
-					          		<option value="Mbps">Mbps</option>
-					          		<option value="Gbps">Gbps</option>
-							</select>
-				          </div>
-			          </div>
-			          <div class="row">
-				           <div class="marginTopBuffer col-sm-2">
-				          	<label for="name">Access Type : </label>
-				          </div>
-				          <div class="marginTopBuffer col-sm-10">
-				          	<select name="accessType" id="accessType" class="productManagementselectType">
-				          			<option value="Ethernet">Ethernet</option>
-					          		<option value="IP">IP</option>
-							</select>
-				          </div>
-			          </div>
-			          <div class="row classPortSpeed" id="divPortSpeed">
-				          <div class="marginTopBuffer col-sm-2">
-				          	<label for="name">Port Speed : </label>
-				          </div>
-				          <div class="marginTopBuffer col-sm-10">
-				          	<input type="text" class="form-control" name="txtSpeed_portType">
-				          	<select name="speedUnit_portType" class="productManagementselectType">
-				          			<option value="Kbps">Kbps</option>
-					          		<option value="Mbps">Mbps</option>
-					          		<option value="Gbps">Gbps</option>
-							</select>
-							<input type="text" class="form-control" name="txtMRC_portType" placeholder="MRC" style="width:15%">
-							<input type="text" class="form-control" name="txtNRC_portType" placeholder="NRC" style="width:15%">
-							<input type="button" class="btn" name="btnAddPortSpeedDiv" id="btnAddPortSpeedDiv" value="Add PortSpeeds">
-				          </div>
-			          </div>
-			     
-			          <div class="row">
-				          <div class="marginTopBuffer col-sm-2">
-				          	<label for="name">Port Type : </label>
-				          </div>
-				          <div class="marginTopBuffer col-sm-10">
-				          	<select name="portType" id="portType" class="productManagementselectType">
-				          			<option value="Ethernet">Ethernet</option>
-					          		<option value="IP">IP</option>
-							</select>
-				          </div>
-			          </div>
-			          <div class="row">
-			           <div class="marginTopBuffer col-sm-2"></div>
-			           <div class="marginTopBuffer col-sm-10">
-				          <input type="button" class="btn" id="btnSaveProductConfigData" name="btnSaveProductConfigData" value="Save Product">
-				       </div>
-			          </div>
+			        	<p>Add Products</p>
 			        </div>
 			        <div role="tabpanel" class="tab-pane fade" id="deleteSites" aria-labelledby="deleteSites-tab">
 			          <p>
