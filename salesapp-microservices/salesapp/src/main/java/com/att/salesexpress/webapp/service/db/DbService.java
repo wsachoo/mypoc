@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.json.JSONException;
 
+import com.att.salesexpress.webapp.entity.SalesRules;
 import com.att.salesexpress.webapp.entity.SalesSite;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
@@ -59,5 +60,7 @@ public interface DbService {
 	public String retrieveServicesFeaturesConfiguration();
 
 	void updateServiceFeaturesConfiguration(String jsonString) throws SQLException;
+
+	void saveProductConfiguration(List<SalesRules> salesRulesEntityList) throws SQLException;
 
 }
