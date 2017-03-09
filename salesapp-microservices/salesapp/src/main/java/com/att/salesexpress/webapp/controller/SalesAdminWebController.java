@@ -29,5 +29,15 @@ public class SalesAdminWebController {
 		return view;
 	}
 	
+	@RequestMapping(value = { "/admin/adminLandingPage"}, method = RequestMethod.GET)
+	public ModelAndView adminLandingPage(HttpServletRequest request) throws JsonProcessingException {
+		ModelAndView view = new ModelAndView("adminLandingPage");
+		return view;
+	}
 	
+	@RequestMapping(value = { "/admin/productConfiguration"}, method = RequestMethod.GET)
+	public ModelAndView productConfiguration(HttpServletRequest request) throws JsonProcessingException {
+		ModelAndView view = new ModelAndView("productConfiguration");
+		return view;
+	}	
 }

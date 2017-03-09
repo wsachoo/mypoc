@@ -154,11 +154,15 @@ footer.navbar-default.navbar-fixed-bottom
 } */
 /*sachin*/
 #accessSpeedConfigPlaceholder {
-	min-height: 100%;
+	/* min-height: 100%; */
 	height: auto !important;
 	height: 100%;
 	margin-bottom: 60px;
+	position: relative;
+	overflow: auto;
+	top: 0px;
 }
+
 #serviceFeaturesConfigPlaceHolder {
 	min-height: 100%;
 	height: auto !important;

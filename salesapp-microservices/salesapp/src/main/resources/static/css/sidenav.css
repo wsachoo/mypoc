@@ -8,7 +8,7 @@
 	  font-size: 12px;
 	  font-weight: 200;
 	  background-color: #dcdad9;
-	  position: fixed;
+	  position: relative;
 	  top: 0px;
 	  width: 250px;
 	  height: 100%;
@@ -145,3 +145,32 @@ body {
   padding: 0px;
 }
 
+
+#wrapper {
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    /* display: inline-block; */
+}
+
+#sidebar-wrapper {
+    height: 100%;
+    padding: 100px 0 0px 0;
+    position: fixed;
+}
+
+
+#main-wrapper {
+    height: 100%;
+    overflow: auto;
+    padding: 100px 0 0px 0;
+}
+#main {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+    /* padding: 0 15px; */
+}
