@@ -37,7 +37,13 @@ public class SalesAdminWebController {
 	
 	@RequestMapping(value = { "/admin/productConfiguration"}, method = RequestMethod.GET)
 	public ModelAndView productConfiguration(HttpServletRequest request) throws JsonProcessingException {
-		ModelAndView view = new ModelAndView("productConfiguration");
+		ModelAndView view = new ModelAndView("admin/productConfiguration");
 		return view;
 	}	
+	
+	@RequestMapping(value = { "/admin/serviceAndFeaturesConfiguration"}, method = RequestMethod.GET)
+	public ModelAndView serviceAndFeaturesConfiguration(HttpServletRequest request) throws JsonProcessingException {
+		ModelAndView view = new ModelAndView("admin/serviceAndFeaturesConfiguration");
+		return view;
+	}		
 }
