@@ -43,6 +43,9 @@ public class SalesAdminWebController {
 	
 	@RequestMapping(value = { "/admin/serviceAndFeaturesConfiguration"}, method = RequestMethod.GET)
 	public ModelAndView serviceAndFeaturesConfiguration(HttpServletRequest request) throws JsonProcessingException {
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId = user.getUsername();
+		logger.info("Solution is retrieved from authentication object is {}", userId);
 		ModelAndView view = new ModelAndView("admin/serviceAndFeaturesConfiguration");
 		return view;
 	}		
