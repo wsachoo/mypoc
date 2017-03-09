@@ -20,7 +20,7 @@
 
 </head>
 
-<body style="background-color: #D23714">
+<body style="background-color: #555">
 	<div class="container">
 		<div class="row row-centered">
 			<div class="col-sm-11">
