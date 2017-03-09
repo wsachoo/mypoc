@@ -38,6 +38,7 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"getServiceFeaturesMetaDataUrl" : "getServiceFeaturesMetaData/testSite",
 		"addAdminServiceFeaturesUrl" : "addServicesFeatures",
 		"deleteAdminServiceFeaturesUrl" : "deleteServicesFeatures",
+		"saveProductConfigurationUrl" : "saveProductConfiguration",
 		"IBM_WATSON_CHAT_URL" : "https://watson-sales.mybluemix.net/api/smart",
 		"IBM_WATSON_LANGUAGE_TRANSLATOR_URL" : "https://saleslangconvapp.mybluemix.net/salesLanguageTranslator"
 	};
@@ -189,7 +190,7 @@ function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
 	
     $.ajaxSetup({
         headers : { 
-        	'X-CSRF-TOKEN' : $('meta[name="_csrf"]').attr('content') 
+        	'X-CSRF-TOKEN' : $('meta[name="_csrf"]').attr('content')
         }
     });
     
