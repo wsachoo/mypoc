@@ -61,7 +61,7 @@ public class SalesAuthenticationSuccessHandler implements AuthenticationSuccessH
 		if (isUser) {
 			return "/user/home";
 		} else if (isAdmin) {
-			return "/admin/home";
+			return "/admin/adminLandingPage";
 		} else {
 			logger.debug("Authentication successful but user role not found");
 			return "/accessDenied";

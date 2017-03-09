@@ -26,7 +26,7 @@
 body {
 	padding-top: 40px;
 	padding-bottom: 40px;
-	background-color: #eee;
+	background-color: #D23714;
 }
 
 .form-signin {
@@ -40,8 +40,9 @@ body {
 }
 
 .form-heading {
-	color: #337ab7;
+	color: black;
 	margin-bottom: 20px;
+	font-variant: small-caps;
 }
 
 .form-signin .checkbox {
@@ -84,7 +85,7 @@ body {
 <body>
 	<div class="container">
 		<form method="POST" action="${contextPath}/login" class="form-signin">
-			<h2 class="form-heading">Sales App Login</h2>
+			<font size="8.75rem;" color="white">Sales App</font>
 			<div
 				class="form-group ${SPRING_SECURITY_LAST_EXCEPTION.message != null ? 'has-error' : ''}">
 				<input name="username" type="text" class="form-control"
