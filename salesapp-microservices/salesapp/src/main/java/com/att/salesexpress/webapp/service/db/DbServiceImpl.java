@@ -25,6 +25,8 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
+import com.att.salesexpress.webapp.bean.admin.ProductConfigBean;
+import com.att.salesexpress.webapp.entity.SalesRules;
 import com.att.salesexpress.webapp.entity.SalesSite;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
 import com.att.salesexpress.webapp.pojos.PortSpeedDO;
@@ -333,4 +335,30 @@ public class DbServiceImpl implements DbService {
 		int iReturnVal = jdbcTemplate.update(sqlUpdate, jsonString);
 		logger.debug("Return value after service and features update : " + iReturnVal);	
 	}
+	
+	@Override
+	public void saveProductConfiguration(final List<SalesRules> salesRulesEntityList) throws SQLException {
+		logger.debug("Inside saveProductConfiguration() method.");
+
+		final String sqlBatchInsert = "INSERT INTO sales_rules ("
+				+ "ID, RULE_ID, PRODUCT, RATE_PLAN, PORT_TYPE, ACCESS_SPEED_ID, PORT_SPEED_ID, MIN_MBC, MRC, NRC "
+				+ ") VALUES (SALES_RULES_ID_SEQ.NEXTVAL, SALES_RULES_RULE_ID_SEQ.NEXTVAL, ?, NULL, ?, ?, ?, NULL, ?, ?)";
+
+		jdbcTemplate.batchUpdate(sqlBatchInsert, new BatchPreparedStatementSetter() {
+
+			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
+				SalesRules objSalesRules = salesRulesEntityList.get(i);
+				pstmt.setString(1, objSalesRules.getProductName());
+				pstmt.setString(2, objSalesRules.getPortType());
+				pstmt.setDouble(3, objSalesRules.getAccessSpeed());
+				pstmt.setDouble(4, objSalesRules.getPortSpeed());
+				pstmt.setDouble(5, objSalesRules.getMrc());
+				pstmt.setDouble(6, objSalesRules.getNrc());
+			}
+
+			public int getBatchSize() {
+				return salesRulesEntityList.size();
+			}
+		});
+	}	
 }

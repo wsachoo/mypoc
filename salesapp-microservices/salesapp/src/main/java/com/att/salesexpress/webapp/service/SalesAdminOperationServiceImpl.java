@@ -2,6 +2,7 @@ package com.att.salesexpress.webapp.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.att.salesexpress.webapp.bean.admin.ProductConfigBean;
+import com.att.salesexpress.webapp.entity.SalesRules;
 import com.att.salesexpress.webapp.service.db.DbService;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -77,9 +80,18 @@ public class SalesAdminOperationServiceImpl implements SalesAdminOperationServic
 				break;
 			}
 		}
-		
+
 		String strUpdServicesFeaturesConfig = jacksonObjectMapper.writeValueAsString(servicesFeaturesMap);
 		dbServiceImpl.updateServiceFeaturesConfiguration(strUpdServicesFeaturesConfig);
 		logger.debug("Exiting successfully from deleteServicesFeaturesConfiguration() method.");
+	}
+
+	@Override
+	@Transactional
+	public void saveProductConfiguration(ProductConfigBean objProductConfigBean) throws SQLException {
+		logger.debug("Inside saveProductConfiguration() method.");
+		List<SalesRules> salesRulesEntityList = objProductConfigBean.transformToSalesRules();
+		dbServiceImpl.saveProductConfiguration(salesRulesEntityList);
+		logger.debug("Exiting successfully from saveProductConfiguration() method.");
 	}
 }
