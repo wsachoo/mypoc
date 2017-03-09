@@ -41,14 +41,14 @@
 		</div>
 		<div class="row row-centered">
 			<div class="col-sm-4">
-				<a href="${contextPath}/admin/serviceAndFeaturesConfiguration"> <img class="img-circle img-responsive img-center"
-					src="${pageContext.request.contextPath}/images/adminIconSiteConfig.png"
+				<a href="${contextPath}/admin/productConfiguration"> <img class="img-circle img-responsive img-center"
+					src="${pageContext.request.contextPath}/images/adminIconProductConfig.png"
 					alt="">
 				</a>
 			</div>
 			<div class="col-sm-4">
-				<a href="${contextPath}/admin/productConfiguration"> <img class="img-circle img-responsive img-center"
-					src="${pageContext.request.contextPath}/images/adminIconProductConfig.png"
+				<a href="${contextPath}/admin/serviceAndFeaturesConfiguration"> <img class="img-circle img-responsive img-center"
+					src="${pageContext.request.contextPath}/images/adminIconSiteConfig.png"
 					alt="">
 				</a>
 			</div>
@@ -60,9 +60,21 @@
 			</div>
 		</div>
 		<div class="row row-centered">
-			<div class="col-sm-4"><font size="5.75rem;" color="white">Site Configuration</font></div>
-			<div class="col-sm-4"><font size="5.75rem" color="white">Product Configuration</font></div>
-			<div class="col-sm-4"><font size="5.75rem" color="white">Misc Configuration</font></div>
+			<div class="col-sm-4">
+				<a href="${contextPath}/admin/productConfiguration">
+					<font size="5.75rem;" color="white">Product Configuration</font>
+				</a>
+			</div>
+			<div class="col-sm-4">
+				<a href="${contextPath}/admin/serviceAndFeaturesConfiguration">
+					<font size="5.75rem;" color="white">Add/Remove Services</font>
+				</a>
+			</div>
+			<div class="col-sm-4">
+				<a href="#">
+					<font size="5.75rem;" color="white">Misc Configuration</font>
+				</a>
+			</div>
 		</div>
 
 	</div>
