@@ -79,28 +79,18 @@
 		<form id="configureForm" data-ajax="false" class="form-inline">
 			<div class="wrapper">
 			    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+			    <!-- service and features configuration starts -->
 			      <div id="serviceFeaturesTabContent" class="tab-content">
 			        <div role="tabpanel" class="tab-pane fade" id="addServices" aria-labelledby="addServices-tab">
-			          <div class="" id="addServiceFeatures" style="display:inline;">
-						<label for="name">Add Service Name : 
-						<input type="text" id="addService" name="serviceName" class="form-control"></label>
-						<br>
-						<input type="button" value="Add Features" id="btnAddFeatures" name="btnAddFeatures" class="btn btn-primary">
-						<br>
-					</div>
+			      		<p>adding services</p>
 					<br>
-					 <div id="divBtnSaveService" class="col-sm-offset-11">
-						<input type="button" value="Save Service" id="btnSaveService" name="btnSaveService" class="btn btn-primary">
-					</div>
 			        </div>
 			       
 			        <div role="tabpanel" class="tab-pane fade" id="deleteServices" aria-labelledby="deleteServices-tab">
-			         <div class="" id="deleteServices" style="display:inline;">
-						<label for="name">Enter Service Name To be Deleted:<input type="text" id="labelDeleteService" name="labelDeleteService" class="form-control"></label>
-							<input type="button" value="Delete Service" id="btnDeleteService" name="btnDeleteService" class="btn btn-primary">
-						<br>
-					 </div>
+			        	<p>Deleting Services</p>
 			        </div>
+			        <!--service and features configuration ends  -->
+			        <!--product configuration starts  -->
 			        <div role="tabpanel" class="tab-pane fade" id="configureProducts" aria-labelledby="configureProducts-tab">
 			        <div class="row">
 			          <div class="marginTopBuffer col-sm-2">
@@ -172,6 +162,7 @@
 				       </div>
 			          </div>
 			        </div>
+			        <!-- product configuration ends -->
 			        <div role="tabpanel" class="tab-pane fade" id="deleteSites" aria-labelledby="deleteSites-tab">
 			          <p>
 			            Deleting Sites
