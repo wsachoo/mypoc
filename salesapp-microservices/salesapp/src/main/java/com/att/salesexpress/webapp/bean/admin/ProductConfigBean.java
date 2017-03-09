@@ -101,13 +101,13 @@ public class ProductConfigBean {
 	private Long transformSpeedUnits(Long accessSpeed, String accessSpeedUnit) {
 		// TODO Auto-generated method stub
 		if ("Kbps".equalsIgnoreCase(accessSpeedUnit)) {
-			return accessSpeed * 1024;
+			return accessSpeed * 1000;
 		}
 		else if ("Mbps".equalsIgnoreCase(accessSpeedUnit)) {
-			return accessSpeed * 1024 * 1024;
+			return accessSpeed * 1000 * 1000;
 		}
 		else if ("Gbps".equalsIgnoreCase(accessSpeedUnit)) {
-			return accessSpeed * 1024 * 1024 * 1024;
+			return accessSpeed * 1000 * 1000 * 1000;
 		}
 		
 		return accessSpeed;
