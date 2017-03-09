@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductConfigBean {
 
-	@JsonProperty(value = "product")
+	@JsonProperty(value = "products")
 	private List<String> productNameList;
 
 	@JsonProperty(value = "accessSpeed")

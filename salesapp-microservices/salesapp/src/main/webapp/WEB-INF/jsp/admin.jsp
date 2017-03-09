@@ -119,7 +119,7 @@
 				          </div>
 				          <div class="marginTopBuffer col-sm-10">
 				          	<input type="text" class="form-control" id="txtAccessSpeed" name="txtAccessSpeed">
-				          	<select name="speedUnit" id="speedUnit" class="productManagementselectType">
+				          	<select name="speedUnit_accessType" id="speedUnit_accessType" class="productManagementselectType">
 				          			<option value="Kbps">Kbps</option>
 					          		<option value="Mbps">Mbps</option>
 					          		<option value="Gbps">Gbps</option>

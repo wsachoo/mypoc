@@ -44,7 +44,8 @@ $(document).ready(function() {
 					break;
 				case 'btnRemovePortSpeedDiv':
 					handleRemovePortSpeedDiv($(this), e.target);
-					break;
+					break;	
+			
 			}
 		}
 		
@@ -327,8 +328,6 @@ function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
 }
 
 function handleSaveProductConfigData($thisRef, eventSource) {
-	var form = $("#configureForm")
-	var formData = $("div [class='classPortSpeed']");
 	var portSpeeds = [];
 	$(".classPortSpeed").each(function() {
 	    var portSpeedObj = {};
@@ -339,27 +338,38 @@ function handleSaveProductConfigData($thisRef, eventSource) {
 	    portSpeeds.push(portSpeedObj);
 	});
 	console.log("portSpeeds : " + JSON.stringify(portSpeeds));
+	var productConfigObj = {};
+	productConfigObj.accessSpeed = $("#txtAccessSpeed").val();
+	productConfigObj.accessSpeedUnit = $("#speedUnit_accessType").val();	
+	productConfigObj.accessType = $("#accessType").val();
+	productConfigObj.portSpeeds = portSpeeds;
+	var products = [];
+	$('input[name="product"]:checked').each(function() {
+		   products.push($(this).val());
+		});
+	productConfigObj.products = products;
+	saveProductConfiguration(productConfigObj);
+	console.log("productConfigObj : " + JSON.stringify(productConfigObj));
 }
 
 function handleAddPortSpeedDiv($thisRef, eventSource) {
 	var divAddPortSpeeds =	'<div class="row classPortSpeed" id="divPortSpeed">'+
-					       	'<div class="marginTopBuffer col-sm-2">'+
-					       	'<label for="name">Port Speed : </label>'+
-					       	'</div>'+
-					       	'<div class="marginTopBuffer col-sm-10">'+
-					       	'<input type="text" class="form-control" name="txtSpeed_portType">'+
-					       		'<select name="speedUnit_portType" class="productManagementselectType">'+
-					       				'<option value="Kbps">Kbps</option>'+
-						          		'<option value="Mbps">Mbps</option>'+
-						          		'<option value="Gbps">Gbps</option>'+
-								'</select>'+
-								'<input type="text" class="form-control" name="txtMRC_portType" placeholder="MRC" style="width:15%">'+
-								'<input type="text" class="form-control" name="txtNRC_portType" placeholder="NRC" style="width:15%">'+
-								'<input type="button" class="btn" name="btnAddPortSpeedDiv" id="btnAddPortSpeedDiv" value="Add PortSpeeds">'+
-								'<input type="button" class="btn" name="btnRemovePortSpeedDiv" id="btnRemovePortSpeedDiv" value="Remove PortSpeeds">'+
-							'</div>'+
+							   	'<div class="marginTopBuffer col-sm-2">'+
+							   	'<label for="name">Port Speed : </label>'+
+							   	'</div>'+
+							   	'<div class="marginTopBuffer col-sm-10">'+
+							   	'<input type="text" class="form-control" name="txtSpeed_portType">'+
+							   		'<select name="speedUnit_portType" class="productManagementselectType">'+
+							   				'<option value="Kbps">Kbps</option>'+
+							          		'<option value="Mbps">Mbps</option>'+
+							          		'<option value="Gbps">Gbps</option>'+
+									'</select>'+
+									'<input type="text" class="form-control" name="txtMRC_portType" placeholder="MRC" style="width:15%">'+
+									'<input type="text" class="form-control" name="txtNRC_portType" placeholder="NRC" style="width:15%">'+
+									'<input type="button" class="btn" name="btnAddPortSpeedDiv" id="btnAddPortSpeedDiv" value="Add PortSpeeds">'+
+									'<input type="button" class="btn" name="btnRemovePortSpeedDiv" id="btnRemovePortSpeedDiv" value="Remove PortSpeeds">'+
+								'</div>'+
 							'</div>';
-
 	var currentDiv = $(eventSource).closest('div').parent();
 	$(divAddPortSpeeds).insertAfter(currentDiv);
 }
@@ -367,3 +377,18 @@ function handleAddPortSpeedDiv($thisRef, eventSource) {
 function handleRemovePortSpeedDiv($thisRef, eventSource) {
 	$(eventSource).closest('div').parent().remove();
 }
+
+function saveProductConfiguration(productConfigObj) {
+	var url = SALESEXPRESS_CONSTANTS.getUrlPath('saveProductConfigurationUrl');
+	var data = JSON.stringify(productConfigObj);
+	var promise = httpAsyncPostWithJsonRequestResponse(url, data);
+	promise.done(function(data, textStatus, jqXHR) {
+		alert("Updated successfully.");
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		alert("Failed to update.");
+	});
+}
+
+
+
+
