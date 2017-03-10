@@ -98,7 +98,12 @@
 						</select>
 						<input type="text" class="form-control" name="txtMRC_portType" placeholder="MRC" style="width:15%">
 						<input type="text" class="form-control" name="txtNRC_portType" placeholder="NRC" style="width:15%">
-						<input type="button" class="btn" name="btnAddPortSpeedDiv" id="btnAddPortSpeedDiv" value="Add PortSpeeds">
+						<button type="button" id="btnAddPortSpeedDiv" name="btnAddPortSpeedDiv" class="btn">
+							<span class="glyphicon glyphicon-plus" id=""></span>
+						</button>
+						<button type="button" id="btnRemovePortSpeedDiv" name="btnRemovePortSpeedDiv" class="btn" style="display:none;">
+							<span class="glyphicon glyphicon-minus" id=""></span>
+						</button>					
 			          </div>
 		          </div>
 		          <div class="row">
