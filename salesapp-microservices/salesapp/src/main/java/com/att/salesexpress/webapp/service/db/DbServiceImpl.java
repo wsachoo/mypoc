@@ -337,8 +337,25 @@ public class DbServiceImpl implements DbService {
 	}
 	
 	@Override
+	public void checkIfRuleAlreadyExits(final List<SalesRules> salesRulesEntityList) {
+		logger.debug("Inside checkIfRuleAlreadyExits() method.");
+		String sql = "select count(1) from sales_rules where ACCESS_SPEED_ID=? and PORT_SPEED_ID=? and upper(PRODUCT)=?";
+		
+		for (SalesRules salesRules : salesRulesEntityList) {
+			Integer iRowCount = jdbcTemplate.queryForObject(sql, Integer.class, 
+						salesRules.getAccessSpeed(), salesRules.getPortSpeed(), salesRules.getProductName().toUpperCase());
+			if (iRowCount == 1) {
+				salesRules.setBlnExitsInDb(true);
+			}
+			else {
+				salesRules.setBlnExitsInDb(false);
+			}
+		}
+	}
+	
+	@Override
 	public void saveProductConfiguration(final List<SalesRules> salesRulesEntityList) throws SQLException {
-		logger.debug("Inside saveProductConfiguration() method.");
+		logger.debug("Entered saveProductConfiguration() method.");
 
 		final String sqlBatchInsert = "INSERT INTO sales_rules ("
 				+ "ID, RULE_ID, PRODUCT, RATE_PLAN, PORT_TYPE, ACCESS_SPEED_ID, PORT_SPEED_ID, MIN_MBC, MRC, NRC "
@@ -360,5 +377,36 @@ public class DbServiceImpl implements DbService {
 				return salesRulesEntityList.size();
 			}
 		});
+		
+		logger.debug("Exiting saveProductConfiguration() method.");
+	}
+
+	@Override
+	public void updateProductConfiguration(final List<SalesRules> rulesToUpdate) {
+		// TODO Auto-generated method stub
+		logger.debug("Entered updateProductConfiguration() method.");
+
+		final String sqlBatchUpdate = "UPDATE sales_rules "
+				+ "SET PORT_TYPE=?, MRC=?, NRC=? where ACCESS_SPEED_ID=? and PORT_SPEED_ID=? and upper(PRODUCT)=?";
+		
+		jdbcTemplate.batchUpdate(sqlBatchUpdate, new BatchPreparedStatementSetter() {
+
+			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
+				SalesRules objSalesRules = rulesToUpdate.get(i);
+				pstmt.setString(1, objSalesRules.getPortType());
+				pstmt.setDouble(2, objSalesRules.getMrc());
+				pstmt.setDouble(3, objSalesRules.getNrc());
+				pstmt.setDouble(4, objSalesRules.getAccessSpeed());
+				pstmt.setDouble(5, objSalesRules.getPortSpeed());
+				pstmt.setString(6, objSalesRules.getProductName());
+			}
+
+			public int getBatchSize() {
+				return rulesToUpdate.size();
+			}
+		});
+
+		
+		logger.debug("Exiting updateProductConfiguration() method.");
 	}	
 }

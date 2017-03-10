@@ -11,6 +11,15 @@ public class SalesRules {
 	private Double minMbc;
 	private Long ruleId;
 	private Long Id;
+	private boolean blnExitsInDb;
+
+	public boolean isBlnExitsInDb() {
+		return blnExitsInDb;
+	}
+
+	public void setBlnExitsInDb(boolean blnExitsInDb) {
+		this.blnExitsInDb = blnExitsInDb;
+	}
 
 	public String getProductName() {
 		return productName;
