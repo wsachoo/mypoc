@@ -91,7 +91,22 @@ public class SalesAdminOperationServiceImpl implements SalesAdminOperationServic
 	public void saveProductConfiguration(ProductConfigBean objProductConfigBean) throws SQLException {
 		logger.debug("Inside saveProductConfiguration() method.");
 		List<SalesRules> salesRulesEntityList = objProductConfigBean.transformToSalesRules();
-		dbServiceImpl.saveProductConfiguration(salesRulesEntityList);
+		dbServiceImpl.checkIfRuleAlreadyExits(salesRulesEntityList);
+
+		List<SalesRules> rulesToInsert = new ArrayList<>();
+		List<SalesRules> rulesToUpdate = new ArrayList<>();
+		
+		for (SalesRules salesRules : salesRulesEntityList) {
+			if (salesRules.isBlnExitsInDb()) {
+				rulesToUpdate.add(salesRules);
+			}
+			else {
+				rulesToInsert.add(salesRules);
+			}
+		}
+		
+		dbServiceImpl.saveProductConfiguration(rulesToInsert);
+		dbServiceImpl.updateProductConfiguration(rulesToUpdate);
 		logger.debug("Exiting successfully from saveProductConfiguration() method.");
 	}
 }

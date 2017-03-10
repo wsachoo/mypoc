@@ -63,4 +63,8 @@ public interface DbService {
 
 	void saveProductConfiguration(List<SalesRules> salesRulesEntityList) throws SQLException;
 
+	void checkIfRuleAlreadyExits(List<SalesRules> salesRulesEntityList);
+
+	public void updateProductConfiguration(List<SalesRules> rulesToInsert);
+
 }
