@@ -272,7 +272,7 @@ function handleBtnSaveService($thisRef, eventSource) {
 						fieldName = $(optionValue).prev('div').find("input[name ='fieldName']").val();
 						chooseType = $(optionValue).prev('div').find("select[name ='optionType']").val();
 					}
-					
+				
 					if( $(optionValue).children('div').css('display') != 'none' ||  $(optionValue).next().length == 0){
 						addUserServFeaturesObj.children.values[key].children[tempIndex]={};
 						addUserServFeaturesObj.children.values[key].children[tempIndex].label = labelName;
@@ -295,7 +295,7 @@ function handleBtnSaveService($thisRef, eventSource) {
 						var optionNameVal = $(optionValue).find("input[type=text]").val();
 						var optionNameAsKey = optionNameVal.toLowerCase();
 						optionNameAsKey = optionNameAsKey.replace(/\s/g, '');
-						tempOptionsArray.push(optionNameAsKey); 
+						tempOptionsArray.push(optionNameAsKey);
 					}
 				});	
 			});	
@@ -353,25 +353,11 @@ function handleSaveProductConfigData($thisRef, eventSource) {
 }
 
 function handleAddPortSpeedDiv($thisRef, eventSource) {
-	var divAddPortSpeeds =	'<div class="row classPortSpeed" id="divPortSpeed">'+
-							   	'<div class="marginTopBuffer col-sm-2">'+
-							   	'<label for="name">Port Speed : </label>'+
-							   	'</div>'+
-							   	'<div class="marginTopBuffer col-sm-10">'+
-							   	'<input type="text" class="form-control" name="txtSpeed_portType">'+
-							   		'<select name="speedUnit_portType" class="productManagementselectType">'+
-							   				'<option value="Kbps">Kbps</option>'+
-							          		'<option value="Mbps">Mbps</option>'+
-							          		'<option value="Gbps">Gbps</option>'+
-									'</select>'+
-									'<input type="text" class="form-control" name="txtMRC_portType" placeholder="MRC" style="width:15%">'+
-									'<input type="text" class="form-control" name="txtNRC_portType" placeholder="NRC" style="width:15%">'+
-									'<input type="button" class="btn" name="btnAddPortSpeedDiv" id="btnAddPortSpeedDiv" value="Add PortSpeeds">'+
-									'<input type="button" class="btn" name="btnRemovePortSpeedDiv" id="btnRemovePortSpeedDiv" value="Remove PortSpeeds">'+
-								'</div>'+
-							'</div>';
+	var divAddPortSpeeds = $("#divPortSpeed").wrap('<p/>').parent().html();
+	$("#divPortSpeed").unwrap();
 	var currentDiv = $(eventSource).closest('div').parent();
 	$(divAddPortSpeeds).insertAfter(currentDiv);
+	$("button[name='btnRemovePortSpeedDiv']:not(:first)").css('display','inline');
 }
 
 function handleRemovePortSpeedDiv($thisRef, eventSource) {

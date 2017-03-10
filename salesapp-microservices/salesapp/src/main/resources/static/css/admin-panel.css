@@ -206,3 +206,7 @@
 #adminPanelTopMenu {
 	margin-top: 60px;
 }
+
+span {
+	pointer-events : none;
+}
