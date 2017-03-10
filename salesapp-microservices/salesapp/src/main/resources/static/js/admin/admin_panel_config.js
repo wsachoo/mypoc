@@ -300,7 +300,7 @@ function handleBtnSaveService($thisRef, eventSource) {
 				});	
 			});	
 		console.log("addUserServFeaturesObj " + JSON.stringify(addUserServFeaturesObj));
-		//saveAdminUserServFeatures(addUserServFeaturesObj);
+		saveAdminUserServFeatures(addUserServFeaturesObj);
 }
 
 function saveAdminUserServFeatures(addUserServFeaturesObj) {
@@ -348,7 +348,7 @@ function handleSaveProductConfigData($thisRef, eventSource) {
 		   products.push($(this).val());
 		});
 	productConfigObj.products = products;
-	//saveProductConfiguration(productConfigObj);
+	saveProductConfiguration(productConfigObj);
 	console.log("productConfigObj : " + JSON.stringify(productConfigObj));
 }
 
