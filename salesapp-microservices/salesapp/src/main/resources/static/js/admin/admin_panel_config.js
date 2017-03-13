@@ -326,6 +326,11 @@ function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
 }
 
 function handleSaveProductConfigData($thisRef, eventSource) {
+	
+	if(! document.forms.configureForm.reportValidity()) {
+		return false;
+	}
+	
 	var portSpeeds = [];
 	$(".classPortSpeed").each(function() {
 	    var portSpeedObj = {};
