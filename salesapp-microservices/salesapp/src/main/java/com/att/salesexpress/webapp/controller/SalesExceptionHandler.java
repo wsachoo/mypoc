@@ -43,7 +43,7 @@ public class SalesExceptionHandler {
 		logger.debug("Exception stacktrace: " + errStackTrace);
 		response.setStatus(exp.getErrorStatus());
 
-		return new ResponseEntity<ExceptionDetail>(exp, HttpStatus.OK);
+		return new ResponseEntity<ExceptionDetail>(exp, httpStatus);
 	}
 }
 

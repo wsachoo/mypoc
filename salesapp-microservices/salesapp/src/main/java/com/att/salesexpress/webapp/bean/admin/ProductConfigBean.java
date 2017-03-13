@@ -14,7 +14,7 @@ public class ProductConfigBean {
 	private List<String> productNameList;
 
 	@JsonProperty(value = "accessSpeed")
-	private Long accessSpeed;
+	private Double accessSpeed;
 
 	@JsonProperty(value = "accessSpeedUnit")
 	private String accessSpeedUnit;
@@ -57,11 +57,11 @@ public class ProductConfigBean {
 		this.portSpeedBeans = portSpeedBeans;
 	}
 
-	public Long getAccessSpeed() {
+	public Double getAccessSpeed() {
 		return accessSpeed;
 	}
 
-	public void setAccessSpeed(Long accessSpeed) {
+	public void setAccessSpeed(Double accessSpeed) {
 		this.accessSpeed = accessSpeed;
 	}
 	
@@ -98,19 +98,19 @@ public class ProductConfigBean {
 		return salesRulesEntityList;
 	}
 
-	private Long transformSpeedUnits(Long accessSpeed, String accessSpeedUnit) {
+	private Long transformSpeedUnits(Double accessSpeed, String accessSpeedUnit) {
 		// TODO Auto-generated method stub
 		if ("Kbps".equalsIgnoreCase(accessSpeedUnit)) {
-			return accessSpeed * 1000;
+			return (long) (accessSpeed * 1000);
 		}
 		else if ("Mbps".equalsIgnoreCase(accessSpeedUnit)) {
-			return accessSpeed * 1000 * 1000;
+			return (long) (accessSpeed * 1000 * 1000);
 		}
 		else if ("Gbps".equalsIgnoreCase(accessSpeedUnit)) {
-			return accessSpeed * 1000 * 1000 * 1000;
+			return (long) (accessSpeed * 1000 * 1000 * 1000);
 		}
 		
-		return accessSpeed;
+		return (long) (accessSpeed * 1);
 	}
 }
 
@@ -118,7 +118,7 @@ public class ProductConfigBean {
 class PortSpeedConfigBean {
 
 	@JsonProperty(value = "speed")
-	private Long speed;
+	private Double speed;
 
 	@JsonProperty(value = "speedUnit")
 	private String speedUnit;
@@ -129,11 +129,11 @@ class PortSpeedConfigBean {
 	@JsonProperty(value = "NRC")
 	private Double nrc;
 
-	public Long getSpeed() {
+	public Double getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(Long speed) {
+	public void setSpeed(Double speed) {
 		this.speed = speed;
 	}
 

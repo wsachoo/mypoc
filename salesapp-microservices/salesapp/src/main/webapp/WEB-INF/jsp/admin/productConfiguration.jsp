@@ -68,6 +68,7 @@
 			          <div class="marginTopBuffer col-sm-10">
 			          	<input type="text" class="form-control" id="txtAccessSpeed" name="txtAccessSpeed">
 			          	<select name="speedUnit_accessType" id="speedUnit_accessType" class="productManagementselectType">
+			          			<option value="bps">bps</option>
 			          			<option value="Kbps">Kbps</option>
 				          		<option value="Mbps">Mbps</option>
 				          		<option value="Gbps">Gbps</option>
@@ -92,6 +93,7 @@
 			          <div class="marginTopBuffer col-sm-10">
 			          	<input type="text" class="form-control" name="txtSpeed_portType">
 			          	<select name="speedUnit_portType" class="productManagementselectType">
+			          			<option value="bps">bps</option>
 			          			<option value="Kbps">Kbps</option>
 				          		<option value="Mbps">Mbps</option>
 				          		<option value="Gbps">Gbps</option>
@@ -110,17 +112,18 @@
 		          	<div class="marginTopBuffer col-sm-2">
 		          		<label for="name">Select Your Product : </label>
 		          	</div>
-		          	<div class="marginTopBuffer col-sm-10">
-			          	<div class="checkbox" id="selectProduct">
-			          		<input type="checkbox" name="product" id="chkAVPNProduct" value="AVPN">AVPN
-			          		<input type="checkbox" name="product" id="chkMISPNTProduct" value="MISPNT">MISPNT
-			          	</div>	
+		          	<div class="marginTopBuffer col-sm-1">
+		          		<input type="checkbox" name="product" id="chkAVPNProduct" value="AVPN">AVPN
 		          	</div>
+		          	<div class="marginTopBuffer col-sm-1">
+		          		<input type="checkbox" name="product" id="chkMISPNTProduct" value="MISPNT">MISPNT
+		          	</div>
+		          	<div class="clearfix"></div>
 		     	  </div>	
 		          <div class="row">
 		           <div class="marginTopBuffer col-sm-2"></div>
 		           <div class="marginTopBuffer col-sm-10">
-			          <input type="button" class="btn" id="btnSaveProductConfigData" name="btnSaveProductConfigData" value="Save Product">
+			          <input type="button" class="btn" id="btnSaveProductConfigData" name="btnSaveProductConfigData" value="Configure Product">
 			       </div>
 		          </div>
 	        </div>
