@@ -9,11 +9,8 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script>
 	var contextPath = "${pageContext.request.contextPath}";
-		/* document.write('<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />'); */
-		document.write('<link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />');
-		
-		document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />');
-		/* document.write('<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />'); */
+		document.write('<link rel="stylesheet" href="${contextPath}/css/jquery-ui.css" type="text/css" />');
+		document.write('<link rel="stylesheet" href="${contextPath}/css/bootstrap.css" type="text/css" />');
 		document.write('<link rel="stylesheet" href="${contextPath}/css/bootstrap-multiselect.css" type="text/css" />');
 		document.write('<link rel="stylesheet" href="${contextPath}/css/bootstrap-theme.min.css" type="text/css" />');
 		document.write('<link rel="stylesheet" href="${contextPath}/css/salesexpress.css?id=' +	 Math.floor(Math.random() * 100) + 'type="text/css" />');
