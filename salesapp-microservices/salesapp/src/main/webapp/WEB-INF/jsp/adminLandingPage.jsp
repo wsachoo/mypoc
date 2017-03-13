@@ -53,11 +53,15 @@
 				</a>
 			</div>
 			<div class="col-sm-4">
-				<a href=""> <img class="img-circle img-responsive img-center"
+				<img class="img-circle img-responsive img-center"
+					src="${pageContext.request.contextPath}/images/adminIconOtherConfig.png"
+					alt="">
+			
+<%-- 				<a href=""> <img class="img-circle img-responsive img-center"
 					src="${pageContext.request.contextPath}/images/adminIconOtherConfig.png"
 					alt="">
 				</a>
-			</div>
+ --%>			</div>
 		</div>
 		<div class="row row-centered">
 			<div class="col-sm-4">
@@ -71,10 +75,11 @@
 				</a>
 			</div>
 			<div class="col-sm-4">
-				<a href="#">
+				<font size="5.75rem;" color="white">Misc Configuration</font>
+<!-- 				<a href="#">
 					<font size="5.75rem;" color="white">Misc Configuration</font>
 				</a>
-			</div>
+ -->			</div>
 		</div>
 
 	</div>
