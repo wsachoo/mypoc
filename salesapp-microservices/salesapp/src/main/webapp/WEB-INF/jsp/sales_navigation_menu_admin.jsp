@@ -1,4 +1,3 @@
-
 <div id="header" class="navbar navbar-default navbar-fixed-top">
 	<div class="navbar-header" style="background-color: #555">
 		<button class="navbar-toggle collapsed" type="button"
@@ -15,7 +14,7 @@
 		</ul>
 		<ul class="nav navbar-nav pull-right">
 			<li class="dropdown"><a href="${pageContext.request.contextPath}/admin/adminLandingPage"><font style="color: white;font-weight: bold;">HOME</font></a>
-			<li class="dropdown"><a href="${pageContext.request.contextPath}/logout"><font style="color: white;font-weight: bold;">Log Out</font></a>
+			<%-- <li class="dropdown"><a href="${pageContext.request.contextPath}/logout"><font style="color: white;font-weight: bold;">Log Out</font></a> --%>
 		</ul>
 	</nav>
 </div>
@@ -24,11 +23,10 @@
 	<div class="navbar-header">
   		<img src="${pageContext.request.contextPath}/images/salesexpresslogo.png"/>
   	</div>
-</div>
- --%>
+</div> --%>
+
 
 <!-- 
 NOTE: Changes needed should the height of topnavigation bar change
-1) sidenav.css #side_wrapper: padding: px
-2) salesexpress.css #main-wrapper: padding: px
+1) admin-panel.css #adminPanelTopMenu: margin-top: 110px; (else 60px)
  -->

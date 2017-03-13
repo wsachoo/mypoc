@@ -4,6 +4,15 @@
 	<div id="sidebar-wrapper">
 		<div class="nav-side-menu" id="sales_side_bar">
 			<div class="menu-list">
+
+				<ul id="menu-content" class="menu-content collapse out">
+					<li class="heading1" style="background-color: #337ab7; text-align: center;"><span 
+							style="display: inline; color: #fff; font-family: FontAwesome; font-size: 18px;">USER SITE LOCATIONS</span>
+
+					</li>
+				</ul>
+				<hr style="margin: 0px; border: -1px solid #ffffff;" />
+
 				<c:forEach items="${userSitesData.siteAddresses}" var="objUserSite">
 					<ul id="menu-content" class="menu-content collapse out">
 						<li class="heading1" style="background-color: #777">&nbsp; <input
