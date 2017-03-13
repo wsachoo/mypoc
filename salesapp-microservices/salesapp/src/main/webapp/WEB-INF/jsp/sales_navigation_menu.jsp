@@ -1,4 +1,3 @@
-
 <div id="header" class="navbar navbar-default navbar-fixed-top">
 	<div class="navbar-header">
 		<button class="navbar-toggle collapsed" type="button"
@@ -23,11 +22,10 @@
 	<div class="navbar-header">
   		<img src="${pageContext.request.contextPath}/images/salesexpresslogo.png"/>
   	</div>
-</div>
- --%>
+</div> --%>
 
 <!-- 
 NOTE: Changes needed should the height of topnavigation bar change
-1) sidenav.css #side_wrapper: padding: px
-2) salesexpress.css #main-wrapper: padding: px
+1) sidenav.css #side_wrapper: padding: 50px
+			   #main-wrapper: padding: 50px
  -->
