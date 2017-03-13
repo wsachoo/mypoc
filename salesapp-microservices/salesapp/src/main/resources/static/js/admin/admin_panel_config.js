@@ -135,13 +135,13 @@ function handleBtnAddFeatures($thisRef, eventSource){
 								'<br>'+
 									'<div style="display:none;" class="col-sm-12 addOptionsInternal">'+
 									'<label for="name" id="" class="">Add Label name:</label>'+
-									'<input type="text" name="labelName" class="form-control" style="width:30%;" id="txtLabelName" required="required">'+
+									'<input type="text" name="labelName" class="form-control" style="width:30%;" id="txtLabelName" >'+
 									/*'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 									'<option value="radio-button">Single-AddOn</option>'+
 									'</select>'+*/
 									'<br>'+
 									'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
-									'<input type="text" name="fieldName" class="form-control"  style="width:30%;" id="txtAddOptionFieldName" required="required">'+
+									'<input type="text" name="fieldName" class="form-control"  style="width:30%;" id="txtAddOptionFieldName" >'+
 									'<select name="optionType" id="optionType" class="selectType"><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 									'<option value="radio-button">Single-AddOn</option>'+
 									'</select>'+
