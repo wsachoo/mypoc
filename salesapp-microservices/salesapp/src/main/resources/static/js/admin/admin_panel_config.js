@@ -298,7 +298,7 @@ function handleBtnSaveService($thisRef, eventSource) {
 				});	
 			});	
 		console.log("addUserServFeaturesObj " + JSON.stringify(addUserServFeaturesObj));
-		//saveAdminUserServFeatures(addUserServFeaturesObj);
+		saveAdminUserServFeatures(addUserServFeaturesObj);
 }
 
 function saveAdminUserServFeatures(addUserServFeaturesObj) {
