@@ -1,5 +1,5 @@
 .selectType{
-	width:35%;
+	/* width:35%; */
 	margin-left: 5px;
     height: 34px;
     padding: 6px 12px;
@@ -19,7 +19,7 @@
 #btnAddOptions{
     margin-left : 5px;
     margin-right : 5px;
-    margin-bottom : 5px;
+    /* margin-bottom : 5px; */
 }
 
 #txtLabelName{
@@ -55,10 +55,10 @@
 	margin-left: 5px;
 }
 
-.addOptionsInternal{
-	left : -212px;
+ .addOptionsInternal{
+	left : -146px;
 }
-
+ 
 @mixin ellipsis(){
     max-width: 100%;
     overflow: hidden;
