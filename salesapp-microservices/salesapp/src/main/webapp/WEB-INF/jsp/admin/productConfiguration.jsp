@@ -28,7 +28,6 @@
 <script>
 		document.write('<script src="${contextPath}/js/user/init_salesexpress.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 		document.write('<script src="${contextPath}/js/admin/admin_panel_config.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
-		document.write('<script src="${contextPath}/js/admin/product_config.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');
 	</script>
 </head>
 <body>
@@ -46,7 +45,7 @@
 	        </li>
 	        <li role="presentation" class="next">
 	          <a href="#deleteProducts" role="tab" id="deleteProducts-tab" data-toggle="tab" aria-controls="deleteProducts">
-	            <span class="text">Delete Products</span>
+	            <span class="text">Modify Products</span>
 	          </a>
 	        </li>
 	      </ul>
@@ -63,7 +62,7 @@
 			          	<label for="name">Access Speed : </label>
 			          </div>
 			          <div class="marginTopBuffer col-sm-10">
-			          	<input type="text" class="form-control" id="txtAccessSpeed" name="txtAccessSpeed">
+			          	<input class="form-control" id="txtAccessSpeed" name="txtAccessSpeed" type="number" required="required" step="any">
 			          	<select name="speedUnit_accessType" id="speedUnit_accessType" class="productManagementselectType">
 			          			<option value="bps">bps</option>
 			          			<option value="Kbps">Kbps</option>
@@ -88,15 +87,15 @@
 			          	<label for="name">Port Speed : </label>
 			          </div>
 			          <div class="marginTopBuffer col-sm-10">
-			          	<input type="text" class="form-control" name="txtSpeed_portType">
+			          	<input class="form-control" name="txtSpeed_portType" type="number" required="required" step="any">
 			          	<select name="speedUnit_portType" class="productManagementselectType">
 			          			<option value="bps">bps</option>
 			          			<option value="Kbps">Kbps</option>
 				          		<option value="Mbps">Mbps</option>
 				          		<option value="Gbps">Gbps</option>
 						</select>
-						<input type="text" class="form-control" name="txtMRC_portType" placeholder="MRC" style="width:15%">
-						<input type="text" class="form-control" name="txtNRC_portType" placeholder="NRC" style="width:15%">
+						<input type="text" class="form-control" name="txtMRC_portType" placeholder="MRC" style="width:15%" required="required">
+						<input type="text" class="form-control" name="txtNRC_portType" placeholder="NRC" style="width:15%" required="required">
 						<button type="button" id="btnAddPortSpeedDiv" name="btnAddPortSpeedDiv" class="btn">
 							<span class="glyphicon glyphicon-plus" id="" style="font-size: large;"></span>
 						</button>
@@ -126,7 +125,7 @@
 	        </div>
 	        <div role="tabpanel" class="tab-pane fade" id="deleteProducts" aria-labelledby="deleteProducts-tab">
 	          <p>
-	            Delete Products
+	            Development In Progress
 	          </p>
 	        </div>
 	      </div>
