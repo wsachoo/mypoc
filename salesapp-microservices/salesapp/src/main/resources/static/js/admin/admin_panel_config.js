@@ -45,6 +45,15 @@ $(document).ready(function() {
 				case 'btnRemovePortSpeedDiv':
 					handleRemovePortSpeedDiv($(this), e.target);
 					break;	
+				case 'btnAddNewPortSpeedDiv':
+					handleAddNewPortSpeedDiv($(this), e.target);
+					break;
+				case 'btnRemoveNewPortSpeedDiv':
+					handleRemoveNewPortSpeedDiv($(this), e.target);
+					break;	
+				case 'btnAddProductConfigData':
+					handleAddProductConfigData($(this), e.target);
+					break;
 			
 			}
 		}
@@ -345,18 +354,47 @@ function handleSaveProductConfigData($thisRef, eventSource) {
 	});
 	console.log("portSpeeds : " + JSON.stringify(portSpeeds));
 	var productConfigObj = {};
-	productConfigObj.accessSpeed = $("#txtAccessSpeed").val();
-	productConfigObj.accessSpeedUnit = $("#speedUnit_accessType").val();	
-	productConfigObj.accessType = $("#accessType").val();
+	productConfigObj.accessSpeed = $("#configureForm #txtAccessSpeed").val();
+	productConfigObj.accessSpeedUnit = $("#configureForm #speedUnit_accessType").val();	
+	productConfigObj.accessType = $("#configureForm #accessType").val();
 	productConfigObj.portSpeeds = portSpeeds;
 	var products = [];
-	$('input[name="product"]:checked').each(function() {
+	$('#configureForm input[name="product"]:checked').each(function() {
 		   products.push($(this).val());
 		});
 	productConfigObj.products = products;
 	saveProductConfiguration(productConfigObj);
 	console.log("productConfigObj : " + JSON.stringify(productConfigObj));
 }
+
+function handleAddProductConfigData($thisRef, eventSource) {
+	
+	if(! document.forms.addForm.reportValidity()) {
+		return false;
+	}
+	
+	var portSpeeds = [];
+	$(".classNewPortSpeed").each(function() {
+	    var portSpeedObj = {};
+	    portSpeedObj.speed = $(this).find("input[name='txtSpeed_portType']").val();
+	    portSpeedObj.speedUnit = $(this).find("select[name='speedUnit_portType']").val();
+	    portSpeedObj.MRC = $(this).find("input[name='txtMRC_portType']").val();
+	    portSpeedObj.NRC = $(this).find("input[name='txtNRC_portType']").val();
+	    portSpeeds.push(portSpeedObj);
+	});
+	console.log("portSpeeds : " + JSON.stringify(portSpeeds));
+	var productAddObj = {};
+	productAddObj.accessSpeed = $("#addForm #txtAccessSpeed").val();
+	productAddObj.accessSpeedUnit = $("#addForm #speedUnit_accessType").val();	
+	productAddObj.accessType = $("#addForm #accessType").val();
+	productAddObj.portSpeeds = portSpeeds;
+	var products = [];
+	products.push($("#addForm input[name='product'").val());
+	productAddObj.products = products;
+	saveProductConfiguration(productAddObj);
+	console.log("productAddObj : " + JSON.stringify(productAddObj));
+}
+
 
 function handleAddPortSpeedDiv($thisRef, eventSource) {
 	var divAddPortSpeeds = $("#divPortSpeed").wrap('<p/>').parent().html();
@@ -366,9 +404,22 @@ function handleAddPortSpeedDiv($thisRef, eventSource) {
 	$("button[name='btnRemovePortSpeedDiv']:not(:first)").css('display','inline');
 }
 
+function handleAddNewPortSpeedDiv($thisRef, eventSource) {
+	var divAddPortSpeeds = $("#divNewPortSpeed").wrap('<p/>').parent().html();
+	$("#divNewPortSpeed").unwrap();
+	var currentDiv = $(eventSource).closest('div').parent();
+	$(divAddPortSpeeds).insertAfter(currentDiv);
+	$("button[name='btnRemoveNewPortSpeedDiv']:not(:first)").css('display','inline');
+}
+
 function handleRemovePortSpeedDiv($thisRef, eventSource) {
 	$(eventSource).closest('div').parent().remove();
 }
+
+function handleRemoveNewPortSpeedDiv($thisRef, eventSource) {
+	$(eventSource).closest('div').parent().remove();
+}
+
 
 function saveProductConfiguration(productConfigObj) {
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath('saveProductConfigurationUrl');
