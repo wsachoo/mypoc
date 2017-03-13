@@ -283,7 +283,7 @@ function handleBtnSaveService($thisRef, eventSource) {
 						var optionNameAsKey = optionNameVal.toLowerCase();
 						var tempOptionIndex;
 						$.each(tempOptionsArray, function(temOptionsArrayKey, temOptionsArrayValue){
-							addUserServFeaturesObj.children.values[key].children[tempIndex].options[temOptionsArrayValue.toLowerCase()] = temOptionsArrayValue;
+							addUserServFeaturesObj.children.values[key].children[tempIndex].options[temOptionsArrayValue.toLowerCase().replace(/\s/g, '')] = temOptionsArrayValue;
 							tempOptionIndex = temOptionsArrayKey;
 						});
 						var optionNameValAsKey = optionNameVal.toLowerCase();
@@ -293,9 +293,7 @@ function handleBtnSaveService($thisRef, eventSource) {
 						tempOptionsArray = [];
 					}else{
 						var optionNameVal = $(optionValue).find("input[type=text]").val();
-						var optionNameAsKey = optionNameVal.toLowerCase();
-						optionNameAsKey = optionNameAsKey.replace(/\s/g, '');
-						tempOptionsArray.push(optionNameAsKey);
+						tempOptionsArray.push(optionNameVal);
 					}
 				});	
 			});	
@@ -369,9 +367,11 @@ function saveProductConfiguration(productConfigObj) {
 	var data = JSON.stringify(productConfigObj);
 	var promise = httpAsyncPostWithJsonRequestResponse(url, data);
 	promise.done(function(data, textStatus, jqXHR) {
-		alert("Updated successfully.");
+		$("#updateMessage").text('Updated successfully.');
+		$("#btnSuccessModal").trigger('click');
 	}).fail(function(jqXHR, textStatus, errorThrown) {
-		alert("Failed to update.");
+		$("#updateMessage").text('Failed To Update Product Info');
+		$("#btnSuccessModal").trigger('click');
 	});
 }
 
