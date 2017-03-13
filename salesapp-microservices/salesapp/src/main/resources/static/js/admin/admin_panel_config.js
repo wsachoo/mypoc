@@ -107,7 +107,7 @@ function handleBtnAddFeatures($thisRef, eventSource){
 	if(eventSource.name == 'btnAddFeatures'){
 	 tempFeatureDiv = "divAddFeatures_"+ featureIndex++ ;
 		var addFeaturesDiv   = 	'<div class="col-sm-12" id='+tempFeatureDiv +'>'+
-								'<label for="name">Add Feature name:<input type="text" name="serviceName" id="serviceName" value="" class="form-control"></label>'+
+								'<label for="name">Add Feature name:<input type="text" name="serviceName" id="serviceName" value="" class="form-control" required="required"></label>'+
 								
 								/*'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+*/
 								'<input type="button" value="Remove Feature" id="btnRemoveFeature" name="btnRemoveFeature" class="btn btn-primary">'+
@@ -116,13 +116,13 @@ function handleBtnAddFeatures($thisRef, eventSource){
 								'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+
 								'<br>'+
 								'<label for="name" id="" class="col-sm-offset-1">Add Label name:</label>'+
-								'<input type="text" name="labelName" class="form-control" id="txtLabelName">'+
+								'<input type="text" name="labelName" class="form-control" id="txtLabelName" required="required">'+
 								/*'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 								'<option value="radio-button">Single-AddOn</option>'+
 								'</select>'+*/
 								'<br>'+
 								'<label for="name" class="col-sm-offset-1" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
-								'<input type="text" name="fieldName" class="form-control" id="txtFieldName">'+
+								'<input type="text" name="fieldName" class="form-control" id="txtFieldName" required="required">'+
 								'<select name="optionType" id="optionType" class="selectType"><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 								'<option value="radio-button">Single-AddOn</option>'+
 								'</select>'+
@@ -132,7 +132,7 @@ function handleBtnAddFeatures($thisRef, eventSource){
 		
 		var tempOptionDiv = "divAddOptions_"+ optionIndex++ ;
 		var addOptionsDiv    =  '<div class="row col-sm-offset-2" id='+ tempOptionDiv+'>'+
-								'<label for="name" class="">Option name:<input type="text" name="txtAddOption" id="txtAddOption" class="form-control"></label>'+
+								'<label for="name" class="">Option name:<input type="text" name="txtAddOption" id="txtAddOption" class="form-control" required="required"></label>'+
 								/*'<input type="button" value="Remove Option" id="btnRemoveOption" name="btnRemoveOption" class="btn btn-primary">'+*/
 								'<button type="button" id="btnRemoveOption" name="btnRemoveOption" class="btn">'+
 									'<span class="glyphicon glyphicon-minus" name="btnRemoveOption" id=""></span>'+
@@ -144,13 +144,13 @@ function handleBtnAddFeatures($thisRef, eventSource){
 								'<br>'+
 									'<div style="display:none;" class="col-sm-12 addOptionsInternal">'+
 									'<label for="name" id="" class="">Add Label name:</label>'+
-									'<input type="text" name="labelName" class="form-control" style="width:30%;" id="txtLabelName">'+
+									'<input type="text" name="labelName" class="form-control" style="width:30%;" id="txtLabelName" >'+
 									/*'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 									'<option value="radio-button">Single-AddOn</option>'+
 									'</select>'+*/
 									'<br>'+
 									'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
-									'<input type="text" name="fieldName" class="form-control"  style="width:30%;" id="txtAddOptionFieldName">'+
+									'<input type="text" name="fieldName" class="form-control"  style="width:30%;" id="txtAddOptionFieldName" >'+
 									'<select name="optionType" id="optionType" class="selectType"><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 									'<option value="radio-button">Single-AddOn</option>'+
 									'</select>'+
@@ -246,6 +246,9 @@ function handleRemoveLabel($thisRef, eventSource) {
 }
 
 function handleBtnSaveService($thisRef, eventSource) {
+	if(! document.forms.configureForm.reportValidity()) {
+		return false;
+	}
 	 var serviceDiv = $("#addServiceFeatures");
 	 var serviceName = $("#addService").val();
 		addUserServFeaturesObj.id = serviceName.toLowerCase();

@@ -53,7 +53,7 @@
 			        <div role="tabpanel" class="tab-pane fade in active" id="addServices" aria-labelledby="addServices-tab">
 			          <div class="" id="addServiceFeatures" style="display:inline;">
 						<label for="name">Add Service Name : 
-						<input type="text" id="addService" name="serviceName" class="form-control"></label>
+						<input type="text" id="addService" name="serviceName" class="form-control" required="required"></label>
 						<br>
 						<input type="button" value="Add Features" id="btnAddFeatures" name="btnAddFeatures" class="btn btn-primary">
 						<br>
