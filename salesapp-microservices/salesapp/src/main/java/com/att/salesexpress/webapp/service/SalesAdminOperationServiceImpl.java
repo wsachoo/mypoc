@@ -120,4 +120,12 @@ public class SalesAdminOperationServiceImpl implements SalesAdminOperationServic
 		}
 		return productsListAsString;
 	}
+
+	@Override
+	public void deleteProductConfiguration(ProductConfigBean objProductConfigBean) {
+		logger.debug("Inside deleteProductConfiguration() method.");
+		List<SalesRules> salesRulesEntityList = objProductConfigBean.transformToSalesRules();
+		dbServiceImpl.deleteProductConfiguration(salesRulesEntityList);
+		logger.debug("Exiting successfully from deleteProductConfiguration() method.");
+	}
 }

@@ -416,4 +416,28 @@ public class DbServiceImpl implements DbService {
 		final String getDistinctProducts = "SELECT DISTINCT(PRODUCT) FROM SALES_RULES";
 		return jdbcTemplate.queryForList(getDistinctProducts);
 	}
+
+	@Override
+	public void deleteProductConfiguration(final List<SalesRules> salesRulesEntityList) {
+		logger.debug("Entered deleteProductConfiguration() method.");
+
+		final String sqlBatchInsert = "DELETE FROM sales_rules WHERE PRODUCT=? AND PORT_TYPE=? AND ACCESS_SPEED_ID=? AND PORT_SPEED_ID=?";
+
+		jdbcTemplate.batchUpdate(sqlBatchInsert, new BatchPreparedStatementSetter() {
+
+			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
+				SalesRules objSalesRules = salesRulesEntityList.get(i);
+				pstmt.setString(1, objSalesRules.getProductName());
+				pstmt.setString(2, objSalesRules.getPortType());
+				pstmt.setDouble(3, objSalesRules.getAccessSpeed());
+				pstmt.setDouble(4, objSalesRules.getPortSpeed());
+			}
+
+			public int getBatchSize() {
+				return salesRulesEntityList.size();
+			}
+		});
+		
+		logger.debug("Exiting deleteProductConfiguration() method.");		
+	}
 }
