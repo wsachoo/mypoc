@@ -408,5 +408,12 @@ public class DbServiceImpl implements DbService {
 
 		
 		logger.debug("Exiting updateProductConfiguration() method.");
-	}	
+	}
+	
+	@Override
+	public List<Map<String,Object>> getDistinctProductsToConfigure(){
+		logger.debug("inside getDistinctProductsToConfigure");
+		final String getDistinctProducts = "SELECT DISTINCT(PRODUCT) FROM SALES_RULES";
+		return jdbcTemplate.queryForList(getDistinctProducts);
+	}
 }

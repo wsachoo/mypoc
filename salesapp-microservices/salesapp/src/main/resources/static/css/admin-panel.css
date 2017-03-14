@@ -210,3 +210,7 @@
 span {
 	pointer-events : none;
 }
+
+.btn-admin-panel{
+	border-color: #999;
+}

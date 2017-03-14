@@ -2,6 +2,7 @@ package com.att.salesexpress.webapp.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import com.att.salesexpress.webapp.bean.admin.ProductConfigBean;
@@ -17,4 +18,6 @@ public interface SalesAdminOperationService {
 			throws JsonParseException, JsonMappingException, IOException, SQLException;
 
 	public void saveProductConfiguration(ProductConfigBean objProductConfigBean) throws SQLException;
+	
+	public List<String> getAllProductsToConfigure();
 }

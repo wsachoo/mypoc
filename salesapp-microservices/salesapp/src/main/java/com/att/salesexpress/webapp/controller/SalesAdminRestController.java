@@ -3,6 +3,7 @@ package com.att.salesexpress.webapp.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,5 +72,12 @@ public class SalesAdminRestController {
 		returnValues.put("status", "success");
 		logger.debug("Product Configuration saved successfully.");
 		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/admin/getAllProducts", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> getAllProducts(){
+		logger.debug("Inside getAllProducts() method");
+		return salesAdminOperationService.getAllProductsToConfigure();
 	}
 }

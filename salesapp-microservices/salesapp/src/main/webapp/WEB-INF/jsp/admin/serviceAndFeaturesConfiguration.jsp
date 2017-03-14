@@ -55,19 +55,19 @@
 						<label for="name">Add Service Name : 
 						<input type="text" id="addService" name="serviceName" class="form-control" required="required"></label>
 						<br>
-						<input type="button" value="Add Features" id="btnAddFeatures" name="btnAddFeatures" class="btn btn-primary">
+						<input type="button" value="Add Features" id="btnAddFeatures" name="btnAddFeatures" class="btn btn-admin-panel">
 						<br>
 					</div>
 					<br>
 					 <div id="divBtnSaveService" class="col-sm-offset-11">
-						<input type="button" value="Save Service" id="btnSaveService" name="btnSaveService" class="btn btn-primary">
+						<input type="button" value="Save Service" id="btnSaveService" name="btnSaveService" class="btn btn-admin-panel">
 					</div>
 			        </div>
 			       
 			        <div role="tabpanel" class="tab-pane fade" id="deleteServices" aria-labelledby="deleteServices-tab">
 			         <div class="" id="deleteServices" style="display:inline;">
 						<label for="name">Enter Service Name To be Deleted:<input type="text" id="labelDeleteService" name="labelDeleteService" class="form-control"></label>
-							<input type="button" value="Delete Service" id="btnDeleteService" name="btnDeleteService" class="btn btn-primary">
+							<input type="button" value="Delete Service" id="btnDeleteService" name="btnDeleteService" class="btn btn-admin-panel">
 						<br>
 					 </div>
 			        </div>

@@ -109,4 +109,15 @@ public class SalesAdminOperationServiceImpl implements SalesAdminOperationServic
 		dbServiceImpl.updateProductConfiguration(rulesToUpdate);
 		logger.debug("Exiting successfully from saveProductConfiguration() method.");
 	}
+	
+	@Override
+	public List<String> getAllProductsToConfigure(){
+		logger.debug("Inside getAllProductsToConfigure() method");
+		List<Map<String,Object>> productsList = dbServiceImpl.getDistinctProductsToConfigure();
+		List<String> productsListAsString = new ArrayList<String>();
+		for(Map<String, Object> product : productsList){
+			productsListAsString.add(String.valueOf(product.get("product")));
+		}
+		return productsListAsString;
+	}
 }
