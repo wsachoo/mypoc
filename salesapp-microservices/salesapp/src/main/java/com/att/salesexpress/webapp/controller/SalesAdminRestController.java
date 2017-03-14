@@ -65,18 +65,34 @@ public class SalesAdminRestController {
 			@RequestBody ProductConfigBean objProductConfigBean, HttpServletRequest request)
 			throws SQLException, IOException {
 		logger.debug("Inside postProductConfiguration() method");
-		
+
 		salesAdminOperationService.saveProductConfiguration(objProductConfigBean);
-		
+
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		returnValues.put("status", "success");
 		logger.debug("Product Configuration saved successfully.");
 		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
 	}
-	
+
+	@RequestMapping(value = "/admin/deleteProductConfiguration", method = RequestMethod.POST, produces = {
+			"application/json" }, consumes = { "application/json" })
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> deleteProductConfiguration(
+			@RequestBody ProductConfigBean objProductConfigBean, HttpServletRequest request)
+			throws SQLException, IOException {
+		logger.debug("Inside deleteProductConfiguration() method");
+
+		salesAdminOperationService.deleteProductConfiguration(objProductConfigBean);
+
+		Map<String, Object> returnValues = new HashMap<String, Object>();
+		returnValues.put("status", "success");
+		logger.debug("Product Configuration deleted successfully.");
+		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/admin/getAllProducts", method = RequestMethod.GET)
 	@ResponseBody
-	public List<String> getAllProducts(){
+	public List<String> getAllProducts() {
 		logger.debug("Inside getAllProducts() method");
 		return salesAdminOperationService.getAllProductsToConfigure();
 	}
