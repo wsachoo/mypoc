@@ -42,13 +42,13 @@
 		<div class="row row-centered">
 			<div class="col-sm-4">
 				<a href="${contextPath}/admin/productConfiguration"> <img class="img-circle img-responsive img-center"
-					src="${pageContext.request.contextPath}/images/adminIconSiteConfig.png"
+					src="${pageContext.request.contextPath}/images/adminIconProductConfig.png"
 					alt="">
 				</a>
 			</div>
 			<div class="col-sm-4">
 				<a href="${contextPath}/admin/serviceAndFeaturesConfiguration"> <img class="img-circle img-responsive img-center"
-					src="${pageContext.request.contextPath}/images/adminIconProductConfig.png"
+					src="${pageContext.request.contextPath}/images/adminIconSiteConfig.png"
 					alt="">
 				</a>
 			</div>
