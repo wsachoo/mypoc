@@ -107,7 +107,7 @@ function handleBtnAddFeatures($thisRef, eventSource){
 	if(eventSource.name == 'btnAddFeatures'){
 	 tempFeatureDiv = "divAddFeatures_"+ featureIndex++ ;
 		var addFeaturesDiv   = 	'<div class="col-sm-12" id='+tempFeatureDiv +'>'+
-								'<label for="name">Add Feature name:<input type="text" name="serviceName" id="serviceName" value="" class="form-control"></label>'+
+								'<label for="name">Add Feature name:<input type="text" name="serviceName" id="serviceName" value="" class="form-control" required="required"></label>'+
 								
 								/*'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+*/
 								'<input type="button" value="Remove Feature" id="btnRemoveFeature" name="btnRemoveFeature" class="btn btn-primary">'+
@@ -115,14 +115,14 @@ function handleBtnAddFeatures($thisRef, eventSource){
 								'<input type="button" value="Add Label" id="btnAddLabel" name="btnAddLabel" class="btn btn-primary">'+
 								'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+
 								'<br>'+
-								'<label for="name" id="" class="">Add Label name:</label>'+
-								'<input type="text" name="labelName" class="form-control" style="width:30%;" id="txtLabelName">'+
+								'<label for="name" id="" class="col-sm-offset-1">Add Label name:</label>'+
+								'<input type="text" name="labelName" class="form-control" id="txtLabelName" required="required">'+
 								/*'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 								'<option value="radio-button">Single-AddOn</option>'+
 								'</select>'+*/
 								'<br>'+
-								'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
-								'<input type="text" name="fieldName" class="form-control" style="width:30%;" id="txtFieldName">'+
+								'<label for="name" class="col-sm-offset-1" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
+								'<input type="text" name="fieldName" class="form-control" id="txtFieldName" required="required">'+
 								'<select name="optionType" id="optionType" class="selectType"><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 								'<option value="radio-button">Single-AddOn</option>'+
 								'</select>'+
@@ -131,8 +131,8 @@ function handleBtnAddFeatures($thisRef, eventSource){
 	}else{
 		
 		var tempOptionDiv = "divAddOptions_"+ optionIndex++ ;
-		var addOptionsDiv    =  '<div class="row  col-sm-12 col-sm-offset-2" id='+ tempOptionDiv+'>'+
-								'<label for="name" class="">Option name:<input type="text" name="txtAddOption" id="txtAddOption" class="form-control"></label>'+
+		var addOptionsDiv    =  '<div class="row col-sm-offset-2" id='+ tempOptionDiv+'>'+
+								'<label for="name" class="">Option name:<input type="text" name="txtAddOption" id="txtAddOption" class="form-control" required="required"></label>'+
 								/*'<input type="button" value="Remove Option" id="btnRemoveOption" name="btnRemoveOption" class="btn btn-primary">'+*/
 								'<button type="button" id="btnRemoveOption" name="btnRemoveOption" class="btn">'+
 									'<span class="glyphicon glyphicon-minus" name="btnRemoveOption" id=""></span>'+
@@ -142,15 +142,15 @@ function handleBtnAddFeatures($thisRef, eventSource){
 									'<span class="glyphicon glyphicon-plus" name="btnAddOptions"></span>'+
 								'</button>'+
 								'<br>'+
-									'<div style="display:none; left=-212px;" class="col-sm-12 addOptionsInternal">'+
+									'<div style="display:none;" class="col-sm-12 addOptionsInternal">'+
 									'<label for="name" id="" class="">Add Label name:</label>'+
-									'<input type="text" name="labelName" class="form-control" style="width:30%;" id="txtLabelName">'+
+									'<input type="text" name="labelName" class="form-control" style="width:30%;" id="txtLabelName" >'+
 									/*'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 									'<option value="radio-button">Single-AddOn</option>'+
 									'</select>'+*/
 									'<br>'+
 									'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
-									'<input type="text" name="fieldName" class="form-control"  style="width:30%;" id="txtAddOptionFieldName">'+
+									'<input type="text" name="fieldName" class="form-control"  style="width:30%;" id="txtAddOptionFieldName" >'+
 									'<select name="optionType" id="optionType" class="selectType"><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 									'<option value="radio-button">Single-AddOn</option>'+
 									'</select>'+
@@ -205,7 +205,7 @@ function handleBtnRemoveFeature($thisRef, eventSource) {
 		var labelValue = closestDiv.find('div').find('input[name="labelName"]').val();
 		var fieldValue = closestDiv.find('div').find('input[name="fieldName"]').val();
 		var chooseType = closestDiv.find('div').find('select[name="optionType"]').val();
-		if(previousDiv.is('input')){
+		if(previousDiv.is('input') || previousDiv.is('select')){
 			var thisFeatureDiv = previousDiv.parent();
 			thisFeatureDiv.find('input[name="labelName"]').first().val(labelValue);
 			thisFeatureDiv.find('input[name="fieldName"]').first().val(fieldValue);
@@ -234,7 +234,8 @@ function handleAddLabel($thisRef, eventSource) {
 	var divElementDisplayStyle = divElement.css('display');
 	if(divElementDisplayStyle == 'none'){
 		divElement.css('display', 'inline');
-		divElement.css('left', '-212px' );
+		divElement.addClass('addOptionsInternal');
+		divElement.addClass('addOptionsInternal');
 		divElement.find('input[name="btnRemoveLabel"]').css('display','inline');
 	}
 	$(eventSource).siblings('input[name="btnAddOptions"]').css('display','inline');
@@ -245,6 +246,9 @@ function handleRemoveLabel($thisRef, eventSource) {
 }
 
 function handleBtnSaveService($thisRef, eventSource) {
+	if(! document.forms.configureForm.reportValidity()) {
+		return false;
+	}
 	 var serviceDiv = $("#addServiceFeatures");
 	 var serviceName = $("#addService").val();
 		addUserServFeaturesObj.id = serviceName.toLowerCase();
@@ -315,9 +319,11 @@ function saveAdminUserServFeatures(addUserServFeaturesObj) {
 	var data = JSON.stringify(addUserServFeaturesObj);
 	var promise = httpAsyncPostWithJsonRequestResponse(addAdminUserAddServFeaturesUrl, data);
 	promise.done(function(data, textStatus, jqXHR) {
-		alert("Updated successfully.");
+		$("#updateMessage").text('Updated successfully.');
+		$("#btnSuccessModal").trigger('click');
 	}).fail(function(jqXHR, textStatus, errorThrown) {
-		alert("Failed to update.");
+		$("#updateMessage").text('Failed To Update.');
+		$("#btnSuccessModal").trigger('click');
 	});
 	console.log("after adding addUserServFeaturesObj");
 }
@@ -430,7 +436,3 @@ function saveProductConfiguration(productConfigObj) {
 		$("#btnSuccessModal").trigger('click');
 	});
 }
-
-
-
-
