@@ -53,7 +53,7 @@
 			<li role="presentation" class="next"><a href="#deleteProducts"
 				role="tab" id="deleteProducts-tab" data-toggle="tab"
 				aria-controls="deleteProducts"> <span class="text">Delete
-						Product</span>
+						Product Configuration</span>
 			</a></li>
 		</ul>
 		<div class="wrapper">
