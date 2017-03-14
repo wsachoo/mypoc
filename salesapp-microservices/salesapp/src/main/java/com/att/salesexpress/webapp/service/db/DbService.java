@@ -66,5 +66,7 @@ public interface DbService {
 	void checkIfRuleAlreadyExits(List<SalesRules> salesRulesEntityList);
 
 	public void updateProductConfiguration(List<SalesRules> rulesToInsert);
+	
+	public List<Map<String,Object>> getDistinctProductsToConfigure();
 
 }

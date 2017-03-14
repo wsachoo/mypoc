@@ -54,7 +54,6 @@ $(document).ready(function() {
 				case 'btnAddProductConfigData':
 					handleAddProductConfigData($(this), e.target);
 					break;
-			
 			}
 		}
 		
@@ -62,6 +61,9 @@ $(document).ready(function() {
 	
 	  $(document).on('show.bs.tab', '.nav-tabs-responsive [data-toggle="tab"]', function(e) {
 		    var $target = $(e.target);
+		    if($target.attr('id') == 'configureProducts-tab'){
+		    	handleConfigureProductTab();
+		    }
 		    var $tabs = $target.closest('.nav-tabs-responsive');
 		    var $current = $target.closest('li');
 		    var $parent = $current.closest('li.dropdown');
@@ -83,7 +85,7 @@ $(document).ready(function() {
 		    updateDropdownMenu( $current, 'center' );
 		    updateDropdownMenu( $next, 'right' );
 		  });
-
+	  //handleConfigureProductTab();
 });
 
 
@@ -109,11 +111,11 @@ function handleBtnAddFeatures($thisRef, eventSource){
 		var addFeaturesDiv   = 	'<div class="col-sm-12" id='+tempFeatureDiv +'>'+
 								'<label for="name">Add Feature name:<input type="text" name="serviceName" id="serviceName" value="" class="form-control" required="required"></label>'+
 								
-								/*'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+*/
-								'<input type="button" value="Remove Feature" id="btnRemoveFeature" name="btnRemoveFeature" class="btn btn-primary">'+
+								/*'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn">'+*/
+								'<input type="button" value="Remove Feature" id="btnRemoveFeature" name="btnRemoveFeature" class="btn btn-admin-panel">'+
 								'<br>'+
-								'<input type="button" value="Add Label" id="btnAddLabel" name="btnAddLabel" class="btn btn-primary">'+
-								'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+
+								'<input type="button" value="Add Label" id="btnAddLabel" name="btnAddLabel" class="btn btn-admin-panel">'+
+								'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-admin-panel">'+
 								'<br>'+
 								'<label for="name" id="" class="col-sm-offset-1">Add Label name:</label>'+
 								'<input type="text" name="labelName" class="form-control" id="txtLabelName" required="required">'+
@@ -133,12 +135,12 @@ function handleBtnAddFeatures($thisRef, eventSource){
 		var tempOptionDiv = "divAddOptions_"+ optionIndex++ ;
 		var addOptionsDiv    =  '<div class="row col-sm-offset-2" id='+ tempOptionDiv+'>'+
 								'<label for="name" class="">Option name:<input type="text" name="txtAddOption" id="txtAddOption" class="form-control" required="required"></label>'+
-								/*'<input type="button" value="Remove Option" id="btnRemoveOption" name="btnRemoveOption" class="btn btn-primary">'+*/
-								'<button type="button" id="btnRemoveOption" name="btnRemoveOption" class="btn">'+
+								/*'<input type="button" value="Remove Option" id="btnRemoveOption" name="btnRemoveOption" class="btn">'+*/
+								'<button type="button" id="btnRemoveOption" name="btnRemoveOption" class="btn btn-admin-panel">'+
 									'<span class="glyphicon glyphicon-minus" name="btnRemoveOption" id=""></span>'+
 								'</button>'+
-								/*'<input type="button" value="Add Option" id="btnAddOptions" name="btnAddOptions" class="btn btn-primary">'+*/
-								'<button type="button" id="btnAddOptions" name="btnAddOptions" class="btn">'+
+								/*'<input type="button" value="Add Option" id="btnAddOptions" name="btnAddOptions" class="btn">'+*/
+								'<button type="button" id="btnAddOptions" name="btnAddOptions" class="btn btn-admin-panel">'+
 									'<span class="glyphicon glyphicon-plus" name="btnAddOptions"></span>'+
 								'</button>'+
 								'<br>'+
@@ -154,7 +156,7 @@ function handleBtnAddFeatures($thisRef, eventSource){
 									'<select name="optionType" id="optionType" class="selectType"><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 									'<option value="radio-button">Single-AddOn</option>'+
 									'</select>'+
-									/*'<input type="button" value="Remove Label" id="btnRemoveLabel" name="btnRemoveLabel" style="display:none;" class="btn btn-primary">'+*/
+									/*'<input type="button" value="Remove Label" id="btnRemoveLabel" name="btnRemoveLabel" style="display:none;" class="btn">'+*/
 									'</div>'+
 								'</div>';
 
@@ -437,6 +439,25 @@ function saveProductConfiguration(productConfigObj) {
 	});
 }
 
+
+function handleConfigureProductTab() {
+	var url = SALESEXPRESS_CONSTANTS.getUrlPath('getAllProductsUrl');
+	var productsList = httpGetWithJsonResponse(url);
+	console.log("productsList :" + productsList);
+	prepareProductsDiv(productsList);
+}
+
+function prepareProductsDiv(productsList) {
+	$("#productsDiv").find('div').not(':first').remove();
+	for(var i = 0; i <productsList.length; i++){
+		var product = '<div class="marginTopBuffer col-sm-1">'+
+						'<input type="checkbox" name="product" id="chk"'+productsList[i]+'"Product" value="'+productsList[i]+'">'+productsList[i]+
+					  '</div>';
+		$("#productsDiv").append(product);
+	}
+	
+}
+
 $(document).ready(function() {
     $("#adminPanelTopMenu a").each(function(i, a) {
     	if ("configureProducts-tab" == a.id) {
@@ -464,3 +485,4 @@ $(document).ready(function() {
 	    });
 	});	
 });
+

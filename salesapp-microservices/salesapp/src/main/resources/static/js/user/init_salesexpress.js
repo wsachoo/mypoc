@@ -40,7 +40,8 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"deleteAdminServiceFeaturesUrl" : "deleteServicesFeatures",
 		"saveProductConfigurationUrl" : "saveProductConfiguration",
 		"IBM_WATSON_CHAT_URL" : "https://watson-sales.mybluemix.net/api/smart",
-		"IBM_WATSON_LANGUAGE_TRANSLATOR_URL" : "https://saleslangconvapp.mybluemix.net/salesLanguageTranslator"
+		"IBM_WATSON_LANGUAGE_TRANSLATOR_URL" : "https://saleslangconvapp.mybluemix.net/salesLanguageTranslator",
+		"getAllProductsUrl" : "getAllProducts"
 	};
 	
 	return {

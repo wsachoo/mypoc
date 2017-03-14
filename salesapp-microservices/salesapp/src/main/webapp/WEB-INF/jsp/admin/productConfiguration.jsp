@@ -112,19 +112,19 @@
 											class="form-control" name="txtNRC_portType" placeholder="NRC"
 											style="width: 15%" required="required">
 										<button type="button" id="btnAddPortSpeedDiv"
-											name="btnAddPortSpeedDiv" class="btn">
+											name="btnAddPortSpeedDiv" class="btn btn-admin-panel">
 											<span class="glyphicon glyphicon-plus" id=""
 												style="font-size: large;"></span>
 										</button>
 										<button type="button" id="btnRemovePortSpeedDiv"
-											name="btnRemovePortSpeedDiv" class="btn"
+											name="btnRemovePortSpeedDiv" class="btn btn-admin-panel"
 											style="display: none;">
 											<span class="glyphicon glyphicon-minus" id=""
 												style="font-size: large;"></span>
 										</button>
 									</div>
 								</div>
-								<div class="row">
+								<div class="row" id="productsDiv">
 									<div class="marginTopBuffer col-sm-2">
 										<label for="name">Select Your Product : </label>
 									</div>
@@ -135,13 +135,13 @@
 									<div class="marginTopBuffer col-sm-1">
 										<input type="checkbox" name="product" id="chkMISPNTProduct"
 											value="MISPNT">MISPNT
-									</div>
-									<div class="clearfix"></div>
+									</div> 
+									 <div class="clearfix"></div> 
 								</div>
 								<div class="row">
 									<div class="marginTopBuffer col-sm-2"></div>
 									<div class="marginTopBuffer col-sm-10">
-										<input type="button" class="btn" id="btnSaveProductConfigData"
+										<input type="button" class="btn btn-admin-panel" id="btnSaveProductConfigData"
 											name="btnSaveProductConfigData" value="Configure Product">
 									</div>
 								</div>
@@ -208,12 +208,12 @@
 											class="form-control" name="txtNRC_portType" placeholder="NRC"
 											style="width: 15%" required="required">
 										<button type="button" id="btnAddNewPortSpeedDiv"
-											name="btnAddNewPortSpeedDiv" class="btn">
+											name="btnAddNewPortSpeedDiv" class="btn btn-admin-panel">
 											<span class="glyphicon glyphicon-plus" id=""
 												style="font-size: large;"></span>
 										</button>
 										<button type="button" id="btnRemoveNewPortSpeedDiv"
-											name="btnRemoveNewPortSpeedDiv" class="btn"
+											name="btnRemoveNewPortSpeedDiv" class="btn btn-admin-panel"
 											style="display: none;">
 											<span class="glyphicon glyphicon-minus" id=""
 												style="font-size: large;"></span>
@@ -223,7 +223,7 @@
 								<div class="row">
 									<div class="marginTopBuffer col-sm-2"></div>
 									<div class="marginTopBuffer col-sm-10">
-										<input type="button" class="btn" id="btnAddProductConfigData"
+										<input type="button" class="btn btn-admin-panel" id="btnAddProductConfigData"
 											name="btnAddProductConfigData" value="Add Product">
 									</div>
 								</div>
