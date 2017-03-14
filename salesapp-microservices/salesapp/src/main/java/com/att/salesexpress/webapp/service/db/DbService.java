@@ -69,4 +69,6 @@ public interface DbService {
 	
 	public List<Map<String,Object>> getDistinctProductsToConfigure();
 
+	public void deleteProductConfiguration(List<SalesRules> salesRulesEntityList);
+
 }

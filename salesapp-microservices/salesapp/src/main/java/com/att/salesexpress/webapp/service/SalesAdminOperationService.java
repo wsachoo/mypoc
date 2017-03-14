@@ -20,4 +20,6 @@ public interface SalesAdminOperationService {
 	public void saveProductConfiguration(ProductConfigBean objProductConfigBean) throws SQLException;
 	
 	public List<String> getAllProductsToConfigure();
+
+	public void deleteProductConfiguration(ProductConfigBean objProductConfigBean);
 }

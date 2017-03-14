@@ -473,12 +473,10 @@ $(document).ready(function() {
 	$("#adminPanelTopMenu a").click(function(e) {
 	    $("#adminPanelTopMenu a").each(function(i, a) {
 	    	if (e.currentTarget.id == a.id) {
-	    		console.log("YES");
     	        $(this).css("background-color","white");
     	        $(this).css("color","black");
 	    	}
 	    	else {
-	    		console.log("NO");
 	    		$(this).css("background-color","#777");
 	    		$(this).css("color","white");
 	    	}
