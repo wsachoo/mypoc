@@ -545,5 +545,14 @@ function handleRemovePortSpeedDivDeleteProduct($thisRef, eventSource) {
 }
 
 function deleteProductConfigData(productDeleteObj) {
-	
+	var url = SALESEXPRESS_CONSTANTS.getUrlPath('deleteProductConfigurationUrl');
+	var data = JSON.stringify(productDeleteObj);
+	var promise = httpAsyncPostWithJsonRequestResponse(url, data);
+	promise.done(function(data, textStatus, jqXHR) {
+		$("#updateMessage").text('Deleted Successfully');
+		$("#btnSuccessModal").trigger('click');
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		$("#updateMessage").text('Failed To Delete Product Info');
+		$("#btnSuccessModal").trigger('click');
+	});
 }
