@@ -22,4 +22,6 @@ public interface SalesAdminOperationService {
 	public List<String> getAllProductsToConfigure();
 
 	public void deleteProductConfiguration(ProductConfigBean objProductConfigBean);
+	
+	public String getServiceFeaturesMetaData(String siteType);
 }

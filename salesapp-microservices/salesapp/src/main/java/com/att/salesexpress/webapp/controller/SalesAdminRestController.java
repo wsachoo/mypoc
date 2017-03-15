@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -95,5 +96,13 @@ public class SalesAdminRestController {
 	public List<String> getAllProducts() {
 		logger.debug("Inside getAllProducts() method");
 		return salesAdminOperationService.getAllProductsToConfigure();
+	}
+	
+	@ResponseBody
+	@RequestMapping( value = {"admin/getServiceFeaturesMetaData/{siteType}"}, method = RequestMethod.GET, produces = {"application/json"})
+	public ResponseEntity<String> getServFeaturesMDataBySiteName(@PathVariable String siteType) {
+		logger.info("Inside getServFeaturesMDataBySiteName method, sitename : " + siteType);
+		String servFeaturesMetaData = salesAdminOperationService.getServiceFeaturesMetaData(siteType);
+		return new ResponseEntity<String>(servFeaturesMetaData, HttpStatus.OK);
 	}
 }
