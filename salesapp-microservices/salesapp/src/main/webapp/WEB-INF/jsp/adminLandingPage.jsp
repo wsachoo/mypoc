@@ -27,9 +27,9 @@
 				<font size="8.75rem;" color="white">Sales Application Administration</font>
 			</div>
 			<div class="col-sm-1">
-				<a href="${contextPath}/logout"> <img class="img-circle img-responsive img-center" style="width: 75px;height: 75px;"
-					src="${pageContext.request.contextPath}/images/adminIconLogout.png"
-					alt="">
+				<a href="${contextPath}/logout" style="color: white;font-weight: bold;"> 
+					<%-- <img class="img-circle img-responsive img-center" style="width: 75px;height: 75px;" src="${pageContext.request.contextPath}/images/adminIconLogout.png"alt=""> --%>
+					LOGOUT
 				</a>
 
 			</div>
