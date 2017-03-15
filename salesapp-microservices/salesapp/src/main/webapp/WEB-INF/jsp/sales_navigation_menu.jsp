@@ -1,4 +1,4 @@
-<div id="header" class="navbar navbar-default navbar-fixed-top">
+<%-- <div id="header" class="navbar navbar-default navbar-fixed-top">
 	<div class="navbar-header">
 		<button class="navbar-toggle collapsed" type="button"
 			data-toggle="collapse" data-target=".navbar-collapse">
@@ -17,12 +17,12 @@
 		</ul>
 	</nav>
 </div>
-
-<%-- <div id="header" class="navbar navbar-default navbar-fixed-top">
+ --%>
+<div id="header" class="navbar navbar-default navbar-fixed-top">
 	<div class="navbar-header">
   		<img src="${pageContext.request.contextPath}/images/salesexpresslogo.png"/>
   	</div>
-</div> --%>
+</div>
 
 <!-- 
 NOTE: Changes needed should the height of topnavigation bar change
