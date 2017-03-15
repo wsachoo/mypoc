@@ -76,6 +76,10 @@ $(document).ready(function() {
 	  		if($target.attr('id') == 'deleteProducts-tab') {
 	  			handleDeleteProductTab();
 	  		}
+	  		if($target.attr('id') == 'deleteServices-tab') {
+	  			showDeleteServicesDropDown();
+	  		}
+	  		
 		    var $tabs = $target.closest('.nav-tabs-responsive');
 		    var $current = $target.closest('li');
 		    var $parent = $current.closest('li.dropdown');
@@ -343,15 +347,18 @@ function saveAdminUserServFeatures(addUserServFeaturesObj) {
 }
 
 function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
-	
-	var serviceToBeDeleted = { "id" : $("#labelDeleteService").val() };
+	var serviceToBeDeleted = { "id" : $("#serviceToDelete").val() };
 	var deleteAdminUserServFeaturesUrl = SALESEXPRESS_CONSTANTS.getUrlPath('deleteAdminServiceFeaturesUrl');
 	var promise = httpAsyncPostWithJsonRequestResponse(deleteAdminUserServFeaturesUrl, JSON.stringify(serviceToBeDeleted));
 	promise.done(function(data, textStatus, jqXHR) {
-		alert("Deleted successfully.");
+		$("#updateMessage").text('Deleted successfully.');
+		$("#btnSuccessModal").trigger('click');
+		showDeleteServicesDropDown();
 	}).fail(function(jqXHR, textStatus, errorThrown) {
-		alert("Failed to delete.");
+		$("#updateMessage").text('Failed To Delete.');
+		$("#btnSuccessModal").trigger('click');
 	});
+	
 }
 
 function handleSaveProductConfigData($thisRef, eventSource) {
@@ -555,4 +562,20 @@ function deleteProductConfigData(productDeleteObj) {
 		$("#updateMessage").text('Failed To Delete Product Info');
 		$("#btnSuccessModal").trigger('click');
 	});
+}
+
+function showDeleteServicesDropDown() {
+	 var servFeaturesMDataUrl = SALESEXPRESS_CONSTANTS.getUrlPath('getServiceFeaturesMetaDataUrl');
+	 var serviceFeaturesMetaDataForAdmin = httpGetWithJsonResponse(servFeaturesMDataUrl);
+	 var services= {};
+	 var serviceName;
+	 for(var i = 0; i < serviceFeaturesMetaDataForAdmin.serviceAndFeatures.length; i++){
+		 serviceName = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[i]["displayValue"]
+		 services[serviceName.toLowerCase().replace(/\s/g, '')] = serviceName;
+	 }
+	 $("#serviceToDelete").find('option').remove();
+	 $.each(services, function(key, value) {
+         var option = $('<option />').prop('value', key).text(value);
+         $("#serviceToDelete").append(option);
+       });
 }

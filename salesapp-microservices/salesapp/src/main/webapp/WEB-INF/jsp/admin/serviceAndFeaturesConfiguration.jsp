@@ -66,8 +66,8 @@
 			       
 			        <div role="tabpanel" class="tab-pane fade" id="deleteServices" aria-labelledby="deleteServices-tab">
 			         <div class="" id="deleteServices" style="display:inline;">
-						<label for="name">Enter Service Name To be Deleted:<input type="text" id="labelDeleteService" name="labelDeleteService" class="form-control"></label>
-							<input type="button" value="Delete Service" id="btnDeleteService" name="btnDeleteService" class="btn btn-admin-panel">
+						<label for="name">Service : <select id="serviceToDelete" class="selectType"></select></label>
+							<input type="button" value="Delete Service" data-toggle="modal" data-target="#confirmModal" class="btn btn-admin-panel">
 						<br>
 					 </div>
 			        </div>
@@ -84,6 +84,24 @@
 				</div> 
 			</div>	
 			<div class="chat-box" id="chat_div" style="display: none;"><jsp:include page="../chatBox.jsp"/></div>
+			<div class="modal fade" id="confirmModal" role="dialog">
+		   	<div class="modal-dialog">
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title" style="text-align:center;">You have selected to delete a service.</h4>
+		        </div>
+		        <div class="modal-body" style="text-align:center;">
+		          <p>Please click YES to delete a service.</p>
+		        </div>
+		        <div class="modal-footer" style="text-align:center;">
+		          <button type="button" class="btn btn-admin-panel" data-dismiss="modal">NO</button>
+		          <button type="button" class="btn btn-danger" id="btnDeleteService" name="btnDeleteService" data-dismiss="modal">YES</button> 
+		        </div>
+		      </div>
+		   	</div>
+		  </div>
 		</form>
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#successModal" id="btnSuccessModal" style="display: none;">Open Modal</button>
 		    <div class="modal fade" id="successModal" role="dialog">
@@ -97,6 +115,9 @@
 		      </div> 
 		    </div>
 		  </div>
+		  
+		  
+	
 	</div>
 </body>
 </html>

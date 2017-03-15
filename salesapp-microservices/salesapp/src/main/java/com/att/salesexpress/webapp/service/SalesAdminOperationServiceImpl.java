@@ -128,4 +128,10 @@ public class SalesAdminOperationServiceImpl implements SalesAdminOperationServic
 		dbServiceImpl.deleteProductConfiguration(salesRulesEntityList);
 		logger.debug("Exiting successfully from deleteProductConfiguration() method.");
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public String getServiceFeaturesMetaData(String siteType) {
+		return dbServiceImpl.getServiceFeaturesMetaDataBySiteName(siteType);
+	}
 }
