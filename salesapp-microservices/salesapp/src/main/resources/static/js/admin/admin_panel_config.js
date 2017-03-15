@@ -54,6 +54,15 @@ $(document).ready(function() {
 				case 'btnAddProductConfigData':
 					handleAddProductConfigData($(this), e.target);
 					break;
+				case 'btnDeleteProductConfigData':
+					handleDeleteProductConfigData($(this), e.target);
+					break;
+				case 'btnAddPortSpeedDivDeleteProduct':
+					handleAddPortSpeedDivDeleteProduct($(this), e.target);
+					break;
+				case 'btnRemovePortSpeedDivDeleteProduct':
+					handleRemovePortSpeedDivDeleteProduct($(this), e.target);
+					break;
 			}
 		}
 		
@@ -61,9 +70,12 @@ $(document).ready(function() {
 	
 	  $(document).on('show.bs.tab', '.nav-tabs-responsive [data-toggle="tab"]', function(e) {
 		    var $target = $(e.target);
-		    if($target.attr('id') == 'configureProducts-tab'){
+		    if($target.attr('id') == 'configureProducts-tab') {
 		    	handleConfigureProductTab();
 		    }
+	  		if($target.attr('id') == 'deleteProducts-tab') {
+	  			handleDeleteProductTab();
+	  		}
 		    var $tabs = $target.closest('.nav-tabs-responsive');
 		    var $current = $target.closest('li');
 		    var $parent = $current.closest('li.dropdown');
@@ -85,7 +97,7 @@ $(document).ready(function() {
 		    updateDropdownMenu( $current, 'center' );
 		    updateDropdownMenu( $next, 'right' );
 		  });
-	  //handleConfigureProductTab();
+	  handleConfigureProductTab();
 });
 
 
@@ -445,13 +457,14 @@ function handleConfigureProductTab() {
 	var productsList = httpGetWithJsonResponse(url);
 	console.log("productsList :" + productsList);
 	prepareProductsDiv(productsList);
+	return productsList;
 }
 
 function prepareProductsDiv(productsList) {
 	$("#productsDiv").find('div').not(':first').remove();
 	for(var i = 0; i <productsList.length; i++){
 		var product = '<div class="marginTopBuffer col-sm-1">'+
-						'<input type="checkbox" name="product" id="chk"'+productsList[i]+'"Product" value="'+productsList[i]+'">'+productsList[i]+
+						'<input type="checkbox" name="product" id="chk'+productsList[i]+'Product" value="'+productsList[i]+'">'+productsList[i]+
 					  '</div>';
 		$("#productsDiv").append(product);
 	}
@@ -484,3 +497,62 @@ $(document).ready(function() {
 	});	
 });
 
+function handleDeleteProductConfigData($thisRef, eventSource) {
+	var portSpeeds = [];
+	$(".classDeletePortSpeed").each(function() {
+	    var portSpeedObj = {};
+	    portSpeedObj.speed = $(this).find("input[name='txtSpeed_portType']").val();
+	    portSpeedObj.speedUnit = $(this).find("select[name='speedUnit_portType']").val();
+	    portSpeeds.push(portSpeedObj);
+	});
+	console.log("portSpeeds : " + JSON.stringify(portSpeeds));
+	var productDeleteObj = {};
+	productDeleteObj.accessSpeed = $("#deleteForm #txtAccessSpeed").val();
+	productDeleteObj.accessSpeedUnit = $("#deleteForm #speedUnit_accessType").val();	
+	productDeleteObj.accessType = $("#deleteForm #accessType").val();
+	productDeleteObj.portSpeeds = portSpeeds;
+	var products = [];
+	$('#deleteForm input[name="product"]:checked').each(function() {
+		   products.push($(this).val());
+		});
+	productDeleteObj.products = products;
+	deleteProductConfigData(productDeleteObj);
+	console.log("productDeleteObj : " + JSON.stringify(productDeleteObj));
+}
+
+function handleDeleteProductTab() {
+	var productsList = handleConfigureProductTab();
+	$("#divProductNameToDelete").find('div').not(':first').remove();
+	for(var i = 0; i <productsList.length; i++){
+		var product = '<div class="col-sm-1">'+
+						'<input type="checkbox" name="product" id="chk'+productsList[i]+'Product" value="'+productsList[i]+'">'+productsList[i]+
+					  '</div>';
+		$("#divProductNameToDelete").append(product);
+	}
+	
+}
+
+function handleAddPortSpeedDivDeleteProduct($thisRef, eventSource) {
+	var divDeleteProducts = $("#divDeleteProducts").wrap('<p/>').parent().html();
+	$("#divDeleteProducts").unwrap();
+	var currentDiv = $(eventSource).closest('div').parent();
+	$(divDeleteProducts).insertAfter(currentDiv);
+	$("button[name='btnRemovePortSpeedDivDeleteProduct']:not(:first)").css('display','inline');
+}
+
+function handleRemovePortSpeedDivDeleteProduct($thisRef, eventSource) {
+	$(eventSource).closest('div').parent().remove();
+}
+
+function deleteProductConfigData(productDeleteObj) {
+	var url = SALESEXPRESS_CONSTANTS.getUrlPath('deleteProductConfigurationUrl');
+	var data = JSON.stringify(productDeleteObj);
+	var promise = httpAsyncPostWithJsonRequestResponse(url, data);
+	promise.done(function(data, textStatus, jqXHR) {
+		$("#updateMessage").text('Deleted Successfully');
+		$("#btnSuccessModal").trigger('click');
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		$("#updateMessage").text('Failed To Delete Product Info');
+		$("#btnSuccessModal").trigger('click');
+	});
+}

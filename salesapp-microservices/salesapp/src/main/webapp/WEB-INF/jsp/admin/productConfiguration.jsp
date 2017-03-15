@@ -231,7 +231,81 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="deleteProducts"
 							aria-labelledby="deleteProducts-tab">
-							<p>Development In Progress</p>
+							
+							<form id="deleteForm" data-ajax="false" class="form-inline">
+								<div class="row marginTopBuffer" id="divProductNameToDelete">
+									<div class=" col-sm-2">
+										<label for="name">Enter Product Name : </label>
+									</div>
+									<div class=" col-sm-4">
+										<input type="text" class="form-control"
+											name="product" placeholder="Product Name"
+											required="required">
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="row">
+									<div class="marginTopBuffer col-sm-2">
+										<label for="name">Access Speed : </label>
+									</div>
+									<div class="marginTopBuffer col-sm-10">
+										<input class="form-control" id="txtAccessSpeed"
+											name="txtAccessSpeed" type="number" required="required"
+											step="any"> <select name="speedUnit_accessType"
+											id="speedUnit_accessType" class="productManagementselectType">
+											<option value="bps">bps</option>
+											<option value="Kbps">Kbps</option>
+											<option value="Mbps">Mbps</option>
+											<option value="Gbps">Gbps</option>
+										</select>
+									</div>
+								</div>
+								<div class="row">
+									<div class="marginTopBuffer col-sm-2">
+										<label for="name">Access Type : </label>
+									</div>
+									<div class="marginTopBuffer col-sm-10">
+										<select name="accessType" id="accessType"
+											class="productManagementselectType">
+											<option value="ETHERNET">ETHERNET</option>
+											<option value="IP">IP</option>
+										</select>
+									</div>
+								</div>
+								<div class="row classDeletePortSpeed" id="divDeleteProducts">
+									<div class="marginTopBuffer col-sm-2">
+										<label for="name">Port Speed : </label>
+									</div>
+									<div class="marginTopBuffer col-sm-10">
+										<input class="form-control" name="txtSpeed_portType"
+											type="number" required="required" step="any"> <select
+											name="speedUnit_portType" class="productManagementselectType">
+											<option value="bps">bps</option>
+											<option value="Kbps">Kbps</option>
+											<option value="Mbps">Mbps</option>
+											<option value="Gbps">Gbps</option>
+										</select>
+										<button type="button" id="btnAddPortSpeedDivDeleteProduct"
+											name="btnAddPortSpeedDivDeleteProduct" class="btn btn-admin-panel">
+											<span class="glyphicon glyphicon-plus" id=""
+												style="font-size: large;"></span>
+										</button>
+										<button type="button" id="btnRemovePortSpeedDivDeleteProduct"
+											name="btnRemovePortSpeedDivDeleteProduct" class="btn btn-admin-panel"
+											style="display: none;">
+											<span class="glyphicon glyphicon-minus" id=""
+												style="font-size: large;"></span>
+										</button>
+									</div>
+								</div>
+								<div class="row">
+									<div class="marginTopBuffer col-sm-2"></div>
+									<div class="marginTopBuffer col-sm-10">
+										<input type="button" class="btn btn-admin-panel" id="btnDeleteProductConfigData"
+											name="btnDeleteProductConfigData" value="Delete Product">
+									</div>
+								</div>
+							</form>
 						</div>
 
 					</div>

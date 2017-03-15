@@ -81,9 +81,9 @@ public class SalesAdminRestController {
 			@RequestBody ProductConfigBean objProductConfigBean, HttpServletRequest request)
 			throws SQLException, IOException {
 		logger.debug("Inside deleteProductConfiguration() method");
-
+		
 		salesAdminOperationService.deleteProductConfiguration(objProductConfigBean);
-
+		
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		returnValues.put("status", "success");
 		logger.debug("Product Configuration deleted successfully.");
