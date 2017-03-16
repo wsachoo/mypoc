@@ -23,8 +23,9 @@ public interface SalesAdminOperationService {
 
 	public void deleteProductConfiguration(ProductConfigBean objProductConfigBean);
 
-
 	Map<String, Object> getAccessSpeedByAccessType(String productType, String accessType);
 
 	public Map<String, Object> getPortSpeedsByAccessSpeed(String productType, String accessType, String accessSpeed);
+	
+	public String getServiceFeaturesMetaData(String siteType);
 }

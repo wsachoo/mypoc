@@ -176,4 +176,10 @@ public class SalesAdminOperationServiceImpl implements SalesAdminOperationServic
 		
 		return returnValues;
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public String getServiceFeaturesMetaData(String siteType) {
+		return dbServiceImpl.getServiceFeaturesMetaDataBySiteName(siteType);
+	}
 }

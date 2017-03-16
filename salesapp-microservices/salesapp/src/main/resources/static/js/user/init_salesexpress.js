@@ -238,7 +238,7 @@ function httpAsyncPostWithJsonRequestResponseSynchronous(postUrl, postData) {
 		url: postUrl,
 		data: postData,
 		type: 'POST',
-		async: 'false',
+		async: false,
 		dataType: 'json',
         contentType : "application/json"
     });	
