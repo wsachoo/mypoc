@@ -153,7 +153,7 @@
 							<form id="addForm" data-ajax="false" class="form-inline">
 								<div class="row marginTopBuffer">
 									<div class=" col-sm-2">
-										<label for="name">Enter Product Name : </label>
+										New Product Name
 									</div>
 									<div class=" col-sm-4">
 										<input type="text" class="form-control"
@@ -164,7 +164,7 @@
 								</div>
 								<div class="row">
 									<div class="marginTopBuffer col-sm-2">
-										<label for="name">Access Speed : </label>
+										Access Speed
 									</div>
 									<div class="marginTopBuffer col-sm-10">
 										<input class="form-control" id="txtAccessSpeed"
@@ -180,7 +180,7 @@
 								</div>
 								<div class="row">
 									<div class="marginTopBuffer col-sm-2">
-										<label for="name">Access Type : </label>
+										Access Type
 									</div>
 									<div class="marginTopBuffer col-sm-10">
 										<select name="accessType" id="accessType"
@@ -192,7 +192,7 @@
 								</div>
 								<div class="row classNewPortSpeed" id="divNewPortSpeed">
 									<div class="marginTopBuffer col-sm-2">
-										<label for="name">Port Speed : </label>
+										Port Speed
 									</div>
 									<div class="marginTopBuffer col-sm-10">
 										<input class="form-control" name="txtSpeed_portType"
