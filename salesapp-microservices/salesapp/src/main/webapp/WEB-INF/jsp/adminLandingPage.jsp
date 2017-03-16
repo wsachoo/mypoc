@@ -22,16 +22,17 @@
 
 <body style="background-color: #555">
 	<div class="container">
+		<div class="row">
+			<div class="col-sm-1 col-sm-offset-11">
+				<a href="${contextPath}/logout" style="color: white;font-weight: bold;"> 
+					<%-- <img class="img-circle img-responsive img-center" style="width: 75px;height: 75px;" src="${pageContext.request.contextPath}/images/adminIconLogout.png"alt=""> --%>
+					<span class="box-orange" style="text-align: right;">LOGOUT</span>
+				</a>
+			</div>
+		</div>
 		<div class="row row-centered">
 			<div class="col-sm-11">
 				<font size="8.75rem;" color="white">Sales Application Administration</font>
-			</div>
-			<div class="col-sm-1">
-				<a href="${contextPath}/logout" style="color: white;font-weight: bold;"> 
-					<%-- <img class="img-circle img-responsive img-center" style="width: 75px;height: 75px;" src="${pageContext.request.contextPath}/images/adminIconLogout.png"alt=""> --%>
-					LOGOUT
-				</a>
-
 			</div>
 		</div>
 

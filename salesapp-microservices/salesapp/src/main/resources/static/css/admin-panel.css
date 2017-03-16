@@ -214,3 +214,20 @@ span {
 .btn-admin-panel{
 	border-color: #999;
 }
+
+.top-buffer {
+	margin-top:20px;
+}
+
+.admin_hr_class {
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #555 -moz-use-text-color #555;
+  border-style: solid none;
+  color: transparent;
+  border-width: 1px 0;
+  margin: 18px 0;
+}

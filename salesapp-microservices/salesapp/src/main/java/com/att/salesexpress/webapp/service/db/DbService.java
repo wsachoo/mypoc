@@ -71,4 +71,8 @@ public interface DbService {
 
 	public void deleteProductConfiguration(List<SalesRules> salesRulesEntityList);
 
+	List<Map<String, Object>> getAccessSpeedByAccessType(String productType, String accessType);
+
+	List<Map<String, Object>> getPortSpeedsByAccessSpeed(String productType, String accessType, Long accessSpeed);
+
 }
