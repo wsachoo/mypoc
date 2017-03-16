@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -127,6 +128,53 @@ public class SalesAdminOperationServiceImpl implements SalesAdminOperationServic
 		List<SalesRules> salesRulesEntityList = objProductConfigBean.transformToSalesRules();
 		dbServiceImpl.deleteProductConfiguration(salesRulesEntityList);
 		logger.debug("Exiting successfully from deleteProductConfiguration() method.");
+	}
+
+	@Override
+	public Map<String, Object> getAccessSpeedByAccessType(String productType, String accessType) {
+		Map<String, Object> returnValues = new LinkedHashMap<>();
+		List<Map<String, Object>> accessSpeeds = dbServiceImpl.getAccessSpeedByAccessType(productType, accessType);
+		for (Map<String, Object> map : accessSpeeds) {
+			String accessSpeed =map.get("ACCESS_SPEED_ID").toString();
+			String transFormedAccessSpeed = transformSpeed(map.get("ACCESS_SPEED_ID").toString()).toString();
+			logger.debug("Access Speed {}, Transformed Access Speed {}", accessSpeed, transFormedAccessSpeed);
+			returnValues.put(accessSpeed, transFormedAccessSpeed);
+		}
+		
+		return returnValues;
+	}
+
+	private Object transformSpeed(String object) {
+		Double speed = Double.valueOf(object);
+		if (speed < 1000) {
+			return speed;
+		}
+		else if (speed < (1000 * 1000)) {
+			return (speed/1000) + " Kbps";
+		}
+		else if (speed < (1000 * 1000 * 1000)) {
+			return (speed/(1000 * 1000)) + " Mbps";
+		}
+		else if (speed < (1000 * 1000 * 1000 * 1000)) {
+			return (speed/(1000 * 1000 * 1000)) + " Gbps";
+		}
+		
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> getPortSpeedsByAccessSpeed(String productType, String accessType, String accessSpeed) {
+		Map<String, Object> returnValues = new LinkedHashMap<>();
+		Long lAccessSpeed = Long.parseLong(accessSpeed);
+		List<Map<String, Object>> accessSpeeds = dbServiceImpl.getPortSpeedsByAccessSpeed(productType, accessType, lAccessSpeed);
+		for (Map<String, Object> map : accessSpeeds) {
+			String portSpeed = map.get("PORT_SPEED_ID").toString();
+			String transFormedPortSpeed = transformSpeed(portSpeed).toString();
+			logger.debug("Port Speed {}, Transformed port Speed {}", portSpeed, transFormedPortSpeed);
+			returnValues.put(portSpeed, transFormedPortSpeed);
+		}
+		
+		return returnValues;
 	}
 	
 	@Override

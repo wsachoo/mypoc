@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.att.salesexpress.webapp.bean.admin.ProductConfigBean;
@@ -97,6 +98,31 @@ public class SalesAdminRestController {
 		logger.debug("Inside getAllProducts() method");
 		return salesAdminOperationService.getAllProductsToConfigure();
 	}
+
+	@RequestMapping(value = "/admin/getAccessSpeedByAccessType", method = RequestMethod.GET, produces = { "application/json" })
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> getAccessSpeedByAccessType(HttpServletRequest request, @RequestParam Map<String, Object> paramValues) {
+		logger.debug("Inside getAccessSpeedByAccessType() method");
+		String accessType = (String) paramValues.get("accessType");
+		String productType = (String) paramValues.get("productType");
+		logger.debug("accessType received is {}", accessType);
+		Map<String, Object> returnValues = salesAdminOperationService.getAccessSpeedByAccessType(productType, accessType);
+		logger.debug("Exiting getAccessSpeedByAccessType() method successfully.");
+		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
+	}	
+	
+	@RequestMapping(value = "/admin/getPortSpeedsByAccessSpeed", method = RequestMethod.GET, produces = { "application/json" })
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> getPortSpeedsByAccessSpeed(HttpServletRequest request, @RequestParam Map<String, Object> paramValues) {
+		logger.debug("Inside getPortSpeedsByAccessSpeed() method");
+		String accessType = (String) paramValues.get("accessType");
+		String productType = (String) paramValues.get("productType");
+		String accessSpeed = (String) paramValues.get("accessSpeed");
+		logger.debug("accessType received is {}", accessType);
+		Map<String, Object> returnValues = salesAdminOperationService.getPortSpeedsByAccessSpeed(productType, accessType, accessSpeed);
+		logger.debug("Exiting getPortSpeedsByAccessSpeed() method successfully.");
+		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
+	}	
 	
 	@ResponseBody
 	@RequestMapping( value = {"admin/getServiceFeaturesMetaData/{siteType}"}, method = RequestMethod.GET, produces = {"application/json"})

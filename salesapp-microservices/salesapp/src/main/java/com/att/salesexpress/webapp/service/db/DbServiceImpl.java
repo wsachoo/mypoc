@@ -413,7 +413,7 @@ public class DbServiceImpl implements DbService {
 	@Override
 	public List<Map<String,Object>> getDistinctProductsToConfigure(){
 		logger.debug("inside getDistinctProductsToConfigure");
-		final String getDistinctProducts = "SELECT DISTINCT(PRODUCT) FROM SALES_RULES";
+		final String getDistinctProducts = "SELECT DISTINCT(PRODUCT) as PRODUCT FROM SALES_RULES ORDER BY PRODUCT";
 		return jdbcTemplate.queryForList(getDistinctProducts);
 	}
 
@@ -439,5 +439,20 @@ public class DbServiceImpl implements DbService {
 		});
 		
 		logger.debug("Exiting deleteProductConfiguration() method.");		
+	}
+
+	@Override
+	public List<Map<String, Object>> getAccessSpeedByAccessType(String productType, String accessType) {
+		String sql = "select distinct(ACCESS_SPEED_ID) as ACCESS_SPEED_ID from sales_rules where PRODUCT=? and port_type=? order by ACCESS_SPEED_ID";
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { productType, accessType });
+		return rows;
+	}
+
+	@Override
+	public List<Map<String, Object>> getPortSpeedsByAccessSpeed(String productType, String accessType,
+			Long accessSpeed) {
+		String sql = "select distinct PORT_SPEED_ID from sales_rules where PRODUCT=? and port_type=? and ACCESS_SPEED_ID=? order by PORT_SPEED_ID";
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { productType, accessType, accessSpeed });
+		return rows;
 	}
 }

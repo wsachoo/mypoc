@@ -42,7 +42,9 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"deleteProductConfigurationUrl" : "deleteProductConfiguration",
 		"IBM_WATSON_CHAT_URL" : "https://watson-sales.mybluemix.net/api/smart",
 		"IBM_WATSON_LANGUAGE_TRANSLATOR_URL" : "https://saleslangconvapp.mybluemix.net/salesLanguageTranslator",
-		"getAllProductsUrl" : "getAllProducts"
+		"getAllProductsUrl" : "getAllProducts",
+		"getAccessSpeedByAccessTypeUrl": "getAccessSpeedByAccessType",
+		"getPortSpeedsByAccessSpeedUrl" : "getPortSpeedsByAccessSpeed",
 	};
 	
 	return {
@@ -217,6 +219,34 @@ function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
   	return postResp;
 }
 
+function httpAsyncPostWithJsonRequestResponseSynchronous(postUrl, postData) {
+	
+    $.ajaxSetup({
+        headers : { 
+        	'X-CSRF-TOKEN' : $('meta[name="_csrf"]').attr('content')
+        }
+    });
+    
+    $(document).ajaxStart(function(){ 
+        $("body").addClass('ajaxLoading');
+    });
+    $(document).ajaxStop(function(){ 
+        $("body").removeClass('ajaxLoading');
+    });
+    
+  	var postResp = $.ajax({
+		url: postUrl,
+		data: postData,
+		type: 'POST',
+		async: false,
+		dataType: 'json',
+        contentType : "application/json"
+    });	
+  	
+  	delete $.ajaxSettings.headers["X-CSRF-TOKEN"];
+  	
+  	return postResp;
+}
 
 function httpAsyncPostWithJsonRequestResponseToBluemix(postUrl, postData) {
 	  

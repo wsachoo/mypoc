@@ -4,7 +4,7 @@
 			data-toggle="collapse" data-target=".navbar-collapse">
 			<i class="icon-reorder"></i>
 		</button>
-		<a class="navbar-brand"><font style="color: white;font-weight: bold;">SALES EXPRESS</font> </a>
+		<a class="navbar-brand"><font style="color: darkorange;font-weight: bold;">SALES EXPRESS</font> </a>
 	</div>
 	<nav class="collapse navbar-collapse" style="background-color: #555">
 		<ul class="nav navbar-nav">
@@ -13,7 +13,7 @@
 			<li><a href="#">  </a></li>
 		</ul>
 		<ul class="nav navbar-nav pull-right">
-			<li class="dropdown"><a href="${pageContext.request.contextPath}/admin/adminLandingPage"><font style="color: white;font-weight: bold;">HOME</font></a>
+			<li class="dropdown"><a href="${pageContext.request.contextPath}/admin/adminLandingPage"><font style="color: darkorange;font-weight: bold;">HOME</font></a>
 			<%-- <li class="dropdown"><a href="${pageContext.request.contextPath}/logout"><font style="color: white;font-weight: bold;">Log Out</font></a> --%>
 		</ul>
 	</nav>
