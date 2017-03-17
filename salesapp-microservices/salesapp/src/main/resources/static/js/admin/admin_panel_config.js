@@ -55,9 +55,12 @@ $(document).ready(function() {
 					handleAddProductConfigData($(this), e.target);
 					break;
 				case 'btnDeleteProductConfigData':
-					handleDeleteProductConfigData($(this), e.target);
-					handleDeleteProductTab();
-					handleProductDelComponentPageChange();
+					var productListRefreshNeeded = handleDeleteProductConfigData($(this), e.target);
+					
+					if (productListRefreshNeeded) {
+						handleDeleteProductTab();
+						handleProductDelComponentPageChange();
+					}
 					break;
 				case 'btnAddPortSpeedDivDeleteProduct':
 					handleAddPortSpeedDivDeleteProduct($(this), e.target);
@@ -70,6 +73,7 @@ $(document).ready(function() {
 					break;
 			}
 		},
+		
 		"change" : function(e) {
 			var eventSourceId = e.target.id;
 			
@@ -99,6 +103,18 @@ $(document).ready(function() {
 		}
 		
 	});
+	
+	$("#btnResetAddProductConfigData").on(
+			"click", function (e) {
+				$('#addForm')[0].reset();
+			}
+	);
+
+	$("#btnResetDeleteProductConfigData").on(
+			"click", function (e) {
+				$('#deleteForm')[0].reset();
+			}
+	);	
 	
 	  $(document).on('show.bs.tab', '.nav-tabs-responsive [data-toggle="tab"]', function(e) {
 		    var $target = $(e.target);
@@ -514,12 +530,12 @@ $(document).ready(function() {
     $("#adminPanelTopMenu a").each(function(i, a) {
     	if ("configureProducts-tab" == a.id ||  "addServices-tab" == a.id) {
 	        $(this).css("background-color","white");
-	        $(this).css("color","darkorange");
+	        $(this).css("color","black");
 	        $(this).css("font-weight","bold");
     	}
     	else {
-    		$(this).css("background-color","#555");
-    		$(this).css("color","darkorange");
+    		$(this).css("background-color","#337ab7");
+    		$(this).css("color","white");
     		$(this).css("font-weight","bold");
     	}
     });
@@ -528,11 +544,11 @@ $(document).ready(function() {
 	    $("#adminPanelTopMenu a").each(function(i, a) {
 	    	if (e.currentTarget.id == a.id) {
     	        $(this).css("background-color","white");
-    	        $(this).css("color","darkorange");
+    	        $(this).css("color","black");
 	    	}
 	    	else {
-	    		$(this).css("background-color","#555");
-	    		$(this).css("color","darkorange");
+	    		$(this).css("background-color","#337ab7");
+	    		$(this).css("color","white");
 	    	}
 	    });
 	});	
@@ -562,6 +578,12 @@ $(document).ready(function() {
 }*/
 
 function handleDeleteProductConfigData($thisRef, eventSource) {
+	
+	if(! document.forms.deleteForm.reportValidity()) {
+		return false;
+	}
+	
+	var productListRefreshNeeded = false;
 	var portSpeeds = [];
     var portSpeedObj = {};
     portSpeedObj.speed = $("#deleteForm select[name='selPortSpeed']").val();
@@ -578,7 +600,17 @@ function handleDeleteProductConfigData($thisRef, eventSource) {
 	products.push($("#deleteForm #productDelComponentPage").val());
 	productDeleteObj.products = products;
 
-	deleteProductConfigData(productDeleteObj);
+	var returnVal = deleteProductConfigData(productDeleteObj);
+	console.log("Deletion success: " + returnVal);
+	
+	if (returnVal) { //If deletion is successful and there are no values inside port speed drop down then product refresh is needed.
+		var existingProductCount = $("#selPortSpeedDelComponentPage option").length;
+		if (existingProductCount == 1) {
+			productListRefreshNeeded = true;
+		}
+	}
+	return productListRefreshNeeded; 
+
 }
 
 function handleDeleteProductTab() {
@@ -629,16 +661,29 @@ function handleBtnDelComponentContinue($thisRef, eventSource) {
 }
 
 function deleteProductConfigData(productDeleteObj) {
+	var returnVal = true;
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath('deleteProductConfigurationUrl');
 	var data = JSON.stringify(productDeleteObj);
 	var promise = httpAsyncPostWithJsonRequestResponseSynchronous(url, data);
 	promise.done(function(data, textStatus, jqXHR) {
 		$("#updateMessage").text('Deleted Successfully');
 		$("#btnSuccessModal").trigger('click');
+		
+		//START: Remove the option from port speed drop down On Success
+		$("#deleteForm select[name='selPortSpeed'] option").each(function() {
+		    if ($(this).val() == productDeleteObj.portSpeeds[0].speed) {
+		        $(this).remove();
+		    }
+		});
+		//END
+		returnVal = true;
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		$("#updateMessage").text('Failed To Delete Product Info');
 		$("#btnSuccessModal").trigger('click');
+		returnVal = false;
 	});
+	
+	return returnVal;
 }
 
 function handleAccessTypeDelComponentPage($thisRef, eventSource) {

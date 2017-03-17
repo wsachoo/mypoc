@@ -13,9 +13,11 @@
 <meta name="_csrf" content="${_csrf.token}" />
 
 
-<title>Sales App</title>
+<title>Sales Application</title>
 
-<link href="${contextPath}/css/bootstrap.css" rel="stylesheet">
+<%-- <link href="${contextPath}/css/bootstrap.css" rel="stylesheet"> --%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="${contextPath}/css/admin-landing-page.css">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -26,7 +28,7 @@
 body {
 	padding-top: 40px;
 	padding-bottom: 40px;
-	background-color: #555;
+	background-color: #c3c3c3;
 }
 
 .form-signin {
@@ -84,19 +86,57 @@ body {
 
 <body>
 	<div class="container">
-		<form method="POST" action="${contextPath}/login" class="form-signin">
-			<font size="8.75rem;" color="white">Sales App</font>
-			<div
-				class="form-group ${SPRING_SECURITY_LAST_EXCEPTION.message != null ? 'has-error' : ''}">
-				<input name="username" type="text" class="form-control"
-					placeholder="Username" autofocus /> <input name="password"
-					type="password" class="form-control" placeholder="Password" />
-					<span>${SPRING_SECURITY_LAST_EXCEPTION.message}</span>
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<form method="POST" action="${contextPath}/login"
+			class="form-horizontal">
 
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Log
-					In</button>
+
+
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+			<div class="form-group">
+				<div class="col-sm-6 col-sm-offset-3" style="text-align: center;">
+					<font size="8.75rem;" color="black">Sales Application</font>
+				</div>
 			</div>
+
+		<div class="row row-centered">
+			<div class="col-sm-12">&nbsp;</div>
+		</div>
+
+			<div class="form-group ${SPRING_SECURITY_LAST_EXCEPTION.message != null ? 'has-error' : ''}">
+				<div class="col-sm-4 col-sm-offset-4" style="text-align: center;">
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class="glyphicon glyphicon-user"></span>
+						</div>
+						<input name="username" type="text" class="form-control"
+							placeholder="Username" autofocus />
+					</div>
+				</div>
+			</div>
+			<div class="form-group ${SPRING_SECURITY_LAST_EXCEPTION.message != null ? 'has-error' : ''}">
+				<div class="col-sm-4 col-sm-offset-4" style="text-align: center;">
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class="glyphicon glyphicon-lock"></span>
+						</div>
+						<input name="password"
+						type="password" class="form-control" placeholder="Password" />
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group ${SPRING_SECURITY_LAST_EXCEPTION.message != null ? 'has-error' : ''}">
+				<div class="col-sm-4 col-sm-offset-4" style="text-align: center;">
+				<span>${SPRING_SECURITY_LAST_EXCEPTION.message}</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 col-sm-offset-4" style="text-align: center;">
+							<button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color: #337ab7">Log In</button>
+				</div>
+			</div>
+
 		</form>
 
 	</div>
