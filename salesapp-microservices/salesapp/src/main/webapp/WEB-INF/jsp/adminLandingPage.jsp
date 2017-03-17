@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Sales App Admin</title>
+<title>Sales Admin Application</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script>
 	var contextPath = "${pageContext.request.contextPath}";
@@ -20,18 +20,19 @@
 
 </head>
 
-<body style="background-color: #555">
+<body style="background-color: #c3c3c3">
 	<div class="container">
-		<div class="row row-centered">
-			<div class="col-sm-11">
-				<font size="8.75rem;" color="white">Sales Application Administration</font>
-			</div>
-			<div class="col-sm-1">
+		<div class="row">
+			<div class="col-sm-1 col-sm-offset-11">
 				<a href="${contextPath}/logout" style="color: white;font-weight: bold;"> 
 					<%-- <img class="img-circle img-responsive img-center" style="width: 75px;height: 75px;" src="${pageContext.request.contextPath}/images/adminIconLogout.png"alt=""> --%>
-					LOGOUT
+					<span class="box-ibmorange" style="text-align: right;">LOGOUT</span>
 				</a>
-
+			</div>
+		</div>
+		<div class="row row-centered">
+			<div class="col-sm-11">
+				<font size="8.75rem;" color="black">Sales Application Administration</font>
 			</div>
 		</div>
 
@@ -66,16 +67,16 @@
 		<div class="row row-centered">
 			<div class="col-sm-4">
 				<a href="${contextPath}/admin/productConfiguration">
-					<font size="5.75rem;" color="white">Product Configuration</font>
+					<font size="5.75rem;" color="black">Product Configuration</font>
 				</a>
 			</div>
 			<div class="col-sm-4">
 				<a href="${contextPath}/admin/serviceAndFeaturesConfiguration">
-					<font size="5.75rem;" color="white">Add/Remove Services</font>
+					<font size="5.75rem;" color="black">Add/Remove Services</font>
 				</a>
 			</div>
 			<div class="col-sm-4">
-				<font size="5.75rem;" color="white">Misc Configuration</font>
+				<font size="5.75rem;" color="black">Misc Configuration</font>
 <!-- 				<a href="#">
 					<font size="5.75rem;" color="white">Misc Configuration</font>
 				</a>

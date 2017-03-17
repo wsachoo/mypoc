@@ -55,7 +55,12 @@ $(document).ready(function() {
 					handleAddProductConfigData($(this), e.target);
 					break;
 				case 'btnDeleteProductConfigData':
-					handleDeleteProductConfigData($(this), e.target);
+					var productListRefreshNeeded = handleDeleteProductConfigData($(this), e.target);
+					
+					if (productListRefreshNeeded) {
+						handleDeleteProductTab();
+						handleProductDelComponentPageChange();
+					}
 					break;
 				case 'btnAddPortSpeedDivDeleteProduct':
 					handleAddPortSpeedDivDeleteProduct($(this), e.target);
@@ -68,11 +73,50 @@ $(document).ready(function() {
 					break;
 				case 'btnContinueDisplayService':
 					handleContinueDisplayServices();
+				case 'btnDelComponentContinue':
+					handleBtnDelComponentContinue($(this), e.target);
+					break;
+			}
+		},
+		
+		"change" : function(e) {
+			var eventSourceId = e.target.id;
+			
+			switch (eventSourceId) {
+				case 'productDelComponentPage':
+					handleProductDelComponentPageChange($(this), e.target);
+				 	break;
+				case 'accessTypeDelComponentPage':
+					handleAccessTypeDelComponentPage($(this), e.target);
+					break;
+				case 'selAccessSpeedDelComponentPage':
+					handleSelAccessSpeedDelComponentPageChange($(this), e.target);
+					break;
+				case 'selPortSpeedDelComponentPage':
+					var portSpeed = $("#deleteForm #selPortSpeedDelComponentPage").val();
+					if (portSpeed == "") {
+						$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+					}
+					else {
+						$("#deleteForm #btnDeleteProductConfigData").attr("disabled", false);
+					}
 					break;
 			}
 		}
 		
 	});
+	
+	$("#btnResetAddProductConfigData").on(
+			"click", function (e) {
+				$('#addForm')[0].reset();
+			}
+	);
+
+	$("#btnResetDeleteProductConfigData").on(
+			"click", function (e) {
+				$('#deleteForm')[0].reset();
+			}
+	);	
 	
 	  $(document).on('show.bs.tab', '.nav-tabs-responsive [data-toggle="tab"]', function(e) {
 		    var $target = $(e.target);
@@ -361,6 +405,7 @@ function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
 		//$("#showDeleteService").find().empty();
 		$("#showDeleteService span:first-child").empty();
 		$("#showDeleteService #showDeleteServiceLabel").empty();
+		$("#btnContinueDeleteService").css('display','none');
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		$("#updateMessage").text('Failed To Delete.');
 		$("#btnSuccessModal").trigger('click');
@@ -490,10 +535,12 @@ $(document).ready(function() {
     	if ("configureProducts-tab" == a.id ||  "addServices-tab" == a.id) {
 	        $(this).css("background-color","white");
 	        $(this).css("color","black");
+	        $(this).css("font-weight","bold");
     	}
     	else {
-    		$(this).css("background-color","#777");
+    		$(this).css("background-color","#337ab7");
     		$(this).css("color","white");
+    		$(this).css("font-weight","bold");
     	}
     });
 
@@ -504,14 +551,14 @@ $(document).ready(function() {
     	        $(this).css("color","black");
 	    	}
 	    	else {
-	    		$(this).css("background-color","#777");
+	    		$(this).css("background-color","#337ab7");
 	    		$(this).css("color","white");
 	    	}
 	    });
 	});	
 });
 
-function handleDeleteProductConfigData($thisRef, eventSource) {
+/*function handleDeleteProductConfigData($thisRef, eventSource) {
 	var portSpeeds = [];
 	$(".classDeletePortSpeed").each(function() {
 	    var portSpeedObj = {};
@@ -532,18 +579,66 @@ function handleDeleteProductConfigData($thisRef, eventSource) {
 	productDeleteObj.products = products;
 	deleteProductConfigData(productDeleteObj);
 	console.log("productDeleteObj : " + JSON.stringify(productDeleteObj));
+}*/
+
+function handleDeleteProductConfigData($thisRef, eventSource) {
+	
+	if(! document.forms.deleteForm.reportValidity()) {
+		return false;
+	}
+	
+	var productListRefreshNeeded = false;
+	var portSpeeds = [];
+    var portSpeedObj = {};
+    portSpeedObj.speed = $("#deleteForm select[name='selPortSpeed']").val();
+    portSpeedObj.speedUnit = "";
+    portSpeeds.push(portSpeedObj);
+
+	var productDeleteObj = {};
+	productDeleteObj.accessSpeed = $("#deleteForm #selAccessSpeedDelComponentPage").val();
+	productDeleteObj.accessSpeedUnit = "";	
+	productDeleteObj.accessType = $("#deleteForm #accessTypeDelComponentPage").val();
+	productDeleteObj.portSpeeds = portSpeeds;
+	
+	var products = [];
+	products.push($("#deleteForm #productDelComponentPage").val());
+	productDeleteObj.products = products;
+
+	var returnVal = deleteProductConfigData(productDeleteObj);
+	console.log("Deletion success: " + returnVal);
+	
+	if (returnVal) { //If deletion is successful and there are no values inside port speed drop down then product refresh is needed.
+		var existingProductCount = $("#selPortSpeedDelComponentPage option").length;
+		if (existingProductCount == 1) {
+			productListRefreshNeeded = true;
+		}
+	}
+	return productListRefreshNeeded; 
+
 }
 
 function handleDeleteProductTab() {
+	changeProductLabel();
+	/*
 	var productsList = handleConfigureProductTab();
 	$("#divProductNameToDelete").find('div').not(':first').remove();
 	for(var i = 0; i <productsList.length; i++){
-		var product = '<div class="col-sm-1">'+
+		var product = '<div class="col-sm-4">'+
 						'<input type="checkbox" name="product" id="chk'+productsList[i]+'Product" value="'+productsList[i]+'">'+productsList[i]+
 					  '</div>';
 		$("#divProductNameToDelete").append(product);
 	}
+	*/
 	
+	var productsList = handleConfigureProductTab();
+	console.log("productsList: " + productsList)
+	
+	$("#deleteForm #productDelComponentPage").find("option:gt(0)").remove();
+	
+	for(var i = 0; i <productsList.length; i++){
+		var itemval= "<option value='" + productsList[i] + "'>" + productsList[i] + "</option>";
+		$("#deleteForm #productDelComponentPage").append(itemval);
+	}
 }
 
 function handleAddPortSpeedDivDeleteProduct($thisRef, eventSource) {
@@ -558,16 +653,119 @@ function handleRemovePortSpeedDivDeleteProduct($thisRef, eventSource) {
 	$(eventSource).closest('div').parent().remove();
 }
 
+function changeProductLabel() {
+	var productForDelete = $("#deleteForm #productDelComponentPage").val();
+	productForDelete = productForDelete || "&nbsp;";
+	$("#deleteForm #delSelectedProductLabel").html(productForDelete);	
+}
+
+function handleBtnDelComponentContinue($thisRef, eventSource) {
+	changeProductLabel();
+	$("#deleteForm #accessTypeDelComponentPage").attr("disabled", false);
+}
+
 function deleteProductConfigData(productDeleteObj) {
+	var returnVal = true;
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath('deleteProductConfigurationUrl');
 	var data = JSON.stringify(productDeleteObj);
-	var promise = httpAsyncPostWithJsonRequestResponse(url, data);
+	var promise = httpAsyncPostWithJsonRequestResponseSynchronous(url, data);
 	promise.done(function(data, textStatus, jqXHR) {
 		$("#updateMessage").text('Deleted Successfully');
 		$("#btnSuccessModal").trigger('click');
+		
+		//START: Remove the option from port speed drop down On Success
+		$("#deleteForm select[name='selPortSpeed'] option").each(function() {
+		    if ($(this).val() == productDeleteObj.portSpeeds[0].speed) {
+		        $(this).remove();
+		    }
+		});
+		//END
+		returnVal = true;
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		$("#updateMessage").text('Failed To Delete Product Info');
 		$("#btnSuccessModal").trigger('click');
+		returnVal = false;
+	});
+	
+	return returnVal;
+}
+
+function handleAccessTypeDelComponentPage($thisRef, eventSource) {
+	var productType = $("#deleteForm #productDelComponentPage").val();
+	var accessType = $(eventSource).val();
+
+	$("#deleteForm #selAccessSpeedDelComponentPage").find("option:gt(0)").remove();
+	$("#deleteForm #selAccessSpeedDelComponentPage").attr("disabled", true);
+
+	$("#deleteForm #selPortSpeedDelComponentPage").find("option:gt(0)").remove();
+	$("#deleteForm #selPortSpeedDelComponentPage").attr("disabled", true);
+	
+	$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+	
+	if (accessType != "") {
+		$("#deleteForm #selAccessSpeedDelComponentPage").find("option:gt(0)").remove();
+		$("#deleteForm #selAccessSpeedDelComponentPage").attr("disabled", false);
+
+		var url = SALESEXPRESS_CONSTANTS.getUrlPath('getAccessSpeedByAccessTypeUrl');
+		var productsList = httpGetWithJsonResponse(url, {
+			"accessType" : accessType,
+			"productType" : productType
+		});
+		
+		$.each(productsList, function(k, v) {
+			var itemval= "<option value='" + k + "'>" + v + "</option>";
+			$("#deleteForm #selAccessSpeedDelComponentPage").append(itemval);
+		});
+	}
+}
+
+function handleProductDelComponentPageChange($thisRef, eventSource) {
+	changeProductLabel();
+	if (eventSource == undefined || $(eventSource).val() == "") {
+		$("#btnDelComponentContinue").attr("disabled", true);
+	}
+	else {
+		$("#btnDelComponentContinue").attr("disabled", false);
+	}
+
+	$("#deleteForm #accessTypeDelComponentPage").val("");
+	$("#deleteForm #accessTypeDelComponentPage").attr("disabled", true);
+
+	$("#deleteForm #selAccessSpeedDelComponentPage").find("option:gt(0)").remove();
+	$("#deleteForm #selAccessSpeedDelComponentPage").attr("disabled", true);
+
+	$("#deleteForm #selPortSpeedDelComponentPage").find("option:gt(0)").remove();
+	$("#deleteForm #selPortSpeedDelComponentPage").attr("disabled", true);
+	
+	$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+}
+
+function handleSelAccessSpeedDelComponentPageChange($thisRef, eventSource) {
+	var accessSpeed = $(eventSource).val();
+	var accessType = $("#deleteForm #accessTypeDelComponentPage").val();
+	var productType = $("#deleteForm #productDelComponentPage").val();
+	
+	$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+	$("#deleteForm #selPortSpeedDelComponentPage").find("option:gt(0)").remove();
+	
+	if (accessSpeed == "") {
+		$("#deleteForm #selPortSpeedDelComponentPage").attr("disabled", true);
+	}
+	else {
+		$("#deleteForm #selPortSpeedDelComponentPage").attr("disabled", false);
+		
+	}
+
+	var url = SALESEXPRESS_CONSTANTS.getUrlPath('getPortSpeedsByAccessSpeedUrl');
+	var productsList = httpGetWithJsonResponse(url, {
+		"productType" : productType,
+		"accessType" : accessType,
+		"accessSpeed" : accessSpeed		 
+	});
+	
+	$.each(productsList, function(k, v) {
+		var itemval= "<option value='" + k + "'>" + v + "</option>";
+		$("#deleteForm #selPortSpeedDelComponentPage").append(itemval);
 	});
 }
 
@@ -629,3 +827,4 @@ function handleContinueDisplayServices() {
 		 }
 	 });
 }
+
