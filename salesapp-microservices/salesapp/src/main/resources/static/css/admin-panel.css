@@ -23,12 +23,11 @@
 }
 
 #txtLabelName{
-	width:25%;
-	
+	width:22.75%;
 }
 
 #txtFieldName{
-	width:25%;
+	width:22.75%;
 	margin-top : 5px;
 	margin-left: 5px;
 	margin-bottom : 5px;
@@ -214,3 +213,10 @@ span {
 .btn-admin-panel{
 	border-color: #999;
 }
+
+.addFeaturesClass{
+	margin-top:1%;
+	background-color:#f9f9eb;
+}
+
+
