@@ -155,7 +155,7 @@
 									<div class=" col-sm-2">
 										New Product Name
 									</div>
-									<div class=" col-sm-3">
+									<div class=" col-sm-2">
 										<input type="text" class="form-control"
 											name="product" placeholder="Product Name"
 											required="required">
@@ -166,7 +166,7 @@
 									<div class="marginTopBuffer col-sm-2">
 										Access Type
 									</div>
-									<div class="marginTopBuffer col-sm-3">
+									<div class="marginTopBuffer col-sm-2">
 										<select name="accessType" id="accessType" required="required"
 											class="form-control">
 											<option value="">Select Access Type</option>
@@ -184,7 +184,7 @@
 											name="txtAccessSpeed" type="number" required="required"
 											step="any"> 
 									</div>	
-									<div class="marginTopBuffer col-sm-2">
+									<div class="marginTopBuffer col-sm-1">
 										<select name="speedUnit_accessType"
 											id="speedUnit_accessType" class="form-control">
 											<option value="bps">bps</option>
@@ -202,7 +202,7 @@
 										<input class="form-control" name="txtSpeed_portType"
 											type="number" required="required" step="any"> 
 									</div>
-									<div class="marginTopBuffer col-sm-2">	
+									<div class="marginTopBuffer col-sm-1">	
 										<select
 											name="speedUnit_portType" class="form-control">
 											<option value="bps">bps</option>
