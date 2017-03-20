@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<sec:authentication var="principal" property="principal" />
+
 <div class="container">
     <div class="row chat-window col-sm-3" id="chat_window_1" style="margin-left:55%; z-index: 2000">
         <div class="col-xs-12 col-md-12">
@@ -7,7 +10,7 @@
         		<!-- top bar starts -->	
                 <div class="panel-heading top-bar">
                     <div class="col-md-4 col-xs-4">
-                        <h3 class="panel-title"><label id="show_user_id" ></label></h3>
+                        <h3 class="panel-title"><label id="show_user_id" >${principal.firstName}</label></h3>
                     </div>
                     <div class="col-md-4 col-xs-4">
                         <select id="chatWatsonLanguage" name="chatWatsonLanguage">
