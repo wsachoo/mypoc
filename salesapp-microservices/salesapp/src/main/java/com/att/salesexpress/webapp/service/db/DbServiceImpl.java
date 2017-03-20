@@ -231,7 +231,7 @@ public class DbServiceImpl implements DbService {
 
 	public List<PortSpeedDO> getPortSpeedsByAccessData(final String accessType, final String accessSpeed) {
 		logger.debug("Access Speed and Access Type received are {} and {}", accessSpeed, accessType);
-		String sql = "select PORT_SPEED_ID, MRC, NRC from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_TYPE = ?";
+		String sql = "select distinct PORT_SPEED_ID, MRC, NRC from SALES_RULES where ACCESS_SPEED_ID = ? and PORT_TYPE = ? order by PORT_SPEED_ID";
 		List<PortSpeedDO> list = jdbcTemplate.query(sql, new RowMapper<PortSpeedDO>() {
 
 			public PortSpeedDO mapRow(ResultSet rs, int rowNum) throws SQLException {
