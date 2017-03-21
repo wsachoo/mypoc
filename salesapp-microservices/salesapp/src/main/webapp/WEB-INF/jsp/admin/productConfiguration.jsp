@@ -350,6 +350,20 @@
 											
 									</div>
 								</div>
+								<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+										data-target="#successModal" id="btnSuccessModal"
+										style="display: none;">Open Modal</button>
+									<div class="modal fade" id="successModal" role="dialog">
+										<div class="modal-dialog">
+											<!-- Modal content-->
+											<div class="modal-content">
+												<div class="modal-body" style="text-align: center;">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title" id="updateMessage"></h4>
+												</div>
+											</div>
+										</div>
+									</div>
 							</form>
 						</div>
 
@@ -385,24 +399,11 @@
 		</div>
 		<div class="chat-box" id="chat_div" style="display: none;"><jsp:include
 				page="../chatBox.jsp" /></div>
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-			data-target="#successModal" id="btnSuccessModal"
-			style="display: none;">Open Modal</button>
-		<div class="modal fade" id="successModal" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-body" style="text-align: center;">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title" id="updateMessage"></h4>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 		
 		<div class="modal fade" id="confirmModal" role="dialog">
 		   	<div class="modal-dialog">
-		      <!-- Modal content-->
+		      Modal content
 		      <div class="modal-content" id="confirmDeleteProductDiv">
 		        <div class="modal-body" style="text-align:center;">
 		          <p>Are you sure you want to delete Service name and its features?</p>
@@ -414,7 +415,6 @@
 		      </div>
 		   	</div>
 		  </div>
-		  
 		  
 	</div>
 </body>

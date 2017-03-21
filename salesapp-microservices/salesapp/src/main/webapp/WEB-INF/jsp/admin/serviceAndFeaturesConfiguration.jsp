@@ -97,6 +97,9 @@
 					 <div class="col-sm-2 col-sm-offset-5">
 						<input type="button" value="Delete" data-toggle="modal" data-target="#confirmModal"  name="btnContinueDeleteService" id="btnContinueDeleteService" class="btn btn-admin-panel" style="display: none;">
 					 </div>
+					 <div class="col-sm-2 col-sm-offset-5">
+						<input type="button" value="Delete" data-toggle="modal" data-target="#confirmModal"  name="btnContinueDeleteService" id="btnContinueDeleteService" class="btn btn-admin-panel" style="display: none;">
+					 </div>
 			        </div>
 			      </div>
 			    </div>
