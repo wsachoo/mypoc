@@ -5,7 +5,7 @@ $(document).ready(function(){
 		$("#chatWatsonLanguage").hide();
 	}
 	
-	$("#show_user_id").html(gUserDetails.user_id);
+	//$("#show_user_id").html(gUserDetails.user_id);
 	$("#open-Chat").addClass('glyphicon glyphicon-comment');
 	var chatWindow = $("#chat_window_1");
 	
