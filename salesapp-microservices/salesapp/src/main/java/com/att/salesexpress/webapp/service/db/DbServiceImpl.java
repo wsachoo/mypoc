@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -339,11 +340,11 @@ public class DbServiceImpl implements DbService {
 	@Override
 	public void checkIfRuleAlreadyExits(final List<SalesRules> salesRulesEntityList) {
 		logger.debug("Inside checkIfRuleAlreadyExits() method.");
-		String sql = "select count(1) from sales_rules where ACCESS_SPEED_ID=? and PORT_SPEED_ID=? and upper(PRODUCT)=?";
+		String sql = "select count(1) from sales_rules where ACCESS_SPEED_ID=? and PORT_SPEED_ID=? and upper(PRODUCT)=? and port_type=?";
 		
 		for (SalesRules salesRules : salesRulesEntityList) {
 			Integer iRowCount = jdbcTemplate.queryForObject(sql, Integer.class, 
-						salesRules.getAccessSpeed(), salesRules.getPortSpeed(), salesRules.getProductName().toUpperCase());
+						salesRules.getAccessSpeed(), salesRules.getPortSpeed(), salesRules.getProductName().toUpperCase(), salesRules.getPortType());
 			if (iRowCount == 1) {
 				salesRules.setBlnExitsInDb(true);
 			}
@@ -387,7 +388,7 @@ public class DbServiceImpl implements DbService {
 		logger.debug("Entered updateProductConfiguration() method.");
 
 		final String sqlBatchUpdate = "UPDATE sales_rules "
-				+ "SET PORT_TYPE=?, MRC=?, NRC=? where ACCESS_SPEED_ID=? and PORT_SPEED_ID=? and upper(PRODUCT)=?";
+				+ "SET PORT_TYPE=?, MRC=?, NRC=? where ACCESS_SPEED_ID=? and PORT_SPEED_ID=? and upper(PRODUCT)=? and PORT_TYPE=?";
 		
 		jdbcTemplate.batchUpdate(sqlBatchUpdate, new BatchPreparedStatementSetter() {
 
@@ -398,7 +399,8 @@ public class DbServiceImpl implements DbService {
 				pstmt.setDouble(3, objSalesRules.getNrc());
 				pstmt.setDouble(4, objSalesRules.getAccessSpeed());
 				pstmt.setDouble(5, objSalesRules.getPortSpeed());
-				pstmt.setString(6, objSalesRules.getProductName());
+				pstmt.setString(6, objSalesRules.getProductName().toUpperCase());
+				pstmt.setString(7, objSalesRules.getPortType());
 			}
 
 			public int getBatchSize() {
@@ -442,6 +444,16 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
+	public void deleteProductConfiguration(String portType, Long accessSpeed, Long portSpeed) {
+		logger.debug("Entered deleteProductConfigurationForAllProducts() method.");
+
+		final String sql= "DELETE FROM sales_rules WHERE PORT_TYPE=? AND ACCESS_SPEED_ID=? AND PORT_SPEED_ID=?";
+		jdbcTemplate.update(sql, new Object[] { portType, accessSpeed, portSpeed }, new int[] {Types.VARCHAR, Types.DOUBLE, Types.DOUBLE});
+		
+		logger.debug("Exiting deleteProductConfigurationForAllProducts() method.");		
+	}
+	
+	@Override
 	public List<Map<String, Object>> getAccessSpeedByAccessType(String productType, String accessType) {
 		String sql = "select distinct(ACCESS_SPEED_ID) as ACCESS_SPEED_ID from sales_rules where PRODUCT=? and port_type=? order by ACCESS_SPEED_ID";
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { productType, accessType });
@@ -455,4 +467,19 @@ public class DbServiceImpl implements DbService {
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { productType, accessType, accessSpeed });
 		return rows;
 	}
+
+	@Override
+	public List<Map<String, Object>> getDistinctAccessSpeedByAccessType(String accessType) {
+		String sql = "select distinct(ACCESS_SPEED_ID) as ACCESS_SPEED_ID from sales_rules where port_type=? order by ACCESS_SPEED_ID";
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { accessType });
+		return rows;
+	}
+
+	@Override
+	public List<Map<String, Object>> getDistinctPortSpeedsByAccessSpeed(String accessType, Long lAccessSpeed) {
+		String sql = "select distinct PORT_SPEED_ID from sales_rules where port_type=? and ACCESS_SPEED_ID=? order by PORT_SPEED_ID";
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { accessType, lAccessSpeed });
+		return rows;
+	}
+
 }
