@@ -7,7 +7,7 @@
 
 				<ul id="menu-content" class="menu-content collapse out">
 					<li class="heading1" style="background-color: #337ab7; text-align: center;"><span 
-							style="display: inline; color: #fff; font-family: FontAwesome; font-size: 18px;">USER SITE LOCATIONS</span>
+							style="display: inline; color: #fff; font-family: FontAwesome; font-size: 18px;">Site Locations</span>
 
 					</li>
 				</ul>

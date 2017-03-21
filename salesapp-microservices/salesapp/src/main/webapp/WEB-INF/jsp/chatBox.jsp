@@ -16,7 +16,7 @@
                         <select id="chatWatsonLanguage" name="chatWatsonLanguage">
                         	<option value="ENGLISH">Select Language</option>
                         	<option>ARABIC</option>
-                        	<option>ENGLISH</option>
+                        	<option selected="selected">ENGLISH</option>
                         	<option>FRENCH</option>
                         	<option>ITALIAN</option>
                         	<option>PORTUGUESE</option>
