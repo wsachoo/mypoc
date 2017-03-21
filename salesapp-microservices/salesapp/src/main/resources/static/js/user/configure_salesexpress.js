@@ -94,13 +94,19 @@ function setAccessSpeedSliderLimit(objAccessSpeeds) {
 	$divSliderAccessSpeed.slider('value', startIndex);
 	$("#sliderSpeedValue").val(objAccessSpeeds.range[startIndex].speed);
 	
-	$("#divMRCNRC").text("MRC:" + objAccessSpeeds.range[startIndex].MRC + "    NRC:" + objAccessSpeeds.range[startIndex].NRC);
+	var mrc = objAccessSpeeds.range[startIndex].MRC;
+	var nrc = objAccessSpeeds.range[startIndex].NRC;
+	$("#divMRCNRC").text("MRC: $" + mrc.replace("-", "-$") + "/site,    NRC: $" + nrc.replace("-", "-$") + "/site");
 	$("#imgAccessType").attr("src", contextPath + objAccessSpeeds.accessSpeedImagePath);
 	
     $divSliderAccessSpeed.slider("option", "slide", function( event, ui ) {
 		$(this).slider('value', 0);
 		$("#sliderSpeedValue").val(objAccessSpeeds.range[ui.value].speed);
-		$("#divMRCNRC").text("MRC:" + objAccessSpeeds.range[ui.value].MRC + "    NRC:" + objAccessSpeeds.range[ui.value].NRC);
+		
+		var mrc = objAccessSpeeds.range[ui.value].MRC;
+		var nrc = objAccessSpeeds.range[ui.value].NRC;
+
+		$("#divMRCNRC").text("MRC: $" + mrc.replace("-", "-$") + "/site,    NRC: $" + nrc.replace("-", "-$") + "/site");
 		$divSliderAccessSpeed.slider("option", "max", objAccessSpeeds.range.length-1);
     });	
 }
@@ -255,7 +261,7 @@ function setPortOptionSpeedSliderLimit(objPortOption) {
 	$divSliderPortSpeed.slider('value', startIndex);
 	$("#sliderPortSpeedValue").val(objPortOption.range[startIndex].speed);
 	
-	$("#portConfig-divMRCNRC").text("MRC:" + objPortOption.range[startIndex].MRC + "    NRC:" + objPortOption.range[startIndex].NRC);
+	$("#portConfig-divMRCNRC").text("MRC: $" + objPortOption.range[startIndex].MRC + "    NRC: $" + objPortOption.range[startIndex].NRC);
 	$("#divSelectedPortOption").text(objPortOption.displayValue);
 	
 	$("#imgPortOption").attr("src", contextPath + objPortOption.portOptionImagePath);
@@ -263,7 +269,7 @@ function setPortOptionSpeedSliderLimit(objPortOption) {
 	$divSliderPortSpeed.slider("option", "slide", function( event, ui ) {
 		$(this).slider('value', 0);
 		$("#sliderPortSpeedValue").val(objPortOption.range[ui.value].speed);
-		$("#portConfig-divMRCNRC").text("MRC:" + objPortOption.range[ui.value].MRC + "    NRC:" + objPortOption.range[ui.value].NRC);
+		$("#portConfig-divMRCNRC").text("MRC: $" + objPortOption.range[ui.value].MRC + "    NRC: $" + objPortOption.range[ui.value].NRC);
 		$divSliderPortSpeed.slider("option", "max", objPortOption.range.length-1);
     });	
 }
