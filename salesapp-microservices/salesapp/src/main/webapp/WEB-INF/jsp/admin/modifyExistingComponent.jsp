@@ -96,8 +96,40 @@
 											name="btnResetModifyProductConfigData" value="Cancel">									
 									</div>
 									<div class="marginTopBuffer col-sm-2">
-										<input type="button" class="btn btn-admin-panel btn-block" disabled="disabled"
-										id="btnUpdateProductConfiguration" name="btnUpdateProductConfiguration" value="Configure Product">
+										<!-- <input type="button" class="btn btn-admin-panel btn-block" disabled="disabled"
+										id="btnUpdateProductConfiguration" name="btnUpdateProductConfiguration" value="Configure Product"> -->
+										<input type="button" class="btn btn-admin-panel btn-block" data-toggle="modal" data-target="#confirmModal" id="btnConfirmUpdateProduct" disabled="disabled"
+											name="btnConfirmUpdateProduct" value="Update Configurations">
 									</div>
 								</div>
 							</form>
+							
+							<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+								data-target="#successModal" id="btnSuccessModal"
+								style="display: none;">Open Modal</button>
+							<div class="modal fade" id="successModal" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-body" style="text-align: center;">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title" id="updateMessage"></h4>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="modal fade" id="confirmModal" role="dialog">
+							   	<div class="modal-dialog">
+							      <!-- Modal content-->
+							      <div class="modal-content" id="confirmUpdateProductDiv">
+							        <div class="modal-body" style="text-align:center;">
+							          <p></p>
+							        </div>
+							        <div class="modal-footer" style="text-align:center;">
+							          <button type="button" class="btn btn-danger" id="btnUpdateProductConfiguration" name="btnUpdateProductConfiguration" data-dismiss="modal">Update</button>
+							          <button type="button" class="btn btn-admin-panel" data-dismiss="modal">Cancel</button>
+							        </div>
+							      </div>
+							   	</div>
+							  </div>

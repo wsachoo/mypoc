@@ -171,7 +171,7 @@ footer.navbar-default.navbar-fixed-bottom
 }
 .ribbon {
    position: absolute;
-   right: 11px; top: 113px;
+   right: 11px; top: 124px;
    z-index: 1;
    overflow: hidden;
    width: 75px; height: 75px; 
@@ -228,4 +228,8 @@ footer.navbar-default.navbar-fixed-bottom
 
 .ajaxLoading {  
   cursor: progress !important;  
+}
+.col-sm-marginLeft{
+	margin-left: 4.333%;
 } 
+

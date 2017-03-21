@@ -85,6 +85,8 @@ $(document).ready(function() {
 				case 'btnConfirmDeleteProduct':
 					handleBtnConfirmDeleteProduct();
 					break;
+				case 'btnConfirmUpdateProduct':
+					handleBtnConfirmUpdateProduct();
 			}
 		},
 		
@@ -490,7 +492,9 @@ function handleSaveProductConfigData($thisRef, eventSource) {
 	}
 	
 	if (! atleastOneCheckBoxCheckedFromGroup("configureForm", "product")) {
-		alert("Please select the products by clicking required checkboxes");
+		/*alert("Please select the products by clicking required checkboxes");*/
+		$("#updateMessage").text("Please select the products by clicking required checkboxes");
+		$("#btnSuccessModal").trigger('click');
 		return false;
 	}
 	
@@ -789,7 +793,7 @@ function handleAccessTypeManageComponentPage($thisRef, eventSource) {
 		});
 	}
 	
-	$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+	$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 }
 
 function handleAccessTypeDelComponentPage($thisRef, eventSource) {
@@ -849,14 +853,14 @@ function handleProductCheckBoxChange() {
 		var portSpeed = $("#configureForm #selPortSpeedManageComponentPage").val();
 		
 		if (accessType == "" || accessSpeed == "" || portSpeed == "") {
-			$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+			$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 		}
 		else {
-			$("#configureForm #btnUpdateProductConfiguration").attr("disabled", false);
+			$("#configureForm #btnConfirmUpdateProduct").attr("disabled", false);
 		}
 	}
 	else {
-		$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+		$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 	}
 }
 
@@ -864,15 +868,15 @@ function handleSelPortSpeedManageComponentPageChange($thisRef, eventSource) {
 	var portSpeed = $("#configureForm #selPortSpeedManageComponentPage").val();
 	
 	if (portSpeed == "") {
-		$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+		$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 	}
 	else {
 		
 		if (atleastOneCheckBoxCheckedFromGroup("configureForm", "product")) {
-			$("#configureForm #btnUpdateProductConfiguration").attr("disabled", false);
+			$("#configureForm #btnConfirmUpdateProduct").attr("disabled", false);
 		}
 		else {
-			$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+			$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 		}
 	}
 }
@@ -906,7 +910,7 @@ function handleSelAccessSpeedManageComponentPageChange($thisRef, eventSource) {
 		$("#configureForm #selPortSpeedManageComponentPage").append(itemval);
 	});	
 	
-	$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+	$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 }
 
 function handleSelAccessSpeedDelComponentPageChange($thisRef, eventSource) {
@@ -982,24 +986,24 @@ function handleContinueDisplayServices() {
 			 var featureTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values;
 			 $.each(featureTagValues,function(featureTagKey, featureTagValue){
 				 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
-																					'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Features :</strong></span></div>'+
-																					'<div class="col-sm-9" style="background-color:lavender;"><span><strong>'+ featureTagValue.displayValue +'</strong></span></div>'+
+																					'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Features</strong></span></div>'+
+																					'<div class="col-sm-9" style="background-color:lavender;"><span><strong>'+ ":"+ featureTagValue.displayValue +'</strong></span></div>'+
 																				'</div>');
 				  var labelTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values[featureTagKey].children;
 				 $.each(labelTagValues, function(labelTagKey, labelTagValue){
 					 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
-																						'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Label Name :</strong></span></div>'+
-																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ labelTagValue.label +'</span></div>'+
+																						'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Label Name</strong></span></div>'+
+																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ ":"+ labelTagValue.label +'</span></div>'+
 																					'</div>');
 					 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
-																						'<div class="col-sm-3" style="background-color:lavender;text-align:center;"><span><strong>Field Name :</strong></span></div>'+
-																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ labelTagValue.name +'<strong>'+' ('+ labelTagValue.type +')'+'</strong></span></div>'+
+																						'<div class="col-sm-3" style="background-color:lavender;text-align:center;"><span><strong>Field Name</strong></span></div>'+
+																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ ":"+ labelTagValue.name +'<strong>'+' ('+ labelTagValue.type +')'+'</strong></span></div>'+
 																					'</div>');
 					 var optionTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values[featureTagKey].children[labelTagKey].options;
 					 $.each(optionTagValues, function(optionTagKey, optionTagValue){
 						 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
-																							'<div class="col-sm-3" style="background-color:lavender;text-align:right;"><span><strong>Option Name :</strong></span></div>'+
-																							'<div class="col-sm-9" style="background-color:lavender;"><span>'+ optionTagValue +'</span></div>'+
+																							'<div class="col-sm-3" style="background-color:lavender;text-align:right;"><span><strong>Option Name</strong></span></div>'+
+																							'<div class="col-sm-9" style="background-color:lavender;"><span>'+ ":"+ optionTagValue +'</span></div>'+
 																						'</div>');
 					 });
 				 });
@@ -1034,3 +1038,16 @@ $(document).ready(function() {
     $("#hrefConfigureNewComponent").trigger('click');
 });
 
+function handleBtnConfirmUpdateProduct() {
+	var totalProductsSelected = $('#configureForm input[name="product"]:checked').length;
+	var products = "";
+	$('#configureForm input[name="product"]:checked').each(function(index) {
+		if(index != totalProductsSelected-1){
+			products = products + ($(this).val()) + ", ";
+		}
+		else
+			products = products + ($(this).val()) + ". ";
+		});
+	$("#confirmUpdateProductDiv").first('div').find('p').html("Please note, you are about to make these changes across the following products:"+"<br>" + products
+			+ "<br>" +"If you are sure click Update to continue or cancel to return back to the form.");
+}
