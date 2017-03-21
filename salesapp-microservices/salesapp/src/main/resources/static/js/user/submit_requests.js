@@ -33,6 +33,7 @@ function handleBtnApplyPortConfigurationOptionsClick($thisRef, eventSource) {
 	
 	promise.done(function(data, textStatus, jqXHR) {
 		handlePortConfigurationSuccess(data, textStatus, jqXHR);
+		$("#btnProceedToFeatures").css('display','inline');
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
 		var errorObject = $.parseJSON(jqXHR.responseText);
@@ -57,7 +58,8 @@ function handlePortConfigurationSuccess(data, textStatus, jqXHR)
 	else {
 		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
 		  "<a href='#' class='close' data-dismiss='alert' data-applybutton='success' aria-label='close'>&times;</a>" +
-		  "<strong>Success!</strong> Please configure remaining sites to proceed further</div>";
+		  /*"<strong>Success!</strong> Please configure remaining sites to proceed further</div>";*/
+		  "<strong>Success!</strong> The request has been submitted successfully.</div>";
 		$("#divPortConfigClickApplyMessage").html(successAlertMessage);		
 	}	
 }

@@ -7,7 +7,15 @@
 	<div id="packageContainer"></div>
 </div> -->
 <div id="showPackages">
-<label>Select Your Package</label>
+<div class="row" style="margin-bottom: 1%;">
+	<div class="col-sm-2">
+		<label>Select Your Package</label>
+	</div>
+	<div class="col-sm-2 col-sm-offset-8">
+	<button type="button" id="btnRefreshResults" name="btnRefreshResults" class="btn btn-primary" >
+		<span class="glyphicon glyphicon-refresh"></span> Reload Results</button>
+	</div>
+</div>
 {{each packageData}}
 {{if (($index + 1) == 1)}}
   <div class="panel panel-default">

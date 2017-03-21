@@ -80,22 +80,21 @@
 						<div class="row">
 							<div class="col-sm-3"></div>
 							<div class="col-sm-2">
-								<!-- <input type="button" value="Continue"  data-toggle="modal" data-target="#confirmModal" name="btnContinueDeleteService" id="btnContinueDeleteService" class="btn btn-admin-panel"> -->
 								<input type="button" value="Continue" name="btnContinueDisplayService" id="btnContinueDisplayService" class="btn btn-admin-panel">
-								<!-- <input type="button" value="Display Services"  name="btnDisplayServices" id="btnDisplayServices" class="btn btn-admin-panel"> -->
 							</div>
 						</div>
 						<br>
 					 </div>
-					 <hr>
-					 <div id="showDeleteService" class="col-sm-12" style="background-color: #F8F8F8;">
+					 <div id="showDeleteService" class="col-sm-6">
 					 	<span></span>
-					 	<div class="col-sm-1"></div>
-					 	<div id="showDeleteServiceLabel" style="background-color: white;" class="col-sm-10">
+					 	<div class="row">
+						 	<div class="col-sm-1"></div>
+						 	<div id="showDeleteServiceLabel" class="col-sm-10">
+						 	</div>
+						 	<div class="col-sm-1"></div>
 					 	</div>
-					 	<div class="col-sm-1"></div>
 					 </div>
-					 <div class="col-sm-2 col-sm-offset-3">
+					 <div class="col-sm-2 col-sm-offset-5">
 						<input type="button" value="Delete" data-toggle="modal" data-target="#confirmModal"  name="btnContinueDeleteService" id="btnContinueDeleteService" class="btn btn-admin-panel" style="display: none;">
 					 </div>
 			        </div>

@@ -20,6 +20,11 @@ $(document).ready(function(){
 				case 'btnRefreshServicesAndFeatures':
 					refreshServicesAndFeatures($(this));
 					break;
+				case 'btnRefreshResults':
+					//calling the same function as of proceed to results to show the 
+					//updated results when product is added from admin panel
+					handleProceedToResults($(this), e.target);
+					break;
 			}
 		},
 		
@@ -63,7 +68,8 @@ $(document).ready(function(){
     			//user should configure remaining sites
 	    		var successAlertMessage = "<div class='alert alert-success alert-dismissible'>" +
 				  "<a href='#' class='close' data-dismiss='alert alert-warning' data-applybutton='success' aria-label='close'>&times;</a>" +
-				  "<strong>Success!</strong> Please configure remaining sites to proceed further</div>";
+				  /*"<strong>Success!</strong> Please configure remaining sites to proceed further</div>";*/
+				  "<strong>Success!</strong> Request has been submitted successfully.</div>";
 	    		$("#divSubmitAlert").html(successAlertMessage);
     		}
     		displayFeaturesAppliedInLeftNav();
@@ -330,4 +336,3 @@ function handleProceedToGenerateContract($thisRef, eventSource) {
     topmenudiv.after(generateContractInit);
     formElement.trigger('create');
 }
-

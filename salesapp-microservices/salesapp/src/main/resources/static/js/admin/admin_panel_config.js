@@ -792,11 +792,13 @@ function handleBtnContinueDeleteService() {
 
 function handleContinueDisplayServices() {
 	$("#showDeleteServiceLabel").empty();
+	
 	var serviceNameToDelete = $("#serviceToDelete").val();
 	if(serviceNameToDelete == 'serviceName'){
 		$("#updateMessage").text('Please select a valid Service Name to continue');
 		$("#btnSuccessModal").trigger('click');
 		$("#btnContinueDeleteService").css('display','none');
+		$("#showDeleteService span:first-child").empty();
 		return;
 	}else if(serviceNameToDelete != 'serviceName'){
 		$("#btnContinueDeleteService").css('display','inline');
@@ -808,19 +810,30 @@ function handleContinueDisplayServices() {
 		 serviceNameId = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key]["id"];
 		 if( serviceNameId != null && serviceNameId == serviceNameToDelete){
 			 $("#showDeleteService span:first-child").html('<strong>Service name : </strong>'+value.displayValue.toUpperCase() +'<br>');
+			 $("#showDeleteService").find("#showDeleteServiceLabel").append('<hr style="color:black;"/>');
 			 var featureTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values;
 			 $.each(featureTagValues,function(featureTagKey, featureTagValue){
-				 $("#showDeleteService").find("#showDeleteServiceLabel").append('<br><span><strong>Features : </strong>'+ featureTagValue.displayValue +'</span><br>');
-				 /*$("#showDeleteService").find("#showDeleteServiceLabel").append('<span class="col-sm-offset-1"><strong>Feature Name:</strong>'+ featureTagValue.displayValue +'</span><br>');*/
+				 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
+																					'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Features :</strong></span></div>'+
+																					'<div class="col-sm-9" style="background-color:lavender;"><span><strong>'+ featureTagValue.displayValue +'</strong></span></div>'+
+																				'</div>');
 				  var labelTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values[featureTagKey].children;
 				 $.each(labelTagValues, function(labelTagKey, labelTagValue){
-					 $("#showDeleteService").find("#showDeleteServiceLabel").append('<span class="col-sm-offset-1"><strong>Label Name:</strong>'+ labelTagValue.label +'</span><br>');
-					 $("#showDeleteService").find("#showDeleteServiceLabel").append('<span class="col-sm-offset-1"><strong>Field Name:</strong>'+ labelTagValue.name+" <strong>Add-Ons:</strong> "+ labelTagValue.type+'</span><br>');
+					 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
+																						'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Label Name :</strong></span></div>'+
+																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ labelTagValue.label +'</span></div>'+
+																					'</div>');
+					 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
+																						'<div class="col-sm-3" style="background-color:lavender;text-align:center;"><span><strong>Field Name :</strong></span></div>'+
+																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ labelTagValue.name +'<strong>'+' ('+ labelTagValue.type +')'+'</strong></span></div>'+
+																					'</div>');
 					 var optionTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values[featureTagKey].children[labelTagKey].options;
 					 $.each(optionTagValues, function(optionTagKey, optionTagValue){
-						 $("#showDeleteService").find("#showDeleteServiceLabel").append('<span class="col-sm-offset-1"><strong>Option Name:</strong>'+ optionTagValue +'</span><br>');
+						 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
+																							'<div class="col-sm-3" style="background-color:lavender;text-align:right;"><span><strong>Option Name :</strong></span></div>'+
+																							'<div class="col-sm-9" style="background-color:lavender;"><span>'+ optionTagValue +'</span></div>'+
+																						'</div>');
 					 });
-					
 				 });
 				 $("#showDeleteService").find("#showDeleteServiceLabel").append('<hr style="color:black;"/>');
 			 });

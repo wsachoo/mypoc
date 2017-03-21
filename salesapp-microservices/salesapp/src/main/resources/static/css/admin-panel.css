@@ -235,3 +235,8 @@ span {
   border-width: 1px 0;
   margin: 18px 0;
 }
+
+#showDeleteService{
+	background-color: #F8F8F8;
+	left: 20%;
+}
