@@ -77,8 +77,7 @@ $(document).ready(function() {
 					handleBtnDelComponentContinue($(this), e.target);
 					break;
 				case 'btnResetModifyProductConfigData':
-					try { $('#configureNewComponentForm')[0].reset(); } catch(ex) {}
-					try { $('#modifyExistingComponentwForm')[0].reset(); } catch(ex) {}
+					try { $('#configureForm')[0].reset(); } catch(ex) {}
 					break;
 			}
 		},
@@ -124,7 +123,7 @@ $(document).ready(function() {
 
 	  $(document).on('show.bs.tab', '.nav-tabs-responsive [data-toggle="tab"]', function(e) {
 		    var $target = $(e.target);
-		    if($target.attr('id') == 'configureProducts-tab') {
+		    if($target.attr('id') == 'manageProducts-tab') {
 		    	handleConfigureProductTab();
 		    }
 	  		if($target.attr('id') == 'deleteProducts-tab') {
@@ -524,15 +523,16 @@ function handleConfigureProductTab() {
 }
 
 function prepareProductsDiv(productsList) {
-	$("#productsDiv").find('div').not(':first').remove();
+	//$("#productsDiv").find('div').not(':first').remove();
+	$("#productsDiv").find('div').remove();
 	for(var i = 0; i <productsList.length; i++){
-		var product = '<div class="marginTopBuffer col-sm-1">'+
+		var product = '<div class="marginTopBuffer col-sm-1 col-sm-offset-2">'+
 						'<input type="checkbox" name="product" id="chk'+productsList[i]+'Product" value="'+productsList[i]+'">'+productsList[i]+
-					  '</div>';
+					  '</div><div class="clearfix"></div>';
 		$("#productsDiv").append(product);
 	}
-	
 }
+
 
 $(document).ready(function() {
     $("#adminPanelTopMenu a").each(function(i, a) {

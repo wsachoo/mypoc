@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-							<form id="configureNewComponentForm" data-ajax="false" class="form-horizontal">
+							<form id="configureForm" data-ajax="false" class="form-horizontal">
 								<div class="row">
 									<div class="col-sm-12">
 										<label id="labelModifyProductComponent">Configure New Component</label>
@@ -85,17 +85,15 @@
 										configurations to be added to:
 									</div>
 								</div>
+								
 								<div class="row" id="productsDiv">
-									<div class="marginTopBuffer col-sm-2">
-									</div>
 									<c:forEach items="${productList}" var="item">
-										<div class="marginTopBuffer col-sm-1">
+										<div class="marginTopBuffer col-sm-1 col-sm-offset-2">
 											<input type="checkbox" name="product" id="chk${item}Product"
 												value="${item}">${item}
 										</div>
+										<div class="clearfix"></div> 
 									</c:forEach>
-									
-									<div class="clearfix"></div> 
 								</div>
 								<div class="row">
 									<div class="col-sm-12">

@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-							<form id="modifyExistingComponentwForm" data-ajax="false" class="form-horizontal">
+							<form id="configureForm" data-ajax="false" class="form-horizontal">
 								<div class="row">
 									<div class="col-sm-12">
 										<label id="labelModifyProductComponent">Modify Exiting Component</label>
