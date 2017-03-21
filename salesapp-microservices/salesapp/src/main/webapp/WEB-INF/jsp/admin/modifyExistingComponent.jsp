@@ -7,29 +7,10 @@
 								</div>
 								<div class="row">
 									<div class="marginTopBuffer col-sm-2">
-										Access Speed
-									</div>
-									<div class="marginTopBuffer col-sm-2">
-										<input class="form-control" id="txtAccessSpeed"
-											name="txtAccessSpeed" type="number" required="required"
-											step="any"> 
-									</div>
-									<div class="marginTopBuffer col-sm-1">
-									<select name="speedUnit_accessType"
-											id="speedUnit_accessType" class="form-control">
-											<option value="bps">bps</option>
-											<option value="Kbps">Kbps</option>
-											<option value="Mbps">Mbps</option>
-											<option value="Gbps">Gbps</option>
-										</select>
-									</div>
-								</div>
-								<div class="row">
-									<div class="marginTopBuffer col-sm-2">
 										Access Type
 									</div>
 									<div class="marginTopBuffer col-sm-2">
-										<select name="accessType" id="accessType"
+										<select name="accessType" id="accessTypeManageComponentPage" required="required"
 											class="form-control">
 											<option value="">Select Access Type</option>
 											<option value="ETHERNET">ETHERNET</option>
@@ -37,16 +18,38 @@
 										</select>
 									</div>
 								</div>
+								<div class="row">
+									<div class="marginTopBuffer col-sm-2">
+										Access Speed
+									</div>
+									<div class="marginTopBuffer col-sm-2">
+										<select class="form-control" id="selAccessSpeedManageComponentPage" disabled="disabled" required="required" 
+											name="txtAccessSpeed"  required="required"> 
+											<option value="">Select Access Speed</option>
+										</select>											
+									</div>
+<!-- 									<div class="marginTopBuffer col-sm-1">
+									<select name="speedUnit_accessType"  disabled="disabled"
+											id="speedUnit_accessType" class="form-control">
+											<option value="bps">bps</option>
+											<option value="Kbps">Kbps</option>
+											<option value="Mbps">Mbps</option>
+											<option value="Gbps">Gbps</option>
+										</select>
+									</div>
+ -->								</div>
 								<div class="row classPortSpeed" id="divPortSpeed">
 									<div class="marginTopBuffer col-sm-2">
 										Port Speed
 									</div>
 									<div class="marginTopBuffer col-sm-2">
-										<input class="form-control" name="txtSpeed_portType"
-											type="number" required="required" step="any"> 
+										<select class="form-control" name="txtSpeed_portType" id="selPortSpeedManageComponentPage" disabled="disabled" 
+											required="required"> 
+											<option value="">Select Port Speed</option>
+										</select>									
 									</div>
-									<div class="marginTopBuffer col-sm-1">
-										<select
+<!-- 									<div class="marginTopBuffer col-sm-1">
+										<select disabled="disabled"
 											name="speedUnit_portType" class="form-control">
 											<option value="bps">bps</option>
 											<option value="Kbps">Kbps</option>
@@ -54,28 +57,15 @@
 											<option value="Gbps">Gbps</option>
 										</select>
 									</div>
-									<div class="marginTopBuffer col-sm-2">
+ -->									<div class="marginTopBuffer col-sm-2">
 										<input type="text" class="form-control"
-											name="txtMRC_portType" placeholder="MRC" 
+											name="txtMRC_portType" placeholder="MRC"
 											required="required"> 
 									</div>
 									<div class="marginTopBuffer col-sm-2">
 										<input type="text"
 											class="form-control" name="txtNRC_portType" placeholder="NRC"
 											required="required">
-									</div>
-									<div class="marginTopBuffer col-sm-1">
-										<button type="button" id="btnAddPortSpeedDiv"
-											name="btnAddPortSpeedDiv" class="btn btn-admin-panel">
-											<span class="glyphicon glyphicon-plus" id=""
-												style="font-size: large;"></span>
-										</button>
-										<button type="button" id="btnRemovePortSpeedDiv"
-											name="btnRemovePortSpeedDiv" class="btn btn-admin-panel"
-											style="display: none;">
-											<span class="glyphicon glyphicon-minus" id=""
-												style="font-size: large;"></span>
-										</button>
 									</div>
 								</div>
 								<div class="row">
@@ -86,16 +76,13 @@
 									</div>
 								</div>
 								<div class="row" id="productsDiv">
-									<div class="marginTopBuffer col-sm-2">
-									</div>
 									<c:forEach items="${productList}" var="item">
-										<div class="marginTopBuffer col-sm-1">
+										<div class="marginTopBuffer col-sm-1 col-sm-offset-2">
 											<input type="checkbox" name="product" id="chk${item}Product"
 												value="${item}">${item}
 										</div>
+										<div class="clearfix"></div> 
 									</c:forEach>
-									
-									<div class="clearfix"></div> 
 								</div>
 								<div class="row">
 									<div class="col-sm-12">
@@ -109,7 +96,8 @@
 											name="btnResetModifyProductConfigData" value="Cancel">									
 									</div>
 									<div class="marginTopBuffer col-sm-2">
-										<input type="button" class="btn btn-admin-panel btn-block" id="btnSaveProductConfigData" name="btnSaveProductConfigData" value="Configure Product">
+										<input type="button" class="btn btn-admin-panel btn-block" disabled="disabled"
+										id="btnUpdateProductConfiguration" name="btnUpdateProductConfiguration" value="Configure Product">
 									</div>
 								</div>
 							</form>

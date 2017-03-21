@@ -75,4 +75,9 @@ public interface DbService {
 
 	List<Map<String, Object>> getPortSpeedsByAccessSpeed(String productType, String accessType, Long accessSpeed);
 
+	public List<Map<String, Object>> getDistinctAccessSpeedByAccessType(String accessType);
+
+	public List<Map<String, Object>> getDistinctPortSpeedsByAccessSpeed(String accessType, Long lAccessSpeed);
+
+	void deleteProductConfiguration(String portType, Long long1, Long long2);
 }

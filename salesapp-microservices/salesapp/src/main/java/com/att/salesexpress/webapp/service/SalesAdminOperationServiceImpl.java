@@ -147,7 +147,7 @@ public class SalesAdminOperationServiceImpl implements SalesAdminOperationServic
 	private Object transformSpeed(String object) {
 		Double speed = Double.valueOf(object);
 		if (speed < 1000) {
-			return speed;
+			return speed  + " bps";
 		}
 		else if (speed < (1000 * 1000)) {
 			return (speed/1000) + " Kbps";
@@ -181,5 +181,45 @@ public class SalesAdminOperationServiceImpl implements SalesAdminOperationServic
 	@Transactional(readOnly = true)
 	public String getServiceFeaturesMetaData(String siteType) {
 		return dbServiceImpl.getServiceFeaturesMetaDataBySiteName(siteType);
+	}
+
+	@Override
+	public Map<String, Object> getDistinctAccessSpeedByAccessType(String accessType) {
+		Map<String, Object> returnValues = new LinkedHashMap<>();
+		List<Map<String, Object>> accessSpeeds = dbServiceImpl.getDistinctAccessSpeedByAccessType(accessType);
+		for (Map<String, Object> map : accessSpeeds) {
+			String accessSpeed =map.get("ACCESS_SPEED_ID").toString();
+			String transFormedAccessSpeed = transformSpeed(map.get("ACCESS_SPEED_ID").toString()).toString();
+			logger.debug("Access Speed {}, Transformed Access Speed {}", accessSpeed, transFormedAccessSpeed);
+			returnValues.put(accessSpeed, transFormedAccessSpeed);
+		}
+		
+		return returnValues;
+	}
+
+	@Override
+	public Map<String, Object> getDistinctPortSpeedsByAccessSpeed(String accessType, String accessSpeed) {
+		Map<String, Object> returnValues = new LinkedHashMap<>();
+		Long lAccessSpeed = Long.parseLong(accessSpeed);
+		List<Map<String, Object>> accessSpeeds = dbServiceImpl.getDistinctPortSpeedsByAccessSpeed(accessType, lAccessSpeed);
+		
+		for (Map<String, Object> map : accessSpeeds) {
+			String portSpeed = map.get("PORT_SPEED_ID").toString();
+			String transFormedPortSpeed = transformSpeed(portSpeed).toString();
+			logger.debug("Port Speed {}, Transformed port Speed {}", portSpeed, transFormedPortSpeed);
+			returnValues.put(portSpeed, transFormedPortSpeed);
+		}
+		
+		return returnValues;
+	}
+
+	@Override
+	public void updateProductConfiguration(ProductConfigBean objProductConfigBean) throws SQLException {
+		logger.debug("Entered successfully from updateProductConfiguration() method.");
+		List<SalesRules> salesRulesEntityList = objProductConfigBean.transformToSalesRules();		
+		SalesRules salesRule = salesRulesEntityList.get(0);
+		dbServiceImpl.deleteProductConfiguration(salesRule.getPortType(), salesRule.getAccessSpeed(), salesRule.getPortSpeed());
+		dbServiceImpl.saveProductConfiguration(salesRulesEntityList);
+		logger.debug("Exiting successfully from updateProductConfiguration() method.");
 	}
 }

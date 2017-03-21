@@ -7,6 +7,19 @@
 								</div>
 								<div class="row">
 									<div class="marginTopBuffer col-sm-2">
+										Access Type
+									</div>
+									<div class="marginTopBuffer col-sm-2">
+										<select name="accessType" id="accessType"
+											class="form-control">
+											<option value="">Select Access Type</option>
+											<option value="ETHERNET">ETHERNET</option>
+											<option value="IP">IP</option>
+										</select>
+									</div>
+								</div>
+								<div class="row">
+									<div class="marginTopBuffer col-sm-2">
 										Access Speed
 									</div>
 									<div class="marginTopBuffer col-sm-2">
@@ -21,19 +34,6 @@
 											<option value="Kbps">Kbps</option>
 											<option value="Mbps">Mbps</option>
 											<option value="Gbps">Gbps</option>
-										</select>
-									</div>
-								</div>
-								<div class="row">
-									<div class="marginTopBuffer col-sm-2">
-										Access Type
-									</div>
-									<div class="marginTopBuffer col-sm-2">
-										<select name="accessType" id="accessType"
-											class="form-control">
-											<option value="">Select Access Type</option>
-											<option value="ETHERNET">ETHERNET</option>
-											<option value="IP">IP</option>
 										</select>
 									</div>
 								</div>
@@ -85,7 +85,6 @@
 										configurations to be added to:
 									</div>
 								</div>
-								
 								<div class="row" id="productsDiv">
 									<c:forEach items="${productList}" var="item">
 										<div class="marginTopBuffer col-sm-1 col-sm-offset-2">
