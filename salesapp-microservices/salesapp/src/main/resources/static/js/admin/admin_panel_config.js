@@ -79,6 +79,9 @@ $(document).ready(function() {
 				case 'btnResetModifyProductConfigData':
 					try { $('#configureForm')[0].reset(); } catch(ex) {}
 					break;
+				case 'btnConfirmDeleteProduct':
+					handleBtnConfirmDeleteProduct();
+					break;
 			}
 		},
 		
@@ -98,10 +101,10 @@ $(document).ready(function() {
 				case 'selPortSpeedDelComponentPage':
 					var portSpeed = $("#deleteForm #selPortSpeedDelComponentPage").val();
 					if (portSpeed == "") {
-						$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+						$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", true);
 					}
 					else {
-						$("#deleteForm #btnDeleteProductConfigData").attr("disabled", false);
+						$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", false);
 					}
 					break;
 			}
@@ -704,7 +707,7 @@ function handleAccessTypeDelComponentPage($thisRef, eventSource) {
 	$("#deleteForm #selPortSpeedDelComponentPage").find("option:gt(0)").remove();
 	$("#deleteForm #selPortSpeedDelComponentPage").attr("disabled", true);
 	
-	$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+	$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", true);
 	
 	if (accessType != "") {
 		$("#deleteForm #selAccessSpeedDelComponentPage").find("option:gt(0)").remove();
@@ -741,7 +744,7 @@ function handleProductDelComponentPageChange($thisRef, eventSource) {
 	$("#deleteForm #selPortSpeedDelComponentPage").find("option:gt(0)").remove();
 	$("#deleteForm #selPortSpeedDelComponentPage").attr("disabled", true);
 	
-	$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+	$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", true);
 }
 
 function handleSelAccessSpeedDelComponentPageChange($thisRef, eventSource) {
@@ -749,7 +752,7 @@ function handleSelAccessSpeedDelComponentPageChange($thisRef, eventSource) {
 	var accessType = $("#deleteForm #accessTypeDelComponentPage").val();
 	var productType = $("#deleteForm #productDelComponentPage").val();
 	
-	$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+	$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", true);
 	$("#deleteForm #selPortSpeedDelComponentPage").find("option:gt(0)").remove();
 	
 	if (accessSpeed == "") {
@@ -791,7 +794,6 @@ function showDeleteServicesDropDown() {
 
 function handleBtnContinueDeleteService() {
 	$("#confirmDeleteServiceDiv").first('div').find('p').html("Are you sure you want to delete " + $("#serviceToDelete").val().toUpperCase() + " service and its features ?");
-	
 }
 
 function handleContinueDisplayServices() {
@@ -845,6 +847,10 @@ function handleContinueDisplayServices() {
 	 });
 }
 
+function handleBtnConfirmDeleteProduct() {
+	$("#confirmDeleteProductDiv").first('div').find('p').html("Are you sure you want to InActivate this product component of \"" + $("#productDelComponentPage").val().toUpperCase() +"\" ?");
+}
+
 $(document).ready(function() {
 
 	$("#hrefConfigureNewComponent").on("click", function () {
@@ -865,3 +871,4 @@ $(document).ready(function() {
     
     $("#hrefConfigureNewComponent").trigger('click');
 });
+
