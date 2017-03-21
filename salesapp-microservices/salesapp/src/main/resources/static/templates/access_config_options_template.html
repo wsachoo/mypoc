@@ -5,7 +5,7 @@ ${( localUserSelectedAccessConfiguration = userSelectedAccessConfiguration.getCo
 	</div>
 </div>
 <div class="row" id="divAccessConfigOptionsData">
-	<div class="col-sm-3 col-sm-offset-1">
+	<div class="col-sm-3">
 		Physical Interference<select class="form-control" name="accessConfig-physicalInterferenceOptions">
 			{{each accessConfiguration.physicalInterferenceOptions }}
 				{{if key == localUserSelectedAccessConfiguration.physicalInterferenceOptions }}
@@ -16,7 +16,7 @@ ${( localUserSelectedAccessConfiguration = userSelectedAccessConfiguration.getCo
 			{{/each}}
 		</select>
 	</div>
-	<div class="col-sm-3 col-sm-offset-1">
+	<div class="col-sm-3">
 		Access Interconnect Technology (AIT)<select class="form-control" 
 			name="accessConfig-accessInterconnectTechnology">{{each
 			accessConfiguration.accessInterconnectTechnology }}
@@ -29,7 +29,7 @@ ${( localUserSelectedAccessConfiguration = userSelectedAccessConfiguration.getCo
 		</select>
 	</div>
 	<div class="clearfix"></div>
-	<div class="col-sm-3 col-sm-offset-1">
+	<div class="col-sm-3">
 		Local Access Management<select class="form-control" name="accessConfig-localAccessManagement">{{each
 			accessConfiguration.localAccessManagementOptions }}
 				{{if key == localUserSelectedAccessConfiguration.localAccessManagement }}
@@ -40,7 +40,7 @@ ${( localUserSelectedAccessConfiguration = userSelectedAccessConfiguration.getCo
 			{{/each}}
 		</select>
 	</div>
-	<div class="col-sm-3 col-sm-offset-1">
+	<div class="col-sm-3">
 		Access Tail Technology<select class="form-control" name="accessConfig-accessTailTechnology">{{each
 			accessConfiguration.accessTailTechnologyOptions }}
 				{{if key == localUserSelectedAccessConfiguration.accessTailTechnology }}
@@ -52,7 +52,7 @@ ${( localUserSelectedAccessConfiguration = userSelectedAccessConfiguration.getCo
 		</select>
 	</div>
 	<div class="clearfix"></div>
-	<div class="col-sm-3 col-sm-offset-1">
+	<div class="col-sm-3">
 		Access Architecture<select class="form-control" class="form-control"
 			name="accessConfig-accessArchitecture">{{each accessConfiguration.accessArchitectureOptions	}}
 				{{if key == localUserSelectedAccessConfiguration.accessArchitecture }}

@@ -39,21 +39,29 @@
 		</div>
 		<ul id="adminPanelTopMenu" class="nav nav-tabs nav-tabs-responsive"
 			role="tablist">
-			<li role="presentation" class="active"><a
+<!-- 			<li role="presentation" class="active">
+			<a
 				href="#configureProducts" id="configureProducts-tab" role="tab"
 				data-toggle="tab" aria-controls="configureProducts"
 				aria-expanded="true"> <span class="text">Configure
 						Product</span>
 			</a></li>
-			<li role="presentation" class="next"><a href="#addProducts"
+ -->			
+			<li role="presentation" class="active">
+			<a href="#addProducts"
 				role="tab" id="addProducts-tab" data-toggle="tab"
-				aria-controls="addProducts"> <span class="text">Add New
+				aria-controls="addProducts" aria-expanded="true"> <span class="text">Add New
 						Product</span>
 			</a></li>
 			<li role="presentation" class="next"><a href="#deleteProducts"
 				role="tab" id="deleteProducts-tab" data-toggle="tab"
 				aria-controls="deleteProducts"> <span class="text">Delete
 						Product Component</span>
+			</a></li>
+			<li role="presentation" class="next"><a href="#manageProducts"
+				role="tab" id="manageProducts-tab" data-toggle="tab"
+				aria-controls="manageProducts"> <span class="text">Manage
+						Product Components</span>
 			</a></li>
 		</ul>
 		<div class="wrapper">
@@ -63,9 +71,10 @@
 				<div id="serviceFeaturesTabContent" class="tab-content">
 
 					<div id="myTabContent" class="tab-content">
+<!-- 
 						<div role="tabpanel" class="tab-pane fade in active"
 							id="configureProducts" aria-labelledby="configureProducts-tab">
-							<form id="configureForm" data-ajax="false" class="form-inline">
+ 							<form id="configureForm" data-ajax="false" class="form-inline">
 								<div class="row">
 									<div class="marginTopBuffer col-sm-2">
 										<label for="name">Access Speed : </label>
@@ -147,8 +156,8 @@
 								</div>
 							</form>
 						</div>
-
-						<div role="tabpanel" class="tab-pane fade" id="addProducts"
+ -->
+						<div role="tabpanel" class="tab-pane fade in active" id="addProducts"
 							aria-labelledby="addProducts-tab">
 							<form id="addForm" data-ajax="false" class="form-horizontal">
 								<div class="row marginTopBuffer">
@@ -339,6 +348,24 @@
 									</div>
 								</div>
 							</form>
+						</div>
+
+						<div role="tabpanel" class="tab-pane fade" id="manageProducts"
+							aria-labelledby="manageProducts-tab">
+								<div class="row">
+									<div class="marginTopBuffer col-md-5 visible-lg">
+										<a href="#" id="hrefConfigureNewComponent" style="font-weight: bold;">[ Configure New Component ]</a>
+										&nbsp;&nbsp;|&nbsp;&nbsp;
+										<a href="#" id="hrefModifyExistingComponent" style="font-weight: bold;">[ Modify Existing Component ]</a>									
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<hr class="admin_hr_class">
+									</div>
+								</div>								
+								<div id="modifyConfigurationContentArea">
+								</div>
 						</div>
 
 					</div>

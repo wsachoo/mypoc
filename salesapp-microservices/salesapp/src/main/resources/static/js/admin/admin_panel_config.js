@@ -71,6 +71,10 @@ $(document).ready(function() {
 				case 'btnDelComponentContinue':
 					handleBtnDelComponentContinue($(this), e.target);
 					break;
+				case 'btnResetModifyProductConfigData':
+					try { $('#configureNewComponentForm')[0].reset(); } catch(ex) {}
+					try { $('#modifyExistingComponentwForm')[0].reset(); } catch(ex) {}
+					break;
 			}
 		},
 		
@@ -115,7 +119,7 @@ $(document).ready(function() {
 				$('#deleteForm')[0].reset();
 			}
 	);	
-	
+
 	  $(document).on('show.bs.tab', '.nav-tabs-responsive [data-toggle="tab"]', function(e) {
 		    var $target = $(e.target);
 		    if($target.attr('id') == 'configureProducts-tab') {
@@ -528,9 +532,9 @@ function prepareProductsDiv(productsList) {
 
 $(document).ready(function() {
     $("#adminPanelTopMenu a").each(function(i, a) {
-    	if ("configureProducts-tab" == a.id ||  "addServices-tab" == a.id) {
+    	if ("addProducts-tab" == a.id ||  "addServices-tab" == a.id) {
 	        $(this).css("background-color","white");
-	        $(this).css("color","black");
+	        $(this).css("color","#337ab7");
 	        $(this).css("font-weight","bold");
     	}
     	else {
@@ -544,7 +548,7 @@ $(document).ready(function() {
 	    $("#adminPanelTopMenu a").each(function(i, a) {
 	    	if (e.currentTarget.id == a.id) {
     	        $(this).css("background-color","white");
-    	        $(this).css("color","black");
+    	        $(this).css("color","#337ab7");
 	    	}
 	    	else {
 	    		$(this).css("background-color","#337ab7");
@@ -780,3 +784,25 @@ function showDeleteServicesDropDown() {
          $("#serviceToDelete").append(option);
        });
 }
+
+
+$(document).ready(function() {
+
+	$("#hrefConfigureNewComponent").on("click", function () {
+        $("#modifyConfigurationContentArea").load(contextPath + "/admin/loadConfigureNewComponentPage");
+        $(this).css("background-color", "#337ab7");
+        $("#hrefModifyExistingComponent").css("background-color", "white");
+        $("#hrefModifyExistingComponent").css("color", "#337ab7");
+        $(this).css("color", "white");
+    });
+	
+    $("#hrefModifyExistingComponent").on("click", function () {
+    	$("#modifyConfigurationContentArea").load(contextPath + "/admin/loadModifyExistingComponentPage");
+    	$(this).css("background-color", "#337ab7");
+    	$("#hrefConfigureNewComponent").css("background-color", "white");
+    	$("#hrefConfigureNewComponent").css("color", "#337ab7");
+    	$(this).css("color", "white");
+    });
+    
+    $("#hrefConfigureNewComponent").trigger('click');
+});
