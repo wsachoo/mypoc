@@ -343,8 +343,11 @@
 											name="btnResetDeleteProductConfigData" value="Cancel">
 									</div>
 									<div class="marginTopBuffer col-sm-2">
-										<input type="button" class="btn btn-admin-panel btn-block" id="btnDeleteProductConfigData" disabled="disabled"
-											name="btnDeleteProductConfigData" value="Delete Product">
+										<!-- <input type="button" class="btn btn-admin-panel btn-block" id="btnDeleteProductConfigData" disabled="disabled"
+											name="btnDeleteProductConfigData" value="Delete Product"> -->
+											<input type="button" class="btn btn-admin-panel btn-block" data-toggle="modal" data-target="#confirmModal" id="btnConfirmDeleteProduct" disabled="disabled"
+											name="btnConfirmDeleteProduct" value="Delete Product">
+											
 									</div>
 								</div>
 							</form>
@@ -396,6 +399,23 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="modal fade" id="confirmModal" role="dialog">
+		   	<div class="modal-dialog">
+		      <!-- Modal content-->
+		      <div class="modal-content" id="confirmDeleteProductDiv">
+		        <div class="modal-body" style="text-align:center;">
+		          <p>Are you sure you want to delete Service name and its features?</p>
+		        </div>
+		        <div class="modal-footer" style="text-align:center;">
+		          <button type="button" class="btn btn-danger" id="btnDeleteProductConfigData" name="btnDeleteProductConfigData" data-dismiss="modal">Yes, Delete</button>
+		          <button type="button" class="btn btn-admin-panel" data-dismiss="modal">Cancel</button>
+		        </div>
+		      </div>
+		   	</div>
+		  </div>
+		  
+		  
 	</div>
 </body>
 </html>

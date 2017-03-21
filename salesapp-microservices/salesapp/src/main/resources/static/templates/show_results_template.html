@@ -7,28 +7,32 @@
 	<div id="packageContainer"></div>
 </div> -->
 <div id="showPackages">
-<div class="row" style="margin-bottom: 1%;">
-	<div class="col-sm-2">
-		<label>Select Your Package</label>
+<div class="row" style="margin-bottom: 1%">
+	<div class="col-sm-10">
+		<label>Results</label>
+		<div class="clearfix"></div>
+		<span>Based on the information you provided here are the packages that we propose for your requirements.
+		Select any one to continue generating the contract.</span>
 	</div>
-	<div class="col-sm-2 col-sm-offset-8">
+	<div class="col-sm-2">
 	<button type="button" id="btnRefreshResults" name="btnRefreshResults" class="btn btn-primary" >
 		<span class="glyphicon glyphicon-refresh"></span> Reload Results</button>
 	</div>
 </div>
 {{each packageData}}
 {{if (($index + 1) == 1)}}
-  <div class="panel panel-default">
-	<div class="ribbon red"><span>Recommend</span></div>
-  <div class="panel-heading">${PRODUCT}</div>
+<!-- <div  style="background-color: #ff4000; margin-bottom: 0px; padding-left: 1px; padding-right: 1px;">Recommended</div> -->
+  <div class="panel panel-default results-panel" style="border-color: red; margin-bottom: 1%">
+	<div class="ribbon red"><span>Recommend</span></div> 
+  <div class="panel-heading" style="color: green;"><strong>${PRODUCT}</strong></div>
   <div class="panel-body">
     	<div class="row">
         	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Option<label class="lead option-space"> ${$index + 1}</label>
         	</div>
         		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding:0px">
-                  <div class="short-div">Pricing: <label> MRC:$${MRC}</label> <label>NRC:$${NRC}</label></div>
-                  <div class="short-div">Details <label>${PRODUCT}</label></div>
-                  	<div class="short-div">${getProductSitesDisplayTextOnResultsPage( SITE_IDS ) }</div>
+                  <div class="short-div"> <label>Pricing:</label> MRC:$${MRC} NRC:$${NRC}</div>
+                  <!-- <div class="short-div">Details <label>${PRODUCT}</label></div> -->
+                  	<div class="short-div"><label>Sites:</label>${getProductSitesDisplayTextOnResultsPage( SITE_IDS ) }</div>
           		</div>
           		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding:0px">
                  <label><input type="radio" class=""  name="selectFinalPackage" id="Option_${$index + 1}">Select this Package and proceed to Contract generation</label>
@@ -37,16 +41,16 @@
      </div>
 </div>
 {{else}}
-  <div class="panel panel-default">
-  <div class="panel-heading">${PRODUCT}</div>
+  <div class="panel panel-default" style="margin-bottom: 1%">
+  <div class="panel-heading" style="color: green;"><strong>${PRODUCT}</strong></div>
   <div class="panel-body">
     	<div class="row">
     		
         	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Option<label class="lead option-space"> ${$index + 1}</label></div>
         		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding:0px">
-                  <div class="short-div">Pricing: <label> MRC:$${MRC}</label> <label>NRC:$${NRC}</label></div>
-                  <div class="short-div">Details <label>${PRODUCT}</label></div>
-                  	<div class="short-div">${getProductSitesDisplayTextOnResultsPage( SITE_IDS ) }</div>
+                  <div class="short-div"><label>Pricing:</label>  MRC:$${MRC} NRC:$${NRC}</div>
+                  <!-- <div class="short-div">Details <label>${PRODUCT}</label></div> -->
+                  	<div class="short-div"><label>Sites:</label>${getProductSitesDisplayTextOnResultsPage( SITE_IDS ) }</div>
           		</div>
           		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding:0px">
                  <label><input type="radio" class=""  name="selectFinalPackage" id="Option_${$index + 1}">Select this Package and proceed to Contract generation</label>

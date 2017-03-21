@@ -82,6 +82,11 @@ $(document).ready(function() {
 				case 'btnResetModifyProductConfigData':
 					try { $('#configureForm')[0].reset(); } catch(ex) {}
 					break;
+				case 'btnConfirmDeleteProduct':
+					handleBtnConfirmDeleteProduct();
+					break;
+				case 'btnConfirmUpdateProduct':
+					handleBtnConfirmUpdateProduct();
 			}
 		},
 		
@@ -108,10 +113,10 @@ $(document).ready(function() {
 				case 'selPortSpeedDelComponentPage':
 					var portSpeed = $("#deleteForm #selPortSpeedDelComponentPage").val();
 					if (portSpeed == "") {
-						$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+						$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", true);
 					}
 					else {
-						$("#deleteForm #btnDeleteProductConfigData").attr("disabled", false);
+						$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", false);
 					}
 					break;
 				case 'selPortSpeedManageComponentPage':
@@ -201,7 +206,7 @@ function handleBtnAddFeatures($thisRef, eventSource){
 	if(eventSource.name == 'btnAddFeatures'){
 	 tempFeatureDiv = "divAddFeatures_"+ featureIndex++ ;
 		var addFeaturesDiv   = 	'<div class="col-sm-12 addFeaturesClass" id='+tempFeatureDiv +'>'+
-								'<label for="name">Add Feature name:<input type="text" name="serviceName" id="serviceName" value="" class="form-control" required="required"></label>'+
+								'<label for="name">Feature Name:<input type="text" name="serviceName" id="serviceName" value="" class="form-control" required="required"></label>'+
 								
 								/*'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn">'+*/
 								'<input type="button" value="[x] remove" id="btnRemoveFeature" name="btnRemoveFeature" class="btn btn-admin-panel" style="float:right;">'+
@@ -209,13 +214,13 @@ function handleBtnAddFeatures($thisRef, eventSource){
 								'<input type="button" value="+ add new Labels" id="btnAddLabel" name="btnAddLabel" class="btn btn-admin-panel">'+
 								'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-admin-panel">'+
 								'<br>'+
-								'<label for="name" id="" class="col-sm-offset-1">Label name:</label>'+
+								'<label for="name" id="" class="col-sm-offset-1">Label Name:</label>'+
 								'<input type="text" name="labelName" class="form-control" id="txtLabelName" required="required">'+
 								/*'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 								'<option value="radio-button">Single-AddOn</option>'+
 								'</select>'+*/
 								'<br>'+
-								'<label for="name" class="col-sm-offset-1" name="divFieldLabel" id="divFieldLabel">Field name:</label>'+
+								'<label for="name" class="col-sm-offset-1" name="divFieldLabel" id="divFieldLabel">Field Name:</label>'+
 								'<input type="text" name="fieldName" class="form-control" id="txtFieldName" required="required">'+
 								'<select name="optionType" id="optionType" class="selectType"><option value="featureType">Select type of Add-Ons </option><option value="checkbox">Multiple-AddOns</option>'+
 								'<option value="radio-button">Single-AddOn</option>'+
@@ -226,7 +231,7 @@ function handleBtnAddFeatures($thisRef, eventSource){
 		
 		var tempOptionDiv = "divAddOptions_"+ optionIndex++ ;
 		var addOptionsDiv    =  '<div class="row col-sm-offset-2" id='+ tempOptionDiv+'>'+
-								'<label for="name" class="">Option name:<input type="text" name="txtAddOption" id="txtAddOption" class="form-control" required="required"></label>'+
+								'<label for="name" class="">Option Name:<input type="text" name="txtAddOption" id="txtAddOption" class="form-control" required="required"></label>'+
 								/*'<input type="button" value="Remove Option" id="btnRemoveOption" name="btnRemoveOption" class="btn">'+*/
 								'<button type="button" id="btnRemoveOption" name="btnRemoveOption" class="btn btn-admin-panel">'+
 									'<span class="glyphicon glyphicon-minus" name="btnRemoveOption" id=""></span>'+
@@ -237,11 +242,11 @@ function handleBtnAddFeatures($thisRef, eventSource){
 								'</button>'+
 								'<br>'+
 									'<div style="display:none;" class="col-sm-12 addOptionsInternal">'+
-									'<label for="name" id="" class="">Label name:</label>'+
+									'<label for="name" id="" class="">Label Name:</label>'+
 									'<input type="text" name="labelName" class="form-control" style="width:28.25%;" id="txtLabelName" >'+
 									'<input type="button" value="Remove Label" id="btnRemoveLabel" name="btnRemoveLabel" style="display:none;" class="btn">'+
 									'<br>'+
-									'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Field name:</label>'+
+									'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Field Name:</label>'+
 									'<input type="text" name="fieldName" class="form-control"  style="width:28.25%;" id="txtAddOptionFieldName" >'+
 									'<select name="optionType" id="optionType" class="selectType"><option value="featureType">Select type of Add-Ons </option><option value="checkbox">Multiple-AddOns</option>'+
 									'<option value="radio-button">Single-AddOn</option>'+
@@ -487,7 +492,9 @@ function handleSaveProductConfigData($thisRef, eventSource) {
 	}
 	
 	if (! atleastOneCheckBoxCheckedFromGroup("configureForm", "product")) {
-		alert("Please select the products by clicking required checkboxes");
+		/*alert("Please select the products by clicking required checkboxes");*/
+		$("#updateMessage").text("Please select the products by clicking required checkboxes");
+		$("#btnSuccessModal").trigger('click');
 		return false;
 	}
 	
@@ -786,7 +793,7 @@ function handleAccessTypeManageComponentPage($thisRef, eventSource) {
 		});
 	}
 	
-	$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+	$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 }
 
 function handleAccessTypeDelComponentPage($thisRef, eventSource) {
@@ -799,7 +806,7 @@ function handleAccessTypeDelComponentPage($thisRef, eventSource) {
 	$("#deleteForm #selPortSpeedDelComponentPage").find("option:gt(0)").remove();
 	$("#deleteForm #selPortSpeedDelComponentPage").attr("disabled", true);
 	
-	$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+	$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", true);
 	
 	if (accessType != "") {
 		$("#deleteForm #selAccessSpeedDelComponentPage").find("option:gt(0)").remove();
@@ -836,7 +843,7 @@ function handleProductDelComponentPageChange($thisRef, eventSource) {
 	$("#deleteForm #selPortSpeedDelComponentPage").find("option:gt(0)").remove();
 	$("#deleteForm #selPortSpeedDelComponentPage").attr("disabled", true);
 	
-	$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+	$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", true);
 }
 
 function handleProductCheckBoxChange() {
@@ -846,14 +853,14 @@ function handleProductCheckBoxChange() {
 		var portSpeed = $("#configureForm #selPortSpeedManageComponentPage").val();
 		
 		if (accessType == "" || accessSpeed == "" || portSpeed == "") {
-			$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+			$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 		}
 		else {
-			$("#configureForm #btnUpdateProductConfiguration").attr("disabled", false);
+			$("#configureForm #btnConfirmUpdateProduct").attr("disabled", false);
 		}
 	}
 	else {
-		$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+		$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 	}
 }
 
@@ -861,15 +868,15 @@ function handleSelPortSpeedManageComponentPageChange($thisRef, eventSource) {
 	var portSpeed = $("#configureForm #selPortSpeedManageComponentPage").val();
 	
 	if (portSpeed == "") {
-		$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+		$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 	}
 	else {
 		
 		if (atleastOneCheckBoxCheckedFromGroup("configureForm", "product")) {
-			$("#configureForm #btnUpdateProductConfiguration").attr("disabled", false);
+			$("#configureForm #btnConfirmUpdateProduct").attr("disabled", false);
 		}
 		else {
-			$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+			$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 		}
 	}
 }
@@ -903,7 +910,7 @@ function handleSelAccessSpeedManageComponentPageChange($thisRef, eventSource) {
 		$("#configureForm #selPortSpeedManageComponentPage").append(itemval);
 	});	
 	
-	$("#configureForm #btnUpdateProductConfiguration").attr("disabled", true);
+	$("#configureForm #btnConfirmUpdateProduct").attr("disabled", true);
 }
 
 function handleSelAccessSpeedDelComponentPageChange($thisRef, eventSource) {
@@ -911,7 +918,7 @@ function handleSelAccessSpeedDelComponentPageChange($thisRef, eventSource) {
 	var accessType = $("#deleteForm #accessTypeDelComponentPage").val();
 	var productType = $("#deleteForm #productDelComponentPage").val();
 	
-	$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
+	$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", true);
 	$("#deleteForm #selPortSpeedDelComponentPage").find("option:gt(0)").remove();
 	
 	if (accessSpeed == "") {
@@ -953,7 +960,6 @@ function showDeleteServicesDropDown() {
 
 function handleBtnContinueDeleteService() {
 	$("#confirmDeleteServiceDiv").first('div').find('p').html("Are you sure you want to delete " + $("#serviceToDelete").val().toUpperCase() + " service and its features ?");
-	
 }
 
 function handleContinueDisplayServices() {
@@ -980,24 +986,24 @@ function handleContinueDisplayServices() {
 			 var featureTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values;
 			 $.each(featureTagValues,function(featureTagKey, featureTagValue){
 				 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
-																					'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Features :</strong></span></div>'+
-																					'<div class="col-sm-9" style="background-color:lavender;"><span><strong>'+ featureTagValue.displayValue +'</strong></span></div>'+
+																					'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Features</strong></span></div>'+
+																					'<div class="col-sm-9" style="background-color:lavender;"><span><strong>'+ ":"+ featureTagValue.displayValue +'</strong></span></div>'+
 																				'</div>');
 				  var labelTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values[featureTagKey].children;
 				 $.each(labelTagValues, function(labelTagKey, labelTagValue){
 					 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
-																						'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Label Name :</strong></span></div>'+
-																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ labelTagValue.label +'</span></div>'+
+																						'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Label Name</strong></span></div>'+
+																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ ":"+ labelTagValue.label +'</span></div>'+
 																					'</div>');
 					 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
-																						'<div class="col-sm-3" style="background-color:lavender;text-align:center;"><span><strong>Field Name :</strong></span></div>'+
-																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ labelTagValue.name +'<strong>'+' ('+ labelTagValue.type +')'+'</strong></span></div>'+
+																						'<div class="col-sm-3" style="background-color:lavender;text-align:center;"><span><strong>Field Name</strong></span></div>'+
+																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ ":"+ labelTagValue.name +'<strong>'+' ('+ labelTagValue.type +')'+'</strong></span></div>'+
 																					'</div>');
 					 var optionTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values[featureTagKey].children[labelTagKey].options;
 					 $.each(optionTagValues, function(optionTagKey, optionTagValue){
 						 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
-																							'<div class="col-sm-3" style="background-color:lavender;text-align:right;"><span><strong>Option Name :</strong></span></div>'+
-																							'<div class="col-sm-9" style="background-color:lavender;"><span>'+ optionTagValue +'</span></div>'+
+																							'<div class="col-sm-3" style="background-color:lavender;text-align:right;"><span><strong>Option Name</strong></span></div>'+
+																							'<div class="col-sm-9" style="background-color:lavender;"><span>'+ ":"+ optionTagValue +'</span></div>'+
 																						'</div>');
 					 });
 				 });
@@ -1005,6 +1011,10 @@ function handleContinueDisplayServices() {
 			 });
 		 }
 	 });
+}
+
+function handleBtnConfirmDeleteProduct() {
+	$("#confirmDeleteProductDiv").first('div').find('p').html("Are you sure you want to InActivate this product component of \"" + $("#productDelComponentPage").val().toUpperCase() +"\" ?");
 }
 
 $(document).ready(function() {
@@ -1027,3 +1037,17 @@ $(document).ready(function() {
     
     $("#hrefConfigureNewComponent").trigger('click');
 });
+
+function handleBtnConfirmUpdateProduct() {
+	var totalProductsSelected = $('#configureForm input[name="product"]:checked').length;
+	var products = "";
+	$('#configureForm input[name="product"]:checked').each(function(index) {
+		if(index != totalProductsSelected-1){
+			products = products + ($(this).val()) + ", ";
+		}
+		else
+			products = products + ($(this).val()) + ". ";
+		});
+	$("#confirmUpdateProductDiv").first('div').find('p').html("Please note, you are about to make these changes across the following products:"+"<br>" + products
+			+ "<br>" +"If you are sure click Update to continue or cancel to return back to the form.");
+}

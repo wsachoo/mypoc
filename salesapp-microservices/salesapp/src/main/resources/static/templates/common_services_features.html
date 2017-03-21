@@ -14,12 +14,12 @@
 							<div class=" col-sm-3" style="">${objectToServiceFeaturesTemplate.values[h].children[i]["label"]}</div> <!--  select your cosType level-->
 							{{each(j, subSubItem) objectToServiceFeaturesTemplate.values[h].children[i].options}}
 								{{if objectToServiceFeaturesTemplate.values[h].children[i].type == 'radio-button'}}
-									<div class="radio col-sm-11 col-sm-offset-1">
+									<div class="radio col-sm-11 col-sm-marginLeft">
 										<input type="radio" name="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}-${objectToServiceFeaturesTemplate.values[h].children[i].name}" 
 										id="" value="${j}"> ${objectToServiceFeaturesTemplate.values[h].children[i].options[j]}
 									</div>
 								{{else}}
-									<div class="checkbox col-sm-11 col-sm-offset-1">
+									<div class="checkbox col-sm-11 col-sm-marginLeft">
 										<input type="checkbox" name="${objectToServiceFeaturesTemplate['id']}-${objectToServiceFeaturesTemplate['values'][h]['id']}-${objectToServiceFeaturesTemplate.values[h].children[i].name}" 
 										id="" value="${j}"> ${objectToServiceFeaturesTemplate.values[h].children[i].options[j]}
 									</div>
