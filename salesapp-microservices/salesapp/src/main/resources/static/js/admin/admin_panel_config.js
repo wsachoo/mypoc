@@ -489,6 +489,11 @@ function handleSaveProductConfigData($thisRef, eventSource) {
 		return false;
 	}
 	
+	if (! atleastOneCheckBoxCheckedFromGroup("configureForm", "product")) {
+		alert("Please select the products by clicking required checkboxes");
+		return false;
+	}
+	
 	var portSpeeds = [];
 	$(".classPortSpeed").each(function() {
 	    var portSpeedObj = {};
