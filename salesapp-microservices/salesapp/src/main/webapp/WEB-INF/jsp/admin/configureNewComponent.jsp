@@ -10,7 +10,7 @@
 										Access Type
 									</div>
 									<div class="marginTopBuffer col-sm-2">
-										<select name="accessType" id="accessType"
+										<select name="accessType" id="accessType" required="required"
 											class="form-control">
 											<option value="">Select Access Type</option>
 											<option value="ETHERNET">ETHERNET</option>
