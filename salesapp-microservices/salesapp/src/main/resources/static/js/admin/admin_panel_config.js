@@ -68,6 +68,11 @@ $(document).ready(function() {
 				case 'btnRemovePortSpeedDivDeleteProduct':
 					handleRemovePortSpeedDivDeleteProduct($(this), e.target);
 					break;
+				case 'btnContinueDeleteService':
+					handleBtnContinueDeleteService();
+					break;
+				case 'btnContinueDisplayService':
+					handleContinueDisplayServices();
 				case 'btnDelComponentContinue':
 					handleBtnDelComponentContinue($(this), e.target);
 					break;
@@ -93,15 +98,12 @@ $(document).ready(function() {
 					break;
 				case 'selPortSpeedDelComponentPage':
 					var portSpeed = $("#deleteForm #selPortSpeedDelComponentPage").val();
-					
 					if (portSpeed == "") {
 						$("#deleteForm #btnDeleteProductConfigData").attr("disabled", true);
 					}
 					else {
 						$("#deleteForm #btnDeleteProductConfigData").attr("disabled", false);
-						
 					}
-
 					break;
 			}
 		}
@@ -173,27 +175,27 @@ function findLastDivRowOfElement($thisRef) {
 var tempFeatureDiv;				
 
 function handleBtnAddFeatures($thisRef, eventSource){
-	
+	$("#btnSaveService").css('display','inline');
 	if(eventSource.name == 'btnAddFeatures'){
 	 tempFeatureDiv = "divAddFeatures_"+ featureIndex++ ;
-		var addFeaturesDiv   = 	'<div class="col-sm-12" id='+tempFeatureDiv +'>'+
+		var addFeaturesDiv   = 	'<div class="col-sm-12 addFeaturesClass" id='+tempFeatureDiv +'>'+
 								'<label for="name">Add Feature name:<input type="text" name="serviceName" id="serviceName" value="" class="form-control" required="required"></label>'+
 								
 								/*'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn">'+*/
-								'<input type="button" value="Remove Feature" id="btnRemoveFeature" name="btnRemoveFeature" class="btn btn-admin-panel">'+
+								'<input type="button" value="[x] remove" id="btnRemoveFeature" name="btnRemoveFeature" class="btn btn-admin-panel" style="float:right;">'+
 								'<br>'+
-								'<input type="button" value="Add Label" id="btnAddLabel" name="btnAddLabel" class="btn btn-admin-panel">'+
+								'<input type="button" value="+ add new Labels" id="btnAddLabel" name="btnAddLabel" class="btn btn-admin-panel">'+
 								'<input type="button" value="Add Options" id="btnAddOptions" name="btnAddOptions" class="btn btn-admin-panel">'+
 								'<br>'+
-								'<label for="name" id="" class="col-sm-offset-1">Add Label name:</label>'+
+								'<label for="name" id="" class="col-sm-offset-1">Label name:</label>'+
 								'<input type="text" name="labelName" class="form-control" id="txtLabelName" required="required">'+
 								/*'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
 								'<option value="radio-button">Single-AddOn</option>'+
 								'</select>'+*/
 								'<br>'+
-								'<label for="name" class="col-sm-offset-1" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
+								'<label for="name" class="col-sm-offset-1" name="divFieldLabel" id="divFieldLabel">Field name:</label>'+
 								'<input type="text" name="fieldName" class="form-control" id="txtFieldName" required="required">'+
-								'<select name="optionType" id="optionType" class="selectType"><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
+								'<select name="optionType" id="optionType" class="selectType"><option value="featureType">Select type of Add-Ons </option><option value="checkbox">Multiple-AddOns</option>'+
 								'<option value="radio-button">Single-AddOn</option>'+
 								'</select>'+
 								'</div>';
@@ -213,18 +215,15 @@ function handleBtnAddFeatures($thisRef, eventSource){
 								'</button>'+
 								'<br>'+
 									'<div style="display:none;" class="col-sm-12 addOptionsInternal">'+
-									'<label for="name" id="" class="">Add Label name:</label>'+
-									'<input type="text" name="labelName" class="form-control" style="width:30%;" id="txtLabelName" >'+
-									/*'<select name="optionType" id="optionType" class=""><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
-									'<option value="radio-button">Single-AddOn</option>'+
-									'</select>'+*/
+									'<label for="name" id="" class="">Label name:</label>'+
+									'<input type="text" name="labelName" class="form-control" style="width:28.25%;" id="txtLabelName" >'+
+									'<input type="button" value="Remove Label" id="btnRemoveLabel" name="btnRemoveLabel" style="display:none;" class="btn">'+
 									'<br>'+
-									'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Add Field name:</label>'+
-									'<input type="text" name="fieldName" class="form-control"  style="width:30%;" id="txtAddOptionFieldName" >'+
-									'<select name="optionType" id="optionType" class="selectType"><option value="featureType">choose type of Add-Ons for the associated Feature</option><option value="checkbox">Multiple-AddOns</option>'+
+									'<label for="name" class="" name="divFieldLabel" id="divFieldLabel">Field name:</label>'+
+									'<input type="text" name="fieldName" class="form-control"  style="width:28.25%;" id="txtAddOptionFieldName" >'+
+									'<select name="optionType" id="optionType" class="selectType"><option value="featureType">Select type of Add-Ons </option><option value="checkbox">Multiple-AddOns</option>'+
 									'<option value="radio-button">Single-AddOn</option>'+
 									'</select>'+
-									/*'<input type="button" value="Remove Label" id="btnRemoveLabel" name="btnRemoveLabel" style="display:none;" class="btn">'+*/
 									'</div>'+
 								'</div>';
 
@@ -280,6 +279,7 @@ function handleBtnRemoveFeature($thisRef, eventSource) {
 			thisFeatureDiv.find('input[name="labelName"]').first().val(labelValue);
 			thisFeatureDiv.find('input[name="fieldName"]').first().val(fieldValue);
 			thisFeatureDiv.find('select[name="optionType"]').first().val(chooseType);
+			$("#btnAddOptions").css('display','inline');
 		}else{
 			previousDiv.find('div').css('display','inline');
 			previousDiv.find('div').find('input[name="labelName"]').val(labelValue);
@@ -332,7 +332,7 @@ function handleBtnSaveService($thisRef, eventSource) {
 		$.each(featureDivArray, function(key, value) {
 				var featureName = $(value).find("input[name='serviceName']").val();
 				addUserServFeaturesObj.children.values[key] = {};
-				addUserServFeaturesObj.children.values[key].id = featureName.toLowerCase(); 
+				addUserServFeaturesObj.children.values[key].id = featureName.toLowerCase().replace(/\s/g, ''); 
 				addUserServFeaturesObj.children.values[key].displayValue = featureName;
 				addUserServFeaturesObj.children.values[key].children = [];
 				
@@ -406,6 +406,10 @@ function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
 		$("#updateMessage").text('Deleted successfully.');
 		$("#btnSuccessModal").trigger('click');
 		showDeleteServicesDropDown();
+		//$("#showDeleteService").find().empty();
+		$("#showDeleteService span:first-child").empty();
+		$("#showDeleteService #showDeleteServiceLabel").empty();
+		$("#btnContinueDeleteService").css('display','none');
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		$("#updateMessage").text('Failed To Delete.');
 		$("#btnSuccessModal").trigger('click');
@@ -778,13 +782,68 @@ function showDeleteServicesDropDown() {
 		 serviceName = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[i]["displayValue"]
 		 services[serviceName.toLowerCase().replace(/\s/g, '')] = serviceName;
 	 }
-	 $("#serviceToDelete").find('option').remove();
+	 $("#serviceToDelete").find('option').not(':first').remove();
 	 $.each(services, function(key, value) {
          var option = $('<option />').prop('value', key).text(value);
          $("#serviceToDelete").append(option);
        });
 }
 
+function handleBtnContinueDeleteService() {
+	$("#confirmDeleteServiceDiv").first('div').find('p').html("Are you sure you want to delete " + $("#serviceToDelete").val().toUpperCase() + " service and its features ?");
+	
+}
+
+function handleContinueDisplayServices() {
+	$("#showDeleteServiceLabel").empty();
+	
+	var serviceNameToDelete = $("#serviceToDelete").val();
+	if(serviceNameToDelete == 'serviceName'){
+		$("#updateMessage").text('Please select a valid Service Name to continue');
+		$("#btnSuccessModal").trigger('click');
+		$("#btnContinueDeleteService").css('display','none');
+		$("#showDeleteService span:first-child").empty();
+		return;
+	}else if(serviceNameToDelete != 'serviceName'){
+		$("#btnContinueDeleteService").css('display','inline');
+	}
+	var servFeaturesMDataUrl = SALESEXPRESS_CONSTANTS.getUrlPath('getServiceFeaturesMetaDataUrl');
+	 var serviceFeaturesMetaDataForAdmin = httpGetWithJsonResponse(servFeaturesMDataUrl);
+	 var serviceNameId;
+	 $.each(serviceFeaturesMetaDataForAdmin.serviceAndFeatures, function(key, value) {
+		 serviceNameId = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key]["id"];
+		 if( serviceNameId != null && serviceNameId == serviceNameToDelete){
+			 $("#showDeleteService span:first-child").html('<strong>Service name : </strong>'+value.displayValue.toUpperCase() +'<br>');
+			 $("#showDeleteService").find("#showDeleteServiceLabel").append('<hr style="color:black;"/>');
+			 var featureTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values;
+			 $.each(featureTagValues,function(featureTagKey, featureTagValue){
+				 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
+																					'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Features :</strong></span></div>'+
+																					'<div class="col-sm-9" style="background-color:lavender;"><span><strong>'+ featureTagValue.displayValue +'</strong></span></div>'+
+																				'</div>');
+				  var labelTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values[featureTagKey].children;
+				 $.each(labelTagValues, function(labelTagKey, labelTagValue){
+					 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
+																						'<div class="col-sm-3" style="background-color:lavender;"><span><strong>Label Name :</strong></span></div>'+
+																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ labelTagValue.label +'</span></div>'+
+																					'</div>');
+					 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
+																						'<div class="col-sm-3" style="background-color:lavender;text-align:center;"><span><strong>Field Name :</strong></span></div>'+
+																						'<div class="col-sm-9" style="background-color:lavender;"><span>'+ labelTagValue.name +'<strong>'+' ('+ labelTagValue.type +')'+'</strong></span></div>'+
+																					'</div>');
+					 var optionTagValues = serviceFeaturesMetaDataForAdmin.serviceAndFeatures[key].children.values[featureTagKey].children[labelTagKey].options;
+					 $.each(optionTagValues, function(optionTagKey, optionTagValue){
+						 $("#showDeleteService").find("#showDeleteServiceLabel").append('<div class="row">'+
+																							'<div class="col-sm-3" style="background-color:lavender;text-align:right;"><span><strong>Option Name :</strong></span></div>'+
+																							'<div class="col-sm-9" style="background-color:lavender;"><span>'+ optionTagValue +'</span></div>'+
+																						'</div>');
+					 });
+				 });
+				 $("#showDeleteService").find("#showDeleteServiceLabel").append('<hr style="color:black;"/>');
+			 });
+		 }
+	 });
+}
 
 $(document).ready(function() {
 

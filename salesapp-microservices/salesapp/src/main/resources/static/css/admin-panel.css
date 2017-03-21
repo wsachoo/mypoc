@@ -23,12 +23,11 @@
 }
 
 #txtLabelName{
-	width:25%;
-	
+	width:22.75%;
 }
 
 #txtFieldName{
-	width:25%;
+	width:22.75%;
 	margin-top : 5px;
 	margin-left: 5px;
 	margin-bottom : 5px;
@@ -215,6 +214,11 @@ span {
 	border-color: #999;
 }
 
+.addFeaturesClass{
+	margin-top:1%;
+	background-color:#f9f9eb;
+}
+
 .top-buffer {
 	margin-top:20px;
 }
@@ -230,4 +234,9 @@ span {
   color: transparent;
   border-width: 1px 0;
   margin: 18px 0;
+}
+
+#showDeleteService{
+	background-color: #F8F8F8;
+	left: 20%;
 }

@@ -52,23 +52,50 @@
 			      <div id="serviceFeaturesTabContent" class="tab-content">
 			        <div role="tabpanel" class="tab-pane fade in active" id="addServices" aria-labelledby="addServices-tab">
 			          <div class="" id="addServiceFeatures" style="display:inline;">
-						<label for="name">Add Service Name : 
+						<label for="name">New Service Name : 
 						<input type="text" id="addService" name="serviceName" class="form-control" required="required"></label>
 						<br>
-						<input type="button" value="Add Features" id="btnAddFeatures" name="btnAddFeatures" class="btn btn-admin-panel">
+						<input type="button" value="+ add new Features" id="btnAddFeatures" name="btnAddFeatures" class="btn btn-admin-panel">
 						<br>
+						<hr>
 					</div>
-					<br>
-					 <div id="divBtnSaveService" class="col-sm-offset-11">
-						<input type="button" value="Save Service" id="btnSaveService" name="btnSaveService" class="btn btn-admin-panel">
+					 <div id="divBtnSaveService" class="col-sm-offset-5" >
+						<input type="button" value="Save Service" id="btnSaveService" name="btnSaveService" class="btn btn-admin-panel" style="margin-top: 2%;display:none;">
 					</div>
 			        </div>
 			       
 			        <div role="tabpanel" class="tab-pane fade" id="deleteServices" aria-labelledby="deleteServices-tab">
 			         <div class="" id="deleteServices" style="display:inline;">
-						<label for="name">Service : <select id="serviceToDelete" class="selectType"></select></label>
-							<input type="button" value="Delete Service" data-toggle="modal" data-target="#confirmModal" class="btn btn-admin-panel">
+			         	<div class="row">
+			         		<div class="col-sm-3">
+								<label for="name">Select the service name you would like to delete: </label>
+							</div>
+							<div class="col-sm-2">
+								<select id="serviceToDelete" class="form-control">
+									<option value="serviceName">Service Name</option>
+								</select>
+							</div>
+						</div>
 						<br>
+						<div class="row">
+							<div class="col-sm-3"></div>
+							<div class="col-sm-2">
+								<input type="button" value="Continue" name="btnContinueDisplayService" id="btnContinueDisplayService" class="btn btn-admin-panel">
+							</div>
+						</div>
+						<br>
+					 </div>
+					 <div id="showDeleteService" class="col-sm-6">
+					 	<span></span>
+					 	<div class="row">
+						 	<div class="col-sm-1"></div>
+						 	<div id="showDeleteServiceLabel" class="col-sm-10">
+						 	</div>
+						 	<div class="col-sm-1"></div>
+					 	</div>
+					 </div>
+					 <div class="col-sm-2 col-sm-offset-5">
+						<input type="button" value="Delete" data-toggle="modal" data-target="#confirmModal"  name="btnContinueDeleteService" id="btnContinueDeleteService" class="btn btn-admin-panel" style="display: none;">
 					 </div>
 			        </div>
 			      </div>
@@ -87,17 +114,13 @@
 			<div class="modal fade" id="confirmModal" role="dialog">
 		   	<div class="modal-dialog">
 		      <!-- Modal content-->
-		      <div class="modal-content">
-		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title" style="text-align:center;">You have selected to delete a service.</h4>
-		        </div>
+		      <div class="modal-content" id="confirmDeleteServiceDiv">
 		        <div class="modal-body" style="text-align:center;">
-		          <p>Please click YES to delete a service.</p>
+		          <p>Are you sure you want to delete Service name and its features?</p>
 		        </div>
 		        <div class="modal-footer" style="text-align:center;">
-		          <button type="button" class="btn btn-admin-panel" data-dismiss="modal">NO</button>
-		          <button type="button" class="btn btn-danger" id="btnDeleteService" name="btnDeleteService" data-dismiss="modal">YES</button> 
+		          <button type="button" class="btn btn-danger" id="btnDeleteService" name="btnDeleteService" data-dismiss="modal">Yes, Delete</button>
+		          <button type="button" class="btn btn-admin-panel" data-dismiss="modal">Cancel</button>
 		        </div>
 		      </div>
 		   	</div>
