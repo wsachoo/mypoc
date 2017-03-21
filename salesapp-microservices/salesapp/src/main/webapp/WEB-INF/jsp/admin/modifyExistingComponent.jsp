@@ -98,7 +98,7 @@
 									<div class="marginTopBuffer col-sm-2">
 										<!-- <input type="button" class="btn btn-admin-panel btn-block" disabled="disabled"
 										id="btnUpdateProductConfiguration" name="btnUpdateProductConfiguration" value="Configure Product"> -->
-										<input type="button" class="btn btn-admin-panel btn-block" data-toggle="modal" data-target="#confirmModal" id="btnConfirmUpdateProduct" disabled="disabled"
+										<input type="button" class="btn btn-admin-panel btn-block" data-toggle="modal"  id="btnConfirmUpdateProduct" disabled="disabled"
 											name="btnConfirmUpdateProduct" value="Update Configurations">
 									</div>
 								</div>
@@ -115,7 +115,7 @@
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
 											<h4 class="modal-title" id="updateMessage"></h4>
 										</div>
-									</div>
+									</div> 
 								</div>
 							</div>
 							

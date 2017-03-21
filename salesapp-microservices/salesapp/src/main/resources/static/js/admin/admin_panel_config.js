@@ -87,6 +87,9 @@ $(document).ready(function() {
 					break;
 				case 'btnConfirmUpdateProduct':
 					handleBtnConfirmUpdateProduct();
+					break;
+				case 'btnCancelDisplayService':	
+					break;
 			}
 		},
 		
@@ -445,10 +448,10 @@ function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
 }
 
 function handleUpdateProductConfiguration($thisRef, eventSource) {
-	if(! document.forms.configureForm.reportValidity()) {
+/*	if(! document.forms.configureForm.reportValidity()) {
 		return false;
 	}	
-
+*/
 	var portSpeeds = [];
     var portSpeedObj = {};
     portSpeedObj.speed = $("#configureForm #selPortSpeedManageComponentPage").val();
@@ -1013,6 +1016,13 @@ function handleContinueDisplayServices() {
 	 });
 }
 
+function handleBtnCancelDisplayService() {
+	showDeleteServicesDropDown();
+	$("#showDeleteService span:first-child").empty();
+	$("#showDeleteService #showDeleteServiceLabel").empty();
+	$("#btnContinueDeleteService").css('display','none');
+}
+
 function handleBtnConfirmDeleteProduct() {
 	$("#confirmDeleteProductDiv").first('div').find('p').html("Are you sure you want to InActivate this product component of \"" + $("#productDelComponentPage").val().toUpperCase() +"\" ?");
 }
@@ -1039,6 +1049,11 @@ $(document).ready(function() {
 });
 
 function handleBtnConfirmUpdateProduct() {
+	if(! document.forms.configureForm.reportValidity()) {
+		return false;
+	}
+	var dataTargetAttr = "#"+"confirmModal";
+	$("#btnConfirmUpdateProduct").attr('data-target',dataTargetAttr);
 	var totalProductsSelected = $('#configureForm input[name="product"]:checked').length;
 	var products = "";
 	$('#configureForm input[name="product"]:checked').each(function(index) {
