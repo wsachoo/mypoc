@@ -76,6 +76,22 @@ public class SalesAdminRestController {
 		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/admin/updateProductConfiguration", method = RequestMethod.POST, produces = {
+			"application/json" }, consumes = { "application/json" })
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> updateProductConfiguration(
+			@RequestBody ProductConfigBean objProductConfigBean, HttpServletRequest request)
+			throws SQLException, IOException {
+		logger.debug("Inside updateProductConfiguration() method");
+
+		salesAdminOperationService.updateProductConfiguration(objProductConfigBean);
+
+		Map<String, Object> returnValues = new HashMap<String, Object>();
+		returnValues.put("status", "success");
+		logger.debug("Product Configuration updated successfully.");
+		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/admin/deleteProductConfiguration", method = RequestMethod.POST, produces = {
 			"application/json" }, consumes = { "application/json" })
 	@ResponseBody
@@ -83,9 +99,9 @@ public class SalesAdminRestController {
 			@RequestBody ProductConfigBean objProductConfigBean, HttpServletRequest request)
 			throws SQLException, IOException {
 		logger.debug("Inside deleteProductConfiguration() method");
-		
+
 		salesAdminOperationService.deleteProductConfiguration(objProductConfigBean);
-		
+
 		Map<String, Object> returnValues = new HashMap<String, Object>();
 		returnValues.put("status", "success");
 		logger.debug("Product Configuration deleted successfully.");
@@ -99,33 +115,68 @@ public class SalesAdminRestController {
 		return salesAdminOperationService.getAllProductsToConfigure();
 	}
 
-	@RequestMapping(value = "/admin/getAccessSpeedByAccessType", method = RequestMethod.GET, produces = { "application/json" })
+	@RequestMapping(value = "/admin/getAccessSpeedByAccessType", method = RequestMethod.GET, produces = {
+			"application/json" })
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> getAccessSpeedByAccessType(HttpServletRequest request, @RequestParam Map<String, Object> paramValues) {
+	public ResponseEntity<Map<String, Object>> getAccessSpeedByAccessType(HttpServletRequest request,
+			@RequestParam Map<String, Object> paramValues) {
 		logger.debug("Inside getAccessSpeedByAccessType() method");
 		String accessType = (String) paramValues.get("accessType");
 		String productType = (String) paramValues.get("productType");
 		logger.debug("accessType received is {}", accessType);
-		Map<String, Object> returnValues = salesAdminOperationService.getAccessSpeedByAccessType(productType, accessType);
+		Map<String, Object> returnValues = salesAdminOperationService.getAccessSpeedByAccessType(productType,
+				accessType);
 		logger.debug("Exiting getAccessSpeedByAccessType() method successfully.");
 		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
-	}	
-	
-	@RequestMapping(value = "/admin/getPortSpeedsByAccessSpeed", method = RequestMethod.GET, produces = { "application/json" })
+	}
+
+	@RequestMapping(value = "/admin/getPortSpeedsByAccessSpeed", method = RequestMethod.GET, produces = {
+			"application/json" })
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> getPortSpeedsByAccessSpeed(HttpServletRequest request, @RequestParam Map<String, Object> paramValues) {
+	public ResponseEntity<Map<String, Object>> getPortSpeedsByAccessSpeed(HttpServletRequest request,
+			@RequestParam Map<String, Object> paramValues) {
 		logger.debug("Inside getPortSpeedsByAccessSpeed() method");
 		String accessType = (String) paramValues.get("accessType");
 		String productType = (String) paramValues.get("productType");
 		String accessSpeed = (String) paramValues.get("accessSpeed");
 		logger.debug("accessType received is {}", accessType);
-		Map<String, Object> returnValues = salesAdminOperationService.getPortSpeedsByAccessSpeed(productType, accessType, accessSpeed);
+		Map<String, Object> returnValues = salesAdminOperationService.getPortSpeedsByAccessSpeed(productType,
+				accessType, accessSpeed);
 		logger.debug("Exiting getPortSpeedsByAccessSpeed() method successfully.");
 		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
-	}	
-	
+	}
+
+	@RequestMapping(value = "/admin/getDistinctPortSpeedsByAccessSpeed", method = RequestMethod.GET, produces = {
+			"application/json" })
 	@ResponseBody
-	@RequestMapping( value = {"admin/getServiceFeaturesMetaData/{siteType}"}, method = RequestMethod.GET, produces = {"application/json"})
+	public ResponseEntity<Map<String, Object>> getDistinctPortSpeedsByAccessSpeed(HttpServletRequest request,
+			@RequestParam Map<String, Object> paramValues) {
+		logger.debug("Inside getDistinctPortSpeedsByAccessSpeed() method");
+		String accessType = (String) paramValues.get("accessType");
+		String accessSpeed = (String) paramValues.get("accessSpeed");
+		logger.debug("accessType received is {}", accessType);
+		Map<String, Object> returnValues = salesAdminOperationService.getDistinctPortSpeedsByAccessSpeed(accessType,
+				accessSpeed);
+		logger.debug("Exiting getDistinctPortSpeedsByAccessSpeed() method successfully.");
+		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/admin/getDistinctAccessSpeedByAccessType", method = RequestMethod.GET, produces = {
+			"application/json" })
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> getDistinctAccessSpeedByAccessType(HttpServletRequest request,
+			@RequestParam Map<String, Object> paramValues) {
+		logger.debug("Inside getDistinctAccessSpeedByAccessType() method");
+		String accessType = (String) paramValues.get("accessType");
+		logger.debug("accessType received is {}", accessType);
+		Map<String, Object> returnValues = salesAdminOperationService.getDistinctAccessSpeedByAccessType(accessType);
+		logger.debug("Exiting getDistinctAccessSpeedByAccessType() method successfully.");
+		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = { "admin/getServiceFeaturesMetaData/{siteType}" }, method = RequestMethod.GET, produces = {
+			"application/json" })
 	public ResponseEntity<String> getServFeaturesMDataBySiteName(@PathVariable String siteType) {
 		logger.info("Inside getServFeaturesMDataBySiteName method, sitename : " + siteType);
 		String servFeaturesMetaData = salesAdminOperationService.getServiceFeaturesMetaData(siteType);

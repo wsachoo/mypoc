@@ -28,4 +28,10 @@ public interface SalesAdminOperationService {
 	public Map<String, Object> getPortSpeedsByAccessSpeed(String productType, String accessType, String accessSpeed);
 	
 	public String getServiceFeaturesMetaData(String siteType);
+
+	public Map<String, Object> getDistinctAccessSpeedByAccessType(String accessType);
+
+	public Map<String, Object> getDistinctPortSpeedsByAccessSpeed(String accessType, String accessSpeed);
+
+	public void updateProductConfiguration(ProductConfigBean objProductConfigBean) throws SQLException;
 }
