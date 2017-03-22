@@ -434,8 +434,8 @@ function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
 	var deleteAdminUserServFeaturesUrl = SALESEXPRESS_CONSTANTS.getUrlPath('deleteAdminServiceFeaturesUrl');
 	var promise = httpAsyncPostWithJsonRequestResponse(deleteAdminUserServFeaturesUrl, JSON.stringify(serviceToBeDeleted));
 	promise.done(function(data, textStatus, jqXHR) {
-		$("#updateMessage").text('Deleted successfully.');
-		$("#btnSuccessModal").trigger('click');
+		$("#deleteMessage").text('Deleted successfully.');
+		$("#btnDeleteModal").trigger('click');
 		showDeleteServicesDropDown();
 		//$("#showDeleteService").find().empty();
 		$("#showDeleteService span:first-child").empty();
@@ -443,8 +443,8 @@ function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
 		$("#btnContinueDeleteService").css('display','none');
 		$("#btnCancelDisplayService").css('display','none');
 	}).fail(function(jqXHR, textStatus, errorThrown) {
-		$("#updateMessage").text('Failed To Delete.');
-		$("#btnSuccessModal").trigger('click');
+		$("#deleteMessage").text('Failed To Delete.');
+		$("#btnDeleteModal").trigger('click');
 	});
 	
 }
@@ -481,11 +481,11 @@ function updateProductConfiguration(productConfigObj) {
 	var data = JSON.stringify(productConfigObj);
 	var promise = httpAsyncPostWithJsonRequestResponse(url, data);
 	promise.done(function(data, textStatus, jqXHR) {
-		$("#updateMessage").text('Updated successfully.');
-		$("#btnSuccessModal").trigger('click');
+		$("#updateMessageModifyComponent").text('Updated successfully.');
+		$("#btnSuccessModalModifyComponent").trigger('click');
 	}).fail(function(jqXHR, textStatus, errorThrown) {
-		$("#updateMessage").text('Failed To Update Product Info');
-		$("#btnSuccessModal").trigger('click');
+		$("#updateMessageModifyComponent").text('Failed To Update Product Info');
+		$("#btnSuccessModalModifyComponent").trigger('click');
 	});
 }
 
@@ -523,7 +523,7 @@ function handleSaveProductConfigData($thisRef, eventSource) {
 		   products.push($(this).val());
 		});
 	productConfigObj.products = products;
-	saveProductConfiguration(productConfigObj);
+	saveProductConfiguration(productConfigObj, "handleSaveProductConfigData");
 	console.log("productConfigObj : " + JSON.stringify(productConfigObj));
 }
 
@@ -551,7 +551,7 @@ function handleAddProductConfigData($thisRef, eventSource) {
 	var products = [];
 	products.push($("#addForm input[name='product'").val());
 	productAddObj.products = products;
-	saveProductConfiguration(productAddObj);
+	saveProductConfiguration(productAddObj, "handleAddProductConfigData");
 	console.log("productAddObj : " + JSON.stringify(productAddObj));
 }
 
@@ -581,17 +581,27 @@ function handleRemoveNewPortSpeedDiv($thisRef, eventSource) {
 }
 
 
-function saveProductConfiguration(productConfigObj) {
+function saveProductConfiguration(productConfigObj, actionType) {
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath('saveProductConfigurationUrl');
 	var data = JSON.stringify(productConfigObj);
 	var promise = httpAsyncPostWithJsonRequestResponse(url, data);
 	promise.done(function(data, textStatus, jqXHR) {
 		//alert("Updated Succfully");
-		$("#updateMessage").text('Updated successfully.');
-		$("#btnSuccessModal").trigger('click');
+		if(actionType == 'handleAddProductConfigData'){
+			$("#updateMessage").text('Updated successfully.');
+			$("#btnSuccessModal").trigger('click');
+		}else{
+			$("#updateMessageConfigureComponent").text('Updated successfully.');
+			$("#btnModalConfigureComponent").trigger('click');
+		}
 	}).fail(function(jqXHR, textStatus, errorThrown) {
-		$("#updateMessage").text('Failed To Update Product Info');
-		$("#btnSuccessModal").trigger('click');
+		if(actionType == 'handleAddProductConfigData'){
+			$("#updateMessage").text('Failed To Update Product Info');
+			$("#btnSuccessModal").trigger('click');
+		}else{
+			$("#updateMessageConfigureComponent").text('Updated successfully.');
+			$("#btnModalConfigureComponent").trigger('click');
+		}
 	});
 }
 
@@ -756,8 +766,8 @@ function deleteProductConfigData(productDeleteObj) {
 	var data = JSON.stringify(productDeleteObj);
 	var promise = httpAsyncPostWithJsonRequestResponseSynchronous(url, data);
 	promise.done(function(data, textStatus, jqXHR) {
-		$("#updateMessage").text('Deleted Successfully');
-		$("#btnSuccessModal").trigger('click');
+		$("#deleteMessage").text('Deleted Successfully');
+		$("#btnDeleteModal").trigger('click');
 		
 		//START: Remove the option from port speed drop down On Success
 		$("#deleteForm select[name='selPortSpeed'] option").each(function() {
@@ -768,8 +778,8 @@ function deleteProductConfigData(productDeleteObj) {
 		//END
 		returnVal = true;
 	}).fail(function(jqXHR, textStatus, errorThrown) {
-		$("#updateMessage").text('Failed To Delete Product Info');
-		$("#btnSuccessModal").trigger('click');
+		$("#deleteMessage").text('Failed To Delete Product Info');
+		$("#btnDeleteModal").trigger('click');
 		returnVal = false;
 	});
 	
@@ -1057,7 +1067,7 @@ function handleBtnConfirmUpdateProduct() {
 	if(! document.forms.configureForm.reportValidity()) {
 		return false;
 	}
-	var dataTargetAttr = "#"+"confirmModal";
+	var dataTargetAttr = "#"+"confirmModalUpdate";
 	$("#btnConfirmUpdateProduct").attr('data-target',dataTargetAttr);
 	var totalProductsSelected = $('#configureForm input[name="product"]:checked').length;
 	var products = "";
