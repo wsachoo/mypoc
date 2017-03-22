@@ -311,7 +311,14 @@ function handleBtnRemoveFeature($thisRef, eventSource) {
 	var closestDiv = $(eventSource).closest('div');
 	var closestDivId = closestDiv.attr('id');
 	var previousDiv = $("#"+ closestDivId).prev();
+	if($(eventSource).attr('id') == 'btnRemoveOption'){
+		var prevEl = $(closestDiv).prev();
+		if(prevEl.is('select')) {
+			$(eventSource).closest('div').parent().find('input[name="btnAddOptions"]').css('display','inline');
+		}
+	}
 	eventSource.closest('div').remove();
+	
 	
 	var childDivStyle = closestDiv.find('div').css('display');
 	//copy text from options div label to feature div label
