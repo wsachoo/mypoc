@@ -523,7 +523,7 @@ function handleSaveProductConfigData($thisRef, eventSource) {
 		   products.push($(this).val());
 		});
 	productConfigObj.products = products;
-	saveProductConfiguration(productConfigObj, "handleSaveProductConfigData");
+	saveProductConfiguration(productConfigObj, "updateMessageConfigureComponent", "btnModalConfigureComponent");
 	console.log("productConfigObj : " + JSON.stringify(productConfigObj));
 }
 
@@ -551,7 +551,7 @@ function handleAddProductConfigData($thisRef, eventSource) {
 	var products = [];
 	products.push($("#addForm input[name='product'").val());
 	productAddObj.products = products;
-	saveProductConfiguration(productAddObj, "handleAddProductConfigData");
+	saveProductConfiguration(productAddObj, "updateMessage","btnSuccessModal");
 	console.log("productAddObj : " + JSON.stringify(productAddObj));
 }
 
@@ -580,28 +580,16 @@ function handleRemoveNewPortSpeedDiv($thisRef, eventSource) {
 	$(eventSource).closest('div').parent().remove();
 }
 
-
-function saveProductConfiguration(productConfigObj, actionType) {
+function saveProductConfiguration(productConfigObj, messageId, buttonId) {
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath('saveProductConfigurationUrl');
 	var data = JSON.stringify(productConfigObj);
 	var promise = httpAsyncPostWithJsonRequestResponse(url, data);
 	promise.done(function(data, textStatus, jqXHR) {
-		//alert("Updated Succfully");
-		if(actionType == 'handleAddProductConfigData'){
-			$("#updateMessage").text('Updated successfully.');
-			$("#btnSuccessModal").trigger('click');
-		}else{
-			$("#updateMessageConfigureComponent").text('Updated successfully.');
-			$("#btnModalConfigureComponent").trigger('click');
-		}
+		$("#"+messageId).text('Updated Successfully.');
+		$("#"+buttonId).trigger('click');
 	}).fail(function(jqXHR, textStatus, errorThrown) {
-		if(actionType == 'handleAddProductConfigData'){
-			$("#updateMessage").text('Failed To Update Product Info');
-			$("#btnSuccessModal").trigger('click');
-		}else{
-			$("#updateMessageConfigureComponent").text('Updated successfully.');
-			$("#btnModalConfigureComponent").trigger('click');
-		}
+		$("#"+messageId).text('Failed To Update Product Info.');
+		$("#"+buttonId).trigger('click');
 	});
 }
 
