@@ -48,12 +48,13 @@
 	          </ul>
 		<form id="configureForm" data-ajax="false" class="form-inline">
 			<div class="wrapper">
-			    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+			    <div class="bs-example bs-example-tabs marginTopBuffer" role="tabpanel" data-example-id="togglable-tabs">
 			      <div id="serviceFeaturesTabContent" class="tab-content">
 			        <div role="tabpanel" class="tab-pane fade in active" id="addServices" aria-labelledby="addServices-tab">
 			          <div class="" id="addServiceFeatures" style="display:inline;">
-						<label for="name">New Service Name : 
-						<input type="text" id="addService" name="serviceName" class="form-control" required="required"></label>
+						New Service Name
+						<input type="text" id="addService" name="serviceName" class="form-control" required="required">
+						<br>
 						<br>
 						<input type="button" value="+ add new Features" id="btnAddFeatures" name="btnAddFeatures" class="btn btn-admin-panel">
 						<br>
@@ -67,18 +68,14 @@
 			        <div role="tabpanel" class="tab-pane fade" id="deleteServices" aria-labelledby="deleteServices-tab">
 			         <div class="" id="deleteServices" style="display:inline;">
 			         	<div class="row">
-			         		<div class="col-sm-3">
-								<label for="name">Select the service name you would like to delete: </label>
+			         		<div class="col-sm-2">
+								Select the service name you would like to delete
 							</div>
 							<div class="col-sm-2">
-								<select id="serviceToDelete" class="form-control">
-									<option value="serviceName">Service Name</option>
+								<select id="serviceToDelete" class="form-control" style="width: 250px">
+									<option value="serviceName">select</option>
 								</select>
 							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-sm-3"></div>
 							<div class="col-sm-2">
 								<input type="button" value="Continue" name="btnContinueDisplayService" id="btnContinueDisplayService" class="btn btn-admin-panel">
 							</div>
@@ -97,11 +94,11 @@
 					 </div>
 					 </div>
 					 <div class="row">
-					 <div class="col-sm-2 col-sm-offset-2">
-						<input type="button" value="Cancel" name="btnCancelDisplayService" id="btnCancelDisplayService" class="btn btn-admin-panel" style="display: none;">
+					 <div class="col-sm-1 col-sm-offset-2">
+						<input type="button" value="Cancel" name="btnCancelDisplayService" id="btnCancelDisplayService" class="btn btn-admin-panel btn-block" style="display: none;">
 					 </div>
-					 <div class="col-sm-2 ">
-						<input type="button" value="Delete" data-toggle="modal" data-target="#confirmModal"  name="btnContinueDeleteService" id="btnContinueDeleteService" class="btn btn-admin-panel" style="display: none;">
+					 <div class="col-sm-1">
+						<input type="button" value="Delete" data-toggle="modal" data-target="#confirmModal"  name="btnContinueDeleteService" id="btnContinueDeleteService" class="btn btn-admin-panel btn-block" style="display: none;">
 					 </div>
 					 </div>
 			        </div>
@@ -126,7 +123,7 @@
 		          <p>Are you sure you want to delete Service name and its features?</p>
 		        </div>
 		        <div class="modal-footer" style="text-align:center;">
-		          <button type="button" class="btn btn-danger" id="btnDeleteService" name="btnDeleteService" data-dismiss="modal">Yes, Delete</button>
+		          <button type="button" class="btn btn-primary" id="btnDeleteService" name="btnDeleteService" data-dismiss="modal">Yes, Delete</button>
 		          <button type="button" class="btn btn-admin-panel" data-dismiss="modal">Cancel</button>
 		        </div>
 		      </div>
