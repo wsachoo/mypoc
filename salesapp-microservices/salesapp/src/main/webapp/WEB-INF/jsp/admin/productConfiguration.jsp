@@ -256,8 +256,8 @@
 											name="btnResetAddProductConfigData" value="Cancel">
 									</div>
 									<div class="marginTopBuffer col-sm-2">
-										<input type="button" class="btn btn-admin-panel btn-block" id="btnAddProductConfigData"
-											name="btnAddProductConfigData" value="Add Product">
+										<input type="button" class="btn btn-admin-panel btn-block" id="btnAddProductConfigData" 
+											 name="btnAddProductConfigData" value="Add Product">
 									</div>
 								</div>
 							</form>

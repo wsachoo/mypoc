@@ -85,6 +85,7 @@
 						</div>
 						<br>
 					 </div>
+					 <div class="row">
 					 <div id="showDeleteService" class="col-sm-6">
 					 	<span></span>
 					 	<div class="row">
@@ -94,11 +95,14 @@
 						 	<div class="col-sm-1"></div>
 					 	</div>
 					 </div>
-					 <div class="col-sm-2 col-sm-offset-5">
+					 </div>
+					 <div class="row">
+					 <div class="col-sm-2 col-sm-offset-2">
+						<input type="button" value="Cancel" name="btnCancelDisplayService" id="btnCancelDisplayService" class="btn btn-admin-panel" style="display: none;">
+					 </div>
+					 <div class="col-sm-2 ">
 						<input type="button" value="Delete" data-toggle="modal" data-target="#confirmModal"  name="btnContinueDeleteService" id="btnContinueDeleteService" class="btn btn-admin-panel" style="display: none;">
 					 </div>
-					 <div class="col-sm-2 col-sm-offset-5">
-						<input type="button" value="Delete" data-toggle="modal" data-target="#confirmModal"  name="btnContinueDeleteService" id="btnContinueDeleteService" class="btn btn-admin-panel" style="display: none;">
 					 </div>
 			        </div>
 			      </div>
