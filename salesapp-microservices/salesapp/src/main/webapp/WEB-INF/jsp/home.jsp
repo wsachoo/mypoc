@@ -150,7 +150,7 @@
 						<div id="sachgooglemapdiv" class="sachgooglemapdivclass"></div>
 					</div>
 					<div class="clearfix"></div>
-
+					<div id="mainpagecontainer" style="margin-left: 15px;">
 					<div id="over_map" class="sachbuttonsonmap"
 						style="text-align: center; display: none;">
 						<div class="button-wrapper">
@@ -164,7 +164,7 @@
 								Selling</button>
 						</div>
 					</div>
-
+					</div>
 					<div class="row sachbottommenu">
 						<div class="col-sm-11 sachfootermenuitem" id="divFooterMessage">
 							Need to apply an access and port speed to all sites before moving
