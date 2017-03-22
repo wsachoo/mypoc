@@ -64,6 +64,15 @@ $(document).ready(function() {
 						handleDeleteProductTab();
 						handleProductDelComponentPageChange();
 					}
+					else {
+						var portSpeed = $("#deleteForm #selPortSpeedDelComponentPage").val();
+						if (portSpeed == "") {
+							$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", true);
+						}
+						else {
+							$("#deleteForm #btnConfirmDeleteProduct").attr("disabled", false);
+						}						
+					}
 					break;
 				case 'btnAddPortSpeedDivDeleteProduct':
 					handleAddPortSpeedDivDeleteProduct($(this), e.target);
