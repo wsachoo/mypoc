@@ -305,7 +305,7 @@ function handleBtnRemoveFeature($thisRef, eventSource) {
 	if($(eventSource).attr('id') == 'btnRemoveOption'){
 		var prevEl = $(closestDiv).prev();
 		if(prevEl.is('select')) {
-			$("#btnAddOptions").css('display','inline');
+			$(eventSource).closest('div').parent().find('input[name="btnAddOptions"]').css('display','inline');
 		}
 	}
 	eventSource.closest('div').remove();
