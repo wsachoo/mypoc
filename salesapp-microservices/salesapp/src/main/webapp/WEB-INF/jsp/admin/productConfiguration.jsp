@@ -387,7 +387,7 @@
 								          <p></p>
 								        </div>
 								        <div class="modal-footer" style="text-align:center;">
-								          <button type="button" class="btn btn-danger" id="btnDeleteProductConfigData" name="btnDeleteProductConfigData" data-dismiss="modal">Yes, Delete</button>
+								          <button type="button" class="btn btn-primary" id="btnDeleteProductConfigData" name="btnDeleteProductConfigData" data-dismiss="modal">Yes, Delete</button>
 								          <button type="button" class="btn btn-admin-panel" data-dismiss="modal">Cancel</button>
 								        </div>
 								      </div>

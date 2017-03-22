@@ -132,7 +132,7 @@
 							          <p></p>
 							        </div>
 							        <div class="modal-footer" style="text-align:center;">
-							          <button type="button" class="btn btn-danger" id="btnSaveProductConfigData" name="btnSaveProductConfigData" data-dismiss="modal">Update</button>
+							          <button type="button" class="btn btn-primary" id="btnSaveProductConfigData" name="btnSaveProductConfigData" data-dismiss="modal">Update</button>
 							          <button type="button" class="btn btn-admin-panel" data-dismiss="modal">Cancel</button>
 							        </div>
 							      </div>
