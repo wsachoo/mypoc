@@ -586,12 +586,12 @@ function saveProductConfiguration(productConfigObj) {
 	var data = JSON.stringify(productConfigObj);
 	var promise = httpAsyncPostWithJsonRequestResponse(url, data);
 	promise.done(function(data, textStatus, jqXHR) {
-		alert("Updated Succfully");
-		/*$("#updateMessage").text('Updated successfully.');
-		$("#btnSuccessModal").trigger('click');*/
+		//alert("Updated Succfully");
+		$("#updateMessage").text('Updated successfully.');
+		$("#btnSuccessModal").trigger('click');
 	}).fail(function(jqXHR, textStatus, errorThrown) {
-		/*$("#updateMessage").text('Failed To Update Product Info');
-		$("#btnSuccessModal").trigger('click');*/
+		$("#updateMessage").text('Failed To Update Product Info');
+		$("#btnSuccessModal").trigger('click');
 	});
 }
 
