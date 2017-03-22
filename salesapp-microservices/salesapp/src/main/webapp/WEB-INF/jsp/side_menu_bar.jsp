@@ -7,7 +7,7 @@
 
 				<ul id="menu-content" class="menu-content collapse out">
 					<li class="heading1" style="background-color: #337ab7; text-align: center;"><span 
-							style="display: inline; color: #fff; font-family: FontAwesome; font-size: 18px;">Site Locations</span>
+							style="display: inline; color: #fff; font-size: 18px; font-family: sans-serif;">Site Locations</span>
 
 					</li>
 				</ul>
@@ -23,7 +23,7 @@
 								class="more-less glyphicon glyphicon-plus"
 								style="color: #fff; font-size: 12px;"></span> <span
 								class="sachlefnavheaderspaces"
-								style="display: inline; color: #fff; font-family: FontAwesome; font-size: 18px;">${objUserSite.SITE_NAME}</span>
+								style="display: inline; color: #fff;font-size: 18px; font-family: sans-serif;">${objUserSite.SITE_NAME}</span>
 						</a>
 
 						</li>
