@@ -256,8 +256,8 @@
 											name="btnResetAddProductConfigData" value="Cancel">
 									</div>
 									<div class="marginTopBuffer col-sm-2">
-										<input type="button" class="btn btn-admin-panel btn-block" id="btnAddProductConfigData" 
-											 name="btnAddProductConfigData" value="Add Product">
+											 <input type="button" class="btn btn-admin-panel btn-block" id="btnConfirmAddProductConfigData" 
+											 name="btnConfirmAddProductConfigData" data-toggle="modal" value="Add Product"> 
 									</div>
 								</div>
 								<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
@@ -274,6 +274,21 @@
 											</div>
 										</div>
 									</div>
+									
+									<div class="modal fade" id="confirmModalAddProduct" role="dialog">
+								   	<div class="modal-dialog">
+								     <!--  Modal content -->
+								      <div class="modal-content" id="confirmModalAddProductDiv">
+								        <div class="modal-body" style="text-align:center;">
+								          <p></p>
+								        </div>
+								        <div class="modal-footer" style="text-align:center;">
+								          <button type="button" class="btn btn-admin-panel" id="btnAddProductConfigData" name="btnAddProductConfigData" data-dismiss="modal">Add</button>
+								          <button type="button" class="btn btn-admin-panel" data-dismiss="modal">Cancel</button>
+								        </div>
+								      </div>
+								   	</div>
+								  </div>
 							</form>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="deleteProducts"
@@ -366,7 +381,7 @@
 								</div>
 								<div class="modal fade" id="confirmModal" role="dialog">
 								   	<div class="modal-dialog">
-								      Modal content
+								      <!-- Modal content -->
 								      <div class="modal-content" id="confirmDeleteProductDiv">
 								        <div class="modal-body" style="text-align:center;">
 								          <p></p>

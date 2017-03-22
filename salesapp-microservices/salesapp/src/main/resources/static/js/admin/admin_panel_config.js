@@ -91,6 +91,12 @@ $(document).ready(function() {
 				case 'btnCancelDisplayService':	
 					handleBtnCancelDisplayService();
 					break;
+				case 'btnConfirmConfigureComponent':
+					handleBtnConfirmConfigureComponent();
+					break;
+				case 'btnConfirmAddProductConfigData':
+					handleBtnConfirmAddProductConfigData();
+					break;
 			}
 		},
 		
@@ -492,9 +498,9 @@ function updateProductConfiguration(productConfigObj) {
 
 function handleSaveProductConfigData($thisRef, eventSource) {
 	
-	if(! document.forms.configureForm.reportValidity()) {
+	/*if(! document.forms.configureForm.reportValidity()) {
 		return false;
-	}
+	}*/
 	
 	if (! atleastOneCheckBoxCheckedFromGroup("configureForm", "product")) {
 		/*alert("Please select the products by clicking required checkboxes");*/
@@ -529,9 +535,9 @@ function handleSaveProductConfigData($thisRef, eventSource) {
 
 function handleAddProductConfigData($thisRef, eventSource) {
 	
-	if(! document.forms.addForm.reportValidity()) {
+	/*if(! document.forms.addForm.reportValidity()) {
 		return false;
-	}
+	}*/
 	
 	var portSpeeds = [];
 	$(".classNewPortSpeed").each(function() {
@@ -1068,4 +1074,34 @@ function handleBtnConfirmUpdateProduct() {
 		});
 	$("#confirmUpdateProductDiv").first('div').find('p').html("Please note, you are about to make these changes across the following products:"+"<br>" + products
 			+ "<br>" +"If you are sure click Update to continue or cancel to return back to the form.");
+}
+
+function handleBtnConfirmConfigureComponent() {
+	if(! document.forms.configureForm.reportValidity()) {
+		return false;
+	}
+	var dataTargetAttr = "#"+"confirmModalConfigureComponent";
+	$("#btnConfirmConfigureComponent").attr('data-target', dataTargetAttr);
+	var totalProductsSelected = $('#configureForm input[name="product"]:checked').length;
+	var products = "";
+	$('#configureForm input[name="product"]:checked').each(function(index) {
+		if(index != totalProductsSelected-1){
+			products = products + ($(this).val()) + ", ";
+		}
+		else
+			products = products + ($(this).val()) + ". ";
+		});
+	$("#confirmConfigureComponentDiv").first('div').find('p').html("Please note, you are about to configure new component across the following products:"+"<br>" + products
+			+ "<br>" +"If you are sure click Update to continue or cancel to return back to the form.");
+}
+
+function handleBtnConfirmAddProductConfigData() {
+	if(! document.forms.addForm.reportValidity()) {
+		return false;
+	}
+	var dataTargetAttr = "#"+"confirmModalAddProduct";
+	$("#btnConfirmAddProductConfigData").attr('data-target', dataTargetAttr);
+	var productName = $("#addForm input[name='product']").val();
+	$("#confirmModalAddProductDiv").first('div').find('p').html("Please note, you are about to add new product:"+"<br>" + productName
+			+ "<br>" +"If you are sure click Add to continue or cancel to return back to the form.");
 }
