@@ -260,6 +260,20 @@
 											 name="btnAddProductConfigData" value="Add Product">
 									</div>
 								</div>
+								<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+										data-target="#successModal" id="btnSuccessModal"
+										style="display: none;">Open Modal</button>
+									<div class="modal fade" id="successModal" role="dialog">
+										<div class="modal-dialog">
+											<!-- Modal content-->
+											<div class="modal-content">
+												<div class="modal-body" style="text-align: center;">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title" id="updateMessage"></h4>
+												</div>
+											</div>
+										</div>
+									</div>
 							</form>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="deleteProducts"
@@ -350,20 +364,7 @@
 											
 									</div>
 								</div>
-								<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-										data-target="#successModal" id="btnSuccessModal"
-										style="display: none;">Open Modal</button>
-									<div class="modal fade" id="successModal" role="dialog">
-										<div class="modal-dialog">
-											<!-- Modal content-->
-											<div class="modal-content">
-												<div class="modal-body" style="text-align: center;">
-													<button type="button" class="close" data-dismiss="modal">&times;</button>
-													<h4 class="modal-title" id="updateMessage"></h4>
-												</div>
-											</div>
-										</div>
-									</div>
+								
 							</form>
 						</div>
 
