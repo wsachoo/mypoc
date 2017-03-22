@@ -106,12 +106,12 @@
 											name="btnResetModifyProductConfigData" value="Cancel">									
 									</div>
 									<div class="marginTopBuffer col-sm-2">
-										<input type="button" class="btn btn-admin-panel btn-block" id="btnSaveProductConfigData" name="btnSaveProductConfigData" value="Add Configurations">
+										<input type="button" class="btn btn-admin-panel btn-block" id="btnConfirmConfigureComponent" name="btnConfirmConfigureComponent" data-toggle="modal"  value="Add Configurations">
 									</div>
 								</div>
-										<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-										data-target="#successModalConfigureComponent" id="btnModalConfigureComponent"
-										style="display: none;">Open Modal</button> 
+									<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+									data-target="#successModalConfigureComponent" id="btnModalConfigureComponent"
+									style="display: none;">Open Modal</button> 
 									<div class="modal fade" id="successModalConfigureComponent" role="dialog">
 										<div class="modal-dialog">
 											<!-- Modal content-->
@@ -123,5 +123,20 @@
 											</div>
 										</div>
 									</div>
+									
+								<div class="modal fade" id="confirmModalConfigureComponent" role="dialog">
+							   	<div class="modal-dialog">
+							      <!-- Modal content-->
+							      <div class="modal-content" id="confirmConfigureComponentDiv">
+							        <div class="modal-body" style="text-align:center;">
+							          <p></p>
+							        </div>
+							        <div class="modal-footer" style="text-align:center;">
+							          <button type="button" class="btn btn-danger" id="btnSaveProductConfigData" name="btnSaveProductConfigData" data-dismiss="modal">Update</button>
+							          <button type="button" class="btn btn-admin-panel" data-dismiss="modal">Cancel</button>
+							        </div>
+							      </div>
+							   	</div>
+							  </div>
 							</form>
 							
