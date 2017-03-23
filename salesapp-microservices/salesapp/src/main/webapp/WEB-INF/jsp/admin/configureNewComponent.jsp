@@ -94,6 +94,11 @@
 										<div class="clearfix"></div> 
 									</c:forEach>
 								</div>
+								<div class="row" style="display: none; margin-top: 10px" id="chkErrMsgConfNewComponent">
+									<div class="col-sm-7 col-sm-offset-2">
+										<font color="red">Please select at least one product from above</font>
+									</div>
+								</div>								
 								<div class="row">
 									<div class="col-sm-12">
 										<hr class="admin_hr_class">
