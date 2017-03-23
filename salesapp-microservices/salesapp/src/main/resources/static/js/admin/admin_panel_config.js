@@ -1113,6 +1113,10 @@ function handleBtnConfirmUpdateProduct() {
 }
 
 function handleBtnConfirmConfigureComponent() {
+	if(! document.forms.configureForm.reportValidity()) {
+		return false;
+	}
+
 	if (! atleastOneCheckBoxCheckedFromGroup("configureForm", "product")) {
 		//alert("Please select the products by clicking required checkboxes");
 		//$("#updateMessageConfigureComponent").text("Please select the products by clicking required checkboxes");
@@ -1120,10 +1124,7 @@ function handleBtnConfirmConfigureComponent() {
 		//$("#btnModalConfigureComponent").trigger('click');
 		return false;
 	}
-	if(! document.forms.configureForm.reportValidity()) {
-		return false;
-	}
-		
+
 	var dataTargetAttr = "#"+"confirmModalConfigureComponent";
 	$("#btnConfirmConfigureComponent").attr('data-target', dataTargetAttr);
 	var totalProductsSelected = $('#configureForm input[name="product"]:checked').length;
