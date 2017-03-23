@@ -12,7 +12,7 @@
 									<div class="marginTopBuffer col-sm-2">
 										<select name="accessType" id="accessType" required="required"
 											class="form-control">
-											<option value="">Select Access Type</option>
+											<option value="">Select</option>
 											<option value="ETHERNET">ETHERNET</option>
 											<option value="IP">IP</option>
 										</select>
@@ -82,7 +82,7 @@
 									<div class="marginTopBuffer col-sm-4">
 										Select all the applicable Products from the list
 										below, where you would like these
-										configurations to be added to:
+										configurations to be added:
 									</div>
 								</div>
 								<div class="row" id="productsDiv">
