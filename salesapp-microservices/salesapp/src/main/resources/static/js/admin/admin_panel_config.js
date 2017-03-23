@@ -912,8 +912,15 @@ function handleSelPortSpeedManageComponentPageChange($thisRef, eventSource) {
 }
 
 function atleastOneCheckBoxCheckedFromGroup(formName, checkboxName) {
-	var count = $("#configureForm input[name='product']:checked").length;
-	return (count > 0)
+	if (formName  == undefined || checkboxName == undefined) {
+		var count = $("#configureForm input[name='product']:checked").length;
+		return (count > 0)		
+	}
+	else {
+		var elementText = "#" + formName + " input[name='" + checkboxName + "']:checked";
+		var count = $(elementText).length;
+		return (count > 0)		
+	}
 }
 
 function handleSelAccessSpeedManageComponentPageChange($thisRef, eventSource) {
@@ -1093,13 +1100,19 @@ function handleBtnConfirmUpdateProduct() {
 			products = products + ($(this).val()) + ". ";
 		});
 	$("#confirmUpdateProductDiv").first('div').find('p').html("Please note, you are about to make these changes across the following products:"+"<br>" + products
-			+ "<br>" +"If you are sure click Update to continue or cancel to return back to the form.");
+			+ "<br>" +"If you are sure, click Update button to continue or Cancel button to return back to the form.");
 }
 
 function handleBtnConfirmConfigureComponent() {
 	if(! document.forms.configureForm.reportValidity()) {
 		return false;
 	}
+	
+	if (atleastOneCheckBoxCheckedFromGroup()) {
+		$("#configureNewProductChkErrorMsg").show();
+		return false;
+	}
+	
 	var dataTargetAttr = "#"+"confirmModalConfigureComponent";
 	$("#btnConfirmConfigureComponent").attr('data-target', dataTargetAttr);
 	var totalProductsSelected = $('#configureForm input[name="product"]:checked').length;
@@ -1122,6 +1135,6 @@ function handleBtnConfirmAddProductConfigData() {
 	var dataTargetAttr = "#"+"confirmModalAddProduct";
 	$("#btnConfirmAddProductConfigData").attr('data-target', dataTargetAttr);
 	var productName = $("#addForm input[name='product']").val();
-	$("#confirmModalAddProductDiv").first('div').find('p').html("Please note, you are about to add new product:"+"<br>" + productName
-			+ "<br>" +"If you are sure click Add to continue or cancel to return back to the form.");
+	$("#confirmModalAddProductDiv").first('div').find('p').html("Please note, you are about to add new product called '" + productName
+			+ "'.<br>" +"If you are sure, click Add button to continue or Cancel button to return back to the form.");
 }

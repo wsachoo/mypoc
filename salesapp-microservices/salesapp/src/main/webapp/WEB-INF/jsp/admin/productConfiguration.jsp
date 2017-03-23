@@ -178,7 +178,7 @@
 									<div class="marginTopBuffer col-sm-2">
 										<select name="accessType" id="accessType" required="required"
 											class="form-control">
-											<option value="">Select Access Type</option>
+											<option value="">Select</option>
 											<option value="ETHERNET">ETHERNET</option>
 											<option value="IP">IP</option>
 										</select>
@@ -297,14 +297,14 @@
 							<form id="deleteForm" data-ajax="false" class="form-horizontal">
 								<div class="row marginTopBuffer">
 									<div class="col-sm-6">
-										Select a product to load its component details
+										Select a Product to load it's component detail
 									</div>
 									<div class="clearfix"></div>
 								</div>
 								<div class="row marginTopBuffer" id="divProductNameToDelete">
 									<div class="col-sm-2">
 										<select class="form-control" name="product" id="productDelComponentPage" required="required">
-											<option value="">Select a Product</option>
+											<option value="">Select</option>
 										</select>
 									</div>
 									<div class="col-sm-1">
@@ -329,10 +329,10 @@
 									<div class="marginTopBuffer col-sm-1 col-sm-offset-1">
 										Access Type
 									</div>
-									<div class="marginTopBuffer col-sm-3">
+									<div class="marginTopBuffer col-sm-2">
 										<select name="accessType" disabled="disabled" id="accessTypeDelComponentPage" required="required" 
 											class="form-control">
-											<option value="">Select Access Type</option>
+											<option value="">Select</option>
 											<option value="ETHERNET">ETHERNET</option>
 											<option value="IP">IP</option>
 										</select>
@@ -342,10 +342,10 @@
 									<div class="marginTopBuffer col-sm-1 col-sm-offset-1">
 										Access Speed
 									</div>
-									<div class="marginTopBuffer col-sm-3">
+									<div class="marginTopBuffer col-sm-2">
 										<select class="form-control" id="selAccessSpeedDelComponentPage" disabled="disabled" required="required" 
 											name="selAccessSpeed"  required="required"> 
-											<option value="">Select Access Speed</option>
+											<option value="">Select</option>
 										</select>
 									</div>
 								</div>
@@ -353,10 +353,10 @@
 									<div class="marginTopBuffer col-sm-1 col-sm-offset-1">
 										Port Speed
 									</div>
-									<div class="marginTopBuffer col-sm-3">
+									<div class="marginTopBuffer col-sm-2">
 										<select class="form-control" name="selPortSpeed" id="selPortSpeedDelComponentPage" disabled="disabled" required="required" 
 											required="required"> 
-											<option value="">Select Port Speed</option>
+											<option value="">Select</option>
 										</select>
 									</div>
 								</div>

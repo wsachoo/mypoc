@@ -12,7 +12,7 @@
 									<div class="marginTopBuffer col-sm-2">
 										<select name="accessType" id="accessTypeManageComponentPage" required="required"
 											class="form-control">
-											<option value="">Select Access Type</option>
+											<option value="">Select</option>
 											<option value="ETHERNET">ETHERNET</option>
 											<option value="IP">IP</option>
 										</select>
@@ -25,7 +25,7 @@
 									<div class="marginTopBuffer col-sm-2">
 										<select class="form-control" id="selAccessSpeedManageComponentPage" disabled="disabled" required="required" 
 											name="txtAccessSpeed"  required="required"> 
-											<option value="">Select Access Speed</option>
+											<option value="">Select</option>
 										</select>											
 									</div>
 <!-- 									<div class="marginTopBuffer col-sm-1">
@@ -45,7 +45,7 @@
 									<div class="marginTopBuffer col-sm-2">
 										<select class="form-control" name="txtSpeed_portType" id="selPortSpeedManageComponentPage" disabled="disabled" 
 											required="required"> 
-											<option value="">Select Port Speed</option>
+											<option value="">Select</option>
 										</select>									
 									</div>
 <!-- 									<div class="marginTopBuffer col-sm-1">
