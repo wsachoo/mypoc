@@ -178,7 +178,8 @@ $(document).ready(function() {
 	  			handleDeleteProductTab();
 	  		}
 	  		if($target.attr('id') == 'deleteServices-tab') {
-	  			showDeleteServicesDropDown();
+	  			//showDeleteServicesDropDown();
+	  			handleBtnCancelDisplayService();
 	  		}
 	  		
 		    var $tabs = $target.closest('.nav-tabs-responsive');
@@ -262,7 +263,7 @@ function handleBtnAddFeatures($thisRef, eventSource){
 								'<button type="button" id="btnAddOptions" name="btnAddOptions" class="btn btn-admin-panel">'+
 									'<span class="glyphicon glyphicon-plus" name="btnAddOptions"></span>'+
 								'</button>'+
-								'<br><br>'+
+								'<br>'+
 									'<div style="display:none;" class="col-sm-12 addOptionsInternal">'+
 									'<label>Label</label><br>' +
 									'<label for="name" id="" class="" style="font-weight:normal;">Name:</label>'+
@@ -472,7 +473,6 @@ function handleDeleteAdminUserServFeaturesObj($thisRef, eventSource) {
 		$("#deleteMessage").text('Failed To Delete.');
 		$("#btnDeleteModal").trigger('click');
 	});
-	
 }
 
 function handleUpdateProductConfiguration($thisRef, eventSource) {
