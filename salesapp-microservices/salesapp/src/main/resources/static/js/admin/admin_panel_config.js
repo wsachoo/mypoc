@@ -1107,12 +1107,7 @@ function handleBtnConfirmConfigureComponent() {
 	if(! document.forms.configureForm.reportValidity()) {
 		return false;
 	}
-	
-	if (atleastOneCheckBoxCheckedFromGroup()) {
-		$("#configureNewProductChkErrorMsg").show();
-		return false;
-	}
-	
+		
 	var dataTargetAttr = "#"+"confirmModalConfigureComponent";
 	$("#btnConfirmConfigureComponent").attr('data-target', dataTargetAttr);
 	var totalProductsSelected = $('#configureForm input[name="product"]:checked').length;
