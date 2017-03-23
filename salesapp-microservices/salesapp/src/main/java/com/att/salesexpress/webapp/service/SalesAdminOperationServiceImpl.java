@@ -218,7 +218,7 @@ public class SalesAdminOperationServiceImpl implements SalesAdminOperationServic
 		logger.debug("Entered successfully from updateProductConfiguration() method.");
 		List<SalesRules> salesRulesEntityList = objProductConfigBean.transformToSalesRules();		
 		SalesRules salesRule = salesRulesEntityList.get(0);
-		dbServiceImpl.deleteProductConfiguration(salesRule.getPortType(), salesRule.getAccessSpeed(), salesRule.getPortSpeed());
+		//dbServiceImpl.deleteProductConfiguration(salesRule.getPortType(), salesRule.getAccessSpeed(), salesRule.getPortSpeed());
 		dbServiceImpl.saveProductConfiguration(salesRulesEntityList);
 		logger.debug("Exiting successfully from updateProductConfiguration() method.");
 	}
