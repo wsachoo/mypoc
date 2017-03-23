@@ -216,10 +216,29 @@ public class SalesAdminOperationServiceImpl implements SalesAdminOperationServic
 	@Override
 	public void updateProductConfiguration(ProductConfigBean objProductConfigBean) throws SQLException {
 		logger.debug("Entered successfully from updateProductConfiguration() method.");
-		List<SalesRules> salesRulesEntityList = objProductConfigBean.transformToSalesRules();		
-		SalesRules salesRule = salesRulesEntityList.get(0);
+/*		List<SalesRules> salesRulesEntityList = objProductConfigBean.transformToSalesRules();		
+		//SalesRules salesRule = salesRulesEntityList.get(0);
 		//dbServiceImpl.deleteProductConfiguration(salesRule.getPortType(), salesRule.getAccessSpeed(), salesRule.getPortSpeed());
 		dbServiceImpl.saveProductConfiguration(salesRulesEntityList);
+*/		
+		List<SalesRules> salesRulesEntityList = objProductConfigBean.transformToSalesRules();
+		dbServiceImpl.checkIfRuleAlreadyExits(salesRulesEntityList);
+
+		List<SalesRules> rulesToInsert = new ArrayList<>();
+		List<SalesRules> rulesToUpdate = new ArrayList<>();
+		
+		for (SalesRules salesRules : salesRulesEntityList) {
+			if (salesRules.isBlnExitsInDb()) {
+				rulesToUpdate.add(salesRules);
+			}
+			else {
+				rulesToInsert.add(salesRules);
+			}
+		}
+		
+		dbServiceImpl.saveProductConfiguration(rulesToInsert);
+		dbServiceImpl.updateProductConfiguration(rulesToUpdate);
+		
 		logger.debug("Exiting successfully from updateProductConfiguration() method.");
 	}
 }
