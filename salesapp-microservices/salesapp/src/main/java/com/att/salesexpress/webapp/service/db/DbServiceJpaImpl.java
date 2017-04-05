@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,4 +28,16 @@ public class DbServiceJpaImpl implements DbServiceJpa {
 		return result;
 	}
 
+	@Override
+	public SolutionTmplQuestion findByQuesSeqId(Long quesSeqId) {
+		Query query = em.createNamedQuery("SolutionTmplQuestion.findByQuesSeqId");
+		query.setParameter("quesSeqId", quesSeqId);
+		@SuppressWarnings("unchecked")
+		List<SolutionTmplQuestion> result = query.getResultList();
+		if (result != null && !result.isEmpty()) {
+			return result.get(0);
+		} else {
+			return null;
+		}
+	}
 }

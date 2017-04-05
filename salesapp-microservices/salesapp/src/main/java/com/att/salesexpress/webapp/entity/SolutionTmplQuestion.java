@@ -1,7 +1,6 @@
 package com.att.salesexpress.webapp.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,7 +19,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SALES_SOL_TMPL_QUES")
-@NamedQuery(name = "SolutionTmplQuestion.findAll", query = "SELECT s FROM SolutionTmplQuestion s")
+@NamedQueries({
+	@NamedQuery(name = "SolutionTmplQuestion.findAll", query = "SELECT s FROM SolutionTmplQuestion s"),
+	@NamedQuery(name = "SolutionTmplQuestion.findByQuesSeqId", query = "SELECT s FROM SolutionTmplQuestion s where s.quesSeqId = :quesSeqId")
+})
 public class SolutionTmplQuestion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +37,7 @@ public class SolutionTmplQuestion implements Serializable {
 	private String quesDesc;
 
 	@Column(name = "QUES_SEQ_ID")
-	private BigDecimal quesSeqId;
+	private Long quesSeqId;
 
 	@Column(name = "QUES_TYPE")
 	private String quesType;
@@ -70,11 +73,11 @@ public class SolutionTmplQuestion implements Serializable {
 		this.quesDesc = quesDesc;
 	}
 
-	public BigDecimal getQuesSeqId() {
+	public Long getQuesSeqId() {
 		return this.quesSeqId;
 	}
 
-	public void setQuesSeqId(BigDecimal quesSeqId) {
+	public void setQuesSeqId(Long quesSeqId) {
 		this.quesSeqId = quesSeqId;
 	}
 
@@ -111,7 +114,7 @@ public class SolutionTmplQuestion implements Serializable {
 	@Override
 	public String toString() {
 		return "SolutionTmplQuestion [id=" + id + ", quesColName=" + quesColName + ", quesDesc=" + quesDesc
-				+ ", quesSeqId=" + quesSeqId + ", quesType=" + quesType + ", salesSolTmplAns=" + salesSolTmplAns + "]";
+				+ ", quesSeqId=" + quesSeqId + ", quesType=" + quesType + "]";
 	}
 
 }
