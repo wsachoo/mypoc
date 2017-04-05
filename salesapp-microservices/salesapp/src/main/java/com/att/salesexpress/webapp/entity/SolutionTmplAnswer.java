@@ -2,6 +2,9 @@ package com.att.salesexpress.webapp.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 
 
@@ -28,6 +31,7 @@ public class SolutionTmplAnswer implements Serializable {
 	//bi-directional many-to-one association to SolutionTmplQuestion
 	@ManyToOne
 	@JoinColumn(name="QUES_ID")
+	@JsonIgnore
 	private SolutionTmplQuestion salesSolTmplQue;
 
 	public SolutionTmplAnswer() {

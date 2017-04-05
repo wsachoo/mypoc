@@ -6,5 +6,5 @@ import com.att.salesexpress.webapp.entity.SolutionTmplQuestion;
 
 public interface DbServiceJpa {
 	public List<SolutionTmplQuestion> findAll();
-
+	public SolutionTmplQuestion findByQuesSeqId(Long quesSeqId);
 }
