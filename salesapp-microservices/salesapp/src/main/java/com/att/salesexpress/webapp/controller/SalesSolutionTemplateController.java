@@ -46,7 +46,7 @@ public class SalesSolutionTemplateController {
 		return view;
 	}
 	
-	@RequestMapping(value = { "/user", "/user/solutionTemplate" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/user/solutionTemplate" }, method = RequestMethod.GET)
 	public ModelAndView showMap(HttpServletRequest request) throws JsonProcessingException {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = user.getUsername();
@@ -88,7 +88,7 @@ public class SalesSolutionTemplateController {
 		return view;
 	}
 	
-	@RequestMapping(value = { "/user/stepWizard"}, method = RequestMethod.GET)
+	@RequestMapping(value = { "/user/solutionTemplate/stepWizard"}, method = RequestMethod.GET)
 	public ModelAndView getSolutionStepWizard(HttpServletRequest request) throws JsonProcessingException {
 		logger.debug("inside getSolutionStepWizard() method");
 		ModelAndView view = new ModelAndView("step-wizard");
