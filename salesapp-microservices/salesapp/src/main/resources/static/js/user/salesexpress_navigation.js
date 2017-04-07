@@ -37,7 +37,9 @@ $(document).ready(function() {
         else if ("accessAndPort" === name) {
         	performTabChangeAction(name);
         	var topMenuDiv = $("div.sachtopmenu");
+        	//var topMenuDiv = $("div.loadSolutionTemplate");
         	removeNextAllSiblingDivRows(topMenuDiv);
+        	//$("#testLoadSolutionTemplate").load(contextPath + "/user/loadSolutionTemplate");
         	var initAccessConfigTemplate = $.tmpl("init_access_config_template");
         	topMenuDiv.after(initAccessConfigTemplate);
         	topMenuDiv.trigger('create');
@@ -53,7 +55,13 @@ $(document).ready(function() {
         		performTabChangeAction(name);
         		handleProceedToResults(); 
         	}
-        	
+        }
+        else if(("solutionTemplate" === name)) {
+        	performTabChangeAction(name);
+        	//var topMenuDiv = $("div.sachtopmenu");
+        	var topMenuDiv = $("div.loadSolutionTemplate");
+        	removeNextAllSiblingDivRows(topMenuDiv);
+        	$("#testLoadSolutionTemplate").load(contextPath + "/user/stepWizard");
         }
     });
     
@@ -88,4 +96,3 @@ function  getActiveTabName() {
 	var activeTabName = activeTabHref.data("name");
 	return activeTabName;
 }
-
