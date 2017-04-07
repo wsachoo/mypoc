@@ -1,5 +1,6 @@
 package com.att.salesexpress.webapp.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -29,4 +30,14 @@ public class SolutionTemplateServiceImpl implements SolutionTemplateService {
 		return solutionTmplQuestion;
 	}
 
+	@Override
+	public List<SolutionTmplQuestion> findAllQuestions(Map<String, Object> paramValues) {
+		logger.debug("Entered findAllQuestions(); method");
+		List<SolutionTmplQuestion> solutionTmplQuestions = dbServiceJpa.findAllQuestions();
+		for (SolutionTmplQuestion solutionTmplQuestion : solutionTmplQuestions) {
+			solutionTmplQuestion.setSalesSolTmplAns(null);
+		}
+		logger.debug("Solution Template Questions retrieved are: " + solutionTmplQuestions);
+		return solutionTmplQuestions;
+	}
 }

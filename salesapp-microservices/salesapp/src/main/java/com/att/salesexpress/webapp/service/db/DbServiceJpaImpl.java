@@ -40,4 +40,12 @@ public class DbServiceJpaImpl implements DbServiceJpa {
 			return null;
 		}
 	}
+
+	@Override
+	public List<SolutionTmplQuestion> findAllQuestions() {
+		Query query = em.createNamedQuery("SolutionTmplQuestion.findAll");
+		@SuppressWarnings("unchecked")
+		List<SolutionTmplQuestion> result = query.getResultList();
+		return result;
+	}
 }

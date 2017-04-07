@@ -17,14 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.att.salesexpress.webapp.entity.SolutionTmplQuestion;
 import com.att.salesexpress.webapp.service.SalesExpressOperationService;
 import com.att.salesexpress.webapp.service.SolutionTemplateService;
-import com.att.salesexpress.webapp.service.db.DbServiceJpa;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -38,17 +36,26 @@ public class SalesSolutionTemplateController {
 
 	@Autowired
 	private SalesExpressOperationService salesExpressOperationServiceImpl;
-	
+
 	@Autowired
 	private SolutionTemplateService solutionTemplateService;
 
 	@RequestMapping(value = "/user/solutionTemplate/getNextQuestion", method = RequestMethod.POST, produces = {
 			"application/json" })
 	@ResponseBody
-	public ResponseEntity<SolutionTmplQuestion> getNextQuestion(HttpServletRequest request, @RequestBody Map<String, Object> paramValues)
-			throws JsonProcessingException {
+	public ResponseEntity<SolutionTmplQuestion> getNextQuestion(HttpServletRequest request,
+			@RequestBody Map<String, Object> paramValues) throws JsonProcessingException {
 		SolutionTmplQuestion solutionTmplQuestion = solutionTemplateService.findByQuesSeqId(paramValues);
 		return new ResponseEntity<SolutionTmplQuestion>(solutionTmplQuestion, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/user/solutionTemplate/getAllQuestions", method = RequestMethod.POST, produces = {
+			"application/json" })
+	@ResponseBody
+	public ResponseEntity<List<SolutionTmplQuestion>> getAllQuestions(HttpServletRequest request,
+			@RequestBody Map<String, Object> paramValues) throws JsonProcessingException {
+		List<SolutionTmplQuestion> solutionTmplQuestions = solutionTemplateService.findAllQuestions(paramValues);
+		return new ResponseEntity<List<SolutionTmplQuestion>>(solutionTmplQuestions, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = { "/user/solutionTemplate" }, method = RequestMethod.GET)

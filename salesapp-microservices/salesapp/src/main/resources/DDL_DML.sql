@@ -69,7 +69,25 @@ select * from (
 ) mytable
 where mytable.RNK=1 and rownum < 10    
 ---------------------------------------------------------------------------------------------------------------------------------------------
-
+select * from (
+  select       
+      ACCESS_TYPE, PORT_TYPE, ACCESS_SPEED_ID, PORT_SPEED_ID, --and all other fields
+      dense_rank() over (order by NUMBER_OF_SALES desc) RNK
+  from (
+    select 
+      count(*) over (partition by a.PORT_SPEED_ID) as NUMBER_OF_SALES,
+      a.ACCESS_TYPE,
+      a.PORT_TYPE,
+      a.ACCESS_SPEED_ID,
+      a.PORT_SPEED_ID
+      --and all other fields
+    from SALES_TRANSACTION_HISTORY a
+    where a.ACCESS_TYPE='Ethernet'
+          and a.ACCESS_SPEED_ID=10000
+  )  
+) mytable
+where mytable.RNK=1 and rownum < 10    
+---------------------------------------------------------------------------------------------------------------------------------------------
                         
 create table SALES_SOL_TMPL_QUES
 (
