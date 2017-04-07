@@ -1,10 +1,12 @@
 package com.att.salesexpress.webapp.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,8 +97,7 @@ public class SalesUserWebController {
 			transactionId = salesExpressOperationServiceImpl.getTransactionIdByUserIdSolutionId(userId, solutionId);
 			session.setAttribute("transactionId", transactionId);
 		}
-
-		ModelAndView view = new ModelAndView("home");
+		ModelAndView view = new ModelAndView("home");	
 		Map<String, Object> userSitesData = salesExpressOperationServiceImpl.getJsonMetaDataByUserIdSolutionId(userId, solutionId);
 		view.addObject("userSitesData", userSitesData);
 		view.addObject("userDetail", jacksonObjectMapper.writeValueAsString(userSitesData));
@@ -106,5 +107,7 @@ public class SalesUserWebController {
 		view.addObject("transactionId", transactionId);
 		return view;
 	}
+
+	
 }
 
