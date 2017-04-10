@@ -1,10 +1,9 @@
 <script>
 function highlightActiveStep(stepNumber) {
-	console.log("inside btnSolutionTemplateSteps: " + stepNumber);
 	
 	$("#stepWizardId").find(".stepwizard-step").each(function(i) {
 		var anchorObject = $(this).find('a');
-		if ((i+1) === stepNumber) {
+		if ((i+1) == stepNumber) {
 			anchorObject.addClass('btn-primary');
 			anchorObject.removeClass('btn-default');
 	    }
@@ -22,7 +21,6 @@ function initializeStepWizard() {
 		stepWizardData.appendTo("#stepWizardId");
 		populateWizardElement(data[0].quesSeqId);
 		$("input[name='numberOfQuestion']").val(data.length);
-		highlightActiveStep(1);
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(textStatus);
