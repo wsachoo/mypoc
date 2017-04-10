@@ -105,6 +105,13 @@ left: calc((100% - 225px)/2);
 		box-shadow: 0 0 10px white; */
 	}
 	
+	.solutiontemplateMiddleSpace {
+		position: fixed;
+		height:calc(100% - (50px + 50px + 100px)); /* 100px for salesexpress baner image */
+		width:calc(100% - 225px);
+		z-index: 999;
+	}
+	
 	.sachbottommenu {
 		line-height: 50px; 
 		height: 50px;

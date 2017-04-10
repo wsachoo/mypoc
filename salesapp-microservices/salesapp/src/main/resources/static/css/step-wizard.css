@@ -12,7 +12,7 @@
     display: table;
     width: 100%;
     position: relative;
-    top:75px;
+    top:15px;
 }
 .stepwizard-step button[disabled] {
     opacity: 1 !important;
@@ -46,5 +46,7 @@
 .setup-content{
 	width:calc(100% - 225px);
 }
+
 #stepContentForm {
-	margin-top:100px;}
+	margin-top:20px;
+}

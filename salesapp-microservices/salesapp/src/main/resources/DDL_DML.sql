@@ -69,7 +69,25 @@ select * from (
 ) mytable
 where mytable.RNK=1 and rownum < 10    
 ---------------------------------------------------------------------------------------------------------------------------------------------
-
+select * from (
+  select       
+      ACCESS_TYPE, PORT_TYPE, ACCESS_SPEED_ID, PORT_SPEED_ID, --and all other fields
+      dense_rank() over (order by NUMBER_OF_SALES desc) RNK
+  from (
+    select 
+      count(*) over (partition by a.PORT_SPEED_ID) as NUMBER_OF_SALES,
+      a.ACCESS_TYPE,
+      a.PORT_TYPE,
+      a.ACCESS_SPEED_ID,
+      a.PORT_SPEED_ID
+      --and all other fields
+    from SALES_TRANSACTION_HISTORY a
+    where a.ACCESS_TYPE='Ethernet'
+          and a.ACCESS_SPEED_ID=10000
+  )  
+) mytable
+where mytable.RNK=1 and rownum < 10    
+---------------------------------------------------------------------------------------------------------------------------------------------
                         
 create table SALES_SOL_TMPL_QUES
 (
@@ -80,10 +98,10 @@ create table SALES_SOL_TMPL_QUES
   QUES_TYPE VARCHAR2(30) NOT NULL
   constraint CHK_QUES_TYPE CHECK (QUES_TYPE in ('DROP_DOWN', 'CHECK_BOX', 'RADIO_BUTTON'))
 )
-insert into SALES_SOL_TMPL_QUES values(1, 1, 'PRODUCT', 'Please select product', 'RADIO_BUTTON');
-insert into SALES_SOL_TMPL_QUES values(2, 2, 'ACCESS_TYPE', 'Please select access type for your site', 'RADIO_BUTTON');
-insert into SALES_SOL_TMPL_QUES values(3, 3, 'ACCESS_SPEED_ID', 'Please select access speed for your site', 'DROP_DOWN');
-insert into SALES_SOL_TMPL_QUES values(4, 4, 'PORT_SPEED_ID', 'Please select port speed for your site', 'DROP_DOWN');
+
+insert into SALES_SOL_TMPL_QUES values(1, 1, 'ACCESS_TYPE', 'Please select access type for your site', 'RADIO_BUTTON');
+insert into SALES_SOL_TMPL_QUES values(2, 2, 'ACCESS_SPEED_ID', 'Please select access speed for your site', 'DROP_DOWN');
+insert into SALES_SOL_TMPL_QUES values(3, 3, 'PORT_SPEED_ID', 'Please select port speed for your site', 'DROP_DOWN');
 
 
 
@@ -97,11 +115,8 @@ create table SALES_SOL_TMPL_ANS
 )
 
 
-insert into SALES_SOL_TMPL_ANS values(1, 1, 'MISPNT', 1);
-insert into SALES_SOL_TMPL_ANS values(2, 2, 'AVPN', 1);
-
-insert into SALES_SOL_TMPL_ANS values(3, 1, 'ETHERNET', 2);
-insert into SALES_SOL_TMPL_ANS values(4, 2, 'IP', 2);
+insert into SALES_SOL_TMPL_ANS values(1, 1, 'ETHERNET', 1);
+insert into SALES_SOL_TMPL_ANS values(2, 2, 'IP', 1);
 
 
 declare 
@@ -110,14 +125,14 @@ begin
 	select max(ID) into vANS_ID_START from SALES_SOL_TMPL_ANS;
 
 	insert into SALES_SOL_TMPL_ANS
-	select vANS_ID_START + rownum, rownum, ACCESS_SPEED_ID, 3 from (
+	select vANS_ID_START + rownum, rownum, ACCESS_SPEED_ID, 2 from (
   		select distinct ACCESS_SPEED_ID from SALES_TRANSACTION_HISTORY where ACCESS_SPEED_ID <> 0 order by ACCESS_SPEED_ID
 	);
   
 	select max(ID) into vANS_ID_START from SALES_SOL_TMPL_ANS;
 
 	insert into SALES_SOL_TMPL_ANS
-	select vANS_ID_START + rownum, rownum, PORT_SPEED_ID, 4 from (
+	select vANS_ID_START + rownum, rownum, PORT_SPEED_ID, 3 from (
   		select distinct PORT_SPEED_ID from SALES_TRANSACTION_HISTORY where PORT_SPEED_ID <> 0 order by PORT_SPEED_ID
 	);  
 end;

@@ -1,6 +1,45 @@
-
 <script>
-$(document).ready(function () {
+
+function initializeStepWizard() {
+	var promise = httpAsyncPostWithJsonRequestResponse("/salesapp/user/solutionTemplate/getAllQuestions", "{}");
+	promise.done(function(data, textStatus, jqXHR ) {
+		var stepWizardData = $("#stepwizard-step-template").tmpl(data);
+		stepWizardData.appendTo("#stepWizardId");
+		populateWizardElement(data[0].quesSeqId);
+	})
+	.fail(function(jqXHR, textStatus, errorThrown) {
+		console.log(textStatus);
+	});
+};
+
+function populateWizardElement(quesSeqId) {
+	
+	var jsonData = JSON.stringify({
+		"QUES_SEQ_ID" : quesSeqId,
+		"PRODUCT" : "MISPNT"
+	});
+	var promise = httpAsyncPostWithJsonRequestResponse("/salesapp/user/solutionTemplate/getNextQuestion", jsonData);
+	promise.done(function(data, textStatus, jqXHR) {
+		if (data.quesType != null && data.quesType == "RADIO_BUTTON") {
+			var stepWizardDataContent = $("#stepwizard-step-template-content-radio").tmpl(data);
+			$("#formId").empty();
+			stepWizardDataContent.appendTo("#formId");
+			//$('.nextbtn').trigger('create');
+		}
+		else if (data.quesType != null && data.quesType == "DROP_DOWN") {
+			var stepWizardDataContent = $("#stepwizard-step-template-content-dropdown").tmpl(data);
+			$("#formId").empty();
+			stepWizardDataContent.appendTo("#formId");
+		}
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		console.log(textStatus);
+	});
+	
+}
+
+$(document).ready(function () {	
+  initializeStepWizard();
+	
   var navListItems = $('div.setup-panel div a'),
           allWells = $('.setup-content'),
           allNextBtn = $('.nextbtn');
@@ -21,7 +60,28 @@ $(document).ready(function () {
       }
   });
 
-  allNextBtn.click(function(){
+  $("#stepContentForm").on("click", function(e) {
+	  var eventSourceId = e.target.id;
+
+	  if (eventSourceId.indexOf("btnNext-") >= 0) {
+			var quesSeqId = eventSourceId.substring(eventSourceId.indexOf("-") + 1);
+			quesSeqId++;
+			populateWizardElement(quesSeqId);
+	  }
+  });
+  
+  $(".stepwizard").on("click", function(e) {
+	  var eventSourceName = e.target.name;
+	  
+	  if ("btnSolutionTemplateSteps" == eventSourceName) {
+		e.preventDefault();	
+		var stepNumber = e.target.text; //stepNumber is designed to be same ad question sequence number
+		populateWizardElement(stepNumber);
+	  }
+  });
+  
+  allNextBtn.on(function(){
+	  console.log("clicked")
       var curStep = $(this).closest(".setup-content"),
           curStepBtn = curStep.attr("id"),
           nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
@@ -47,14 +107,9 @@ $(document).ready(function () {
 
 function onNextButtonClick($thisRef) {
 	var currentButton = $thisRef
-	var nextButtonId = $(currentButton).attr('id');
-	if (nextButtonId === 'btnDisplayAccessType') {
-		getNextStepWizardData('labelAccessType', 'solTmplAccessTypeDiv', 2);
-	} else if (nextButtonId === 'btnDisplayAccessSpeed') {
-		getNextStepWizardData('labelAccessSpeed', 'solTmplAccessSpeed', 3);
-	} else if (nextButtonId === 'btnDisplayPortSpeed') {
-		getNextStepWizardData('labelPortSpeed', 'solTmplPortSpeed', 4);
-	}
+	var nextButtonId = $(currentButton).attr('id'); //Next button id in form btnNext-questionId
+	var quesSeqId = nextButtonId.substring(nextButtonId.indexOf("-")+1);
+	populateWizardElement(quesSeqId);
 }
 
 function getNextStepWizardData(label, div, quesId) {
@@ -98,146 +153,71 @@ function prepareRadioButtonElements(data, divId, labelId) {
 		$("#" + divId).append(radioEl);
 	});
 }
-</script> 
+</script>
 
+<script id="stepwizard-step-template" type="text/html">
+      <div class="stepwizard-step">
+        <a href="#" type="button" class="btn btn-primary btn-circle" name="btnSolutionTemplateSteps">${quesSeqId}</a>
+        <p>${quesColName}</p>
+      </div>
+</script>
 
- <div class="stepwizard">
-    <div class="stepwizard-row setup-panel">
-      <div class="stepwizard-step">
-        <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-        <p>PRODUCT</p>
-      </div>
-      <div class="stepwizard-step">
-        <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-        <p>ACCESS TYPE</p>
-      </div>
-      <div class="stepwizard-step">
-        <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-        <p>ACCESS SPEED</p>
-      </div>
-       <div class="stepwizard-step">
-        <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-        <p>PORT SPEED</p>
-      </div>
-    </div>
-  </div>
-  <div id="stepContentForm">
-  <form role="form" action="" method="post" class="form-horizontal">
-    <div class="setup-content" id="step-1">
-      <div class="col-md-offset-1">
-       
-          <label>PRODUCT</label>
-          <div class="row ">
-          	<div class="col-sm-3">
-          		Please select product
-          	</div>
-            <div class="col-sm-6">
-            	<div class="row">
-					<div class="col-sm-3 radio">
-						<input type="radio" value="MISPNT" name="solTmpl-product">MISPNT
-					</div>
+<script id="stepwizard-step-template-content-radio" type="text/x-jquery-tmpl">
+<div class="row setup-content" id="step-${quesSeqId}">
+    <div class="col-sm-11 col-sm-offset-1 ">
+		<label>${quesColName}</label>
+	</div>
+	<div class="col-sm-offset-1 col-sm-3">
+		${quesDesc}
+	</div>
+	<div class="col-sm-6 col-sm-offset-2">
+		{{each salesSolTmplAns}}
+			<!-- <div class="row"> -->
+				<div class="col-sm-3 radio">
+					<input type="radio" value="${ansDesc}" name="solTmpl-${quesColName}">${ansDesc}
 				</div>
-				<div class="row">
-					<div class="col-sm-3 radio">
-						<input type="radio" value="AVPN" name="solTmpl-product">AVPN
-					</div>
-				</div>
-				<div class="clearfix"></div>	
-          	</div>
-          </div>
-          <div class="row">
-            <div class="col-sm-3 col-sm-offset-8">
-          		 <button class="btn btn-primary btn-block nextbtn" type="button" id="btnDisplayAccessType">Next</button>
-          	</div>
-          </div>
-        
-      </div>
-    </div>
-    <div class="row setup-content" id="step-2">
-      <div class="col-md-offset-1">
-      <div class="questionDiv col-sm-12">
-      	<div class="col-sm-6">
-      		<div class="" id="labelAccessType"></div>
-      	</div>
-      	<div class="col-sm-6 radio" id="solTmplAccessTypeDiv">
-      	</div>
-          <div class="row">
-          	 <div class="col-sm-3 col-sm-offset-8">
-          	 	<button class="btn btn-primary btn-block nextbtn" type="button" id="btnDisplayAccessSpeed">Next</button>
-          	 </div>
-          </div>
-          
-      </div>
-      <div class="answerDiv col-sm-12">    
-      		<div class="row " id="accessTypeTableDiv">
-<!-- 				<table id="grid-access-type" class="table table-condensed table-hover">
-					<thead>
-						<tr>
-							<th data-column-id="id" data-type="numeric">ID</th>
-							<th data-column-id="ansDesc">AccessType</th>
-							<th data-column-id="ansSeqId">SeqId</th>
-						</tr>
-					</thead>
-				</table> -->
-			</div>
-		</div>	
-			<div class="row">
-          	<div class="col-sm-4">
-          	</div>
-          	<div class="col-sm-6">
-          		
-          	</div>
-          </div>
-      </div>
-    </div>
-    <div class="row setup-content" id="step-3">
-      <div class=" col-md-offset-1">
-      	<div class="questionDiv col-sm-12">
-      		<div>
-      			 <div class="col-sm-6" id="labelAccessSpeed"></div>
-      		</div>
-      		<div class="col-sm-6" id="">
-      			<select id="solTmplAccessSpeed" class="form-control" >
-					<option value="accessType">select</option>
-				</select> 
-      		</div>
-        <div class="row">
-        	<div class="col-sm-3 col-sm-offset-8">
-        		<button class="btn btn-primary btn-block nextbtn" type="button" id="btnDisplayPortSpeed">Next</button>
-        	</div>
-        </div>
-        </div>
-         <div class="answerDiv col-sm-12">
-          <div class="row" id="accessSpeedTableDiv">
+			<!-- </div> -->
+		{{/each}}	
+	</div>
+	<div class="clearfix"></div>	
+</div>
+<div class="row">
+	<div class="col-sm-1 col-sm-offset-1">
+		<button class="btn btn-primary btn-block nextbtn" type="button" id="btnNext-${quesSeqId}">Next</button>
+	</div>
+</div>
+</script>
 
-		  </div>
-		 </div> 	
-          
-      </div>
-    </div>
-    
-     <div class="row setup-content" id="step-4">
-      <div class=" col-md-offset-1">
-      <div class="questionDiv col-sm-12">
-      	<div>
-      		 <div class="col-sm-6" id="labelPortSpeed"></div>
-      	</div>
-      	<div class="col-sm-6" id="">
-      		<select id="solTmplPortSpeed" class="form-control" >
-				<option value="accessType">select</option>
-			</select> 
-      	</div>
-      	  <div class="row">
-        	<div class="col-sm-3 col-sm-offset-8">
-        		 <button class="btn btn-primary btn-block nextbtn" type="button" id="btnDisplayGrid">Next</button>
-        	</div>
-        </div>
-       </div> 
-       <div class="answerDiv">  
+<script id="stepwizard-step-template-content-dropdown" type="text/html">
+<div class="row setup-content" id="step-${quesSeqId}">
+    <div class="col-sm-11 col-sm-offset-1 ">
+		<label>${quesColName}</label>
+	</div>
+	<div class="col-sm-offset-1 col-sm-4">
+		${quesDesc}
+	</div>
+	<div class="col-sm-3 col-sm-offset-1">
+					<select id="solTmpl-${quesColName}" name="solTmpl-${quesColName}" class="form-control" >
+							<option value="">select</option>
+						{{each salesSolTmplAns}}
+							<option value="${ansDesc}">${ansDesc}</option>
+					    {{/each}}	
+					</select>
+	</div>
+	<div class="clearfix"></div>	
+</div>
+<div class="row">
+	<div class="col-sm-1 col-sm-offset-1">
+		<button class="btn btn-primary btn-block nextbtn" type="button" id="btnNext-${quesSeqId}">Next</button>
+	</div>
+</div>
+</script>
 
-		</div>	
-          
-      </div>
-    </div>
-  </form>
-  </div>
+<div class="stepwizard">
+	<div class="stepwizard-row setup-panel" id="stepWizardId"></div>
+</div>
+
+<div id="stepContentForm">
+	<form role="form" action="" method="post" class="form-horizontal"
+		id="formId"></form>
+</div>

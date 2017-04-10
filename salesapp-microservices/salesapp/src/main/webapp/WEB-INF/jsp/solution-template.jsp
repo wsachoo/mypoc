@@ -82,28 +82,19 @@
 		<div id="main-wrapper">
 			<div class="container-fluid salesexpress-content-area"
 				id="accessSpeedConfigPlaceholder">
-				<form id="configureForm" data-ajax="false">
-					<input type="hidden" value="${userId}" name="userId" id="userId">
-					<input type="hidden" value="${solutionId}" name="solutionId"
-						id="solutionId"> <input type="hidden"
-						value="${transactionId}" name="transactionId" id="transactionId">
-
 					<div class="row sachtopmenu">
 						<div class="col-sm-6 col-xs-12 sachmenuitemactive"
 							id="sachtopmenu_gMap">
 							<%-- <a href="#" style="color: white" data-name="siteMap" data-url="${pageContext.request.contextPath}/login/${userId}/${solutionId}">Site Map</a> --%>
 							<a href="#" style="color: white" data-name="siteMap"
-								data-url="${pageContext.request.contextPath}/user/solutionTemplate">Site Map</a>
+								data-url="solutionTemplate">Site Map</a>
 						</div>
 						<div class="col-sm-6 col-xs-12 sachmenuitem"
 							id="sachtopmenu_solutionTemplate">
 							<a href="${pageContext.request.contextPath}/user/solutionTemplate/stepWizard" style="color: white" data-name="solutionTemplate"
-								data-url="${pageContext.request.contextPath}/user/solutionTemplate/stepWizard">Solution Template</a>
+								data-url="stepWizard">Solution Template</a>
 						</div>
 					</div>
-					<!-- <div class="row loadSolutionTemplate" id="testLoadSolutionTemplate"></div> -->
-					<!-- following div snippet is also present in init_gmap_template.html 
-			It has been included to avoid server side trip if user pressed the top 'Site Map' menu button again while on other tabs -->
 					<div class="clearfix"></div>
 					<div class="row sachgooglemapdivrow">
 						<div id="sachgooglemapdiv" class="sachgooglemapdivclass"></div>
@@ -135,7 +126,6 @@
 					<div class="chat-box" id="chat_div" style="display: none;">
 						<jsp:include page="chatBox.jsp" />
 					</div>
-				</form>
 			</div>
 		</div>
 	</div>
