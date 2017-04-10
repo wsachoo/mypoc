@@ -1,4 +1,18 @@
 <script>
+function highlightActiveStep(stepNumber) {
+	console.log("inside btnSolutionTemplateSteps: " + stepNumber);
+	
+	$("#stepWizardId").find(".stepwizard-step").each(function(i) {
+		if ((i+1) === stepNumber) {
+			$(this).find('a').addClass('btn-primary');
+			$(this).find('a').removeClass('btn-default');
+	    }
+	    else {
+	    	$(this).find('a').addClass('btn-default');
+	    	$(this).find('a').removeClass('btn-primary');
+	    }
+	});
+}
 
 function initializeStepWizard() {
 	var promise = httpAsyncPostWithJsonRequestResponse("/salesapp/user/solutionTemplate/getAllQuestions", "{}");
@@ -7,6 +21,7 @@ function initializeStepWizard() {
 		stepWizardData.appendTo("#stepWizardId");
 		populateWizardElement(data[0].quesSeqId);
 		$("input[name='numberOfQuestion']").val(data.length);
+		highlightActiveStep(1);
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(textStatus);
@@ -29,7 +44,6 @@ function populateWizardElement(quesSeqId) {
 			$("#formId").empty();
 			stepWizardDataContent.appendTo("#formId");
 			//$('.nextbtn').trigger('create');
-			console.log(JSON.stringify(data));
 		}
 		else if (data.quesType != null && data.quesType == "DROP_DOWN") {
 			var stepWizardDataContent = $("#stepwizard-step-template-content-dropdown").tmpl(data);
@@ -41,6 +55,7 @@ function populateWizardElement(quesSeqId) {
 			$("#formId").empty();
 			stepWizardDataContent.appendTo("#formId");
 		}
+		highlightActiveStep(quesSeqId);
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(textStatus);
 	});
@@ -97,7 +112,6 @@ $(document).ready(function () {
   });
   
   allNextBtn.on(function(){
-	  console.log("clicked")
       var curStep = $(this).closest(".setup-content"),
           curStepBtn = curStep.attr("id"),
           nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
@@ -136,7 +150,6 @@ function getNextStepWizardData(label, div, quesId) {
 	var promise = httpAsyncPostWithJsonRequestResponse(
 			"/salesapp/user/solutionTemplate/getNextQuestion", jsonData);
 	promise.done(function(data, textStatus, jqXHR) {
-		console.log(JSON.stringify(data));
 		if (data.quesType != null && data.quesType == "RADIO_BUTTON") {
 			prepareRadioButtonElements(data, div, label);
 		} else if (data.quesType != null && data.quesType == "DROP_DOWN") {
@@ -173,7 +186,7 @@ function prepareRadioButtonElements(data, divId, labelId) {
 
 <script id="stepwizard-step-template" type="text/html">
       <div class="stepwizard-step">
-        <a href="#" type="button" class="btn btn-primary btn-circle" name="btnSolutionTemplateSteps">${quesSeqId}</a>
+        <a href="#" type="button" class="btn btn-default btn-circle" name="btnSolutionTemplateSteps">${quesSeqId}</a>
         <p>${quesColName}</p>
       </div>
 </script>
