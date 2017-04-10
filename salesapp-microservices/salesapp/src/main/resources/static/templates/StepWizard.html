@@ -3,13 +3,14 @@ function highlightActiveStep(stepNumber) {
 	console.log("inside btnSolutionTemplateSteps: " + stepNumber);
 	
 	$("#stepWizardId").find(".stepwizard-step").each(function(i) {
+		var anchorObject = $(this).find('a');
 		if ((i+1) === stepNumber) {
-			$(this).find('a').addClass('btn-primary');
-			$(this).find('a').removeClass('btn-default');
+			anchorObject.addClass('btn-primary');
+			anchorObject.removeClass('btn-default');
 	    }
 	    else {
-	    	$(this).find('a').addClass('btn-default');
-	    	$(this).find('a').removeClass('btn-primary');
+	    	anchorObject.addClass('btn-default');
+	    	anchorObject.removeClass('btn-primary');
 	    }
 	});
 }
