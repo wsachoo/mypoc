@@ -6,6 +6,7 @@ function initializeStepWizard() {
 		var stepWizardData = $("#stepwizard-step-template").tmpl(data);
 		stepWizardData.appendTo("#stepWizardId");
 		populateWizardElement(data[0].quesSeqId);
+		$("input[name='numberOfQuestion']").val(data.length);
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(textStatus);
@@ -18,16 +19,25 @@ function populateWizardElement(quesSeqId) {
 		"QUES_SEQ_ID" : quesSeqId,
 		"PRODUCT" : "MISPNT"
 	});
+	
 	var promise = httpAsyncPostWithJsonRequestResponse("/salesapp/user/solutionTemplate/getNextQuestion", jsonData);
 	promise.done(function(data, textStatus, jqXHR) {
+		data["numberOfQuestion"] = $("input[name='numberOfQuestion']").val();
+		
 		if (data.quesType != null && data.quesType == "RADIO_BUTTON") {
 			var stepWizardDataContent = $("#stepwizard-step-template-content-radio").tmpl(data);
 			$("#formId").empty();
 			stepWizardDataContent.appendTo("#formId");
 			//$('.nextbtn').trigger('create');
+			console.log(JSON.stringify(data));
 		}
 		else if (data.quesType != null && data.quesType == "DROP_DOWN") {
 			var stepWizardDataContent = $("#stepwizard-step-template-content-dropdown").tmpl(data);
+			$("#formId").empty();
+			stepWizardDataContent.appendTo("#formId");
+		}
+		else if (data.quesType != null && data.quesType == "CHECK_BOX") {
+			var stepWizardDataContent = $("#stepwizard-step-template-content-checkbox").tmpl(data);
 			$("#formId").empty();
 			stepWizardDataContent.appendTo("#formId");
 		}
@@ -68,6 +78,12 @@ $(document).ready(function () {
 			quesSeqId++;
 			populateWizardElement(quesSeqId);
 	  }
+
+	  if (eventSourceId.indexOf("btnPrev-") >= 0) {
+			var quesSeqId = eventSourceId.substring(eventSourceId.indexOf("-") + 1);
+			quesSeqId--;
+			populateWizardElement(quesSeqId);
+	  }  
   });
   
   $(".stepwizard").on("click", function(e) {
@@ -174,7 +190,7 @@ function prepareRadioButtonElements(data, divId, labelId) {
 		{{each salesSolTmplAns}}
 			<!-- <div class="row"> -->
 				<div class="col-sm-3 radio">
-					<input type="radio" value="${ansDesc}" name="solTmpl-${quesColName}">${ansDesc}
+					<input type="radio" value="${ansDesc}" name="${quesColName}">${ansDesc}
 				</div>
 			<!-- </div> -->
 		{{/each}}	
@@ -182,8 +198,20 @@ function prepareRadioButtonElements(data, divId, labelId) {
 	<div class="clearfix"></div>	
 </div>
 <div class="row">
+	<hr>
 	<div class="col-sm-1 col-sm-offset-1">
-		<button class="btn btn-primary btn-block nextbtn" type="button" id="btnNext-${quesSeqId}">Next</button>
+		{{if quesSeqId == 1}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnPrev-${quesSeqId}" disabled="disabled">Prev</button>
+	    {{else}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnPrev-${quesSeqId}">Prev</button>
+        {{/if}}
+	</div>
+	<div class="col-sm-1  col-sm-offset-8">
+		{{if quesSeqId == numberOfQuestion}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnNext-${quesSeqId}" disabled="disabled">Next</button>
+		{{else}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnNext-${quesSeqId}">Next</button>
+        {{/if}}
 	</div>
 </div>
 </script>
@@ -196,8 +224,8 @@ function prepareRadioButtonElements(data, divId, labelId) {
 	<div class="col-sm-offset-1 col-sm-4">
 		${quesDesc}
 	</div>
-	<div class="col-sm-3 col-sm-offset-1">
-					<select id="solTmpl-${quesColName}" name="solTmpl-${quesColName}" class="form-control" >
+	<div class="col-sm-2 col-sm-offset-1">
+					<select id="solTmpl-${quesColName}" name="${quesColName}" class="form-control" >
 							<option value="">select</option>
 						{{each salesSolTmplAns}}
 							<option value="${ansDesc}">${ansDesc}</option>
@@ -207,11 +235,69 @@ function prepareRadioButtonElements(data, divId, labelId) {
 	<div class="clearfix"></div>	
 </div>
 <div class="row">
+	<hr>
 	<div class="col-sm-1 col-sm-offset-1">
-		<button class="btn btn-primary btn-block nextbtn" type="button" id="btnNext-${quesSeqId}">Next</button>
+		{{if quesSeqId == 1}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnPrev-${quesSeqId}" disabled="disabled">Prev</button>
+	    {{else}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnPrev-${quesSeqId}">Prev</button>
+        {{/if}}
+	</div>
+	<div class="col-sm-1  col-sm-offset-8">
+		{{if quesSeqId == numberOfQuestion}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnNext-${quesSeqId}" disabled="disabled">Next</button>
+		{{else}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnNext-${quesSeqId}">Next</button>
+        {{/if}}
 	</div>
 </div>
 </script>
+
+<script id="stepwizard-step-template-content-checkbox" type="text/x-jquery-tmpl">
+<div class="row setup-content" id="step-${quesSeqId}">
+    <div class="col-sm-11 col-sm-offset-1 ">
+		<label>${quesColName}</label>
+	</div>
+	<div class="col-sm-offset-1 col-sm-3">
+		${quesDesc}
+	</div>
+	<div class="col-sm-6 col-sm-offset-2">
+		{{each salesSolTmplAns}}
+			<!-- <div class="row"> -->
+				<div class="col-sm-3 radio">
+					<input type="checkbox" value="${ansDesc}" name="${quesColName}">${ansDesc}
+				</div>
+			<!-- </div> -->
+		{{/each}}	
+	</div>
+	<div class="clearfix"></div>	
+</div>
+<div class="row">
+	<hr>
+	<div class="col-sm-1 col-sm-offset-1">
+		{{if quesSeqId == 1}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnPrev-${quesSeqId}" disabled="disabled">Prev</button>
+	    {{else}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnPrev-${quesSeqId}">Prev</button>
+        {{/if}}
+	</div>
+	<div class="col-sm-1  col-sm-offset-8">
+		{{if quesSeqId == numberOfQuestion}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnNext-${quesSeqId}" disabled="disabled">Next</button>
+		{{else}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnNext-${quesSeqId}">Next</button>
+        {{/if}}
+	</div>
+</div>
+</script>
+
+<input type="hidden" name="numberOfQuestion" />
+
+<div class="row">
+	<div class="col-sm-12">
+		<label>Please configure parameters for selection</label>
+	</div>
+</div>
 
 <div class="stepwizard">
 	<div class="stepwizard-row setup-panel" id="stepWizardId"></div>
