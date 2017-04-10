@@ -25,19 +25,31 @@ $(document).ready(function() {
 function hashChange(){
 	var page = location.hash.slice(1);
 	
-	if (page.includes("/user/solutionTemplate/stepWizard")) {
+	if (page.includes("stepWizard")) {
 		changeTab(page);
     	var topMenuDiv = $("div.sachtopmenu");
     	removeNextAllSiblingDivRows(topMenuDiv);
-    	
+
+    	var frameFormat = "<div class='clearfix'></div>";
+    	frameFormat = frameFormat  + "<div class='row salesexpress-content-margin solutiontemplateMiddleSpace'>";
+    	frameFormat = frameFormat  + "<div class='col-sm-12'  style='height:50%;'>"; 
+        frameFormat = frameFormat  + 	"<div id='solutionTemplateTopFrame'></div>";
+    	frameFormat = frameFormat + "</div>";
+    	frameFormat = frameFormat  + "<div class='col-sm-12'  style='height:50%;background-color: #e8e8e8;'>";
+    	frameFormat = frameFormat  + 	"<div id='solutionTemplateBottomFrame'>bottom</div>";
+    	frameFormat = frameFormat + "</div>";
+    	frameFormat = frameFormat + "</div>";
+        topMenuDiv.after(frameFormat);
+        topMenuDiv.trigger('create');
+        
     	var templatePath = contextPath + "/templates/StepWizard.html";
     	var initStepWizardTemplate = getTemplateDefinition(templatePath);
     	
-    	topMenuDiv.after(initStepWizardTemplate);
-    	topMenuDiv.trigger('create');
+    	$("#solutionTemplateTopFrame").after(initStepWizardTemplate);
+    	$("#solutionTemplateTopFrame").trigger('create');
     	//$("#testLoadSolutionTemplate").load(page);
 	}
-	else if (page.includes("/user/solutionTemplate") || page == "") {
+	else if (page.includes("solutionTemplate") || page == "") {
     	changeTab(contextPath + "/user/solutionTemplate");
     	var topMenuDiv = $("div.sachtopmenu");
     	removeNextAllSiblingDivRows(topMenuDiv);
