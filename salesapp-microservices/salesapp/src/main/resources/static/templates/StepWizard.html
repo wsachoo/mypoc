@@ -15,7 +15,7 @@ function highlightActiveStep(stepNumber) {
 }
 
 function initializeStepWizard() {
-	var promise = httpAsyncPostWithJsonRequestResponse("/salesapp/user/solutionTemplate/getAllQuestions", "{}");
+	var promise = httpAsyncPostWithJsonRequestResponse(contextPath + "/user/solutionTemplate/getAllQuestions", "{}");
 	promise.done(function(data, textStatus, jqXHR ) {
 		var stepWizardData = $("#stepwizard-step-template").tmpl(data);
 		stepWizardData.appendTo("#stepWizardId");
@@ -34,7 +34,7 @@ function populateWizardElement(quesSeqId) {
 		"PRODUCT" : "MISPNT"
 	});
 	
-	var promise = httpAsyncPostWithJsonRequestResponse("/salesapp/user/solutionTemplate/getNextQuestion", jsonData);
+	var promise = httpAsyncPostWithJsonRequestResponse(contextPath + "/user/solutionTemplate/getNextQuestion", jsonData);
 	promise.done(function(data, textStatus, jqXHR) {
 		data["numberOfQuestion"] = $("input[name='numberOfQuestion']").val();
 		
@@ -147,7 +147,7 @@ function getNextStepWizardData(label, div, quesId) {
 		"PRODUCT" : "AVPN"
 	});
 	var promise = httpAsyncPostWithJsonRequestResponse(
-			"/salesapp/user/solutionTemplate/getNextQuestion", jsonData);
+			contextPath + "/user/solutionTemplate/getNextQuestion", jsonData);
 	promise.done(function(data, textStatus, jqXHR) {
 		if (data.quesType != null && data.quesType == "RADIO_BUTTON") {
 			prepareRadioButtonElements(data, div, label);
