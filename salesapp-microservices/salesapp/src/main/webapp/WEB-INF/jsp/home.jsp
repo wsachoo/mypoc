@@ -81,15 +81,6 @@
 					+ Math.floor(Math.random() * 100) + '"\><\/script>');
 </script>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		//$("#salesexpress-side-bar").load("templates/side_menu_bar.html");
-		/* $("#btnSolutionTemplate").click(function(){
-			alert("hi");
-			$("#formSolutionTemplate").submit();
-		}); */
-	});
-</script>
 </head>
 <body>
 	<div id="userDetail" style="display: none;">${userDetail}</div>
@@ -123,7 +114,7 @@
 						<div class="col-sm-3 col-xs-12 sachmenuitem"
 							id="sachtopmenu_accessPort">
 							<a href="#" style="color: white" data-name="accessAndPort"
-								data-url="${pageContext.request.contextPath}/configure">Access
+								data-url="${pageContext.request.contextPath}/configure" id="linkAccessPort">Access
 								& Port</a>
 						</div>
 						<div class="col-sm-3 col-xs-12 sachmenuitem"
@@ -158,12 +149,12 @@
 					<div id="over_map" class="sachbuttonsonmap"
 						style="text-align: center; display: inline;">
 						<div class="button-wrapper">
-							<a href="${contextPath}/user/solutionTemplate" class="btn btn-primary" role="button">Solution Template</a>
+							<a href="${contextPath}/user/solutionTemplate#/stepWizard" class="btn btn-primary" role="button">Solution Template</a>
 							&nbsp; &nbsp;
 							<button type="button" class="btn btn-primary">Product/Bundle
 								Filter</button>
 							&nbsp; &nbsp;
-							<button type="button" class="btn btn-primary">Guided
+							<button type="button" class="btn btn-primary" id="btnGuidedSelling">Guided
 								Selling</button>
 						</div>
 					</div>
@@ -184,5 +175,12 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(document).on("click", "#btnGuidedSelling", function(){
+			$("#linkAccessPort").trigger("click");
+		});
+	});
+</script>
 </html>
 

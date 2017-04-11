@@ -44,20 +44,34 @@ function hashChange(){
         
     	var templatePath = contextPath + "/templates/StepWizard.html";
     	var initStepWizardTemplate = getTemplateDefinition(templatePath);
-    	
     	$("#solutionTemplateTopFrame").after(initStepWizardTemplate);
     	$("#solutionTemplateTopFrame").trigger('create');
     	//$("#testLoadSolutionTemplate").load(page);
 	}
-	else if (page.includes("solutionTemplate") || page == "") {
+	else if (page.includes("solutionTemplate")) {
+    	changeTab(page);
+    	var topMenuDiv = $("div.sachtopmenu");
+    	removeNextAllSiblingDivRows(topMenuDiv);
+    	
+    	var templatePath = contextPath + "/templates/init_gmap_template.html";
+    	var initGmapTemplate = getTemplateDefinition(templatePath);
+    	$.template("initGmapTemplate", initGmapTemplate);
+    	initGmapTemplate = $.tmpl("initGmapTemplate");
+
+    	topMenuDiv.after(initGmapTemplate);
+    	topMenuDiv.trigger('create');
+    	displayUserSitesOnGoogleMap();		
+	}
+	else if (page == "") {
     	changeTab(contextPath + "/user/solutionTemplate");
     	var topMenuDiv = $("div.sachtopmenu");
     	removeNextAllSiblingDivRows(topMenuDiv);
     	
     	var templatePath = contextPath + "/templates/init_gmap_template.html";
     	var initGmapTemplate = getTemplateDefinition(templatePath);
-    	
-    	//var initGmapTemplate = $.tmpl("init_gmap_template");
+    	$.template("initGmapTemplate", initGmapTemplate);
+    	initGmapTemplate = $.tmpl("initGmapTemplate");
+
     	topMenuDiv.after(initGmapTemplate);
     	topMenuDiv.trigger('create');
     	displayUserSitesOnGoogleMap();		
