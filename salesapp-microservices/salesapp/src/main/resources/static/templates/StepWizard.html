@@ -1,7 +1,21 @@
 <script>
+function highlightActiveStep(stepNumber) {
+	
+	$("#stepWizardId").find(".stepwizard-step").each(function(i) {
+		var anchorObject = $(this).find('a');
+		if ((i+1) == stepNumber) {
+			anchorObject.addClass('btn-primary');
+			anchorObject.removeClass('btn-default');
+	    }
+	    else {
+	    	anchorObject.addClass('btn-default');
+	    	anchorObject.removeClass('btn-primary');
+	    }
+	});
+}
 
 function initializeStepWizard() {
-	var promise = httpAsyncPostWithJsonRequestResponse("/salesapp/user/solutionTemplate/getAllQuestions", "{}");
+	var promise = httpAsyncPostWithJsonRequestResponse(contextPath + "/user/solutionTemplate/getAllQuestions", "{}");
 	promise.done(function(data, textStatus, jqXHR ) {
 		var stepWizardData = $("#stepwizard-step-template").tmpl(data);
 		stepWizardData.appendTo("#stepWizardId");
@@ -20,7 +34,7 @@ function populateWizardElement(quesSeqId) {
 		"PRODUCT" : "MISPNT"
 	});
 	
-	var promise = httpAsyncPostWithJsonRequestResponse("/salesapp/user/solutionTemplate/getNextQuestion", jsonData);
+	var promise = httpAsyncPostWithJsonRequestResponse(contextPath + "/user/solutionTemplate/getNextQuestion", jsonData);
 	promise.done(function(data, textStatus, jqXHR) {
 		data["numberOfQuestion"] = $("input[name='numberOfQuestion']").val();
 		
@@ -29,7 +43,6 @@ function populateWizardElement(quesSeqId) {
 			$("#formId").empty();
 			stepWizardDataContent.appendTo("#formId");
 			//$('.nextbtn').trigger('create');
-			console.log(JSON.stringify(data));
 		}
 		else if (data.quesType != null && data.quesType == "DROP_DOWN") {
 			var stepWizardDataContent = $("#stepwizard-step-template-content-dropdown").tmpl(data);
@@ -41,6 +54,7 @@ function populateWizardElement(quesSeqId) {
 			$("#formId").empty();
 			stepWizardDataContent.appendTo("#formId");
 		}
+		highlightActiveStep(quesSeqId);
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(textStatus);
 	});
@@ -97,7 +111,6 @@ $(document).ready(function () {
   });
   
   allNextBtn.on(function(){
-	  console.log("clicked")
       var curStep = $(this).closest(".setup-content"),
           curStepBtn = curStep.attr("id"),
           nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
@@ -134,9 +147,8 @@ function getNextStepWizardData(label, div, quesId) {
 		"PRODUCT" : "AVPN"
 	});
 	var promise = httpAsyncPostWithJsonRequestResponse(
-			"/salesapp/user/solutionTemplate/getNextQuestion", jsonData);
+			contextPath + "/user/solutionTemplate/getNextQuestion", jsonData);
 	promise.done(function(data, textStatus, jqXHR) {
-		console.log(JSON.stringify(data));
 		if (data.quesType != null && data.quesType == "RADIO_BUTTON") {
 			prepareRadioButtonElements(data, div, label);
 		} else if (data.quesType != null && data.quesType == "DROP_DOWN") {
@@ -173,7 +185,7 @@ function prepareRadioButtonElements(data, divId, labelId) {
 
 <script id="stepwizard-step-template" type="text/html">
       <div class="stepwizard-step">
-        <a href="#" type="button" class="btn btn-primary btn-circle" name="btnSolutionTemplateSteps">${quesSeqId}</a>
+        <a href="#" type="button" class="btn btn-default btn-circle" name="btnSolutionTemplateSteps">${quesSeqId}</a>
         <p>${quesColName}</p>
       </div>
 </script>
@@ -181,7 +193,7 @@ function prepareRadioButtonElements(data, divId, labelId) {
 <script id="stepwizard-step-template-content-radio" type="text/x-jquery-tmpl">
 <div class="row setup-content" id="step-${quesSeqId}">
     <div class="col-sm-11 col-sm-offset-1 ">
-		<label>${quesColName}</label>
+		&nbsp;
 	</div>
 	<div class="col-sm-offset-1 col-sm-3">
 		${quesDesc}
@@ -219,7 +231,7 @@ function prepareRadioButtonElements(data, divId, labelId) {
 <script id="stepwizard-step-template-content-dropdown" type="text/html">
 <div class="row setup-content" id="step-${quesSeqId}">
     <div class="col-sm-11 col-sm-offset-1 ">
-		<label>${quesColName}</label>
+		&nbsp;
 	</div>
 	<div class="col-sm-offset-1 col-sm-4">
 		${quesDesc}
@@ -256,7 +268,7 @@ function prepareRadioButtonElements(data, divId, labelId) {
 <script id="stepwizard-step-template-content-checkbox" type="text/x-jquery-tmpl">
 <div class="row setup-content" id="step-${quesSeqId}">
     <div class="col-sm-11 col-sm-offset-1 ">
-		<label>${quesColName}</label>
+		&nbsp;
 	</div>
 	<div class="col-sm-offset-1 col-sm-3">
 		${quesDesc}
