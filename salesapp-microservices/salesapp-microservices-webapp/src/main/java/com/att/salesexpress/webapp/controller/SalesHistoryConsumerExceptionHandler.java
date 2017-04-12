@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 @ControllerAdvice
-public class SalesExpressExceptionHandler {
+public class SalesHistoryConsumerExceptionHandler {
 
-	private static final Logger logger = LoggerFactory.getLogger(SalesExpressExceptionHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(SalesHistoryConsumerExceptionHandler.class);
 
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
