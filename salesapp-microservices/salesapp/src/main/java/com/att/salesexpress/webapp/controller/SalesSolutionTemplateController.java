@@ -99,10 +99,10 @@ public class SalesSolutionTemplateController {
 		return view;
 	}
 
-	@RequestMapping(value = { "/user/solutionTemplate/stepWizard" }, method = RequestMethod.GET)
+/*	@RequestMapping(value = { "/user/solutionTemplate/stepWizard" }, method = RequestMethod.GET)
 	public ModelAndView getSolutionStepWizard(HttpServletRequest request) throws JsonProcessingException {
 		logger.debug("inside getSolutionStepWizard() method");
 		ModelAndView view = new ModelAndView("step-wizard");
 		return view;
-	}
+	}*/
 }

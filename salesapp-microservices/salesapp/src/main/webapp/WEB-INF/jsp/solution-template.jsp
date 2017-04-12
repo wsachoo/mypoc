@@ -60,11 +60,6 @@
 
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		
-	});
-</script>
 </head>
 <body>
 	<div id="userDetail" style="display: none;">${userDetail}</div>
@@ -104,8 +99,7 @@
 					<div id="over_map" class="sachbuttonsonmap"
 						style="text-align: center; display: none;">
 						<div class="button-wrapper">
-							<button type="button" class="btn btn-primary">Solution
-								Template</button>
+							<button type="button" class="btn btn-primary">Solution Template</button>
 							&nbsp; &nbsp;
 							<button type="button" class="btn btn-primary">Product/Bundle
 								Filter</button>
@@ -169,6 +163,14 @@
 	document
 			.write('<script src="${contextPath}/js/solutionTemplate/solution-template-navigation.js?dev='
 					+ Math.floor(Math.random() * 100) + '"\><\/script>');
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(document).on("click", "#btnGuidedSelling", function(){
+			location.replace("${contextPath}/user/home");
+		
+		});
+	});
 </script>
 </html>
 
