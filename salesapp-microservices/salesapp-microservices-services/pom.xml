@@ -11,12 +11,5 @@
 		<start-class>com.att.salesexpress.microservices.SalesExpressMicroServicesApplication</start-class>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.att.salesexpress.microservices</groupId>
-			<artifactId>salesapp-microservices-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
 	<packaging>${artifact-packaging}</packaging>
 </project>

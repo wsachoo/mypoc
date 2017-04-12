@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.att.salesexpress.microservices.service.SalesHistoryService;
 
 @RestController
-@RequestMapping("/salesHistory")
 public class SalesHistoryController {
 	private static final Logger logger = LoggerFactory.getLogger(SalesHistoryController.class);
 	
@@ -25,7 +24,7 @@ public class SalesHistoryController {
 	private SalesHistoryService objSalesHistoryService;
 
 	@CrossOrigin
-	@RequestMapping(value = "/getRecommendationBasedOnSalesHistory", method = RequestMethod.POST, produces = {
+	@RequestMapping(value = "/salesHistory/getRecommendationBasedOnSalesHistory", method = RequestMethod.POST, produces = {
 			"application/json" })
 	public List<Map<String, Object>> getRecommendationBasedOnSalesHistory(@RequestBody Map<String, Object> paramValues,
 			HttpServletRequest request) {

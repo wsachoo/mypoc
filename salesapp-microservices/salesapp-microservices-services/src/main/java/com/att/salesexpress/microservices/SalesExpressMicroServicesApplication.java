@@ -1,8 +1,5 @@
 package com.att.salesexpress.microservices;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import com.att.salesexpress.microservices.dao.SalesHistoryDao;
 
 @SpringBootApplication
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 public class SalesExpressMicroServicesApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
 	@Override
@@ -24,7 +21,6 @@ public class SalesExpressMicroServicesApplication extends SpringBootServletIniti
 	
 	public static void main(String[] args) {
         SpringApplication application = new SpringApplication(SalesExpressMicroServicesApplication.class);
-        //System.setProperty("spring.config.name", "salesexpress-microservices");
         application.run(args);
 	}
 	
