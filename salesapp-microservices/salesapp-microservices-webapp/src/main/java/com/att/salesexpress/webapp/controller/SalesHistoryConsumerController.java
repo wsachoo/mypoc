@@ -35,13 +35,13 @@ public class SalesHistoryConsumerController {
 	@ResponseBody
 	@RequestMapping(value = "/user/salesHistory/getRecommendationBasedOnSalesHistory", method = RequestMethod.POST, produces = {
 			"application/json" })
-	public List<Map<String, Object>> getRecommendationBasedOnSalesHistory(@RequestBody Map<String, Object> paramValues,
+	public Map<String, Object> getRecommendationBasedOnSalesHistory(@RequestBody Map<String, Object> paramValues,
 			HttpServletRequest request) {
 		logger.info("Inside getRecommendationBasedOnSalesHistory method");
-		List<Map<String, Object>> result = null;
+		Map<String, Object> result = null;
 		try {
 			result = salesExpressMicroServiceCallerServiceImpl.getSalesRecommendationFromHistory(paramValues);
-		} catch (JsonProcessingException e) {
+		} catch (Exception e) {
 			logger.error("Error occurred while invoking webservice: {}" + ExceptionUtils.getStackTrace(e));
 		}
 		logger.info("Returning result from getRecommendationBasedOnSalesHistory method");
