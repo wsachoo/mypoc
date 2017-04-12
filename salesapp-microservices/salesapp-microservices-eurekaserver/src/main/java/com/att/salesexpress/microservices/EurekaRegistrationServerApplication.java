@@ -21,7 +21,7 @@ public class EurekaRegistrationServerApplication extends SpringBootServletInitia
 
 	public static void main(String[] args) {
         SpringApplication application = new SpringApplication(EurekaRegistrationServerApplication.class);
-		System.setProperty("spring.config.name", "eureka-registration-server");
+		//System.setProperty("spring.config.name", "eureka-registration-server");
         application.run(args);
 	}
 }

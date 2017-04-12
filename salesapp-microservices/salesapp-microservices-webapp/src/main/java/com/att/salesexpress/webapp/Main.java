@@ -15,6 +15,6 @@ package com.att.salesexpress.webapp;
  */
 public class Main {
 	public static void main(String[] args) {
-			SalesExpressPocApplication.main(args);
+			SalesHistoryConsumerApplication.main(args);
 	}
 }
