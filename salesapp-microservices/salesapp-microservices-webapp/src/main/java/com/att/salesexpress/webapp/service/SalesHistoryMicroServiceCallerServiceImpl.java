@@ -53,7 +53,7 @@ public class SalesHistoryMicroServiceCallerServiceImpl implements SalesHistoryMi
 			logger.error("Some exception occurred while calling micro service: {}", ExceptionUtils.getStackTrace(ex));
 		}
 		
-		returnValue.put("RESULTSET", result);
+		returnValue.put("DATA", result);
 		return returnValue;
 	}
 }
