@@ -1,4 +1,4 @@
-package com.att.salesexpress.webapp.controller;
+/*package com.att.salesexpress.webapp.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
+*//**
  * 
  * @author sw088d initial version
  *
- */
+ *//*
 @Controller
 @ControllerAdvice
 public class SalesHistoryConsumerExceptionHandler {
@@ -83,4 +83,4 @@ class ExceptionDetail {
 	public void setStackTrace(String stackTrace) {
 		this.stackTrace = stackTrace;
 	}
-}
+}*/
