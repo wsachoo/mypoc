@@ -6,5 +6,5 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface SalesHistoryMicroServiceCallerService {
-	public List<Map<String, Object>> getSalesRecommendationFromHistory(Map<String, Object> paramValues) throws JsonProcessingException;
+	public Map<String, Object> getSalesRecommendationFromHistory(Map<String, Object> paramValues);
 }
