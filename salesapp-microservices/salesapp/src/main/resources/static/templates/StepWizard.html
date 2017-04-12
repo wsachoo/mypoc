@@ -36,7 +36,6 @@ function populateWizardElement(quesSeqId) {
 	
 	var promise = httpAsyncPostWithJsonRequestResponse(contextPath + "/user/solutionTemplate/getNextQuestion", jsonData);
 	promise.done(function(data, textStatus, jqXHR) {
-		console.log("Data :" + JSON.stringify(data));
 		data["numberOfQuestion"] = $("input[name='numberOfQuestion']").val();
 		
 		if (data.quesType != null && data.quesType == "RADIO_BUTTON") {
@@ -70,7 +69,6 @@ function showSalesHistoryGrid() {
 	
  	var promise = httpAsyncPostWithJsonRequestResponse("http://localhost:8080/user/salesHistory/getRecommendationBasedOnSalesHistory", jsonData);
 	promise.done(function(data, textStatus, jqXHR){
-			console.log("Data 2 :" + JSON.stringify(data));
 			$.each(data, function(k,v){
 				var gridRow = 	'<tr>'+
     								'<td data-column-id="LEAD_DESIGN_ID" data-identifier="true" data-converter="numeric">'+ data[k].LEAD_DESIGN_ID +'</td>'+
