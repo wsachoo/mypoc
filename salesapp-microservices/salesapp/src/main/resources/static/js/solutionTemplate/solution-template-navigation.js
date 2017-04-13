@@ -33,20 +33,9 @@ function hashChange(){
     	var frameFormat = "<div class='clearfix'></div>";
     	frameFormat = frameFormat  + "<div class='row salesexpress-content-margin solutiontemplateMiddleSpace'>";
     	frameFormat = frameFormat  + "<div class='col-sm-12'  style='height:50%;'>"; 
-        frameFormat = frameFormat  + 	"<div id='solutionTemplateTopFrame'></div>";
+        frameFormat = frameFormat  + 	"<div id='solutionTemplateTopFrame' style='text-align:center;'></div>";
     	frameFormat = frameFormat + "</div>";
-    	frameFormat = frameFormat  + "<div class='col-sm-12'  style='height:50%;'>";
-    	frameFormat = frameFormat  + 	"<div id='solutionTemplateBottomFrame'></div>";
-    	frameFormat = frameFormat  +	'<table id="grid-data" class="table table-condensed table-hover" >'
-    	frameFormat = frameFormat  +	'<thead>'
-    	frameFormat = frameFormat  +	 '<tr>'
-    	frameFormat = frameFormat  +	 '<th data-column-id="LEAD_DESIGN_ID" data-identifier="true" data-converter="numeric">LEAD DESIGN ID</th>'
-    	frameFormat = frameFormat  +	 '<th data-column-id="ACCESS_SPEED">ACCESS SPEED</th>'
-    	frameFormat = frameFormat  +	 '<th data-column-id="DESIGN_NAME" data-order="desc">DESIGN NAME</th>'
-    	frameFormat = frameFormat  +	 '<th data-column-id="ACCESS_INTERCONNECT_TECH_S">ACCESS INTERCONNECT</th>'
-    	frameFormat = frameFormat  +	 '</tr>'
-    	frameFormat = frameFormat  +	'</thead>'
-    	frameFormat = frameFormat  +	'</table>'
+    	frameFormat = frameFormat  + "<div class='col-sm-12'  id='solutionTemplateBottomFrame' style='height:50%; text-align:center;'>";
     	frameFormat = frameFormat + "</div>";
     	frameFormat = frameFormat + "</div>";
         topMenuDiv.after(frameFormat);

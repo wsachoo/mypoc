@@ -1,116 +1,4 @@
 <script>
-var userSelectionObject = {};
-function highlightActiveStep(stepNumber) {
-	
-	$("#stepWizardId").find(".stepwizard-step").each(function(i) {
-		var anchorObject = $(this).find('a');
-		if ((i+1) == stepNumber) {
-			anchorObject.addClass('btn-primary');
-			anchorObject.removeClass('btn-default');
-	    }
-	    else {
-	    	anchorObject.addClass('btn-default');
-	    	anchorObject.removeClass('btn-primary');
-	    }
-	});
-}
-
-function initializeStepWizard() {
-	var promise = httpAsyncPostWithJsonRequestResponse(contextPath + "/user/solutionTemplate/getAllQuestions", "{}");
-	promise.done(function(data, textStatus, jqXHR ) {
-		var stepWizardData = $("#stepwizard-step-template").tmpl(data);
-		stepWizardData.appendTo("#stepWizardId");
-		populateWizardElement(data[0].quesSeqId);
-		$("input[name='numberOfQuestion']").val(data.length);
-	})
-	.fail(function(jqXHR, textStatus, errorThrown) {
-		console.log(textStatus);
-	});
-};
-
-function populateWizardElement(quesSeqId) {
-	var jsonData = JSON.stringify({
-		"QUES_SEQ_ID" : quesSeqId,
-		"PRODUCT" : "MISPNT"
-	});
-	
-	var promise = httpAsyncPostWithJsonRequestResponse(contextPath + "/user/solutionTemplate/getNextQuestion", jsonData);
-	promise.done(function(data, textStatus, jqXHR) {
-		data["numberOfQuestion"] = $("input[name='numberOfQuestion']").val();
-		
-		if (data.quesType != null && data.quesType == "RADIO_BUTTON") {
-			var stepWizardDataContent = $("#stepwizard-step-template-content-radio").tmpl(data);
-			$("#formId").empty();
-			stepWizardDataContent.appendTo("#formId");
-			//$('.nextbtn').trigger('create');
-		}
-		else if (data.quesType != null && data.quesType == "DROP_DOWN") {
-			var stepWizardDataContent = $("#stepwizard-step-template-content-dropdown").tmpl(data);
-			$("#formId").empty();
-			stepWizardDataContent.appendTo("#formId");
-		}
-		else if (data.quesType != null && data.quesType == "CHECK_BOX") {
-			var stepWizardDataContent = $("#stepwizard-step-template-content-checkbox").tmpl(data);
-			$("#formId").empty();
-			stepWizardDataContent.appendTo("#formId");
-		}
-		highlightActiveStep(quesSeqId);
-		showSalesHistoryGrid();
-	}).fail(function(jqXHR, textStatus, errorThrown) {
-		console.log(textStatus);
-	});
-}
-
-
-function showSalesHistoryGrid() {
-	var jsonData = JSON.stringify({
-		"ACCESS_TYPE_ID" : "ETHERNET"
-	});
-	
- 	var promise = httpAsyncPostWithJsonRequestResponse("http://localhost:8080/user/salesHistory/getRecommendationBasedOnSalesHistory", jsonData);
-	promise.done(function(data, textStatus, jqXHR){
-			$.each(data, function(k,v){
-				var gridRow = 	'<tr>'+
-    								'<td data-column-id="LEAD_DESIGN_ID" data-identifier="true" data-converter="numeric">'+ data[k].LEAD_DESIGN_ID +'</td>'+
-    								'<td data-column-id="ACCESS_SPEED">'+ data[k].ACCESS_SPEED +'</td>'+
-    								'<td data-column-id="DESIGN_NAME" data-order="desc">'+ data[k].DESIGN_NAME +'</td>'+
-    								'<td data-column-id="ACCESS_INTERCONNECT_TECH_S">'+ data[k].ACCESS_INTERCONNECT_TECH_S +'</td>'+
-    							'</tr>'
-    			$("#grid-data").append(gridRow);			
-			});
-			$("#grid-data").bootgrid({
-			    selection: true,
-			    multiSelect: true,
-			    rowSelect: true,
-			    keepSelection: true,
-			    
-			    formatters: {
-			        "link": function(column, row)
-			        {
-			            return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
-			        }
-			    }
-			}).on("selected.rs.jquery.bootgrid", function(e, rows){
-			    var rowIds = [];
-			    for (var i = 0; i < rows.length; i++)
-			    {
-			        rowIds.push(rows[i].LEAD_DESIGN_ID);
-			    }
-			    alert("Select: " + rowIds.join(","));
-			}).on("deselected.rs.jquery.bootgrid", function(e, rows){
-			    var rowIds = [];
-			    for (var i = 0; i < rows.length; i++)
-			    {
-			        rowIds.push(rows[i].id);
-			    }
-			    alert("Deselect: " + rowIds.join(","));
-			});
-	}).fail(function(jqXHR, textStatus, errorThrown) {
-		console.log(textStatus);
-	}); 
-} 
-
-
 $(document).ready(function () {	
   initializeStepWizard();
 	
@@ -135,29 +23,11 @@ $(document).ready(function () {
   });
 
   $("#stepContentForm").on("click", function(e) {
-	  var eventSourceId = e.target.id;
-
-	  if (eventSourceId.indexOf("btnNext-") >= 0) {
-			var quesSeqId = eventSourceId.substring(eventSourceId.indexOf("-") + 1);
-			quesSeqId++;
-			populateWizardElement(quesSeqId);
-	  }
-
-	  if (eventSourceId.indexOf("btnPrev-") >= 0) {
-			var quesSeqId = eventSourceId.substring(eventSourceId.indexOf("-") + 1);
-			quesSeqId--;
-			populateWizardElement(quesSeqId);
-	  }  
+  	onStepContentFormClick(e);
   });
   
   $(".stepwizard").on("click", function(e) {
-	  var eventSourceName = e.target.name;
-	  
-	  if ("btnSolutionTemplateSteps" == eventSourceName) {
-		e.preventDefault();	
-		var stepNumber = e.target.text; //stepNumber is designed to be same ad question sequence number
-		populateWizardElement(stepNumber);
-	  }
+  	onStepWizardClick(e);
   });
   
   allNextBtn.on(function(){
@@ -191,46 +61,6 @@ function onNextButtonClick($thisRef) {
 	populateWizardElement(quesSeqId);
 }
 
-function getNextStepWizardData(label, div, quesId) {
-	var jsonData = JSON.stringify({
-		"QUES_SEQ_ID" : quesId,
-		"PRODUCT" : "AVPN"
-	});
-	var promise = httpAsyncPostWithJsonRequestResponse(
-			contextPath + "/user/solutionTemplate/getNextQuestion", jsonData);
-	promise.done(function(data, textStatus, jqXHR) {
-		if (data.quesType != null && data.quesType == "RADIO_BUTTON") {
-			prepareRadioButtonElements(data, div, label);
-		} else if (data.quesType != null && data.quesType == "DROP_DOWN") {
-			prepareDropDownElements(data, div, label)
-		}
-
-	}).fail(function(jqXHR, textStatus, errorThrown) {
-		console.log(textStatus);
-	});
-}
-
-function prepareDropDownElements(data, divId, labelId) {
-	$("#" + labelId).html(data.quesDesc);
-	$("#" + divId).find('option').not(':first').remove();
-	$.each(data.salesSolTmplAns, function(key, value) {
-		var option = $('<option />').prop('value', value.ansSeqId).text(
-				value.ansDesc);
-		$("#" + divId).append(option);
-	});
-
-}
-
-function prepareRadioButtonElements(data, divId, labelId) {
-	$("#" + labelId).html(data.quesDesc);
-	$("#" + divId).empty();
-	$.each(data.salesSolTmplAns,function(key, value) {
-		var radioEl = '<div class="row">'
-						+ '<input type="radio" name="'+ data.quesColName +'" value="'+ value.ansDesc +'" id="'+value.ansSeqId +'" />'
-						+ value.ansDesc + '</div>';
-		$("#" + divId).append(radioEl);
-	});
-}
 </script>
 
 <script id="stepwizard-step-template" type="text/html">

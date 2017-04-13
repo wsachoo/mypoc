@@ -155,14 +155,15 @@
 					+ Math.floor(Math.random() * 100) + '"\><\/script>');
 	document.write('<script src="${contextPath}/js/user/chatbox.js?dev='
 			+ Math.floor(Math.random() * 100) + '"\><\/script>');
-/* 	document.write('<script src="${contextPath}/js/lib/step-wizard.js?dev='    
+ 	document.write('<script src="${contextPath}/js/lib/step-wizard.js?dev='    
 			+ Math.floor(Math.random() * 100) + '"\><\/script>');		
-	document
-			.write('<script src="${contextPath}/js/solutionTemplate/step_wizard_config.js?dev='
-					+ Math.floor(Math.random() * 100) + '"\><\/script>'); */
+
 	document
 			.write('<script src="${contextPath}/js/solutionTemplate/solution-template-navigation.js?dev='
 					+ Math.floor(Math.random() * 100) + '"\><\/script>');
+	document
+			.write('<script src="${contextPath}/js/solutionTemplate/step_wizard_config.js?dev='
+					+ Math.floor(Math.random() * 100) + '"\><\/script>');				
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
