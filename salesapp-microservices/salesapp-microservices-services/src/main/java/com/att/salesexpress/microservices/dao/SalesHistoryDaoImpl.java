@@ -22,7 +22,7 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 	@Override
 	public List<Map<String, Object>> getRecordsByAccessType(String accessType, int numberOfRows) {
 		logger.info("Inside getRecordsByAccessType() method.");
-		
+
 		String sql = SQLConstants.sqlGetSalesHistoryDataByAccessType;
 
 		Map<String, Object> namedParameters = new HashMap<>();
@@ -30,15 +30,16 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 		namedParameters.put("ACCESS_TYPE_ID", accessType);
 
 		List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(sql, namedParameters);
-		
+
 		logger.info("Exiting getRecordsByAccessType() method.");
 		return rows;
 	}
 
 	@Override
-	public List<Map<String, Object>> getRecordsByAccessTypeAndAccessSpeed(String accessType, int accessSpeed, int numberOfRows) {
+	public List<Map<String, Object>> getRecordsByAccessTypeAndAccessSpeed(String accessType, int accessSpeed,
+			int numberOfRows) {
 		logger.info("Inside getRecordsByAccessTypeAndAccessSpeed() method.");
-		
+
 		String sql = SQLConstants.sqlGetSalesHistoryDataByAccessTypeAndPortSpeed;
 
 		Map<String, Object> namedParameters = new HashMap<>();
@@ -47,7 +48,7 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 		namedParameters.put("ACCESS_SPEED_ID", accessSpeed);
 
 		List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(sql, namedParameters);
-		
+
 		logger.info("Exiting getRecordsByAccessTypeAndAccessSpeed() method.");
 		return rows;
 	}

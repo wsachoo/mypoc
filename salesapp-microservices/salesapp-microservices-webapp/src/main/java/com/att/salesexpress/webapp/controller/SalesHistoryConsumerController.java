@@ -1,6 +1,5 @@
 package com.att.salesexpress.webapp.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.att.salesexpress.webapp.service.SalesHistoryMicroServiceCallerService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * 
