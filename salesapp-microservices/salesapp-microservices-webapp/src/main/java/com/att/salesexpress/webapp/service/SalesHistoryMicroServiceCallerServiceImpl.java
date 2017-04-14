@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -11,9 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.att.salesexpress.webapp.util.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -38,15 +44,20 @@ public class SalesHistoryMicroServiceCallerServiceImpl implements SalesHistoryMi
 		Map<String, Object> returnValue = new HashMap<>();
 		List<Map<String, Object>> result = new ArrayList<>();
 		try {
-			ObjectMapper mapperObj = new ObjectMapper();
-			String requestJson = mapperObj.writeValueAsString(paramValues);
-
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-			HttpEntity<String> entity = new HttpEntity<String>(requestJson, headers);
+		    MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		    
+		    for (Entry<String, Object> entry : paramValues.entrySet()) {
+		        params.add(entry.getKey(), entry.getValue().toString());
+		    }
 
-			result = restTemplate.postForObject(url, entity, List.class);
+		    UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(url)
+		            .queryParams(params).build();
+		    
+			result = restTemplate.getForObject(uriComponents.toUriString().toString(), List.class, entity);
 			
 			returnValue.put("DATA", result);
 			returnValue.put("STATUS", "SUCCESS");
@@ -57,10 +68,6 @@ public class SalesHistoryMicroServiceCallerServiceImpl implements SalesHistoryMi
 		catch (RuntimeException ex) {
 			logger.error("Some exception occurred while calling micro service: {}", ExceptionUtils.getStackTrace(ex));
 			throw ex;
-		}
-		catch (JsonProcessingException jpe) {
-			logger.error("Some exception occurred while parsing request data: {}", ExceptionUtils.getStackTrace(jpe));
-			throw new RuntimeException(jpe);
 		}
 	}
 	

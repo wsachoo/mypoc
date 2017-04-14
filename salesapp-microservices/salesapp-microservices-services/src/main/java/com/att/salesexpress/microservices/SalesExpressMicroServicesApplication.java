@@ -7,11 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.att.salesexpress.microservices.dao.SalesHistoryDao;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableJpaRepositories
 public class SalesExpressMicroServicesApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
 	@Override
