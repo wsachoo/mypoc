@@ -147,7 +147,7 @@
 					<div class="clearfix"></div>
 					<div id="mainpagecontainer" style="margin-left: 15px;">
 					<div id="over_map" class="sachbuttonsonmap"
-						style="text-align: center; display: inline;">
+						style="text-align: center;">
 						<div class="button-wrapper">
 							<a href="${contextPath}/user/solutionTemplate#/stepWizard" class="btn btn-primary" role="button">Solution Template</a>
 							&nbsp; &nbsp;
