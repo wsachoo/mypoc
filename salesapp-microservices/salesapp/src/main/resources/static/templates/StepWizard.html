@@ -183,6 +183,51 @@ function onNextButtonClick($thisRef) {
 </div>
 </script>
 
+<script id="stepwizard-display-selected-row-modal" type="text/html">
+<div class="container">
+	<!-- Trigger the modal with a button -->
+	<button type="button" id="btnDisplayRowSelectModal"
+		style="display: none;" class="btn btn-primary" data-toggle="modal"
+		data-target="#dispRowSelectModal">Open Modal</button>
+	<!-- Modal -->
+	<div class="modal fade" id="dispRowSelectModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header" style="text-align:center">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Preview of the selected Design Parameters</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table table-striped">
+						<tr>
+							<th>
+								<strong>DESIGN PARAMETER NAME</strong>
+							</th>
+							<th>
+								<strong>YOUR VALUE</strong>
+							</th>
+						</tr>
+						{{each(i, item) $data}}
+						<tr>
+							<td> ${i.replace(/([_]+)/gi, " ")} </td>
+							<td> ${item} </td>
+						</tr>
+						{{/each}}
+					</table>
+				   </div>
+				<div class="modal-footer" style="text-align:center">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Proceed To Generate Contract</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</script>
+
+
+
 <input type="hidden" name="numberOfQuestion" />
 
 <div class="row">
@@ -199,3 +244,5 @@ function onNextButtonClick($thisRef) {
 	<form role="form" action="" method="post" class="form-horizontal"
 		id="formId"></form>
 </div>
+
+

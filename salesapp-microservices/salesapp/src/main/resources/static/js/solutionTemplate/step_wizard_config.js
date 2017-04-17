@@ -4,7 +4,6 @@ function showSalesHistoryGrid(userSolTmplSelectionObject) {
 	
 	//console.log("userSolTmplSelectionObject : from showSalesHistoryGrid" + JSON.stringify(userSolTmplSelectionObject));
 	var jsonData = JSON.stringify(userSolTmplSelectionObject);
-	
  	var promise = httpAsyncPostWithJsonRequestResponse("http://localhost:8080/user/salesHistory/getRecommendationBasedOnSalesHistory", jsonData);
 	promise.done(function(data, textStatus, jqXHR){
 			//console.log("Data :" + JSON.stringify(data));
@@ -13,50 +12,55 @@ function showSalesHistoryGrid(userSolTmplSelectionObject) {
 				var gridTable = '<table id="grid-data" class="table table-condensed table-hover">'+
 					    			'<thead>'+
 							    		 '<tr>'+
-							    		 '<th data-column-id="LEAD_DESIGN_ID" data-identifier="true" data-converter="numeric">LEAD DESIGN ID</th>'+
-							    		 '<th data-column-id="ACCESS_SPEED">ACCESS SPEED</th>'+
-							    		 '<th data-column-id="DESIGN_NAME" data-order="desc">DESIGN NAME</th>'+
-							    		 '<th data-column-id="ACCESS_INTERCONNECT_TECH_S">ACCESS INTERCONNECT</th>'+
+							    		 	 '<th data-column-id="commands" data-formatter="commands" data-sortable="false">View</th>'+
+								    		 '<th data-column-id="accessSpeed" >ACCESS SPEED</th>'+
+								    		 '<th data-column-id="ethernetHandoffInterface">ETHERNET HANDOFF INTERFACE</th>'+
+								    		 '<th data-column-id="designType">DESIGN TYPE</th>'+
+								    		 '<th data-column-id="portSpeed">PORT SPEED</th>'+
+								    		 '<th data-column-id="managedRouter">MANAGED ROUTER</th>'+
+								    		 '<th data-column-id="siteNameAlias">SITE NAME ALIAS</th>'+
+								    		 '<th data-column-id="ratePlan">RATE PLAN</th>'+
+								    		 '<th data-column-id="tailTechnologyId">TAIL TECHNOLOGY</th>'+
 							    		 '</tr>'+
 					    			'</thead>'+
 					    		'</table>';
 			$("#solutionTemplateBottomFrame").append(gridTable);
 			var data = data["DATA"];
-			$.each(data, function(k,v){ 
-				var gridRow = 	'<tr>'+
-    								'<td data-column-id="LEAD_DESIGN_ID" data-identifier="true" data-converter="numeric">'+ data[k].LEAD_DESIGN_ID +'</td>'+
-    								'<td data-column-id="ACCESS_SPEED">'+ data[k].ACCESS_SPEED +'</td>'+
-    								'<td data-column-id="DESIGN_NAME" data-order="desc">'+ data[k].DESIGN_NAME +'</td>'+
-    								'<td data-column-id="ACCESS_INTERCONNECT_TECH_S">'+ data[k].ACCESS_INTERCONNECT_TECH_S +'</td>'+
+			$.each(data, function(k,v) { 
+				var gridRow = 	'<tr >'+
+								 	'<td data-column-id="commands"></td>'+
+    								'<td data-column-id="accessSpeed">'+ data[k].accessSpeed +'</td>'+
+    								'<td data-column-id="ethernetHandoffInterface">'+ data[k].ethernetHandoffInterface +'</td>'+
+    								'<td data-column-id="designType" data-order="desc">'+ data[k].designType +'</td>'+
+    								'<td data-column-id="portSpeed">'+ data[k].portSpeed +'</td>'+
+    								'<td data-column-id="managedRouter">'+ data[k].managedRouter +'</td>'+
+    								'<td data-column-id="siteNameAlias">'+ data[k].siteNameAlias +'</td>'+
+    								'<td data-column-id="ratePlan">'+ data[k].ratePlan +'</td>'+
+    								'<td data-column-id="tailTechnologyId">'+ data[k].tailTechnologyId +'</td>'+
     							'</tr>'
     			$("#grid-data").append(gridRow);			
 			});
+			var grid = $("#grid-data");
 			$("#grid-data").bootgrid({
-			    selection: true,
-			    multiSelect: true,
-			    rowSelect: true,
-			    keepSelection: true,
-			    
-			    formatters: {
-			        "link": function(column, row)
-			        {
-			            return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
-			        }
-			    }
-			}).on("selected.rs.jquery.bootgrid", function(e, rows){
-			    var rowIds = [];
-			    for (var i = 0; i < rows.length; i++)
-			    {
-			        rowIds.push(rows[i].LEAD_DESIGN_ID);
-			    }
-			    alert("Select: " + rowIds.join(","));
-			}).on("deselected.rs.jquery.bootgrid", function(e, rows){
-			    var rowIds = [];
-			    for (var i = 0; i < rows.length; i++)
-			    {
-			        rowIds.push(rows[i].id);
-			    }
-			    alert("Deselect: " + rowIds.join(","));
+				selection: true,
+				multiSelect: true,
+				rowSelect: true,
+				keepSelection: true,
+				formatters: {
+					"commands": function(column, row)
+					{
+						return "<button type='button' class='btn btn-xs btn-default openLink'><span class='glyphicon glyphicon-pencil'></span></button>";
+					}
+				}
+			}).on("loaded.rs.jquery.bootgrid", function(){
+				//used openLink class just to select the current button to call the click event
+				$("#grid-data").find(".openLink").on("click", function(e) {
+					var thisElementId = $(this);
+					var rowId = thisElementId.closest('tr').attr('data-row-id');
+					var url = data[rowId].links[0].href;
+					displaySelectedRowModal(url);
+				});
+
 			});
 			}
 			else{
@@ -150,7 +154,7 @@ function generateUserSelectObject() {
 		checkElNames.push($(this).attr('name'));
 		//iterate over each name of checked checkbox
 		//and read the value of it and push it into an array
-		$.each(checkElNames, function(k,elName){
+		$.each(checkElNames, function(k,elName) {
 			var checkedVal = [];
 			$('input[name="'+ elName +'"]').each(function(){
 				checkedVal.push($(this).val());
@@ -184,4 +188,18 @@ function onStepWizardClick(e) {
 	  }
 }
 
+function displaySelectedRowModal(url) {
+	
+	var data = httpGetWithJsonResponse(url, "");
+	$("body").remove("#stepwizard-display-selected-row-modal");
+	var DATA = {};
+	var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan"];
+
+	$.each(objectKeysArray, function(key, value) {
+		DATA[value] = data[value];
+	});
+	var modalDataContent = $("#stepwizard-display-selected-row-modal").tmpl(DATA);
+	modalDataContent.appendTo('body');
+	$("#btnDisplayRowSelectModal").trigger('click');
+}
 
