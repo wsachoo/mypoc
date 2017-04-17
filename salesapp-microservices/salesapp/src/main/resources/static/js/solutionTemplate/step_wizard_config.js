@@ -9,7 +9,7 @@ function showSalesHistoryGrid(userSolTmplSelectionObject) {
 			//console.log("Data :" + JSON.stringify(data));
 			$("#solutionTemplateBottomFrame").empty();
 			if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
-				var gridTable = '<table id="grid-data" class="table table-condensed table-hover">'+
+				var gridTable = '<table id="grid-data" class="table table-condensed table-hover" style="background-color : #F5F5F5;">'+
 					    			'<thead>'+
 							    		 '<tr>'+
 							    		 	 '<th data-column-id="commands" data-formatter="commands" data-sortable="false">View</th>'+
