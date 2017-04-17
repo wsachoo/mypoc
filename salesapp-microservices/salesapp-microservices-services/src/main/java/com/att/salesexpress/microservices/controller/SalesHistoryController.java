@@ -15,6 +15,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,6 +52,7 @@ public class SalesHistoryController {
 
 	@RequestMapping(value = "/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId", method = RequestMethod.GET, produces = {
 			"application/json" })
+	@CrossOrigin
 	public HttpEntity<SalesHistoryDetail> getSalesHistoryOrderDetailBySiteIdLeadDesignId(
 			@RequestParam(value = "siteId", required = true) Long siteId,
 			@RequestParam(value = "leadDesignId", required = true) Long leadDesignId) {
