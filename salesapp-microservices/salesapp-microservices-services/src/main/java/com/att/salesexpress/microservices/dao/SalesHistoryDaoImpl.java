@@ -52,4 +52,25 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 		logger.info("Exiting getRecordsByAccessTypeAndAccessSpeed() method.");
 		return rows;
 	}
+
+	@Override
+	public List<Map<String, Object>> sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed(String accessType, int accessSpeed, int portSpeed,
+			int numberOfRows) {
+		logger.info("Inside getRecordsByAccessTypeAndAccessSpeed() method.");
+
+		String sql = SQLConstants.sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed;
+
+		Map<String, Object> namedParameters = new HashMap<>();
+		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
+		namedParameters.put("ACCESS_TYPE_ID", accessType);
+		namedParameters.put("ACCESS_SPEED_ID", accessSpeed);
+		namedParameters.put("PORT_SPEED_ID", portSpeed);
+
+		List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(sql, namedParameters);
+
+		logger.info("Exiting getRecordsByAccessTypeAndAccessSpeed() method.");
+		return rows;
+	}
+
 }
+

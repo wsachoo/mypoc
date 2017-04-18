@@ -37,7 +37,13 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 			numberOfRowsToRetrieve = Integer.parseInt(params.get("NUMBER_OF_ROWS").toString().trim());
 		}
 		
-		if (keys.contains("ACCESS_TYPE_ID") && keys.contains("ACCESS_SPEED_ID")) {
+		if (keys.contains("ACCESS_TYPE_ID") && keys.contains("ACCESS_SPEED_ID") && keys.contains("PORT_SPEED_ID")) {
+			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
+			Integer accessSpeed = Integer.parseInt(params.get("ACCESS_SPEED_ID").toString().trim());
+			Integer portSpeed = Integer.parseInt(params.get("PORT_SPEED_ID").toString().trim());
+			result = objSalesHistoryDao.sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed(accessType, accessSpeed, portSpeed, numberOfRowsToRetrieve);			
+		}
+		else if (keys.contains("ACCESS_TYPE_ID") && keys.contains("ACCESS_SPEED_ID")) {
 			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
 			Integer accessSpeed = Integer.parseInt(params.get("ACCESS_SPEED_ID").toString().trim());
 			result = objSalesHistoryDao.getRecordsByAccessTypeAndAccessSpeed(accessType, accessSpeed, numberOfRowsToRetrieve);
