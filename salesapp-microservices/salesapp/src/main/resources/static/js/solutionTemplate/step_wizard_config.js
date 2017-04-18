@@ -196,7 +196,8 @@ function displaySelectedRowModal(url) {
 	var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan"];
 
 	$.each(objectKeysArray, function(key, value) {
-		DATA[value] = data[value];
+		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
+		DATA[key] = data[value];
 	});
 	var modalDataContent = $("#stepwizard-display-selected-row-modal").tmpl(DATA);
 	modalDataContent.appendTo('body');
