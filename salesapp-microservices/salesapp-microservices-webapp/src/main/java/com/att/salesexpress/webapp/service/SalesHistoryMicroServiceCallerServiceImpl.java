@@ -53,6 +53,8 @@ public class SalesHistoryMicroServiceCallerServiceImpl implements SalesHistoryMi
 		    for (Entry<String, Object> entry : paramValues.entrySet()) {
 		        params.add(entry.getKey(), entry.getValue().toString());
 		    }
+		    
+		    params.add("STATES", "OH,NV,IL");
 
 		    UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(url)
 		            .queryParams(params).build();
