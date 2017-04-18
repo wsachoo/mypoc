@@ -31,10 +31,6 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		
 		Set<String> keys = params.keySet();
 		
-		if (keys.contains("STATES")) {
-			System.out.println("User states are: " + params.get("STATES").toString());
-		}
-		
 		int numberOfRowsToRetrieve = DEFAULT_NUMBER_OF_ROWS_TO_RETRIEVE;
 		
 		if (keys.contains("NUMBER_OF_ROWS")) {
