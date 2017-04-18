@@ -183,6 +183,26 @@ function onNextButtonClick($thisRef) {
 </div>
 </script>
 
+<script id="stepwizard-step-template-content-finalresult" type="text/x-jquery-tmpl">
+<div class="row setup-content" id="step-${quesSeqId}">
+    <div class="col-sm-2 col-sm-offset-6">
+		<h3><u>Final Result</u></h3>
+	</div>
+</div>
+<div class="row">
+	<hr>
+	<div class="col-sm-1 col-sm-offset-1">
+		{{if quesSeqId == 1}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnPrev-${quesSeqId}" disabled="disabled">Prev</button>
+	    {{else}}
+			<button class="btn btn-primary btn-block nextbtn" type="button" id="btnPrev-${quesSeqId}">Prev</button>
+        {{/if}}
+	</div>
+	<div class="col-sm-1  col-sm-offset-8">
+	</div>
+</div>
+</script>
+
 <script id="stepwizard-display-selected-row-modal" type="text/html">
 <div class="container">
 	<!-- Trigger the modal with a button -->
