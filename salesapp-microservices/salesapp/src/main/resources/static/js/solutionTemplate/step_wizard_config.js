@@ -95,8 +95,6 @@ function initializeStepWizard() {
 		data[0].mydesc = "Access Type";
 		data[1].mydesc = "Access Speed";
 		data[2].mydesc = "Port Speed";
-		data[3].mydesc = "Rate Type";
-		console.log("YYY:" + JSON.stringify(data));
 		var stepWizardData = $("#stepwizard-step-template").tmpl(data);
 		stepWizardData.appendTo("#stepWizardId");
 		populateWizardElement(data[0].quesSeqId);

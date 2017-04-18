@@ -66,17 +66,17 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		
 		objSalesHistoryDO.setSiteId(Long.parseLong(map.get("SITE_ID").toString()));
 		objSalesHistoryDO.setLeadDesignId(Long.parseLong(map.get("LEAD_DESIGN_ID").toString()));
-		objSalesHistoryDO.setAccessArchitecture(map.get("ACCESS_ARCHITECTURE").toString());
+		objSalesHistoryDO.setAccessArchitecture(map.get("ACCESS_ARCHITECTURE") != null ? map.get("ACCESS_ARCHITECTURE").toString() : "");
 		objSalesHistoryDO.setAccessSpeed((String)map.get("ACCESS_SPEED"));
-		objSalesHistoryDO.setCpeModel((String)map.get("CPE_MODEL"));
+		objSalesHistoryDO.setCpeModel(map.get("CPE_MODEL") != null ? map.get("CPE_MODEL").toString() : "");
 		objSalesHistoryDO.setEthernetHandoffInterface(map.get("ETHERNET_HANDOFF_INTERFACE_S") != null ? map.get("ETHERNET_HANDOFF_INTERFACE_S").toString() : "");
-		objSalesHistoryDO.setDesignType((String)map.get("DESIGN_TYPE"));
-		objSalesHistoryDO.setPortSpeed((String)map.get("PORT_SPEED"));
-		objSalesHistoryDO.setManagedRouter((String)map.get("MANAGED_ROUTER"));
-		objSalesHistoryDO.setRatePlan((String)map.get("RATE_PLAN"));
-		objSalesHistoryDO.setTailTechnologyId((String)map.get("TAIL_TECHNOLOGY"));
-		objSalesHistoryDO.setSiteNameAlias((String)map.get("SITE_NAME_ALIAS"));
-		objSalesHistoryDO.setMatchPercentage((String)map.get("MATCHING_ROW_PERCENTAGE"));		
+		objSalesHistoryDO.setDesignType(map.get("DESIGN_TYPE") != null ? map.get("DESIGN_TYPE").toString() : "");
+		objSalesHistoryDO.setPortSpeed(map.get("PORT_SPEED") != null ? map.get("PORT_SPEED").toString() : "");
+		objSalesHistoryDO.setManagedRouter(map.get("MANAGED_ROUTER") != null ? map.get("MANAGED_ROUTER").toString() : "");
+		objSalesHistoryDO.setRatePlan(map.get("RATE_PLAN") != null ? map.get("RATE_PLAN").toString() : "");
+		objSalesHistoryDO.setTailTechnologyId(map.get("TAIL_TECHNOLOGY") != null ? map.get("TAIL_TECHNOLOGY").toString() : "");
+		objSalesHistoryDO.setSiteNameAlias(map.get("SITE_NAME_ALIAS") != null ? map.get("SITE_NAME_ALIAS").toString() : "");
+		objSalesHistoryDO.setMatchPercentage(map.get("MATCHING_ROW_PERCENTAGE") != null ? map.get("MATCHING_ROW_PERCENTAGE").toString() : "");
 		
 		return objSalesHistoryDO;
 	}
