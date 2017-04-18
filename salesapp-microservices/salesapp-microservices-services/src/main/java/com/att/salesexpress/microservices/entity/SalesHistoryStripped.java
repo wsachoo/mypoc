@@ -26,7 +26,9 @@ public class SalesHistoryStripped extends ResourceSupport {
 	private String ratePlan;
 
 	private String tailTechnologyId;
-
+	
+	private String matchPercentage;
+	
 	public long getLeadDesignId() {
 		return leadDesignId;
 	}
@@ -122,6 +124,14 @@ public class SalesHistoryStripped extends ResourceSupport {
 	public void setTailTechnologyId(String tailTechnologyId) {
 		this.tailTechnologyId = tailTechnologyId;
 	}
+	
+	public String getMatchPercentage() {
+		return matchPercentage;
+	}
+
+	public void setMatchPercentage(String matchPercentage) {
+		this.matchPercentage = matchPercentage;
+	}
 
 	@Override
 	public String toString() {
@@ -131,4 +141,5 @@ public class SalesHistoryStripped extends ResourceSupport {
 				+ ", portSpeed=" + portSpeed + ", managedRouter=" + managedRouter + ", siteNameAlias=" + siteNameAlias
 				+ ", ratePlan=" + ratePlan + ", tailTechnologyId=" + tailTechnologyId + "]";
 	}
+
 }
