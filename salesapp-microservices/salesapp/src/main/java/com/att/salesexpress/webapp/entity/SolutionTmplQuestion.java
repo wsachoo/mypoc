@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SALES_SOL_TMPL_QUES")
 @NamedQueries({
-	@NamedQuery(name = "SolutionTmplQuestion.findAll", query = "SELECT s FROM SolutionTmplQuestion s"),
+	@NamedQuery(name = "SolutionTmplQuestion.findAll", query = "SELECT s FROM SolutionTmplQuestion s order by s.quesSeqId"),
 	@NamedQuery(name = "SolutionTmplQuestion.findByQuesSeqId", query = "SELECT s FROM SolutionTmplQuestion s where s.quesSeqId = :quesSeqId")
 })
 public class SolutionTmplQuestion implements Serializable {
