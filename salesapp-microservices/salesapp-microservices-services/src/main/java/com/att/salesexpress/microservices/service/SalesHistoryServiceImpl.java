@@ -30,6 +30,11 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		List<Map<String, Object>> result = new ArrayList<>();
 		
 		Set<String> keys = params.keySet();
+		
+		if (keys.contains("STATES")) {
+			System.out.println("User states are: " + params.get("STATES").toString());
+		}
+		
 		int numberOfRowsToRetrieve = DEFAULT_NUMBER_OF_ROWS_TO_RETRIEVE;
 		
 		if (keys.contains("NUMBER_OF_ROWS")) {
@@ -64,13 +69,14 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		objSalesHistoryDO.setAccessArchitecture(map.get("ACCESS_ARCHITECTURE").toString());
 		objSalesHistoryDO.setAccessSpeed((String)map.get("ACCESS_SPEED"));
 		objSalesHistoryDO.setCpeModel((String)map.get("CPE_MODEL"));
-		objSalesHistoryDO.setEthernetHandoffInterface(map.get("ETHERNET_HANDOFF_INTERFACE_S").toString());
+		objSalesHistoryDO.setEthernetHandoffInterface(map.get("ETHERNET_HANDOFF_INTERFACE_S") != null ? map.get("ETHERNET_HANDOFF_INTERFACE_S").toString() : "");
 		objSalesHistoryDO.setDesignType((String)map.get("DESIGN_TYPE"));
 		objSalesHistoryDO.setPortSpeed((String)map.get("PORT_SPEED"));
 		objSalesHistoryDO.setManagedRouter((String)map.get("MANAGED_ROUTER"));
 		objSalesHistoryDO.setRatePlan((String)map.get("RATE_PLAN"));
 		objSalesHistoryDO.setTailTechnologyId((String)map.get("TAIL_TECHNOLOGY"));
 		objSalesHistoryDO.setSiteNameAlias((String)map.get("SITE_NAME_ALIAS"));
+		objSalesHistoryDO.setMatchPercentage((String)map.get("MATCHING_ROW_PERCENTAGE"));		
 		
 		return objSalesHistoryDO;
 	}
