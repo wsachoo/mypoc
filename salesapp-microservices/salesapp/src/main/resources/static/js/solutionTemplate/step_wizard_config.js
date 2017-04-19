@@ -1,4 +1,5 @@
 var userSolTmplSelectionObject = {}; //global object for user selection on step wizard
+var dataToGenContract = {}; //global object to hold the data to display the contract wizard
 
 function showSalesHistoryGrid(userSolTmplSelectionObject) {
 
@@ -6,7 +7,7 @@ function showSalesHistoryGrid(userSolTmplSelectionObject) {
 	var jsonData = JSON.stringify(userSolTmplSelectionObject);
 	var promise = httpAsyncPostWithJsonRequestResponse("http://localhost:8080/user/salesHistory/getRecommendationBasedOnSalesHistory", jsonData);
 	promise.done(function(data, textStatus, jqXHR){
-		console.log("Data :" + JSON.stringify(data));
+		//console.log("Data :" + JSON.stringify(data));
 		$("#solutionTemplateBottomFrame").empty();
 		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
 			var gridTable = '<table id="grid-data" class="table table-condensed table-hover" style="background-color : #F5F5F5;">'+
@@ -56,7 +57,7 @@ function showSalesHistoryGrid(userSolTmplSelectionObject) {
 				//used openLink class just to select the current button to call the click event
 				$("#grid-data").find(".openLink").on("click", function(e) {
 					var thisElementId = $(this);
-					var rowId = thisElementId.closest('tr').attr('data-row-id');
+					var rowId = thisElementId.closest('tr').attr('data-row-id'); //data-row-id attr is dynamically created by bootgrid
 					var url = data[rowId].links[0].href;
 					var matchpercentage = data[rowId].matchPercentage;
 					displaySelectedRowModal(url, matchpercentage);
@@ -201,7 +202,8 @@ function onStepWizardClick(e) {
 function displaySelectedRowModal(url, matchPercentage) {
 	
 	var data = httpGetWithJsonResponse(url, "");
-	$("body").remove("#stepwizard-display-selected-row-modal");
+	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
+	$("body").remove("#displaySelectedRowModal");
 	var DATA = {};
 	var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan"];
 
@@ -213,5 +215,28 @@ function displaySelectedRowModal(url, matchPercentage) {
 	var modalDataContent = $("#stepwizard-display-selected-row-modal").tmpl(DATA);
 	modalDataContent.appendTo('body');
 	$("#btnDisplayRowSelectModal").trigger('click');
+}
+
+function storeDataToGenerateContract(genContractWizardData) {
+	dataToGenContract = {}; //clearing the object before we copy it
+	dataToGenContract = genContractWizardData;
+}
+
+function onClickProceedToGenContract(e) {
+	$('body').find("#displayContractWizard").remove();
+	//console.log("dataToGenContract:"+JSON.stringify(dataToGenContract));
+	var DATA = {};
+	var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan"];
+
+	$.each(objectKeysArray, function(k, value) {
+		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
+		DATA[key] = dataToGenContract[value];
+	});
+	var contractWizardDataContent = $("#stepwizard-display-contract-data").tmpl(DATA);
+	$('<div class="row" id="displayContractWizard"></div>').insertAfter("div.sachtopmenu");
+	$("#displayContractWizard").append(contractWizardDataContent);
+	var topMenuDiv = $("#displayContractWizard");
+	removeNextAllSiblingDivRows(topMenuDiv);
+	
 }
 
