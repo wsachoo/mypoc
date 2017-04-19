@@ -15,7 +15,7 @@ public interface SQLConstants {
 			+ ") rankTable "
 			+ "where rankTable.RNK = 1 and rownum <= :NUMBER_OF_ROWS"; 
 
-	String sqlGetSalesHistoryDataByAccessTypeAndPortSpeed = "select rankTable.* from ("
+	String sqlGetSalesHistoryDataByAccessTypeAndAccessSpeed = "select rankTable.* from ("
 			+ "select countTable.*, "
 			+ "dense_rank() over (order by countTable.NUMBER_OF_SALES desc) RNK "
 			+ "from ("

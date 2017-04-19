@@ -40,7 +40,7 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 			int numberOfRows) {
 		logger.info("Inside getRecordsByAccessTypeAndAccessSpeed() method.");
 
-		String sql = SQLConstants.sqlGetSalesHistoryDataByAccessTypeAndPortSpeed;
+		String sql = SQLConstants.sqlGetSalesHistoryDataByAccessTypeAndAccessSpeed;
 
 		Map<String, Object> namedParameters = new HashMap<>();
 		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
