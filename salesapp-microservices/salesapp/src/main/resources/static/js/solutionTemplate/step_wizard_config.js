@@ -203,7 +203,7 @@ function displaySelectedRowModal(url, matchPercentage) {
 	
 	var data = httpGetWithJsonResponse(url, "");
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
-	$("body").remove("#displaySelectedRowModal");
+	$("body").find("#displaySelectedRowModal").remove();
 	var DATA = {};
 	var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan"];
 
