@@ -84,5 +84,42 @@ public class SalesHistoryMicroServiceCallerServiceImpl implements SalesHistoryMi
 		
 		return returnValue;		
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> getSalesPercentageByAccessType(Map<String, Object> paramValues) {
+		logger.debug("Inside getSalesRecommendationFromHistory() method.");
+		String url = Constants.MICROSERVICE_SALES_HISTORY_DISCOVERY_NAME
+				+ Constants.MICROSERVICE_SALES_HISTORY_STATISTICS_BY_ACCESS_TYPE_URL;
+		Map<String, Object> returnValue = new HashMap<>();
+		List<Map<String, Object>> result = new ArrayList<>();
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		    MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		    
+		    for (Entry<String, Object> entry : paramValues.entrySet()) {
+		        params.add(entry.getKey(), entry.getValue().toString());
+		    }
+		    
+		    UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(url)
+		            .queryParams(params).build();
+		    
+			result = restTemplate.getForObject(uriComponents.toUriString().toString(), List.class, entity);
+			
+			returnValue.put("DATA", result);
+			returnValue.put("STATUS", "SUCCESS");
+			
+			logger.debug("Exiting getSalesRecommendationFromHistory() method.");
+			return returnValue;
+		} 
+		catch (RuntimeException ex) {
+			logger.error("Some exception occurred while calling micro service: {}", ExceptionUtils.getStackTrace(ex));
+			throw ex;
+		}
+	}
+
 }
 

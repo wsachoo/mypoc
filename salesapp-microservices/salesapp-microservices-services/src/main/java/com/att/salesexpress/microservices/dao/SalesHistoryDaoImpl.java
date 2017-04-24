@@ -71,6 +71,20 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 		logger.info("Exiting getRecordsByAccessTypeAndAccessSpeed() method.");
 		return rows;
 	}
+	
+	@Override
+	public List<Map<String, Object>> sqlGetSalesHistoryPercentageRecordsByAccessType(int numberOfRows) {
+		logger.info("Inside sqlGetSalesHistoryPercentageRecordsByAccessType() method.");
+
+		String sql = SQLConstants.sqlGetSalesHistoryPercentageRecordsByAccessType;
+
+		Map<String, Object> namedParameters = new HashMap<>();
+		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
+		List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(sql, namedParameters);
+
+		logger.info("Exiting sqlGetSalesHistoryPercentageRecordsByAccessType() method.");
+		return rows;
+	}	
 
 }
 

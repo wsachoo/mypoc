@@ -9,4 +9,6 @@ public interface SalesHistoryDao {
 	public List<Map<String, Object>> getRecordsByAccessTypeAndAccessSpeed(String accessType, int accessSpeed, int numberOfRows);
 	
 	public List<Map<String, Object>> sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed(String accessType, int accessSpeed, int portSpeed, int numberOfRows);
+
+	List<Map<String, Object>> sqlGetSalesHistoryPercentageRecordsByAccessType(int numberOfRows);
 }

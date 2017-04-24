@@ -66,6 +66,23 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 
 		return returnValue;
 	}
+	
+	
+	@Override
+	public List<Map<String, Object>> getSalesPercentageByAccessType(Map<String, Object> params) {
+		List<Map<String, Object>> result = new ArrayList<>();
+
+		Set<String> keys = params.keySet();
+
+		int numberOfRowsToRetrieve = DEFAULT_NUMBER_OF_ROWS_TO_RETRIEVE;
+
+		if (keys.contains("NUMBER_OF_ROWS")) {
+			numberOfRowsToRetrieve = Integer.parseInt(params.get("NUMBER_OF_ROWS").toString().trim());
+		}
+		
+		result = objSalesHistoryDao.sqlGetSalesHistoryPercentageRecordsByAccessType(numberOfRowsToRetrieve);
+		return result;
+	}	
 
 	private boolean containsAllWithValidValues(String Keys, Map<String, Object> params) {
 

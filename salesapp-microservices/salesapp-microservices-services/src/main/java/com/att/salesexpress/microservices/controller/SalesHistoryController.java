@@ -16,7 +16,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,8 +40,9 @@ public class SalesHistoryController {
 		List<SalesHistoryStripped> result = objSalesHistoryService.getRecommendationBasedOnSalesHistory(paramValues);
 
 		for (SalesHistoryStripped objSalesHistoryDO : result) {
-			Link selfLink = linkTo(methodOn(SalesHistoryController.class).getSalesHistoryOrderDetailBySiteIdLeadDesignId(
-					objSalesHistoryDO.getSiteId(), objSalesHistoryDO.getLeadDesignId())).withRel("siteDetail");
+			Link selfLink = linkTo(
+					methodOn(SalesHistoryController.class).getSalesHistoryOrderDetailBySiteIdLeadDesignId(
+							objSalesHistoryDO.getSiteId(), objSalesHistoryDO.getLeadDesignId())).withRel("siteDetail");
 			objSalesHistoryDO.add(selfLink);
 		}
 
@@ -66,5 +66,18 @@ public class SalesHistoryController {
 
 		logger.info("Returning result from getSalesHistoryOrderDetailBySiteId method");
 		return new ResponseEntity<SalesHistoryDetail>(objSalesHistoryDetail, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/salesHistory/getSalesPercentageByAccessType", method = RequestMethod.GET, produces = {
+			"application/json" })
+	@CrossOrigin
+	public HttpEntity<List<Map<String, Object>>> getSalesPercentageByAccessType(
+			@RequestParam Map<String, Object> paramValues, HttpServletRequest request) {
+		logger.info("Inside getSalesHistoryOrderDetailBySiteId method");
+
+		List<Map<String, Object>> stats = objSalesHistoryService.getSalesPercentageByAccessType(paramValues);
+
+		logger.info("Returning result from getSalesHistoryOrderDetailBySiteId method");
+		return new ResponseEntity<List<Map<String, Object>>>(stats, HttpStatus.OK);
 	}
 }
