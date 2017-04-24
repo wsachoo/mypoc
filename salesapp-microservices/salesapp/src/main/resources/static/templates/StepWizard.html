@@ -51,7 +51,7 @@ $(document).ready(function () {
 	});
 	
 	$('div.setup-panel div a.btn-primary').trigger('click');
-
+	
 });
 
 </script>
@@ -258,6 +258,11 @@ $(document).ready(function () {
 
 <script id="stepwizard-display-contract-data" type="text/html">
 <div class="container">
+<div class="row">
+  <div class="col-sm-offset-10 col-sm-2">
+      <input type="button" class="btn btn-primary btn-block" id="btnSelSolTmpl" value="Back" onclick="goBackToStepWizard();"> 
+  </div>
+</div>
 <h4>Design Info</h4>
 <table class="table table-striped">
 	{{each(i, item) $data}}
@@ -267,7 +272,7 @@ $(document).ready(function () {
 		</tr>
 	{{/each}}
 </table>
-<form class="form-inline">
+<form class="form-inline">	
   <h4>Credit And Customer Info</h4>
   <br/>
   <div class="panel panel-default">
@@ -390,14 +395,13 @@ $(document).ready(function () {
  	</div>
   </div>
 </div>
- <div class="row" >
-	<div class="col-sm-offset-5">
-		<input type="button" class="btn btn-primary" value="Generate Contract">	
+ <div class="row" style="margin-top:5px;">
+	<div class="col-sm-offset-5 col-sm-4">
+		<input type="button" class="btn btn-primary" id="btnGCSolTmpl" value="Generate Contract">	
 	</div>
   </div>
+</form>
 </script>
-
-
 
 <input type="hidden" name="numberOfQuestion" />
 
