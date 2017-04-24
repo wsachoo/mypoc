@@ -54,13 +54,6 @@ $(document).ready(function () {
 
 });
 
-function onNextButtonClick($thisRef) {
-	var currentButton = $thisRef
-	var nextButtonId = $(currentButton).attr('id'); //Next button id in form btnNext-questionId
-	var quesSeqId = nextButtonId.substring(nextButtonId.indexOf("-")+1);
-	populateWizardElement(quesSeqId);
-}
-
 </script>
 
 <script id="stepwizard-step-template" type="text/html">

@@ -1,10 +1,21 @@
-var userSolTmplSelectionObject = {}; //global object for user selection on step wizard
+var userSolTmplSelectionObject = []; //global object for user selection on step wizard
 var dataToGenContract = {}; //global object to hold the data to display the contract wizard
 
-function showSalesHistoryGrid(userSolTmplSelectionObject) {
+function convertOjectArrayToObject(paramObject) {
+	var reqObject = {};
+	$.each(paramObject, function(i, v) {
+	    $.each(v, function(key, val) {
+			reqObject[key] = val;
+		});
+	});	
+	
+	return reqObject;
+}
 
+function showSalesHistoryGrid() {
+	var reqObject = convertOjectArrayToObject(userSolTmplSelectionObject);
 	//console.log("userSolTmplSelectionObject : from showSalesHistoryGrid" + JSON.stringify(userSolTmplSelectionObject));
-	var jsonData = JSON.stringify(userSolTmplSelectionObject);
+	var jsonData = JSON.stringify(reqObject);
 	var promise = httpAsyncPostWithJsonRequestResponse("http://localhost:8080/user/salesHistory/getRecommendationBasedOnSalesHistory", jsonData);
 	promise.done(function(data, textStatus, jqXHR){
 		//console.log("Data :" + JSON.stringify(data));
@@ -140,7 +151,7 @@ function populateWizardElement(quesSeqId) {
 			stepWizardDataContent.appendTo("#formId");
 		}
 		highlightActiveStep(quesSeqId);
-		showSalesHistoryGrid(userSolTmplSelectionObject);
+		showSalesHistoryGrid();
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(textStatus);
 	});
@@ -151,13 +162,23 @@ function generateUserSelectObject() {
 		var radioElName = $(this).attr('name');	
 		//var radioElValue = $("input[name='"+ radioElName +"']").val();
 		var radioElValue = $(this).val();
-		userSolTmplSelectionObject[radioElName] = radioElValue;
+		///userSolTmplSelectionObject[radioElName] = radioElValue;
+		
+		var tmpObject = new Object();
+		tmpObject[radioElName] = radioElValue;
+		userSolTmplSelectionObject.push(tmpObject);
 	});
 
 	$("#formId select").each(function() {
 		var selectElName = $(this).attr('name');
-		var selectElValue = $("select[name='"+ selectElName +"'] option:selected").val();
-		userSolTmplSelectionObject[selectElName] = selectElValue;
+		var selectElValue = $("select[name='"+ selectElName +"'] option:selected").val().trim();
+		///userSolTmplSelectionObject[selectElName] = selectElValue;
+		
+		if (selectElValue) {
+			var tmpObject = new Object();
+			tmpObject[selectElName] = selectElValue;
+			userSolTmplSelectionObject.push(tmpObject);
+		}		
 	});
 
 	var checkElNames = []
@@ -170,10 +191,15 @@ function generateUserSelectObject() {
 			$('input[name="'+ elName +'"]').each(function(){
 				checkedVal.push($(this).val());
 			});
-			userSolTmplSelectionObject[elName] = checkedVal
+			///userSolTmplSelectionObject[elName] = checkedVal
+			var tmpObject = new Object();
+			tmpObject[elName] = checkedVal;
+			userSolTmplSelectionObject.push(tmpObject);
+			
 		});
 	});
 }
+
 function onStepContentFormClick(e) {
 	var eventSourceId = e.target.id;
 	if (eventSourceId.indexOf("btnNext-") >= 0) {
@@ -185,6 +211,7 @@ function onStepContentFormClick(e) {
 	if (eventSourceId.indexOf("btnPrev-") >= 0) {
 		var quesSeqId = eventSourceId.substring(eventSourceId.indexOf("-") + 1);
 		quesSeqId--;
+		userSolTmplSelectionObject.splice(-1);
 		populateWizardElement(quesSeqId);
 	}  
 }
@@ -194,8 +221,8 @@ function onStepWizardClick(e) {
 
 	if ("btnSolutionTemplateSteps" == eventSourceName) {
 		e.preventDefault();	
-		var stepNumber = e.target.text; //stepNumber is designed to be same ad question sequence number
-		populateWizardElement(stepNumber);
+		///var stepNumber = e.target.text; //stepNumber is designed to be same ad question sequence number
+		///populateWizardElement(stepNumber);
 	}
 }
 
@@ -240,3 +267,10 @@ function onClickProceedToGenContract(e) {
 	
 }
 
+
+function onNextButtonClick($thisRef) {
+	var currentButton = $thisRef
+	var nextButtonId = $(currentButton).attr('id'); //Next button id in form btnNext-questionId
+	var quesSeqId = nextButtonId.substring(nextButtonId.indexOf("-")+1);
+	populateWizardElement(quesSeqId);
+}
