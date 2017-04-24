@@ -11,4 +11,6 @@ public interface SalesHistoryService {
 
 	public SalesHistoryDetail getSalesHistoryOrderDetailBySiteIdLeadDesignId(Long siteId, Long leadDesignId);
 
+	List<Map<String, Object>> getSalesPercentageByAccessType(Map<String, Object> params);
+
 }

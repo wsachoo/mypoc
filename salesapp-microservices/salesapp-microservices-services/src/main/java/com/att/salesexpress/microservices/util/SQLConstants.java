@@ -47,5 +47,10 @@ public interface SQLConstants {
 			+ ") countTable "
 			+ ") rankTable "
 			+ "where rankTable.RNK = 1 and rownum <= :NUMBER_OF_ROWS"; 
-
+	
+	String sqlGetSalesHistoryPercentageRecordsByAccessType = "select concat(ROUND(count(*)*100/(select count(*) from SALES_TRANSACTION_HISTORY), 2), '%') as PERCENTAGE, "
+			+ "ACCESS_TYPE_ID from SALES_TRANSACTION_HISTORY "
+			+ "where ACCESS_TYPE_ID in ('Private Line', 'ETHERNET') "
+			+ "group by ACCESS_TYPE_ID order by ACCESS_TYPE_ID";
+	
 }

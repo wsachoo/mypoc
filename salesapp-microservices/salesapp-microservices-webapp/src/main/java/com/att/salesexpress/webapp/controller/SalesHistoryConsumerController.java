@@ -45,4 +45,21 @@ public class SalesHistoryConsumerController {
 		logger.info("Returning result from getRecommendationBasedOnSalesHistory method");
 		return result;
 	}
+	
+	@CrossOrigin
+	@ResponseBody
+	@RequestMapping(value = "/user/salesHistory/getSalesPercentageByAccessType", method = RequestMethod.POST, produces = {
+			"application/json" })
+	public Map<String, Object> getSalesPercentageByAccessType(@RequestBody Map<String, Object> paramValues,
+			HttpServletRequest request) {
+		logger.info("Inside getSalesPercentageByAccessType method");
+		Map<String, Object> result = null;
+		try {
+			result = salesExpressMicroServiceCallerServiceImpl.getSalesPercentageByAccessType(paramValues);
+		} catch (Exception e) {
+			logger.error("Error occurred while invoking webservice: {}" + ExceptionUtils.getStackTrace(e));
+		}
+		logger.info("Returning result from getSalesPercentageByAccessType method");
+		return result;
+	}	
 }
