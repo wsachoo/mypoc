@@ -75,7 +75,7 @@
 				page="side_menu_bar.jsp" /></div>
 
 		<div id="main-wrapper">
-			<div class="container-fluid salesexpress-content-area">
+			<div class="container-fluid salesexpress-content-area" id="solTemplateConfigPlaceholder">
 					<div class="row sachtopmenu">
 						<div class="col-sm-6 col-xs-12 sachmenuitemactive"
 							id="sachtopmenu_gMap">

@@ -110,7 +110,10 @@ function initializeStepWizard() {
 		data[3].mydesc = "Final Result";
 		var stepWizardData = $("#stepwizard-step-template").tmpl(data);
 		stepWizardData.appendTo("#stepWizardId");
-		populateWizardElement(data[0].quesSeqId);
+		
+		var userSelectCriteriaLength = Object.keys(userSolTmplSelectionObject).length;
+		populateWizardElement(data[userSelectCriteriaLength].quesSeqId);
+		
 		$("input[name='numberOfQuestion']").val(data.length);
 	})
 	.fail(function(jqXHR, textStatus, errorThrown) {
@@ -156,6 +159,11 @@ function populateWizardElement(quesSeqId) {
 		console.log(textStatus);
 	});
 }
+
+function goBackToStepWizard() {
+	window.history.back();
+}
+
 
 function generateUserSelectObject() {
 	$("#formId input[type='radio']:checked").each(function() {
@@ -214,6 +222,7 @@ function onStepContentFormClick(e) {
 		userSolTmplSelectionObject.splice(-1);
 		populateWizardElement(quesSeqId);
 	}  
+	
 }
 
 function onStepWizardClick(e) {
@@ -250,6 +259,9 @@ function storeDataToGenerateContract(genContractWizardData) {
 }
 
 function onClickProceedToGenContract(e) {
+	
+	location.hash = "contractGeneration";
+	
 	$('body').find("#displayContractWizard").remove();
 	//console.log("dataToGenContract:"+JSON.stringify(dataToGenContract));
 	var DATA = {};
