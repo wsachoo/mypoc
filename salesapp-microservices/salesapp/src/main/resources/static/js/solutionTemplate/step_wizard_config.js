@@ -194,8 +194,8 @@ function onStepWizardClick(e) {
 
 	if ("btnSolutionTemplateSteps" == eventSourceName) {
 		e.preventDefault();	
-		var stepNumber = e.target.text; //stepNumber is designed to be same ad question sequence number
-		populateWizardElement(stepNumber);
+		///var stepNumber = e.target.text; //stepNumber is designed to be same ad question sequence number
+		///populateWizardElement(stepNumber);
 	}
 }
 
