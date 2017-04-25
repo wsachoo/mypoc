@@ -12,7 +12,7 @@ function convertOjectArrayToObject(paramObject) {
 	return reqObject;
 }
 
-function displayDataGrid(data) {
+function displayDataGrid(data, templateFormat) {
 	var gridTable = '<table id="grid-data" class="table table-condensed table-hover" style="background-color : #F5F5F5;">'+
 	'<thead>'+
 	'<tr>'+
@@ -45,7 +45,8 @@ function displayDataGrid(data) {
 		$("#grid-data").append(gridRow);			
 	});
 	var grid = $("#grid-data");
-	$("#grid-data").bootgrid({
+	
+	var gridLayoutAttributeObject = {
 		selection: true,
 		multiSelect: true,
 		rowSelect: true,
@@ -55,8 +56,16 @@ function displayDataGrid(data) {
 			{
 				return "<button type='button' class='btn btn-xs btn-default openLink'><span class='glyphicon glyphicon-pencil'></span></button>";
 			}
-		}
-	}).on("loaded.rs.jquery.bootgrid", function(){
+		}			
+	};
+	
+	if (templateFormat) {
+		gridLayoutAttributeObject.templates = templateFormat;
+	}
+
+	var gridLayout = $("#grid-data").bootgrid(gridLayoutAttributeObject);
+	
+	gridLayout.on("loaded.rs.jquery.bootgrid", function(){
 		//used openLink class just to select the current button to call the click event
 		$("#grid-data").find(".openLink").on("click", function(e) {
 			var thisElementId = $(this);
@@ -80,7 +89,11 @@ function displayDataGridWithTop5Records(accessType) {
 		//console.log("Data :" + JSON.stringify(data));
 		$("#solutionTemplateBottomFrame").empty();
 		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
-			displayDataGrid(data);
+			var gridTemplateFormat = {
+				header : "",
+				pagination : ""
+			}
+			displayDataGrid(data, gridTemplateFormat);
 		}
 		else{
 			$("#solutionTemplateBottomFrame").empty();
