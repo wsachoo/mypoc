@@ -63,6 +63,8 @@ function hashChange(){
         	var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", percentObject);
         	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
         	$("#solutionTemplateTopFrame").trigger('create');
+        	
+        	drawPieGraphOnTopSolutionTemplatePage(data);
         	displayDataGridWithTop5Records("ETHERNET");
         	
     	}).fail(function(jqXHR, textStatus, errorThrown) {

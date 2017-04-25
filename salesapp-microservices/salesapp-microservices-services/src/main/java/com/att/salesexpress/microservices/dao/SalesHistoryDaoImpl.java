@@ -22,15 +22,21 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 	@Override
 	public List<Map<String, Object>> getRecordsByAccessType(String accessType, int numberOfRows) {
 		logger.info("Inside getRecordsByAccessType() method.");
-
-		String sql = SQLConstants.sqlGetSalesHistoryDataByAccessType;
-
 		Map<String, Object> namedParameters = new HashMap<>();
+		
+		String sql = null;
+		
+		if ("Other".equals(accessType)) {
+			sql = SQLConstants.sqlGetSalesHistoryDataByAccessTypeForOtherAccessType;
+		}
+		else {
+			sql = SQLConstants.sqlGetSalesHistoryDataByAccessType;
+		}
+
 		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
 		namedParameters.put("ACCESS_TYPE_ID", accessType);
 
 		List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(sql, namedParameters);
-
 		logger.info("Exiting getRecordsByAccessType() method.");
 		return rows;
 	}
