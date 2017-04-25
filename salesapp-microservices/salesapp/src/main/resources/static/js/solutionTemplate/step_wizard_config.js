@@ -277,20 +277,30 @@ function onStepWizardClick(e) {
 }
 
 function displaySelectedRowModal(url, matchPercentage) {
-	
+
 	var data = httpGetWithJsonResponse(url, "");
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	$("body").find("#displaySelectedRowModal").remove();
 	var DATA = {};
-	var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan"];
+	var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd", "ratePlan", "mrc", "nrc"];
 
 	$.each(objectKeysArray, function(k, value) {
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
+		if(key == "MRC" || key == "NRC"){
+			data[value] = "$ "+ data[value];
+			DATA[key] = data[value];
+		}
 		DATA[key] = data[value];
 	});
 	DATA["SUCCESS RATIO"] = matchPercentage;
-	var modalDataContent = $("#stepwizard-display-selected-row-modal").tmpl(DATA);
-	modalDataContent.appendTo('body');
+
+	//var modalDataContent = $("#stepwizard-display-selected-row-modal").tmpl(DATA);
+	var templatePath = contextPath + "/templates/select_row_modal.html";
+	var modalTemplate = getTemplateDefinition(templatePath);
+	$.template("select_row_modal", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("select_row_modal", DATA);
+
+	$('body').append(modalTemplateToDisplay);
 	$("#btnDisplayRowSelectModal").trigger('click');
 }
 
@@ -306,15 +316,23 @@ function onClickProceedToGenContract(e) {
 	$('body').find("#displayContractWizard").remove();
 	//console.log("dataToGenContract:"+JSON.stringify(dataToGenContract));
 	var DATA = {};
-	var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan"];
+	var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan", "mrc", "nrc"];
 
 	$.each(objectKeysArray, function(k, value) {
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
 		DATA[key] = dataToGenContract[value];
 	});
-	var contractWizardDataContent = $("#stepwizard-display-contract-data").tmpl(DATA);
+	//var contractWizardDataContent = $("#stepwizard-display-contract-data").tmpl(DATA);
+	
 	$('<div class="row" id="displayContractWizard"></div>').insertAfter("div.sachtopmenu");
-	$("#displayContractWizard").append(contractWizardDataContent);
+	
+	var templatePath = contextPath + "/templates/contract_data_wizard.html";
+	var contractDataTemplate = getTemplateDefinition(templatePath);
+	$.template("contract_data_wizard", contractDataTemplate);
+	var modalTemplateToDisplay = $.tmpl("contract_data_wizard", DATA);
+	
+	
+	$("#displayContractWizard").append(modalTemplateToDisplay);
 	var topMenuDiv = $("#displayContractWizard");
 	removeNextAllSiblingDivRows(topMenuDiv);
 	
