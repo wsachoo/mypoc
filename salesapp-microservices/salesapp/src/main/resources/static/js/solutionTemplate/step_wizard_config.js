@@ -18,13 +18,12 @@ function displayDataGrid(data, templateFormat) {
 	'<tr>'+
 	'<th data-column-id="commands" data-formatter="commands" data-sortable="false">View</th>'+
 	'<th data-column-id="accessSpeed" >ACCESS SPEED</th>'+
-	'<th data-column-id="ethernetHandoffInterface">ETHERNET HANDOFF INTERFACE</th>'+
 	'<th data-column-id="designType">DESIGN TYPE</th>'+
 	'<th data-column-id="portSpeed">PORT SPEED</th>'+
 	'<th data-column-id="managedRouter">MANAGED ROUTER</th>'+
-	'<th data-column-id="siteNameAlias">SITE NAME ALIAS</th>'+
+	'<th data-column-id="mrc">MRC</th>'+
+	'<th data-column-id="nrc">NRC</th>'+
 	'<th data-column-id="ratePlan">RATE PLAN</th>'+
-	/* '<th data-column-id="tailTechnologyId">TAIL TECHNOLOGY</th>'+*/
 	'</tr>'+
 	'</thead>'+
 	'</table>';
@@ -34,13 +33,12 @@ function displayDataGrid(data, templateFormat) {
 		var gridRow = 	'<tr >'+
 		'<td data-column-id="commands"></td>'+
 		'<td data-column-id="accessSpeed">'+ data[k].accessSpeed +'</td>'+
-		'<td data-column-id="ethernetHandoffInterface">'+ data[k].ethernetHandoffInterface +'</td>'+
 		'<td data-column-id="designType" data-order="desc">'+ data[k].designType +'</td>'+
 		'<td data-column-id="portSpeed">'+ data[k].portSpeed +'</td>'+
 		'<td data-column-id="managedRouter">'+ data[k].managedRouter +'</td>'+
-		'<td data-column-id="siteNameAlias">'+ data[k].siteNameAlias +'</td>'+
+		'<td data-column-id="mrc">'+ '$'+ data[k].mrc +'</td>'+
+		'<td data-column-id="nrc">'+'$'+ data[k].nrc +'</td>'+
 		'<td data-column-id="ratePlan">'+ data[k].ratePlan +'</td>'+
-		/*'<td data-column-id="tailTechnologyId">'+ data[k].tailTechnologyId +'</td>'+*/
 		'</tr>'
 		$("#grid-data").append(gridRow);			
 	});
@@ -204,7 +202,6 @@ function populateWizardElement(quesSeqId) {
 function goBackToStepWizard() {
 	window.history.back();
 }
-
 
 function generateUserSelectObject() {
 	$("#formId input[type='radio']:checked").each(function() {
