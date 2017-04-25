@@ -47,7 +47,8 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"getAccessSpeedByAccessTypeUrl": "getAccessSpeedByAccessType",
 		"getPortSpeedsByAccessSpeedUrl" : "getPortSpeedsByAccessSpeed",
 		"getDistinctAccessSpeedByAccessTypeUrl" : "getDistinctAccessSpeedByAccessType",
-		"getDistinctPortSpeedsByAccessSpeedUrl" : "getDistinctPortSpeedsByAccessSpeed"
+		"getDistinctPortSpeedsByAccessSpeedUrl" : "getDistinctPortSpeedsByAccessSpeed",
+		"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://localhost:8080/user/salesHistory/getRecommendationBasedOnSalesHistory"
 	};
 	
 	return {
