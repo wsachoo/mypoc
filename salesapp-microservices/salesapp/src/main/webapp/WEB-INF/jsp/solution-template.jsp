@@ -9,6 +9,8 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script>
 	var contextPath = "${pageContext.request.contextPath}";
+	
+	
 	/* document.write('<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />'); */
 	document
 			.write('<link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />');
@@ -58,7 +60,7 @@
 <%-- <script type="text/javascript"
 	src="${contextPath}/js/lib/step-wizard.js"></script> --%>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 
 </head>
 <body>

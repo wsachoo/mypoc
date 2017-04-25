@@ -345,3 +345,38 @@ function onNextButtonClick($thisRef) {
 	var quesSeqId = nextButtonId.substring(nextButtonId.indexOf("-")+1);
 	populateWizardElement(quesSeqId);
 }
+
+
+function drawPieGraphOnTopSolutionTemplatePage(data) {
+	var tmpData = data["DATA"];
+	
+	var graph_data = {};
+	graph_data.labels = [];
+	graph_data.datasets = [];
+	graph_data.datasets.push({});
+	
+	graph_data.datasets[0].backgroundColor = [ "#F7464A", "#46BFBD", "#FDB45C"];
+	graph_data.datasets[0].data = [];
+	
+	$.each(tmpData, function(i, value) {
+		graph_data.labels.push(value.ACCESS_TYPE_ID);
+		graph_data.datasets[0].data.push(value.PERCENTAGE);
+	});
+	
+    var canvas = document.getElementById("myChart");
+    var ctx = canvas.getContext("2d");
+    var myNewChart = new Chart(ctx, {
+      type: 'pie',
+      data: graph_data
+    });
+    
+    canvas.onclick = function (evt) {
+        var activePoints = myNewChart.getElementsAtEvent(evt);
+        var chartData = activePoints[0]['_chart'].config.data;
+        var idx = activePoints[0]['_index'];
+
+        var label = chartData.labels[idx];
+        displayDataGridWithTop5Records(label);
+      };
+}
+
