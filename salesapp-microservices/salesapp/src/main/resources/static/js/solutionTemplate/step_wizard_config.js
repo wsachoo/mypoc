@@ -12,69 +12,97 @@ function convertOjectArrayToObject(paramObject) {
 	return reqObject;
 }
 
-function showSalesHistoryGrid() {
-	var reqObject = convertOjectArrayToObject(userSolTmplSelectionObject);
-	//console.log("userSolTmplSelectionObject : from showSalesHistoryGrid" + JSON.stringify(userSolTmplSelectionObject));
-	var jsonData = JSON.stringify(reqObject);
-	var promise = httpAsyncPostWithJsonRequestResponse("http://localhost:8080/user/salesHistory/getRecommendationBasedOnSalesHistory", jsonData);
+function displayDataGrid(data) {
+	var gridTable = '<table id="grid-data" class="table table-condensed table-hover" style="background-color : #F5F5F5;">'+
+	'<thead>'+
+	'<tr>'+
+	'<th data-column-id="commands" data-formatter="commands" data-sortable="false">View</th>'+
+	'<th data-column-id="accessSpeed" >ACCESS SPEED</th>'+
+	'<th data-column-id="ethernetHandoffInterface">ETHERNET HANDOFF INTERFACE</th>'+
+	'<th data-column-id="designType">DESIGN TYPE</th>'+
+	'<th data-column-id="portSpeed">PORT SPEED</th>'+
+	'<th data-column-id="managedRouter">MANAGED ROUTER</th>'+
+	'<th data-column-id="siteNameAlias">SITE NAME ALIAS</th>'+
+	'<th data-column-id="ratePlan">RATE PLAN</th>'+
+	/* '<th data-column-id="tailTechnologyId">TAIL TECHNOLOGY</th>'+*/
+	'</tr>'+
+	'</thead>'+
+	'</table>';
+	$("#solutionTemplateBottomFrame").append(gridTable);
+	var data = data["DATA"];
+	$.each(data, function(k,v) {
+		var gridRow = 	'<tr >'+
+		'<td data-column-id="commands"></td>'+
+		'<td data-column-id="accessSpeed">'+ data[k].accessSpeed +'</td>'+
+		'<td data-column-id="ethernetHandoffInterface">'+ data[k].ethernetHandoffInterface +'</td>'+
+		'<td data-column-id="designType" data-order="desc">'+ data[k].designType +'</td>'+
+		'<td data-column-id="portSpeed">'+ data[k].portSpeed +'</td>'+
+		'<td data-column-id="managedRouter">'+ data[k].managedRouter +'</td>'+
+		'<td data-column-id="siteNameAlias">'+ data[k].siteNameAlias +'</td>'+
+		'<td data-column-id="ratePlan">'+ data[k].ratePlan +'</td>'+
+		/*'<td data-column-id="tailTechnologyId">'+ data[k].tailTechnologyId +'</td>'+*/
+		'</tr>'
+		$("#grid-data").append(gridRow);			
+	});
+	var grid = $("#grid-data");
+	$("#grid-data").bootgrid({
+		selection: true,
+		multiSelect: true,
+		rowSelect: true,
+		keepSelection: true,
+		formatters: {
+			"commands": function(column, row)
+			{
+				return "<button type='button' class='btn btn-xs btn-default openLink'><span class='glyphicon glyphicon-pencil'></span></button>";
+			}
+		}
+	}).on("loaded.rs.jquery.bootgrid", function(){
+		//used openLink class just to select the current button to call the click event
+		$("#grid-data").find(".openLink").on("click", function(e) {
+			var thisElementId = $(this);
+			var rowId = thisElementId.closest('tr').attr('data-row-id'); //data-row-id attr is dynamically created by bootgrid
+			var url = data[rowId].links[0].href;
+			var matchpercentage = data[rowId].matchPercentage;
+			displaySelectedRowModal(url, matchpercentage);
+		});
+
+	});	
+}
+
+function displayDataGridWithTop5Records(accessType) {
+	var tmpObj = {};
+	tmpObj["ACCESS_TYPE_ID"] = accessType;
+	tmpObj["NUMBER_OF_ROWS"] = 5;
+	
+	var jsonData = JSON.stringify(tmpObj);
+	var promise = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_RECOMMENDATION_URL"), jsonData);
 	promise.done(function(data, textStatus, jqXHR){
 		//console.log("Data :" + JSON.stringify(data));
 		$("#solutionTemplateBottomFrame").empty();
 		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
-			var gridTable = '<table id="grid-data" class="table table-condensed table-hover" style="background-color : #F5F5F5;">'+
-			'<thead>'+
-			'<tr>'+
-			'<th data-column-id="commands" data-formatter="commands" data-sortable="false">View</th>'+
-			'<th data-column-id="accessSpeed" >ACCESS SPEED</th>'+
-			'<th data-column-id="ethernetHandoffInterface">ETHERNET HANDOFF INTERFACE</th>'+
-			'<th data-column-id="designType">DESIGN TYPE</th>'+
-			'<th data-column-id="portSpeed">PORT SPEED</th>'+
-			'<th data-column-id="managedRouter">MANAGED ROUTER</th>'+
-			'<th data-column-id="siteNameAlias">SITE NAME ALIAS</th>'+
-			'<th data-column-id="ratePlan">RATE PLAN</th>'+
-			/* '<th data-column-id="tailTechnologyId">TAIL TECHNOLOGY</th>'+*/
-			'</tr>'+
-			'</thead>'+
-			'</table>';
-			$("#solutionTemplateBottomFrame").append(gridTable);
-			var data = data["DATA"];
-			$.each(data, function(k,v) {
-				var gridRow = 	'<tr >'+
-				'<td data-column-id="commands"></td>'+
-				'<td data-column-id="accessSpeed">'+ data[k].accessSpeed +'</td>'+
-				'<td data-column-id="ethernetHandoffInterface">'+ data[k].ethernetHandoffInterface +'</td>'+
-				'<td data-column-id="designType" data-order="desc">'+ data[k].designType +'</td>'+
-				'<td data-column-id="portSpeed">'+ data[k].portSpeed +'</td>'+
-				'<td data-column-id="managedRouter">'+ data[k].managedRouter +'</td>'+
-				'<td data-column-id="siteNameAlias">'+ data[k].siteNameAlias +'</td>'+
-				'<td data-column-id="ratePlan">'+ data[k].ratePlan +'</td>'+
-				/*'<td data-column-id="tailTechnologyId">'+ data[k].tailTechnologyId +'</td>'+*/
-				'</tr>'
-				$("#grid-data").append(gridRow);			
-			});
-			var grid = $("#grid-data");
-			$("#grid-data").bootgrid({
-				selection: true,
-				multiSelect: true,
-				rowSelect: true,
-				keepSelection: true,
-				formatters: {
-					"commands": function(column, row)
-					{
-						return "<button type='button' class='btn btn-xs btn-default openLink'><span class='glyphicon glyphicon-pencil'></span></button>";
-					}
-				}
-			}).on("loaded.rs.jquery.bootgrid", function(){
-				//used openLink class just to select the current button to call the click event
-				$("#grid-data").find(".openLink").on("click", function(e) {
-					var thisElementId = $(this);
-					var rowId = thisElementId.closest('tr').attr('data-row-id'); //data-row-id attr is dynamically created by bootgrid
-					var url = data[rowId].links[0].href;
-					var matchpercentage = data[rowId].matchPercentage;
-					displaySelectedRowModal(url, matchpercentage);
-				});
+			displayDataGrid(data);
+		}
+		else{
+			$("#solutionTemplateBottomFrame").empty();
+			$("#solutionTemplateBottomFrame").html(data["ERROR_DESC"])
+		}
 
-			});
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		console.log(textStatus);
+	}); 
+} 
+
+
+function showSalesHistoryGrid() {
+	var reqObject = convertOjectArrayToObject(userSolTmplSelectionObject);
+	//console.log("userSolTmplSelectionObject : from showSalesHistoryGrid" + JSON.stringify(userSolTmplSelectionObject));
+	var jsonData = JSON.stringify(reqObject);
+	var promise = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_RECOMMENDATION_URL"), jsonData);
+	promise.done(function(data, textStatus, jqXHR){
+		//console.log("Data :" + JSON.stringify(data));
+		$("#solutionTemplateBottomFrame").empty();
+		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
+			displayDataGrid(data);
 		}
 		else{
 			$("#solutionTemplateBottomFrame").empty();
