@@ -125,7 +125,8 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 				.setSiteNameAlias(map.get("SITE_NAME_ALIAS") != null ? map.get("SITE_NAME_ALIAS").toString() : "");
 		objSalesHistoryDO.setMatchPercentage(
 				map.get("MATCHING_ROW_PERCENTAGE") != null ? map.get("MATCHING_ROW_PERCENTAGE").toString() : "");
-
+		objSalesHistoryDO.setMrc(map.get("MRC").toString());
+		objSalesHistoryDO.setNrc(map.get("NRC").toString());
 		return objSalesHistoryDO;
 	}
 

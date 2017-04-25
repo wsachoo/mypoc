@@ -29,6 +29,10 @@ public class SalesHistoryStripped extends ResourceSupport {
 	
 	private String matchPercentage;
 	
+	private String mrc;
+	
+	private String nrc;
+	
 	public long getLeadDesignId() {
 		return leadDesignId;
 	}
@@ -131,6 +135,24 @@ public class SalesHistoryStripped extends ResourceSupport {
 
 	public void setMatchPercentage(String matchPercentage) {
 		this.matchPercentage = matchPercentage;
+	}
+	
+	
+
+	public String getMrc() {
+		return mrc;
+	}
+
+	public void setMrc(String mrc) {
+		this.mrc = mrc;
+	}
+
+	public String getNrc() {
+		return nrc;
+	}
+
+	public void setNrc(String nrc) {
+		this.nrc = nrc;
 	}
 
 	@Override
