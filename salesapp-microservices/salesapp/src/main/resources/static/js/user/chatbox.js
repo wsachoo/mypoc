@@ -41,7 +41,8 @@ $(document).ready(function(){
 	};
 
 	chatWindow.on('click', '.panel-heading span.icon_minim', function (e) {
-	    var $this = $(this);
+		e.preventDefault();
+		var $this = $(this);
 	    if (!$this.hasClass('panel-collapsed')) {
 	        $this.parents('.panel').find('.panel-body').slideUp();
 	        $this.addClass('panel-collapsed');
@@ -77,11 +78,13 @@ $(document).ready(function(){
 	});
 	
 	chatWindow.on('click', '.icon_close', function (e) {
+		e.preventDefault();
 	    $( "#chat_window_1" ).hide();
 	    $("#open-Chat").addClass('glyphicon glyphicon-comment');
 	});
 	
-	$("#open-Chat").on('click', function(e){ 
+	$("#open-Chat").on('click', function(e){
+		e.preventDefault();
 		$("#chat_window_1").show();
 		$("#chat_div").css("display","inline");
 		$(this).removeClass('glyphicon glyphicon-comment');

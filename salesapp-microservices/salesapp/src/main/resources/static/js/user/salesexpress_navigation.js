@@ -2,7 +2,8 @@ $(document).ready(function() {
 	/*
 	 * Event handler for side naviation
 	 */
-    $("#salesexpress-side-bar").on("click", ".menu-list #menu-content > div > li[data-toggle='collapse']", function(e) {   
+    $("#salesexpress-side-bar").on("click", ".menu-list #menu-content > div > li[data-toggle='collapse']", function(e) {
+    		e.preventDefault();
     		var eul = $(this).closest("li");
     		var elem = eul.find("span:nth-child(2)");
     		elem.toggleClass("glyphicon-plus glyphicon-minus");
@@ -10,7 +11,8 @@ $(document).ready(function() {
     		//var parentEls = $( this ).parents().map(function() {   return this.tagName; }).get() .join( ", " );
     });
     
-    $("#salesexpress-side-bar").on("click", ".menu-list #menu-content > li > a[data-toggle='collapse']", function(e) {   
+    $("#salesexpress-side-bar").on("click", ".menu-list #menu-content > li > a[data-toggle='collapse']", function(e) {
+    	e.preventDefault();
 		var elem = $(this).find(".more-less");
 		elem.toggleClass("glyphicon-plus glyphicon-minus");
 
