@@ -374,6 +374,9 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 
         var label = chartData.labels[idx];
         displayDataGridWithTop5Records(label);
+        
+        $('input[name="ACCESS_TYPE_ID"][value="' + label + '"]').prop('checked', true);
+
       };
 }
 
