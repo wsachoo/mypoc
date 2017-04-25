@@ -25,7 +25,36 @@ $(document).ready(function() {
 function hashChange(){
 	var page = location.hash.slice(1);
 	
-	if (page.includes("stepWizard")) {
+	if (page.includes("topCustomerSolutions")) {
+		changeTab(page);
+    	var topMenuDiv = $("div.sachtopmenu");
+    	removeNextAllSiblingDivRows(topMenuDiv);
+
+    	var frameFormat = "<div class='clearfix'></div>";
+    	frameFormat = frameFormat  + "<div class='row salesexpress-content-margin solutiontemplateMiddleSpace'>";
+    	frameFormat = frameFormat  + "<div class='col-sm-12'  style='height:30%;'>"; 
+        frameFormat = frameFormat  + 	"<div id='solutionTemplateTopFrame' style='text-align:center;'></div>";
+    	frameFormat = frameFormat + "</div>";
+    	frameFormat = frameFormat  + "<div class='col-sm-12'  id='solutionTemplateBottomFrame' style='height:70%; text-align:center;'>";
+    	frameFormat = frameFormat + "</div>";
+    	frameFormat = frameFormat + "</div>";
+        topMenuDiv.after(frameFormat);
+        topMenuDiv.trigger('create');
+        
+        var templatePath = contextPath + "/templates/solution_template_top_solutions.html";
+        var toplSolutionTemplate = getTemplateDefinition(templatePath);
+        $.template("solution_template_top_solutions", toplSolutionTemplate);
+        
+    	var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", { 
+    		"ETHERNET_PERCENTAGE" : "10%",
+    		"Private_Line_PERCENTAGE" : "20%"
+        });
+    	
+    	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
+    	$("#solutionTemplateTopFrame").trigger('create');
+    	displayDataGridWithTop5Records("ETHERNET");
+  	}	
+	else if (page.includes("stepWizard")) {
 		changeTab(page);
     	var topMenuDiv = $("div.sachtopmenu");
     	removeNextAllSiblingDivRows(topMenuDiv);

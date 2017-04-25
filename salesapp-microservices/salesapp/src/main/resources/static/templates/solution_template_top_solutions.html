@@ -1,0 +1,30 @@
+<script>
+$(document).ready(function () {	
+    $( "#stepWizardLink" ).click(function( event ) {
+	    event.preventDefault();
+	    location.hash = "#stepWizard";
+	});
+    
+    $("input[name='ACCESS_TYPE_ID']").click(function() {
+    	displayDataGridWithTop5Records($(this).val());
+    });
+});
+</script>
+<div class="row">
+	<div class="col-sm-6">
+		<label>Following are the top solutions offered to customers</label>
+	</div>
+	<div class="col-sm-3 col-sm-offset-3">
+		<a href="#" data-name="solutionTemplate" data-url="stepWizard" id="stepWizardLink"><b>Search By Criteria</b></a>
+	</div>
+</div>
+<div class="row" style="margin-top: 20px;">
+	<div class="col-sm-6 col-sm-offset-1">
+		<input type="radio" name="ACCESS_TYPE_ID" value="ETHERNET" checked="checked"> Ethernet&nbsp;&nbsp;&nbsp;&nbsp;(Success Percentage <b>${ETHERNET_PERCENTAGE})</b>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-1">
+		<input type="radio" name="ACCESS_TYPE_ID" value="Private Line"> Private Line&nbsp;&nbsp;&nbsp;&nbsp;(Success Percentage <b>${Private_Line_PERCENTAGE})</b>
+	</div>
+</div>
