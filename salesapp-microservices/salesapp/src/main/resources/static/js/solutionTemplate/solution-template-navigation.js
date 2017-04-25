@@ -26,16 +26,20 @@ function hashChange(){
 	var page = location.hash.slice(1);
 	
 	if (page.includes("topCustomerSolutions")) {
-		changeTab(page);
+		changeTab("stepWizard");
     	var topMenuDiv = $("div.sachtopmenu");
     	removeNextAllSiblingDivRows(topMenuDiv);
 
     	var frameFormat = "<div class='clearfix'></div>";
     	frameFormat = frameFormat  + "<div class='row salesexpress-content-margin solutiontemplateMiddleSpace'>";
-    	frameFormat = frameFormat  + "<div class='col-sm-12'  style='height:30%;'>"; 
+    	frameFormat = frameFormat  + "<div class='col-sm-12'  style='height:50%;'>"; 
         frameFormat = frameFormat  + 	"<div id='solutionTemplateTopFrame' style='text-align:center;'></div>";
     	frameFormat = frameFormat + "</div>";
-    	frameFormat = frameFormat  + "<div class='col-sm-12'  id='solutionTemplateBottomFrame' style='height:70%; text-align:center;'>";
+    	frameFormat = frameFormat  + "<div class='col-sm-12'  style='height:50%;'>"; 
+    	frameFormat = frameFormat  + "<div class='row'>" +
+    									"<div class='col-sm-12'><b>Based on the historical information, following are the top 5 solution that customers ordered.</b></div>" +
+    								 "</div><div class='row' style='margin-top:20px'></div>";
+        frameFormat = frameFormat  + 	"<div id='solutionTemplateBottomFrame' style='text-align:center;'></div>";
     	frameFormat = frameFormat + "</div>";
     	frameFormat = frameFormat + "</div>";
         topMenuDiv.after(frameFormat);
@@ -45,15 +49,26 @@ function hashChange(){
         var toplSolutionTemplate = getTemplateDefinition(templatePath);
         $.template("solution_template_top_solutions", toplSolutionTemplate);
         
-    	var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", { 
-    		"ETHERNET_PERCENTAGE" : "10%",
-    		"Private_Line_PERCENTAGE" : "20%"
-        });
-    	
-    	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
-    	$("#solutionTemplateTopFrame").trigger('create');
-    	displayDataGridWithTop5Records("ETHERNET");
-  	}	
+    	var promise = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL"), "{}");
+    	promise.done(function(data, textStatus, jqXHR){
+    		var tmpData = data["DATA"];
+    		
+    		var percentObject = {};
+    		$.each(tmpData, function(i, value) {
+    			var accessType = value.ACCESS_TYPE_ID;
+    			accessType = accessType.replace(/ /g, '_');
+    			percentObject[accessType + "_PERCENTAGE"] = value.PERCENTAGE;
+    		});
+    		
+        	var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", percentObject);
+        	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
+        	$("#solutionTemplateTopFrame").trigger('create');
+        	displayDataGridWithTop5Records("ETHERNET");
+        	
+    	}).fail(function(jqXHR, textStatus, errorThrown) {
+    		console.log(textStatus);
+    	}); 
+    }	
 	else if (page.includes("stepWizard")) {
 		changeTab(page);
     	var topMenuDiv = $("div.sachtopmenu");
