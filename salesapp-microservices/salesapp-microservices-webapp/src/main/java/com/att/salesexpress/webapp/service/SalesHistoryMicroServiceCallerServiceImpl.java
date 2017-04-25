@@ -87,6 +87,7 @@ public class SalesHistoryMicroServiceCallerServiceImpl implements SalesHistoryMi
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@HystrixCommand(fallbackMethod = "circuitBreakerGetSalesPercentageByAccessType")
 	public Map<String, Object> getSalesPercentageByAccessType(Map<String, Object> paramValues) {
 		logger.debug("Inside getSalesRecommendationFromHistory() method.");
 		String url = Constants.MICROSERVICE_SALES_HISTORY_DISCOVERY_NAME
@@ -120,6 +121,27 @@ public class SalesHistoryMicroServiceCallerServiceImpl implements SalesHistoryMi
 			throw ex;
 		}
 	}
+	
+	public Map<String, Object> circuitBreakerGetSalesPercentageByAccessType(Map<String, Object> paramValues) {
+		logger.info("Inside circuitBreakerGetSalesPercentageByAccessType() method.");
+		Map<String, Object> returnValue = new HashMap<>();
+		List<Map<String, Object>> result = new ArrayList<>();
+		Map<String, Object> tmpEthernet = new HashMap<>();
+		tmpEthernet.put("ACCESS_TYPE_ID", "ETHERNET");
+		tmpEthernet.put("PERCENTAGE", "% Not Available");
 
+		Map<String, Object> tmpPrivateLine = new HashMap<>();
+		tmpPrivateLine.put("ACCESS_TYPE_ID", "Private Line");
+		tmpPrivateLine.put("PERCENTAGE", "% Not Available");
+		result.add(tmpEthernet);
+		result.add(tmpPrivateLine);
+		
+		returnValue.put("STATUS", "FAILURE");
+		returnValue.put("ERROR_DESC", "There was some problem while getting Sales History Percentage information by access type.");
+		returnValue.put("DATA", result);
+		logger.info("Exiting circuitBreakerGetSalesPercentageByAccessType() method.");
+		
+		return returnValue;		
+	}
+	
 }
-
