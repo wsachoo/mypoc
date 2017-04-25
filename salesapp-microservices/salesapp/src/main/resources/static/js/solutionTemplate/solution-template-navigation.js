@@ -75,7 +75,7 @@ function hashChange(){
     	removeNextAllSiblingDivRows(topMenuDiv);
 
     	var frameFormat = "<div class='clearfix'></div>";
-    	frameFormat = frameFormat  + "<div class='row salesexpress-content-margin '>";
+    	frameFormat = frameFormat  + "<div class='row salesexpress-content-margin'>";
     	frameFormat = frameFormat  + "<div class='col-sm-12'  style='height:50%;'>"; 
         frameFormat = frameFormat  + 	"<div id='solutionTemplateTopFrame' style='text-align:center;'></div>";
     	frameFormat = frameFormat + "</div>";
