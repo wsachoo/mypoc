@@ -368,18 +368,27 @@ function onClickProceedToGenContract(e) {
 	//var contractWizardDataContent = $("#stepwizard-display-contract-data").tmpl(DATA);
 	
 	$('<div class="row" id="displayContractWizard"></div>').insertAfter("div.sachtopmenu");
-	
+	addContractGenTab();
+		
 	var templatePath = contextPath + "/templates/contract_data_wizard.html";
 	var contractDataTemplate = getTemplateDefinition(templatePath);
 	$.template("contract_data_wizard", contractDataTemplate);
-	var modalTemplateToDisplay = $.tmpl("contract_data_wizard", DATA);
+	var contractWizardData = $.tmpl("contract_data_wizard", DATA);
 	
-	
-	$("#displayContractWizard").append(modalTemplateToDisplay);
+	$("#displayContractWizard").append(contractWizardData);
 	var topMenuDiv = $("#displayContractWizard");
 	removeNextAllSiblingDivRows(topMenuDiv);
-	
+
 }
+
+function addContractGenTab() {
+	$("#sachtopmenu_gMap").removeClass('col-sm-6 col-xs-12 sachmenuitemactive').addClass('col-sm-4 col-xs-12 sachmenuitem'); //changes span of existing tabs
+	$("#sachtopmenu_solutionTemplate").removeClass('col-sm-6 col-xs-12 sachmenuitemactive').addClass('col-sm-4 col-xs-12 sachmenuitem'); //changes span of existing tabs
+	$("#sachtopmenu_generateContract").css("display", "inline");
+	$("#sachtopmenu_generateContract").addClass('col-sm-4 col-xs-12 sachmenuitemactive');
+}
+
+
 
 
 function onNextButtonClick($thisRef) {
