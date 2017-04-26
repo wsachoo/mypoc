@@ -79,7 +79,7 @@ function displayDataGrid(data, templateFormat) {
 function displayDataGridWithTop5Records(accessType) {
 	var tmpObj = {};
 	tmpObj["ACCESS_TYPE_ID"] = accessType;
-	tmpObj["NUMBER_OF_ROWS"] = 5;
+	tmpObj["NUMBER_OF_ROWS"] = 6;
 	
 	var jsonData = JSON.stringify(tmpObj);
 	var promise = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_RECOMMENDATION_URL"), jsonData);
@@ -87,11 +87,17 @@ function displayDataGridWithTop5Records(accessType) {
 		//console.log("Data :" + JSON.stringify(data));
 		$("#solutionTemplateBottomFrame").empty();
 		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
-			var gridTemplateFormat = {
+		/*		var gridTemplateFormat = {
 				header : "",
 				pagination : ""
 			}
-			displayDataGrid(data, gridTemplateFormat);
+			displayDataGrid(data, gridTemplateFormat);*/
+			var templatePath = contextPath + "/templates/top_results_template.html";
+			var topResultsTemplate = getTemplateDefinition(templatePath);
+			$.template("top_results_template", topResultsTemplate);
+			var topResultsTemplateToDisplay = $.tmpl("top_results_template", {"data":data});
+			
+			$("#solutionTemplateBottomFrame").append(topResultsTemplateToDisplay);
 		}
 		else{
 			$("#solutionTemplateBottomFrame").empty();
