@@ -161,12 +161,12 @@ function initializeStepWizard() {
 };
 
 function populateWizardElement(quesSeqId) {
-	
+
 	var jsonData = JSON.stringify({
 		"QUES_SEQ_ID" : quesSeqId,
 		"PRODUCT" : "MISPNT"
 	});
-	
+
 	var promise = httpAsyncPostWithJsonRequestResponse(contextPath + "/user/solutionTemplate/getNextQuestion", jsonData);
 	promise.done(function(data, textStatus, jqXHR) {
 		data["numberOfQuestion"] = $("input[name='numberOfQuestion']").val();
@@ -197,6 +197,33 @@ function populateWizardElement(quesSeqId) {
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(textStatus);
 	});
+}
+
+function validateSelectionElement() {
+	var isElemSel = true;
+	$("#formId input[type='radio']").each(function() {
+		var radioElName = $(this).attr('name');	
+		if(!($("input[name='"+radioElName+"']").is(":checked"))) {
+			isElemSel = false;
+		}
+	});
+	
+	$("#formId select").each(function() {
+		var selectElName = $(this).attr('name');
+		if ($("select[name='"+ selectElName +"']").val() == "") {
+			isElemSel = false;
+		}		
+	});
+	
+	$('#formId input[type="checkbox"]').each(function() {
+		var checkElName = $(this).attr('name');
+		$("input[name='"+checkElName+"']").each( function () {
+			if(!($(this).is(":checked"))) {
+				isElemSel = false;
+			}
+		});
+	});
+	return isElemSel;
 }
 
 function goBackToStepWizard() {
@@ -251,7 +278,13 @@ function onStepContentFormClick(e) {
 	if (eventSourceId.indexOf("btnNext-") >= 0) {
 		var quesSeqId = eventSourceId.substring(eventSourceId.indexOf("-") + 1);
 		quesSeqId++;
-		populateWizardElement(quesSeqId);
+		var isElemSelected = validateSelectionElement();
+		if(isElemSelected){
+			populateWizardElement(quesSeqId);
+		}
+		else{
+			$("#divIsElemSelectAlert").css("display","inline");
+		}
 	}
 
 	if (eventSourceId.indexOf("btnPrev-") >= 0) {
@@ -260,6 +293,13 @@ function onStepContentFormClick(e) {
 		userSolTmplSelectionObject.splice(-1);
 		populateWizardElement(quesSeqId);
 	}  
+	
+	$("#formId").find("input").on('change', function(e) {
+		$("#divIsElemSelectAlert").css("display","none");
+	});
+	$("#formId").find("select").on('change', function(e) {
+		$("#divIsElemSelectAlert").css("display","none");
+	});
 	
 }
 
@@ -378,3 +418,4 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 
       };
 }
+
