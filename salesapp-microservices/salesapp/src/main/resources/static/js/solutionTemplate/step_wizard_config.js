@@ -343,7 +343,6 @@ function onNextButtonClick($thisRef) {
 	populateWizardElement(quesSeqId);
 }
 
-
 function drawPieGraphOnTopSolutionTemplatePage(data) {
 	var tmpData = data["DATA"];
 	
@@ -379,4 +378,3 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 
       };
 }
-
