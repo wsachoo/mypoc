@@ -90,6 +90,12 @@
 							<a href="${pageContext.request.contextPath}/user/solutionTemplate/stepWizard" style="color: white" data-name="solutionTemplate"
 								data-url="stepWizard">Solution Template</a>
 						</div>
+						<div class="sachmenuitem" style="display: none;"
+							id="sachtopmenu_generateContract">
+							<a href="#" id="#contractPage" style="color: white;"
+								data-name="contractGeneration"
+								data-url="${pageContext.request.contextPath}/generateContract">Contract</a>
+						</div>
 					</div>
 					<div class="clearfix"></div>
 					<div class="row sachgooglemapdivrow">
