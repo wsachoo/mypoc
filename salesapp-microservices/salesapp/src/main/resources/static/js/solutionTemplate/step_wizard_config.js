@@ -1,6 +1,5 @@
 var userSolTmplSelectionObject = []; //global object for user selection on step wizard
 var dataToGenContract = {}; //global object to hold the data to display the contract wizard
-var dataObjectForTopSolutions = {};
 
 function convertOjectArrayToObject(paramObject) {
 	var reqObject = {};
@@ -93,7 +92,6 @@ function displayDataGridWithTop5Records(accessType) {
 				pagination : ""
 			}
 			displayDataGrid(data, gridTemplateFormat);*/
-			dataObjectForTopSolutions = data;
 			var templatePath = contextPath + "/templates/top_results_template.html";
 			var topResultsTemplate = getTemplateDefinition(templatePath);
 			$.template("top_results_template", topResultsTemplate);
