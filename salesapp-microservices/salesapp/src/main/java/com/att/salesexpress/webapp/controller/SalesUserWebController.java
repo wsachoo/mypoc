@@ -107,6 +107,12 @@ public class SalesUserWebController {
 		view.addObject("transactionId", transactionId);
 		return view;
 	}
+	
+	@RequestMapping(value = { "/user", "/user/userLandingPage" }, method = RequestMethod.GET)
+	public ModelAndView showUserLandingPage(HttpServletRequest request) throws JsonProcessingException {
+		ModelAndView view = new ModelAndView("userLandingPage");
+		return view;
+	}
 
 	
 }
