@@ -59,8 +59,8 @@ public class SalesAuthenticationSuccessHandler implements AuthenticationSuccessH
 			}
 		}
 		if (isUser) {
-			//return "/user/home";
-			return "/user/userLandingPage";
+			return "/user/home";
+			//return "/user/userLandingPage";
 		} else if (isAdmin) {
 			return "/admin/adminLandingPage";
 		} else {

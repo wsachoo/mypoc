@@ -319,16 +319,38 @@ function onStepWizardClick(e) {
 	}
 }
 
+function transformDisplayKeyName(v) {
+	if ("BUNDLE CD" == v) {
+		return "OFFER NAME";
+	}
+	else if ("ACCESS SPEED" == v) {
+		return "ACCESS BANDWIDTH";
+	}
+	else if ("PORT TYPE" == v) {
+		return "ACCESS TYPE";
+	}
+	else if ("IP VERSION LABEL" == v) {
+		return "IP VERSION";
+	}	
+	else {
+		return v;
+	}
+}
+
 function displaySelectedRowModal(url, matchPercentage) {
 
 	var data = httpGetWithJsonResponse(url, "");
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	$("body").find("#displaySelectedRowModal").remove();
 	var DATA = {};
-	var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd", "ratePlan", "mrc", "nrc"];
+	var objectKeysArray = ["accessSpeed", "portType", "accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc", "accessType", "portSpeed", "designName", "protocol", "routingProtocol", "tailTechnology", "ratePlan"];
+	//var objectKeysArray = ["accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc"];
 
 	$.each(objectKeysArray, function(k, value) {
+		
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
+		key = transformDisplayKeyName(key);
+		
 		if(key == "MRC" || key == "NRC"){
 			data[value] = "$ "+ data[value];
 			DATA[key] = data[value];
@@ -359,7 +381,8 @@ function onClickProceedToGenContract(e) {
 	$('body').find("#displayContractWizard").remove();
 	//console.log("dataToGenContract:"+JSON.stringify(dataToGenContract));
 	var DATA = {};
-	var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan", "mrc", "nrc"];
+	//var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan", "mrc", "nrc"];
+	var objectKeysArray = ["mrc", "nrc"];
 
 	$.each(objectKeysArray, function(k, value) {
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
