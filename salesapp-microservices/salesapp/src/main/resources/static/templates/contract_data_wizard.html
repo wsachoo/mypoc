@@ -4,10 +4,10 @@
       <input type="button" class="btn btn-primary btn-block" id="btnSelSolTmpl" value="Back" onclick="goBackToStepWizard();"> 
   </div>
 </div>
-<h4>Design Info</h4>
+<h4>Opportunity Info</h4>
 <table class="table table-striped">
 		<tr>
-			<td>Oppty-Id</td>
+			<td>OPPORTUNITY ID</td>
 			<td>1-67YHJK</td>
 		</tr>
 		{{each(i, item) $data}}
@@ -18,8 +18,8 @@
 	{{/each}}
 </table>
 <form class="form-inline">	
+	<br/>
   <h4>Credit And Customer Info</h4>
-  <br/>
   <div class="panel panel-default">
   <div class="panel-heading">Customer Legal Info</div>
   <div class="panel-body">
@@ -140,6 +140,60 @@
  	</div>
   </div>
 </div>
+
+
+
+  <div class="panel panel-default" style="margin-top:10px;">
+  <div class="panel-heading">Customer Contact info</div>
+  <div class="panel-body">
+	<div class="row">
+    <div class="col-sm-1">
+      <label for="name">Name:</label>
+    </div>
+    <div class="col-sm-2">
+      <input type="name" class="form-control" id="legalName" placeholder="Josh Rodriguez">
+    </div>
+	<div class="col-sm-1"></div> 
+    <div class="col-sm-1">
+      <label for="city">City:</label>
+    </div>
+    <div class="col-sm-2">
+      <input type="city" class="form-control" id="city" placeholder="Philadelphia">
+    </div>
+	<div class="col-sm-1"></div>
+	<div class="col-sm-1">
+      <label for="email">Country:</label>
+    </div>
+    <div class="col-sm-2">
+      <input type="country" class="form-control" id="country" placeholder="USA">
+    </div>
+ 	</div>
+	<div class="row" style="margin-top:5px;">
+    <div class="col-sm-1">
+      <label for="sAddress">Address:</label>
+    </div>
+    <div class="col-sm-2">
+      <input type="address" class="form-control" id="sAddress" placeholder="123 Race St">
+    </div>
+	<div class="col-sm-1"></div> 
+    <div class="col-sm-1">
+      <label for="state">State:</label>
+    </div>
+    <div class="col-sm-2">
+      <input type="state" class="form-control" id="state" placeholder="Pennsylvania">
+    </div>
+	<div class="col-sm-1"></div>
+	<div class="col-sm-1">
+      <label for="zipcode">Zipcode:</label>
+    </div>
+    <div class="col-sm-2">
+      <input type="zipcode" class="form-control" id="zipcode" placeholder="19301">
+    </div>
+ 	</div>
+  </div>
+</div>
+
+
 		<div class="row" style="margin-top: 10px;">
 			<div class="col-sm-offset-3 col-sm-3">
 				<!-- <input type="button" class="btn btn-primary" id="btnGCSolTmpl"
