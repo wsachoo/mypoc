@@ -343,7 +343,7 @@ function displaySelectedRowModal(url, matchPercentage) {
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	$("body").find("#displaySelectedRowModal").remove();
 	var DATA = {};
-	var objectKeysArray = ["accessSpeed", "portType", "accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc", "accessType", "portSpeed", "designName", "protocol", "routingProtocol", "tailTechnology", "ratePlan"];
+	var objectKeysArray = ["accessSpeed", "portType", "accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed", "designName", "protocol", "routingProtocol", "tailTechnology", "ratePlan"];
 	//var objectKeysArray = ["accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc"];
 
 	$.each(objectKeysArray, function(k, value) {
@@ -355,9 +355,14 @@ function displaySelectedRowModal(url, matchPercentage) {
 			data[value] = "$ "+ data[value];
 			DATA[key] = data[value];
 		}
-		DATA[key] = data[value];
+		else if (key == "SUCCESS RATIO") {
+			DATA["SUCCESS RATIO"] = matchPercentage;
+		}
+		else {
+			DATA[key] = data[value];
+		}
 	});
-	DATA["SUCCESS RATIO"] = matchPercentage;
+	
 
 	//var modalDataContent = $("#stepwizard-display-selected-row-modal").tmpl(DATA);
 	var templatePath = contextPath + "/templates/select_row_modal.html";
