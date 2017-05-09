@@ -343,7 +343,7 @@ function displaySelectedRowModal(url, matchPercentage) {
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	$("body").find("#displaySelectedRowModal").remove();
 	var DATA = {};
-	var objectKeysArray = ["accessSpeed", "portType", "accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed", "designName", "protocol", "routingProtocol", "tailTechnology", "ratePlan"];
+	var objectKeysArray = ["bundleCd", "accessSpeed", "portType", "accessService", "ipVersionLabel", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed", "designName", "protocol", "routingProtocol", "tailTechnology", "ratePlan"];
 	//var objectKeysArray = ["accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc"];
 
 	$.each(objectKeysArray, function(k, value) {
