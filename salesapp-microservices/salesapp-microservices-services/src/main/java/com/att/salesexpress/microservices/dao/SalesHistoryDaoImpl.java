@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.att.salesexpress.microservices.util.SQLConstants;
-
 @Repository(value = "SalesHistoryDao")
 public class SalesHistoryDaoImpl implements SalesHistoryDao {
 	static final Logger logger = LoggerFactory.getLogger(SalesHistoryDaoImpl.class);
@@ -19,18 +17,32 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+	@Autowired
+	private String sqlGetSalesHistoryDataByAccessTypeForOtherAccessType;
+
+	@Autowired
+	private String sqlGetSalesHistoryDataByAccessType;
+
+	@Autowired
+	private String sqlGetSalesHistoryPercentageRecordsByAccessType;
+
+	@Autowired
+	private String sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed;
+
+	@Autowired
+	private String sqlGetSalesHistoryDataByAccessTypeAndAccessSpeed;
+
 	@Override
 	public List<Map<String, Object>> getRecordsByAccessType(String accessType, int numberOfRows) {
 		logger.info("Inside getRecordsByAccessType() method.");
 		Map<String, Object> namedParameters = new HashMap<>();
-		
+
 		String sql = null;
-		
+
 		if ("Other".equals(accessType)) {
-			sql = SQLConstants.sqlGetSalesHistoryDataByAccessTypeForOtherAccessType;
-		}
-		else {
-			sql = SQLConstants.sqlGetSalesHistoryDataByAccessType;
+			sql = sqlGetSalesHistoryDataByAccessTypeForOtherAccessType;
+		} else {
+			sql = sqlGetSalesHistoryDataByAccessType;
 		}
 
 		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
@@ -46,7 +58,7 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 			int numberOfRows) {
 		logger.info("Inside getRecordsByAccessTypeAndAccessSpeed() method.");
 
-		String sql = SQLConstants.sqlGetSalesHistoryDataByAccessTypeAndAccessSpeed;
+		String sql = sqlGetSalesHistoryDataByAccessTypeAndAccessSpeed;
 
 		Map<String, Object> namedParameters = new HashMap<>();
 		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
@@ -60,11 +72,11 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed(String accessType, int accessSpeed, int portSpeed,
-			int numberOfRows) {
+	public List<Map<String, Object>> sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed(String accessType,
+			int accessSpeed, int portSpeed, int numberOfRows) {
 		logger.info("Inside getRecordsByAccessTypeAndAccessSpeed() method.");
 
-		String sql = SQLConstants.sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed;
+		String sql = sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed;
 
 		Map<String, Object> namedParameters = new HashMap<>();
 		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
@@ -77,12 +89,12 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 		logger.info("Exiting getRecordsByAccessTypeAndAccessSpeed() method.");
 		return rows;
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> sqlGetSalesHistoryPercentageRecordsByAccessType(int numberOfRows) {
 		logger.info("Inside sqlGetSalesHistoryPercentageRecordsByAccessType() method.");
 
-		String sql = SQLConstants.sqlGetSalesHistoryPercentageRecordsByAccessType;
+		String sql = sqlGetSalesHistoryPercentageRecordsByAccessType;
 
 		Map<String, Object> namedParameters = new HashMap<>();
 		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
@@ -90,7 +102,5 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 
 		logger.info("Exiting sqlGetSalesHistoryPercentageRecordsByAccessType() method.");
 		return rows;
-	}	
-
+	}
 }
-
