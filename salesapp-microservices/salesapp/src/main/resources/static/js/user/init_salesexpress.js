@@ -48,8 +48,10 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"getPortSpeedsByAccessSpeedUrl" : "getPortSpeedsByAccessSpeed",
 		"getDistinctAccessSpeedByAccessTypeUrl" : "getDistinctAccessSpeedByAccessType",
 		"getDistinctPortSpeedsByAccessSpeedUrl" : "getDistinctPortSpeedsByAccessSpeed",
-		"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://localhost:8080/user/salesHistory/getRecommendationBasedOnSalesHistory",
-		"ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL" : "http://localhost:8080/user/salesHistory/getSalesPercentageByAccessType"
+		//"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://localhost:8080/user/salesHistory/getRecommendationBasedOnSalesHistory",
+		//"ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL" : "http://localhost:8080/user/salesHistory/getSalesPercentageByAccessType"
+		"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://salesappmicroserviceproxy.mybluemix.net/user/salesHistory/getRecommendationBasedOnSalesHistory",
+		"ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL" : "http://salesappmicroserviceproxy.mybluemix.net/user/salesHistory/getSalesPercentageByAccessType"
 	};
 	
 	return {

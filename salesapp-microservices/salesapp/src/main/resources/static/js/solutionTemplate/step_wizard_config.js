@@ -438,8 +438,8 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 	graph_data.datasets[0].data = [];
 	
 	$.each(tmpData, function(i, value) {
-		graph_data.labels.push(value.ACCESS_TYPE_ID);
-		graph_data.datasets[0].data.push(value.PERCENTAGE);
+		graph_data.labels.push(value.ACCESS_TYPE_ID || value.access_type_id);
+		graph_data.datasets[0].data.push(value.PERCENTAGE || value.percentage);
 	});
 	
     var canvas = document.getElementById("myChart");
