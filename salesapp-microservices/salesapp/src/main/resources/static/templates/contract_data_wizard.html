@@ -4,6 +4,7 @@
       <input type="button" class="btn btn-primary btn-block" id="btnSelSolTmpl" value="Back" onclick="goBackToStepWizard();"> 
   </div>
 </div>
+<div class="row">
 <h4>Opportunity Info</h4>
 <table class="table table-striped">
 		<tr>
@@ -17,6 +18,12 @@
 		</tr>
 	{{/each}}
 </table>
+</div>
+
+<div class="row" id="showConfiguredSites">
+<h4>The above configuration is applicable to below sites.</h4>
+	<table id="showConfiguredSitesList" class="table table-striped"></table>
+</div>
 <form class="form-inline">	
 	<br/>
   <h4>Credit And Customer Info</h4>

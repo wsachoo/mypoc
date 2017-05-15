@@ -1,6 +1,5 @@
 var userSolTmplSelectionObject = []; //global object for user selection on step wizard
 var dataToGenContract = {}; //global object to hold the data to display the contract wizard
-
 function convertOjectArrayToObject(paramObject) {
 	var reqObject = {};
 	$.each(paramObject, function(i, v) {
@@ -343,9 +342,9 @@ function displaySelectedRowModal(url, matchPercentage) {
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	$("body").find("#displaySelectedRowModal").remove();
 	var DATA = {};
-	var objectKeysArray = ["bundleCd", "accessSpeed", "portType", "accessService", "ipVersionLabel", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed", "designName", "protocol", "routingProtocol", "tailTechnology", "ratePlan"];
+	var objectKeysArray = ["bundleCd", "accessSpeed", "portType", "accessService", "ipVersionLabel", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed", "designName", "protocol",  "tailTechnology", "ratePlan"];
 	//var objectKeysArray = ["accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc"];
-
+	//remove routingProtocol from the above objectKeysArray 5/10/2017
 	$.each(objectKeysArray, function(k, value) {
 		
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
@@ -362,12 +361,12 @@ function displaySelectedRowModal(url, matchPercentage) {
 			DATA[key] = data[value];
 		}
 	});
-	
 
 	//var modalDataContent = $("#stepwizard-display-selected-row-modal").tmpl(DATA);
 	var templatePath = contextPath + "/templates/select_row_modal.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
 	$.template("select_row_modal", modalTemplate);
+	//console.log("displaySelectedRowModal:" + JSON.stringify(DATA));
 	var modalTemplateToDisplay = $.tmpl("select_row_modal", DATA);
 
 	$('body').append(modalTemplateToDisplay);
@@ -406,6 +405,7 @@ function onClickProceedToGenContract(e) {
 	$("#displayContractWizard").append(contractWizardData);
 	var topMenuDiv = $("#displayContractWizard");
 	removeNextAllSiblingDivRows(topMenuDiv);
+	showConfiguredSitesList();
 
 }
 
@@ -460,5 +460,19 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
         $('input[name="ACCESS_TYPE_ID"][value="' + label + '"]').prop('checked', true);
 
       };
+}
+
+function showConfiguredSitesList() {
+	$("#showConfiguredSitesList tr").remove();
+	var checkSiteNames = []
+	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
+		checkSiteNames.push($(this).attr('data-name'));
+	});
+	
+	$.each(checkSiteNames, function(index, value) {
+		var siteName = "<tr><td>"+ value +"</td></tr>";
+		$("#showConfiguredSites").find('table').append(siteName);
+	});
+	
 }
 

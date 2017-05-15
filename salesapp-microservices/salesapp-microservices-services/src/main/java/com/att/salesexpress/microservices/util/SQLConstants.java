@@ -84,4 +84,10 @@ public interface SQLConstants {
 			  + "a group by a.ACCESS_TYPE_ID) firstTable, "
 			  + "(select count(*) bcount from SALES_TRANSACTION_HISTORY) secondTable";
 	
+	String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed = "select * from sales_rules_mis_exp where  access_type = :ACCESS_TYPE_ID and"
+			  + "  ACCESS_SPEED_ID = :ACCESS_SPEED_ID and MRC is not null and ROWNUM <= :NUMBER_OF_ROWS and PORT_SPEED_ID <= :ACCESS_SPEED_ID";
+	
+	String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed = "select * from sales_rules_mis_exp where  access_type = :ACCESS_TYPE_ID and"
+			  + "  ACCESS_SPEED_ID = :ACCESS_SPEED_ID and PORT_SPEED_ID =:PORT_SPEED_ID  and MRC is not null and ROWNUM <= 1";
+	
 }
