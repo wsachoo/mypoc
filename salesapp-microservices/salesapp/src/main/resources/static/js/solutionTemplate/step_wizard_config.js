@@ -406,6 +406,8 @@ function onClickProceedToGenContract(e) {
 	$("#displayContractWizard").append(contractWizardData);
 	var topMenuDiv = $("#displayContractWizard");
 	removeNextAllSiblingDivRows(topMenuDiv);
+	
+	showConfiguredSitesList();
 
 }
 
@@ -462,3 +464,16 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
       };
 }
 
+function showConfiguredSitesList() {
+	$("#showConfiguredSitesList tr").remove();
+	var checkSiteNames = []
+	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
+	checkSiteNames.push($(this).attr('data-name'));
+	});
+
+	$.each(checkSiteNames, function(index, value) {
+	var siteName = "<tr><td>"+ value +"</td></tr>";
+	$("#showConfiguredSites").find('table').append(siteName);
+	});
+
+	}
