@@ -406,6 +406,8 @@ function onClickProceedToGenContract(e) {
 	$("#displayContractWizard").append(contractWizardData);
 	var topMenuDiv = $("#displayContractWizard");
 	removeNextAllSiblingDivRows(topMenuDiv);
+	
+	showConfiguredSitesList();
 
 }
 
@@ -438,8 +440,8 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 	graph_data.datasets[0].data = [];
 	
 	$.each(tmpData, function(i, value) {
-		graph_data.labels.push(value.ACCESS_TYPE_ID);
-		graph_data.datasets[0].data.push(value.PERCENTAGE);
+		graph_data.labels.push(value.ACCESS_TYPE_ID || value.access_type_id);
+		graph_data.datasets[0].data.push(value.PERCENTAGE || value.percentage);
 	});
 	
     var canvas = document.getElementById("myChart");
@@ -462,3 +464,16 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
       };
 }
 
+function showConfiguredSitesList() {
+	$("#showConfiguredSitesList tr").remove();
+	var checkSiteNames = []
+	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
+	checkSiteNames.push($(this).attr('data-name'));
+	});
+
+	$.each(checkSiteNames, function(index, value) {
+	var siteName = "<tr><td>"+ value +"</td></tr>";
+	$("#showConfiguredSites").find('table').append(siteName);
+	});
+
+	}

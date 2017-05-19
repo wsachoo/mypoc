@@ -1,0 +1,8 @@
+---
+applications:
+- name: salesappmicroserviceproxy
+  path: target/salesapp-microservices-webapp.war
+  host: salesappmicroserviceproxy
+  memory: 256M
+  env:
+    spring.profiles.active: bluemix
