@@ -75,10 +75,11 @@ function displayDataGrid(data, templateFormat) {
 	});	
 }
 
-function displayDataGridWithTop5Records(accessType) {
+function displayDataGridWithTop5Records(accessType, accessSpeed) {
 	var tmpObj = {};
 	tmpObj["ACCESS_TYPE_ID"] = accessType;
 	tmpObj["NUMBER_OF_ROWS"] = 6;
+	tmpObj["ACCESS_SPEED_ID"] = accessSpeed;
 	
 	var jsonData = JSON.stringify(tmpObj);
 	var promise = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_RECOMMENDATION_URL"), jsonData);
@@ -106,6 +107,7 @@ function displayDataGridWithTop5Records(accessType) {
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(textStatus);
 	}); 
+	
 } 
 
 
@@ -355,7 +357,11 @@ function displaySelectedRowModal(url, matchPercentage) {
 			DATA[key] = data[value];
 		}
 		else if (key == "SUCCESS RATIO") {
-			DATA["SUCCESS RATIO"] = matchPercentage;
+			if(matchPercentage == null || matchPercentage == '') {
+				DATA["SUCCESS RATIO"] = 'This is brand new solution based upon MIS Express Rules Data';
+			}else {
+				DATA["SUCCESS RATIO"] = matchPercentage;
+			}
 		}
 		else {
 			DATA[key] = data[value];
@@ -434,11 +440,11 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 	graph_data.datasets = [];
 	graph_data.datasets.push({});
 	
-	graph_data.datasets[0].backgroundColor = [ "#F7464A", "#46BFBD", "#FDB45C"];
+	graph_data.datasets[0].backgroundColor = [ "red", "green", "blue", "yellow", "maroon", "magenta", "black", "purple"];
 	graph_data.datasets[0].data = [];
 	
 	$.each(tmpData, function(i, value) {
-		graph_data.labels.push(value.ACCESS_TYPE_ID);
+		graph_data.labels.push((value.ACCESS_TYPE_ID.split("_")[1])/1000 + " Mbps");
 		graph_data.datasets[0].data.push(value.PERCENTAGE);
 	});
 	

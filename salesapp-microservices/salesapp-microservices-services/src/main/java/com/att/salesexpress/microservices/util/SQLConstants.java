@@ -51,7 +51,7 @@ public interface SQLConstants {
 			+ ") countTable "
 			+ ") rankTable "
 			//+ "where rankTable.RNK = 1 and rownum <= :NUMBER_OF_ROWS";
-			+ "where rankTable.indexWithinGroup = 1 and rownum <= :NUMBER_OF_ROWS";
+			+ "where rankTable.indexWithinGroup <= 10 and rownum <= :NUMBER_OF_ROWS";
 
 	String sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed = "select rankTable.* from ("
 			+ "select countTable.*, "
@@ -71,18 +71,19 @@ public interface SQLConstants {
 			+ ") countTable "
 			+ ") rankTable "
 			//+ "where rankTable.RNK = 1 and rownum <= :NUMBER_OF_ROWS";
-			+ "where rankTable.indexWithinGroup = 1 and rownum <= :NUMBER_OF_ROWS";
+			+ "where rankTable.indexWithinGroup <= 10 and rownum <= :NUMBER_OF_ROWS";
 	
 	String sqlGetSalesHistoryPercentageRecordsByAccessType_OLD = "select ROUND(count(*)*100/(select count(*) from SALES_TRANSACTION_HISTORY), 2) as PERCENTAGE, "
 			+ "ACCESS_TYPE_ID from SALES_TRANSACTION_HISTORY "
 			+ "where ACCESS_TYPE_ID in ('Private Line', 'ETHERNET') "
 			+ "group by ACCESS_TYPE_ID order by ACCESS_TYPE_ID";
 	
-	String sqlGetSalesHistoryPercentageRecordsByAccessType = "select ROUND(firstTable.total_By_Access_Type * 100/secondTable.bcount, 2) PERCENTAGE, firstTable.ACCESS_TYPE_ID from ("
-			  +  "select sum(mycount) total_By_Access_Type, ACCESS_TYPE_ID from ("
-			  + "select decode(ACCESS_TYPE_ID, 'ETHERNET', 'ETHERNET', 'Private Line', 'Private Line', 'Other') ACCESS_TYPE_ID, count(*) mycount from SALES_TRANSACTION_HISTORY  group by ACCESS_TYPE_ID) "
-			  + "a group by a.ACCESS_TYPE_ID) firstTable, "
-			  + "(select count(*) bcount from SALES_TRANSACTION_HISTORY) secondTable";
+	String sqlGetSalesHistoryPercentageRecordsByAccessType = "select ROUND(firstTable.total_By_Access_Type * 100/secondTable.bcount, 2) PERCENTAGE, firstTable.ACCESS_TYPE_ID || '_' || firstTable.ACCESS_SPEED_ID  as ACCESS_TYPE_ID"
+			+ ",(select distinct ACCESS_SPEED_S from SALES_TRANSACTION_HISTORY where ACCESS_TYPE_ID=firstTable.ACCESS_TYPE_ID and ACCESS_SPEED_ID=firstTable.ACCESS_SPEED_ID) ACCESS_SPEED_S "
+			+ "from ( select sum(mycount) total_By_Access_Type, ACCESS_TYPE_ID, ACCESS_SPEED_ID  from ( "
+			+ " select ACCESS_TYPE_ID, ACCESS_SPEED_ID, count(*) mycount from SALES_TRANSACTION_HISTORY  group by ACCESS_TYPE_ID, ACCESS_SPEED_ID )  "
+			+ "a group by a.ACCESS_TYPE_ID, a.ACCESS_SPEED_ID ) firstTable, "
+			+ "(select count(*) bcount from SALES_TRANSACTION_HISTORY) secondTable";
 	
 	String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed = "select * from sales_rules_mis_exp where  access_type = :ACCESS_TYPE_ID and"
 			  + "  ACCESS_SPEED_ID = :ACCESS_SPEED_ID and MRC is not null and ROWNUM <= :NUMBER_OF_ROWS and PORT_SPEED_ID <= :ACCESS_SPEED_ID";

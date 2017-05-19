@@ -53,14 +53,14 @@ function hashChange(){
     	promise.done(function(data, textStatus, jqXHR){
     		var tmpData = data["DATA"];
     		
-    		var percentObject = {};
+/*    		var percentObject = {};
     		$.each(tmpData, function(i, value) {
     			var accessType = value.ACCESS_TYPE_ID;
     			accessType = accessType.replace(/ /g, '_');
     			percentObject[accessType + "_PERCENTAGE"] = value.PERCENTAGE;
-    		});
+    		});*/
     		
-        	var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", percentObject);
+        	var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", {"data":data});
         	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
         	$("#solutionTemplateTopFrame").trigger('create');
         	
