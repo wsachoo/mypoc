@@ -1,0 +1,8 @@
+---
+applications:
+- name: salesappmicroserviceproxy
+  path: target/SalesMicroServiceProxyApp-0.0.1-SNAPSHOT.jar
+  host: salesappmicroserviceproxy
+  memory: 256M
+  env:
+    spring.profiles.active: bluemix
