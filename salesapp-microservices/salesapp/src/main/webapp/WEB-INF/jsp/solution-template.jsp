@@ -88,7 +88,7 @@
 						<div class="col-sm-6 col-xs-12 sachmenuitem"
 							id="sachtopmenu_solutionTemplate">
 							<a href="${pageContext.request.contextPath}/user/solutionTemplate/stepWizard" style="color: white" data-name="solutionTemplate"
-								data-url="stepWizard">Solution Template</a>
+								data-url="stepWizard">Integrated Solutions</a>
 						</div>
 						<div class="sachmenuitem" style="display: none;"
 							id="sachtopmenu_generateContract">
@@ -106,7 +106,7 @@
 					<div id="over_map" class="sachbuttonsonmap"
 						style="text-align: center; display: none;">
 						<div class="button-wrapper">
-							<button type="button" class="btn btn-primary">Solution Template</button>
+							<button type="button" class="btn btn-primary">Integrated Solutions</button>
 							&nbsp; &nbsp;
 							<button type="button" class="btn btn-primary">Product/Bundle
 								Filter</button>

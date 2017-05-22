@@ -6,7 +6,9 @@ import javax.persistence.*;
 import org.springframework.hateoas.ResourceSupport;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -257,6 +259,7 @@ public class SalesHistoryDetail implements Serializable {
 	@Column(name="NRC")
 	private String nrc;
 	
+	private transient List<String> portSpeedList = new ArrayList<>();
 
 	public SalesHistoryDetail() {
 	}
@@ -893,4 +896,11 @@ public class SalesHistoryDetail implements Serializable {
 		this.nrc = nrc;
 	}
 
+	public List<String> getPortSpeedList() {
+		return portSpeedList;
+	}
+
+	public void setPortSpeedList(List<String> portSpeedList) {
+		this.portSpeedList = portSpeedList;
+	}	
 }
