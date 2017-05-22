@@ -5,9 +5,8 @@ var portSpeedsToCustomizeGCData = {};
 var customizeGCDataFields = {
 		ipVersionDropDown  : function() {
 			return '<select name="ipVersion" class="form-control" style="width:70%;">'+
+						'<option value="IP V4/V6 Dual Stack">IP V4/V6 Dual Stack'+
 						'<option value="IP V4">IP V4'+
-						'<option value="IP V6">IP V6'+
-						'<option value="Dual Stack">Dual Stack'+
 					'</select>';
 		},		
 		managedRouterDropDown : function() {
