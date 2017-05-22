@@ -1,6 +1,7 @@
 package com.att.salesexpress.microservices.service;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -160,9 +161,20 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		objSalesHistoryDetailPK.setLeadDesignId(leadDesignId);
 
 		SalesHistoryDetail objSalesHistoryDetail = objSalesHistoryDetailRepository.findById(objSalesHistoryDetailPK);
+		
+		String accessSpeedId = objSalesHistoryDetail.getAccessActualSpeedId().toString();
+/*		List<SalesRulesMisExpDetail> salesRulesMisExpDetailList = objSalesRulesMisExpRepository.findDistinctByAccessSpeedId(accessSpeedId);
+		
+		List<String> portSpeedList = new ArrayList<>();
+		for (SalesRulesMisExpDetail obj : salesRulesMisExpDetailList) {
+			portSpeedList.add(obj.getPortSpeedId().toString());
+		}
+*/		
+		List<String> portSpeedList = objSalesRulesMisExpRepository.findDistinctPortSpeedByAccessSpeedId(accessSpeedId);
+		objSalesHistoryDetail.setPortSpeedList(portSpeedList);
 		return objSalesHistoryDetail;
 	}
-	
+
 	@Override
 	public SalesRulesMisExpDetail getSalesHistoryOrderDetailByDesignRuleId(int designRuleId) {
 		SalesRulesMisExpDetailPK objSalesRulesMisExpDetailPk = new SalesRulesMisExpDetailPK();
