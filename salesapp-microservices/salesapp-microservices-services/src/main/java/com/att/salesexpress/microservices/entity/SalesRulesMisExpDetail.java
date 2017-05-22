@@ -1,6 +1,8 @@
 package com.att.salesexpress.microservices.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -18,6 +20,8 @@ import javax.persistence.Table;
 public class SalesRulesMisExpDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private transient List<String> portSpeedList = new ArrayList<>();
+	
 	@EmbeddedId
 	private SalesRulesMisExpDetailPK id;
 
@@ -229,6 +233,14 @@ public class SalesRulesMisExpDetail implements Serializable {
 
 	public void setDesignName(String designName) {
 		this.designName = designName;
+	}
+
+	public List<String> getPortSpeedList() {
+		return portSpeedList;
+	}
+
+	public void setPortSpeedList(List<String> portSpeedList) {
+		this.portSpeedList = portSpeedList;
 	}
 
 }
