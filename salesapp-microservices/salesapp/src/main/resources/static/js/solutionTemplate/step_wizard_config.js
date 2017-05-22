@@ -1,6 +1,5 @@
 var userSolTmplSelectionObject = []; //global object for user selection on step wizard
 var dataToGenContract = {}; //global object to hold the data to display the contract wizard
-
 function convertOjectArrayToObject(paramObject) {
 	var reqObject = {};
 	$.each(paramObject, function(i, v) {
@@ -76,10 +75,11 @@ function displayDataGrid(data, templateFormat) {
 	});	
 }
 
-function displayDataGridWithTop5Records(accessType) {
+function displayDataGridWithTop5Records(accessType, accessSpeed) {
 	var tmpObj = {};
 	tmpObj["ACCESS_TYPE_ID"] = accessType;
 	tmpObj["NUMBER_OF_ROWS"] = 6;
+	tmpObj["ACCESS_SPEED_ID"] = accessSpeed;
 	
 	var jsonData = JSON.stringify(tmpObj);
 	var promise = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_RECOMMENDATION_URL"), jsonData);
@@ -107,6 +107,7 @@ function displayDataGridWithTop5Records(accessType) {
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(textStatus);
 	}); 
+	
 } 
 
 
@@ -343,9 +344,9 @@ function displaySelectedRowModal(url, matchPercentage) {
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	$("body").find("#displaySelectedRowModal").remove();
 	var DATA = {};
-	var objectKeysArray = ["bundleCd", "accessSpeed", "portType", "accessService", "ipVersionLabel", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed", "designName", "protocol", "routingProtocol", "tailTechnology", "ratePlan"];
+	var objectKeysArray = ["bundleCd", "accessSpeed", "portType", "accessService", "ipVersionLabel", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed", "designName", "protocol",  "tailTechnology", "ratePlan"];
 	//var objectKeysArray = ["accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc"];
-
+	//remove routingProtocol from the above objectKeysArray 5/10/2017
 	$.each(objectKeysArray, function(k, value) {
 		
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
@@ -356,18 +357,22 @@ function displaySelectedRowModal(url, matchPercentage) {
 			DATA[key] = data[value];
 		}
 		else if (key == "SUCCESS RATIO") {
-			DATA["SUCCESS RATIO"] = matchPercentage;
+			if(matchPercentage == null || matchPercentage == '') {
+				DATA["SUCCESS RATIO"] = 'This is brand new solution based upon MIS Express Rules Data';
+			}else {
+				DATA["SUCCESS RATIO"] = matchPercentage;
+			}
 		}
 		else {
 			DATA[key] = data[value];
 		}
 	});
-	
 
 	//var modalDataContent = $("#stepwizard-display-selected-row-modal").tmpl(DATA);
 	var templatePath = contextPath + "/templates/select_row_modal.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
 	$.template("select_row_modal", modalTemplate);
+	//console.log("displaySelectedRowModal:" + JSON.stringify(DATA));
 	var modalTemplateToDisplay = $.tmpl("select_row_modal", DATA);
 
 	$('body').append(modalTemplateToDisplay);
@@ -406,7 +411,7 @@ function onClickProceedToGenContract(e) {
 	$("#displayContractWizard").append(contractWizardData);
 	var topMenuDiv = $("#displayContractWizard");
 	removeNextAllSiblingDivRows(topMenuDiv);
-	
+
 	showConfiguredSitesList();
 
 }
@@ -434,14 +439,17 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 	var graph_data = {};
 	graph_data.labels = [];
 	graph_data.datasets = [];
+	graph_data.attr = [];
 	graph_data.datasets.push({});
 	
-	graph_data.datasets[0].backgroundColor = [ "#F7464A", "#46BFBD", "#FDB45C"];
+	graph_data.datasets[0].backgroundColor = [ "red", "green", "blue", "yellow", "maroon", "magenta", "black", "purple"];
 	graph_data.datasets[0].data = [];
 	
 	$.each(tmpData, function(i, value) {
-		graph_data.labels.push(value.ACCESS_TYPE_ID || value.access_type_id);
+
+		graph_data.labels.push((value.ACCESS_TYPE_ID.split("_")[1])/1000 + " Mbps");
 		graph_data.datasets[0].data.push(value.PERCENTAGE || value.percentage);
+		graph_data.attr.push();
 	});
 	
     var canvas = document.getElementById("myChart");
@@ -457,7 +465,7 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
         var idx = activePoints[0]['_index'];
 
         var label = chartData.labels[idx];
-        displayDataGridWithTop5Records(label);
+        //displayDataGridWithTop5Records(label);
         
         $('input[name="ACCESS_TYPE_ID"][value="' + label + '"]').prop('checked', true);
 
@@ -468,12 +476,25 @@ function showConfiguredSitesList() {
 	$("#showConfiguredSitesList tr").remove();
 	var checkSiteNames = []
 	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
-	checkSiteNames.push($(this).attr('data-name'));
+		checkSiteNames.push($(this).attr('data-name'));
 	});
-
+	
 	$.each(checkSiteNames, function(index, value) {
-	var siteName = "<tr><td>"+ value +"</td></tr>";
-	$("#showConfiguredSites").find('table').append(siteName);
+		var siteName = "<tr><td>"+ value +"</td></tr>";
+		$("#showConfiguredSites").find('table').append(siteName);
 	});
+}
 
+var checkSitesSelection = function() {
+	var checkSiteNames = []
+	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
+		checkSiteNames.push($(this).attr('data-name'));
+	});
+	if(checkSiteNames.length > 0){
+		return true;
 	}
+	else{
+		return false;
+	}
+};
+

@@ -33,6 +33,9 @@ public class SalesHistoryStripped extends ResourceSupport {
 	
 	private String nrc;
 	
+	private int ruleDesignId;
+	
+
 	public long getLeadDesignId() {
 		return leadDesignId;
 	}
@@ -153,6 +156,14 @@ public class SalesHistoryStripped extends ResourceSupport {
 
 	public void setNrc(String nrc) {
 		this.nrc = nrc;
+	}
+	
+	public int getRuleDesignId() {
+		return ruleDesignId;
+	}
+
+	public void setRuleDesignId(int ruleDesignId) {
+		this.ruleDesignId = ruleDesignId;
 	}
 
 	@Override

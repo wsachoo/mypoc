@@ -6,7 +6,9 @@
 		});
 
 		$("input[name='ACCESS_TYPE_ID']").click(function() {
-			displayDataGridWithTop5Records($(this).val());
+			var accessType = $(this).val().split("_")[0];
+			var accessSpeed = $(this).val().split("_")[1];
+			displayDataGridWithTop5Records(accessType, accessSpeed);
 		});
 		
 	});
@@ -22,21 +24,30 @@
 			id="stepWizardLink">Customize</a>
 	</div>
 </div>
-<div class="row" style="margin-top: 20px;">
+<div class="row">
 	<div class="col-sm-6">
 		<div style="width: 450px; height: 250px">
 			<canvas id="myChart"></canvas>
 		</div>
 	</div>
 	<div class="col-sm-6">
+	<ul>
+	{{each(i, item) data["DATA"]}} 
 		<div class="row">
-			<div class="col-sm-11 col-sm-offset-1">
-				<input type="radio" name="ACCESS_TYPE_ID" value="ETHERNET"
-					checked="checked"> Ethernet &lt; 10G Speed&nbsp;&nbsp;(Success
-				Percentage <b>${ETHERNET_PERCENTAGE}%)</b>
+			<li>	
+			<div class="col-sm-11">
+				<!-- <input type="radio" name="ACCESS_TYPE_ID" value='${data["DATA"][i]["ACCESS_TYPE_ID"]}'
+					checked="checked"> --> 
+					
+						${data["DATA"][i]["ACCESS_SPEED_S"]}(Success
+						Percentage <b>${data["DATA"][i]["PERCENTAGE"]}%)</b>
+					
 			</div>
+			</li>
 		</div>
-		<div class="row">
+	{{/each}}
+	</ul>
+	<!-- 		<div class="row">
 			<div class="col-sm-11 col-sm-offset-1">
 				<input type="radio" name="ACCESS_TYPE_ID" value="Private Line">
 				Private Line&nbsp;&nbsp;(Success Percentage <b>${Private_Line_PERCENTAGE}%)</b>
@@ -48,6 +59,6 @@
 				Others (>=10G Ethernet Speed and Broadband)
 				<br>&nbsp;&nbsp;&nbsp;&nbsp;(Success Percentage <b>${Other_PERCENTAGE}%)</b>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>

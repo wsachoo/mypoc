@@ -31,6 +31,12 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 
 	@Autowired
 	private String sqlGetSalesHistoryDataByAccessTypeAndAccessSpeed;
+	
+	@Autowired
+	private String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed;
+	
+	@Autowired
+	private String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed;
 
 	@Override
 	public List<Map<String, Object>> getRecordsByAccessType(String accessType, int numberOfRows) {
@@ -103,4 +109,42 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 		logger.info("Exiting sqlGetSalesHistoryPercentageRecordsByAccessType() method.");
 		return rows;
 	}
+
+	@Override
+	public List<Map<String, Object>> getRecordsByAccessTypeAndAccessSpeedFromMisExpRules(String accessType, int accessSpeed,
+			int numberOfRows) {
+		logger.info("Inside getRecordsByAccessTypeAndAccessSpeedFromMisExpRules() method.");
+
+		String sql = sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed;
+		
+		Map<String, Object> namedParameters = new HashMap<>();
+		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
+		namedParameters.put("ACCESS_TYPE_ID", accessType);
+		namedParameters.put("ACCESS_SPEED_ID", accessSpeed);
+
+		List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(sql, namedParameters);
+		
+		logger.info("Exiting getRecordsByAccessTypeAndAccessSpeedFromMisExpRules() method.");
+		return rows;
+	}
+	
+	@Override
+	public List<Map<String, Object>> getRecordsByAccessTypeAccessSpeedPortSpeedFromMisExpRules(String accessType, int accessSpeed, int portSpeed,
+			int numberOfRows) {
+		logger.info("Inside getRecordsByAccessTypeAccessSpeedPortSpeedFromMisExpRules() method.");
+
+		String sql = sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed;
+		
+		Map<String, Object> namedParameters = new HashMap<>();
+		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
+		namedParameters.put("ACCESS_TYPE_ID", accessType);
+		namedParameters.put("ACCESS_SPEED_ID", accessSpeed);
+		namedParameters.put("PORT_SPEED_ID", portSpeed);
+
+		List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(sql, namedParameters);
+		
+		logger.info("Exiting getRecordsByAccessTypeAccessSpeedPortSpeedFromMisExpRules() method.");
+		return rows;
+	}
+
 }

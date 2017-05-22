@@ -34,4 +34,14 @@ public class OracleSqlConfig {
 	public String sqlGetSalesHistoryPercentageRecordsByAccessType() {
 		return SQLConstantsOracle.sqlGetSalesHistoryPercentageRecordsByAccessType;
 	}
+	
+	@Bean
+	public String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed() {
+		return SQLConstantsOracle.sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed;
+	}
+	
+	@Bean
+	public String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed() {
+		return SQLConstantsOracle.sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed;
+	}
 }

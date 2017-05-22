@@ -14,7 +14,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="SALES_TRANSACTION_HISTORY")
+//@Table(name="SALES_TRANSACTION_HISTORY")
+@Table(name="SALES_TRANS_HISTORY_MIS_EXP")
 @NamedQuery(name="SalesHistoryDetail.findAll", query="SELECT s FROM SalesHistoryDetail s")
 public class SalesHistoryDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
