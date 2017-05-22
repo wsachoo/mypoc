@@ -162,14 +162,8 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 
 		SalesHistoryDetail objSalesHistoryDetail = objSalesHistoryDetailRepository.findById(objSalesHistoryDetailPK);
 		
-		String accessSpeedId = objSalesHistoryDetail.getAccessActualSpeedId().toString();
-/*		List<SalesRulesMisExpDetail> salesRulesMisExpDetailList = objSalesRulesMisExpRepository.findDistinctByAccessSpeedId(accessSpeedId);
-		
-		List<String> portSpeedList = new ArrayList<>();
-		for (SalesRulesMisExpDetail obj : salesRulesMisExpDetailList) {
-			portSpeedList.add(obj.getPortSpeedId().toString());
-		}
-*/		
+		String accessSpeedId = objSalesHistoryDetail.getAccessSpeedId().toString();
+
 		List<String> portSpeedList = objSalesRulesMisExpRepository.findDistinctPortSpeedByAccessSpeedId(accessSpeedId);
 		objSalesHistoryDetail.setPortSpeedList(portSpeedList);
 		return objSalesHistoryDetail;
@@ -180,6 +174,12 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		SalesRulesMisExpDetailPK objSalesRulesMisExpDetailPk = new SalesRulesMisExpDetailPK();
 		objSalesRulesMisExpDetailPk.setDesignRuleId(designRuleId);
 		SalesRulesMisExpDetail objSalesRulesMisExpDetail = objSalesRulesMisExpRepository.findById(objSalesRulesMisExpDetailPk);
+		
+		String accessSpeedId = objSalesRulesMisExpDetail.getAccessSpeedId().toString();
+
+		List<String> portSpeedList = objSalesRulesMisExpRepository.findDistinctPortSpeedByAccessSpeedId(accessSpeedId);
+		objSalesRulesMisExpDetail.setPortSpeedList(portSpeedList);
+
 		return objSalesRulesMisExpDetail;
 	}
 

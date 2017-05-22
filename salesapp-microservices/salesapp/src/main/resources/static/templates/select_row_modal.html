@@ -17,10 +17,37 @@
 					<h4>Design Parameters</h4>
 					<table class="table table-striped">
 						{{each(i, item) $data}}
+							{{if ( i == 'IP VERSION' || i == 'MANAGED ROUTER' || i == 'PORT SPEED') }}
+								{{if (i == 'IP VERSION' || i == 'PORT SPEED') }}
+									{{if (i == 'IP VERSION') }}
+										<tr>
+											<td> ${i} </td>
+											<td id="displayIpVersionTd"> 
+										    	${item}
+		    								 </td>
+		    							</tr>
+		    						{{else}}
+		    							<tr>
+											<td> ${i} </td>
+											<td id="displayPortSpeedList"> 
+										    	${item}
+		    								 </td>
+		    							</tr>
+		    						{{/if}}		
+								{{else}}
+								<tr>
+									<td> ${i} </td>
+									<td id="displayManagedRouterType">
+										${item}
+										</td>
+								</tr>	
+								{{/if}}
+							{{else}}
 								<tr>
 									<td> ${i} </td>
 									<td> ${item} </td>
 								</tr>
+							{{/if}}		
 						{{/each}}
 					</table>
 					
@@ -49,8 +76,9 @@
 							</tr>
 					</table>
  -->				   </div>
-				<div class="modal-footer" style="text-align:center">
+				<div class="modal-footer" style="text-align:center" id="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<input type="button" class="btn btn-primary" id="btnCustomizeGCData" value="Customize" onclick="onClickCustomizeGCData();">
 					<input type="button" class="btn btn-primary" data-dismiss="modal" id="btnModalGenContract" value="Proceed To Generate Contract" onclick="onClickProceedToGenContract();">
 				</div>
 			</div>
