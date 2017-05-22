@@ -11,10 +11,6 @@
 			displayDataGridWithTop5Records(accessType, accessSpeed);
 		});
 		
-		$(window).bind("load", function() {
-			$("input[name='ACCESS_TYPE_ID']:checked").trigger('click');
-		});
-		
 	});
 </script>
 
@@ -35,15 +31,22 @@
 		</div>
 	</div>
 	<div class="col-sm-6">
+	<ul>
 	{{each(i, item) data["DATA"]}} 
 		<div class="row">
-			<div class="col-sm-11 col-sm-offset-1">
-				<input type="radio" name="ACCESS_TYPE_ID" value='${data["DATA"][i]["ACCESS_TYPE_ID"]}'
-					checked="checked"> ${data["DATA"][i]["ACCESS_SPEED_S"]}(Success
-				Percentage <b>${data["DATA"][i]["PERCENTAGE"]}%)</b>
+			<li>	
+			<div class="col-sm-11">
+				<!-- <input type="radio" name="ACCESS_TYPE_ID" value='${data["DATA"][i]["ACCESS_TYPE_ID"]}'
+					checked="checked"> --> 
+					
+						${data["DATA"][i]["ACCESS_SPEED_S"]}(Success
+						Percentage <b>${data["DATA"][i]["PERCENTAGE"]}%)</b>
+					
 			</div>
+			</li>
 		</div>
 	{{/each}}
+	</ul>
 	<!-- 		<div class="row">
 			<div class="col-sm-11 col-sm-offset-1">
 				<input type="radio" name="ACCESS_TYPE_ID" value="Private Line">

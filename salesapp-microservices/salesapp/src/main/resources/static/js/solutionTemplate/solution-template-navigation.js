@@ -55,15 +55,19 @@ function hashChange(){
     		
 /*    		var percentObject = {};
     		$.each(tmpData, function(i, value) {
-    			var accessType = value.ACCESS_TYPE_ID;
+    			var accessType = value.ACCESS_TYPE_ID || value.access_type_id;
     			accessType = accessType.replace(/ /g, '_');
+<<<<<<< HEAD
     			percentObject[accessType + "_PERCENTAGE"] = value.PERCENTAGE;
+    		});*/
+    		/*	percentObject[accessType + "_PERCENTAGE"] = value.PERCENTAGE || value.percentage;
     		});*/
     		
         	var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", {"data":data});
         	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
         	$("#solutionTemplateTopFrame").trigger('create');
         	
+        	console.log("DATADATA: " + JSON.stringify(data));
         	drawPieGraphOnTopSolutionTemplatePage(data);
         	displayDataGridWithTop5Records("ETHERNET");
         	

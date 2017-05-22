@@ -411,6 +411,7 @@ function onClickProceedToGenContract(e) {
 	$("#displayContractWizard").append(contractWizardData);
 	var topMenuDiv = $("#displayContractWizard");
 	removeNextAllSiblingDivRows(topMenuDiv);
+
 	showConfiguredSitesList();
 
 }
@@ -438,14 +439,17 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 	var graph_data = {};
 	graph_data.labels = [];
 	graph_data.datasets = [];
+	graph_data.attr = [];
 	graph_data.datasets.push({});
 	
 	graph_data.datasets[0].backgroundColor = [ "red", "green", "blue", "yellow", "maroon", "magenta", "black", "purple"];
 	graph_data.datasets[0].data = [];
 	
 	$.each(tmpData, function(i, value) {
+
 		graph_data.labels.push((value.ACCESS_TYPE_ID.split("_")[1])/1000 + " Mbps");
-		graph_data.datasets[0].data.push(value.PERCENTAGE);
+		graph_data.datasets[0].data.push(value.PERCENTAGE || value.percentage);
+		graph_data.attr.push();
 	});
 	
     var canvas = document.getElementById("myChart");
@@ -461,7 +465,7 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
         var idx = activePoints[0]['_index'];
 
         var label = chartData.labels[idx];
-        displayDataGridWithTop5Records(label);
+        //displayDataGridWithTop5Records(label);
         
         $('input[name="ACCESS_TYPE_ID"][value="' + label + '"]').prop('checked', true);
 
@@ -479,6 +483,18 @@ function showConfiguredSitesList() {
 		var siteName = "<tr><td>"+ value +"</td></tr>";
 		$("#showConfiguredSites").find('table').append(siteName);
 	});
-	
 }
+
+var checkSitesSelection = function() {
+	var checkSiteNames = []
+	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
+		checkSiteNames.push($(this).attr('data-name'));
+	});
+	if(checkSiteNames.length > 0){
+		return true;
+	}
+	else{
+		return false;
+	}
+};
 

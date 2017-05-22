@@ -1,6 +1,6 @@
 package com.att.salesexpress.microservices.util;
 
-public interface SQLConstants {
+public interface SQLConstantsOracle {
 	String sqlGetSalesHistoryDataByAccessType = "select rankTable.* from ("
 			+ "select countTable.*, "
 			+ "dense_rank() over (order by countTable.NUMBER_OF_SALES desc) RNK "
@@ -11,7 +11,8 @@ public interface SQLConstants {
 			+ "concat(ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
 			+ "rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
-			+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY) totalTrans "
+			//+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY) totalTrans "
+			+ "from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
 			+ "where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
 			+ ") countTable "
 			+ ") rankTable "
@@ -28,7 +29,8 @@ public interface SQLConstants {
 			+ "concat(ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
 			+ "rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
-			+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY) totalTrans "
+			//+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY) totalTrans "
+			+ "from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
 			+ "where sth.ACCESS_TYPE_ID NOT IN ('ETHERNET', 'Private Line')"
 			+ ") countTable "
 			+ ") rankTable "
@@ -45,7 +47,8 @@ public interface SQLConstants {
 			+ "concat(ROUND(count(*) over (partition by sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
 			+ "rank() over ( partition by sth.PORT_SPEED_ID order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
-			+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY where ACCESS_TYPE_ID=:ACCESS_TYPE_ID) totalTrans "
+			//+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY where ACCESS_TYPE_ID=:ACCESS_TYPE_ID) totalTrans "
+			+ "from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP where ACCESS_TYPE_ID=:ACCESS_TYPE_ID) totalTrans "
 			+ "where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
 			+ "and   sth.ACCESS_SPEED_ID = :ACCESS_SPEED_ID "
 			+ ") countTable "
@@ -62,8 +65,10 @@ public interface SQLConstants {
 			+ "concat(ROUND(count(*) over () * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
 			+ "rank() over (order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
-			+ "from SALES_TRANSACTION_HISTORY sth, ("
-			+ "select count(*) cnt from SALES_TRANSACTION_HISTORY "
+			//+ "from SALES_TRANSACTION_HISTORY sth, ("
+			+ "from SALES_TRANS_HISTORY_MIS_EXP sth, ("
+			//+ "select count(*) cnt from SALES_TRANSACTION_HISTORY "
+			+ "select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP "
 			+ "where ACCESS_TYPE_ID=:ACCESS_TYPE_ID and ACCESS_SPEED_ID=:ACCESS_SPEED_ID) totalTrans "
 			+ "where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
 			+ "and   sth.ACCESS_SPEED_ID = :ACCESS_SPEED_ID "
@@ -79,11 +84,14 @@ public interface SQLConstants {
 			+ "group by ACCESS_TYPE_ID order by ACCESS_TYPE_ID";
 	
 	String sqlGetSalesHistoryPercentageRecordsByAccessType = "select ROUND(firstTable.total_By_Access_Type * 100/secondTable.bcount, 2) PERCENTAGE, firstTable.ACCESS_TYPE_ID || '_' || firstTable.ACCESS_SPEED_ID  as ACCESS_TYPE_ID"
-			+ ",(select distinct ACCESS_SPEED_S from SALES_TRANSACTION_HISTORY where ACCESS_TYPE_ID=firstTable.ACCESS_TYPE_ID and ACCESS_SPEED_ID=firstTable.ACCESS_SPEED_ID) ACCESS_SPEED_S "
+			//+ ",(select distinct ACCESS_SPEED_S from SALES_TRANSACTION_HISTORY where ACCESS_TYPE_ID=firstTable.ACCESS_TYPE_ID and ACCESS_SPEED_ID=firstTable.ACCESS_SPEED_ID) ACCESS_SPEED_S "
+			+ ",(select distinct ACCESS_SPEED_S from SALES_TRANS_HISTORY_MIS_EXP where ACCESS_TYPE_ID=firstTable.ACCESS_TYPE_ID and ACCESS_SPEED_ID=firstTable.ACCESS_SPEED_ID) ACCESS_SPEED_S "
 			+ "from ( select sum(mycount) total_By_Access_Type, ACCESS_TYPE_ID, ACCESS_SPEED_ID  from ( "
-			+ " select ACCESS_TYPE_ID, ACCESS_SPEED_ID, count(*) mycount from SALES_TRANSACTION_HISTORY  group by ACCESS_TYPE_ID, ACCESS_SPEED_ID )  "
+			//+ " select ACCESS_TYPE_ID, ACCESS_SPEED_ID, count(*) mycount from SALES_TRANSACTION_HISTORY  group by ACCESS_TYPE_ID, ACCESS_SPEED_ID )  "
+			+ " select ACCESS_TYPE_ID, ACCESS_SPEED_ID, count(*) mycount from SALES_TRANS_HISTORY_MIS_EXP  group by ACCESS_TYPE_ID, ACCESS_SPEED_ID )  "
 			+ "a group by a.ACCESS_TYPE_ID, a.ACCESS_SPEED_ID ) firstTable, "
-			+ "(select count(*) bcount from SALES_TRANSACTION_HISTORY) secondTable";
+			//+ "(select count(*) bcount from SALES_TRANSACTION_HISTORY) secondTable";
+			+ "(select count(*) bcount from SALES_TRANS_HISTORY_MIS_EXP) secondTable";
 	
 	String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed = "select * from sales_rules_mis_exp where  access_type = :ACCESS_TYPE_ID and"
 			  + "  ACCESS_SPEED_ID = :ACCESS_SPEED_ID and MRC is not null and ROWNUM <= :NUMBER_OF_ROWS and PORT_SPEED_ID <= :ACCESS_SPEED_ID";
