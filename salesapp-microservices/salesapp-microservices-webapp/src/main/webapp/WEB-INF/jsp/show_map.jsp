@@ -72,7 +72,7 @@
 		
 		<div id="over_map" class="sachbuttonsonmap" style="text-align: center;">
 		<div class="button-wrapper">
-		<button type="button" class="btn btn-primary">Solution Template</button>
+		<button type="button" class="btn btn-primary">Integrated Solutions</button>
 		&nbsp;
 		&nbsp;
 		<button type="button" class="btn btn-primary">Product/Bundle Filter</button>

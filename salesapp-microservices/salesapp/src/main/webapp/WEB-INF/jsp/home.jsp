@@ -149,7 +149,7 @@
 					<div id="over_map" class="sachbuttonsonmap"
 						style="text-align: center;">
 						<div class="button-wrapper">
-							<a href="${contextPath}/user/solutionTemplate#topCustomerSolutions" class="btn btn-primary" role="button">Solution Template</a>
+							<a href="${contextPath}/user/solutionTemplate#topCustomerSolutions" class="btn btn-primary" role="button">Integrated Solutions</a>
 							&nbsp; &nbsp;
 							<button type="button" class="btn btn-primary">Product/Bundle
 								Filter</button>
