@@ -35,7 +35,8 @@ public class SalesHistoryStripped extends ResourceSupport {
 	
 	private int ruleDesignId;
 	
-
+	private String bundleCd;
+	
 	public long getLeadDesignId() {
 		return leadDesignId;
 	}
@@ -164,6 +165,14 @@ public class SalesHistoryStripped extends ResourceSupport {
 
 	public void setRuleDesignId(int ruleDesignId) {
 		this.ruleDesignId = ruleDesignId;
+	}
+
+	public String getBundleCd() {
+		return bundleCd;
+	}
+
+	public void setBundleCd(String bundleCd) {
+		this.bundleCd = bundleCd;
 	}
 
 	@Override

@@ -10,6 +10,7 @@ var customizeGCDataFields = {
 					'</select>';
 		},		
 		managedRouterDropDown : function() {
+			
 			return '<select name="managedRouterForGC" class="form-control" style="width:70%;">'+
 					'<option value="AT&T Managed Router">AT&T Managed Router'+
 					'<option value="Customer Managed Router">Customer Managed Router'+
@@ -38,12 +39,13 @@ function displayDataGrid(data, templateFormat) {
 	'<tr>'+
 	'<th data-column-id="commands" data-formatter="commands" data-sortable="false">View</th>'+
 	'<th data-column-id="accessSpeed" >ACCESS SPEED</th>'+
-	'<th data-column-id="designType">DESIGN TYPE</th>'+
+	/*'<th data-column-id="designType">DESIGN TYPE</th>'+*/
 	'<th data-column-id="portSpeed">PORT SPEED</th>'+
+	'<th data-column-id="bundleCd">PRODUCT</th>'+
 	'<th data-column-id="managedRouter">MANAGED ROUTER</th>'+
 	'<th data-column-id="mrc">MRC</th>'+
 	'<th data-column-id="nrc">NRC</th>'+
-	'<th data-column-id="ratePlan">RATE PLAN</th>'+
+	/*'<th data-column-id="ratePlan">RATE PLAN</th>'+*/
 	'</tr>'+
 	'</thead>'+
 	'</table>';
@@ -53,12 +55,13 @@ function displayDataGrid(data, templateFormat) {
 		var gridRow = 	'<tr >'+
 		'<td data-column-id="commands"></td>'+
 		'<td data-column-id="accessSpeed">'+ data[k].accessSpeed +'</td>'+
-		'<td data-column-id="designType" data-order="desc">'+ data[k].designType +'</td>'+
+		//'<td data-column-id="designType" data-order="desc">'+ data[k].designType +'</td>'+
 		'<td data-column-id="portSpeed">'+ data[k].portSpeed +'</td>'+
+		'<td data-column-id="bundleCd">'+ data[k].bundleCd +'</td>'+
 		'<td data-column-id="managedRouter">'+ data[k].managedRouter +'</td>'+
 		'<td data-column-id="mrc">'+ '$'+ data[k].mrc +'</td>'+
 		'<td data-column-id="nrc">'+'$'+ data[k].nrc +'</td>'+
-		'<td data-column-id="ratePlan">'+ data[k].ratePlan +'</td>'+
+		//'<td data-column-id="ratePlan">'+ data[k].ratePlan +'</td>'+
 		'</tr>'
 		$("#grid-data").append(gridRow);			
 	});
@@ -105,8 +108,8 @@ function displayDataGridWithTop5Records(accessType, accessSpeed) {
 	var jsonData = JSON.stringify(tmpObj);
 	var promise = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_RECOMMENDATION_URL"), jsonData);
 	promise.done(function(data, textStatus, jqXHR){
-		//console.log("Data :" + JSON.stringify(data));
-		$("#solutionTemplateBottomFrame").empty();
+		
+	$("#solutionTemplateBottomFrame").empty();
 		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
 		/*		var gridTemplateFormat = {
 				header : "",

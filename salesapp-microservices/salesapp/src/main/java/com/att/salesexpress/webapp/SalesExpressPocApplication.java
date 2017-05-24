@@ -19,6 +19,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = { "com.att.salesexpress.webapp", "com.att.cio.commonheader.v3",
 		"com.att.salesexpress.igloo.consumer", "com.att.edb.accessquote" })
 public class SalesExpressPocApplication extends SpringBootServletInitializer implements CommandLineRunner {
+	
 	static final Logger logger = LoggerFactory.getLogger(SalesExpressPocApplication.class);
 
 	@Override
