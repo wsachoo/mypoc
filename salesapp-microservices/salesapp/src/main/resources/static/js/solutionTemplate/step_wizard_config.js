@@ -367,7 +367,8 @@ function displaySelectedRowModal(url, matchPercentage) {
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	$("body").find("#displaySelectedRowModal").remove();
 	var DATA = {};
-	var objectKeysArray = ["bundleCd", "accessSpeed", "portType", "accessService", "ipVersionLabel", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed",  "managedRouter", "designName", "protocol",  "tailTechnology", "ratePlan"];
+	//var objectKeysArray = ["bundleCd", "accessSpeed", "portType", "accessService", "ipVersionLabel", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed",  "managedRouter", "designName", "protocol",  "tailTechnology", "ratePlan"];
+	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "mrc", "nrc", "SUCCESS RATIO"];
 	//var objectKeysArray = ["accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc"];
 	//remove routingProtocol from the above objectKeysArray 5/10/2017
 	$.each(objectKeysArray, function(k, value) {
@@ -422,6 +423,10 @@ function onClickProceedToGenContract(e) {
 		DATA[key] = dataToGenContract[value];
 	});
 	//var contractWizardDataContent = $("#stepwizard-display-contract-data").tmpl(DATA);
+	//passing the customized fields values to contract data template.
+		DATA["IP VERSION"] = $("#displayIpVersionTd").html();
+		DATA["PORT SPEED"] = $("#displayPortSpeedList").html();
+		DATA["MANAGED ROUTER"] = $("#displayManagedRouterType").html();
 	
 	$('<div class="row" id="displayContractWizard"></div>').insertAfter("div.sachtopmenu");
 	addContractGenTab();
@@ -523,30 +528,38 @@ var checkSitesSelection = function() {
 
 function onClickCustomizeGCData() {
 	var ipVersionDropDownTmpl = customizeGCDataFields.ipVersionDropDown();
-	var managedRouterDropDownTmpl =  customizeGCDataFields.managedRouterDropDown();
+	var managedRouterDropDownTmpl = customizeGCDataFields.managedRouterDropDown();
 	customizePortSpeedsGCData();
 	
+	$("#btnModalGenContract").attr('disabled','true');
+	
 	var thisElement = $("#btnCustomizeGCData");
-	thisElement.attr('value','Save');
-	thisElement.attr('id','btnSaveGCData');
-	thisElement.attr('onclick','onClickSaveGCData();');
+	thisElement.attr('value','Apply');
+	thisElement.attr('id','btnApplyGCData');
+	thisElement.attr('onclick','onClickApplyGCData();');
 	$("#displayIpVersionTd").empty();
 	$("#displayIpVersionTd").append(ipVersionDropDownTmpl);
 	$("#displayManagedRouterType").empty();
 	$("#displayManagedRouterType").append(managedRouterDropDownTmpl);
 }
 
-function onClickSaveGCData() {
+function onClickApplyGCData() {
+	$("#btnModalGenContract").removeAttr('disabled');
 	
 	var ipVersionValue = $('select[name="ipVersion"]').val();
 	var managedRouterValue = $('select[name="managedRouterForGC"]').val();
 	var portSpeedValue = $('select[name="portSpeedListForGC"]').val();
 	
-	var thisElement = $("#btnSaveGCData");
+	var thisElement = $("#btnApplyGCData");
 	
 	$("#displayIpVersionTd").html(ipVersionValue);
 	$("#displayManagedRouterType").html(managedRouterValue);
 	$("#displayPortSpeedList").html(portSpeedValue);
+	
+	var customizeButton = '<input type="button" class="btn btn-primary" id="btnCustomizeGCData" value="Customize" onclick="onClickCustomizeGCData();">';
+	
+	thisElement.after(customizeButton);
+	thisElement.remove();
 }
 
 function customizePortSpeedsGCData() {
