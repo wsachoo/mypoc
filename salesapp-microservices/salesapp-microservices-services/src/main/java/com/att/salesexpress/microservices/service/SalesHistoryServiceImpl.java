@@ -151,6 +151,9 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 				map.get("MRC") != null ? map.get("MRC").toString() : "");
 		objSalesHistoryDO.setNrc(
 				map.get("NRC") != null ? map.get("NRC").toString() : "");
+
+		objSalesHistoryDO.setBundleCd(map.get("BUNDLE_CD") != null ? map.get("BUNDLE_CD").toString() : "");
+
 		return objSalesHistoryDO;
 	}
 

@@ -6,10 +6,10 @@ public interface SQLConstantsOracle {
 			+ "dense_rank() over (order by countTable.NUMBER_OF_SALES desc) RNK "
 			+ "from ("
 			+ "select "
-			+ "count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) as NUMBER_OF_SALES, "
+			+ "count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD) as NUMBER_OF_SALES, "
 			//+ "concat(ROUND(count(*) over () * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
 			+ "concat(ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
-			+ "rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID order by sth.SITE_ID ) indexWithinGroup,"
+			+ "rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
 			//+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY) totalTrans "
 			+ "from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
@@ -42,10 +42,10 @@ public interface SQLConstantsOracle {
 			+ "dense_rank() over (order by countTable.NUMBER_OF_SALES desc) RNK "
 			+ "from ("
 			+ "select "
-			+ "count(*) over (partition by sth.PORT_SPEED_ID) as NUMBER_OF_SALES, "
+			+ "count(*) over (partition by sth.PORT_SPEED_ID, sth.BUNDLE_CD) as NUMBER_OF_SALES, "
 			//+ "concat(ROUND(count(*) over () * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
 			+ "concat(ROUND(count(*) over (partition by sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
-			+ "rank() over ( partition by sth.PORT_SPEED_ID order by sth.SITE_ID ) indexWithinGroup,"
+			+ "rank() over ( partition by sth.PORT_SPEED_ID, sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
 			//+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY where ACCESS_TYPE_ID=:ACCESS_TYPE_ID) totalTrans "
 			+ "from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP where ACCESS_TYPE_ID=:ACCESS_TYPE_ID) totalTrans "
@@ -54,16 +54,16 @@ public interface SQLConstantsOracle {
 			+ ") countTable "
 			+ ") rankTable "
 			//+ "where rankTable.RNK = 1 and rownum <= :NUMBER_OF_ROWS";
-			+ "where rankTable.indexWithinGroup <= 10 and rownum <= :NUMBER_OF_ROWS";
+			+ "where rankTable.indexWithinGroup <= (:NUMBER_OF_ROWS)/2 and rownum <= :NUMBER_OF_ROWS";
 
 	String sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed = "select rankTable.* from ("
 			+ "select countTable.*, "
 			+ "dense_rank() over (order by countTable.NUMBER_OF_SALES desc) RNK "
 			+ "from ("
 			+ "select "
-			+ "count(*) over () as NUMBER_OF_SALES, "
+			+ "count(*) over (partition by sth.BUNDLE_CD) as NUMBER_OF_SALES, "
 			+ "concat(ROUND(count(*) over () * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
-			+ "rank() over (order by sth.SITE_ID ) indexWithinGroup,"
+			+ "rank() over (partition by sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
 			//+ "from SALES_TRANSACTION_HISTORY sth, ("
 			+ "from SALES_TRANS_HISTORY_MIS_EXP sth, ("
@@ -76,7 +76,7 @@ public interface SQLConstantsOracle {
 			+ ") countTable "
 			+ ") rankTable "
 			//+ "where rankTable.RNK = 1 and rownum <= :NUMBER_OF_ROWS";
-			+ "where rankTable.indexWithinGroup <= 10 and rownum <= :NUMBER_OF_ROWS";
+			+ "where rankTable.indexWithinGroup <= (:NUMBER_OF_ROWS)/2 and rownum <= :NUMBER_OF_ROWS";
 	
 	String sqlGetSalesHistoryPercentageRecordsByAccessType_OLD = "select ROUND(count(*)*100/(select count(*) from SALES_TRANSACTION_HISTORY), 2) as PERCENTAGE, "
 			+ "ACCESS_TYPE_ID from SALES_TRANSACTION_HISTORY "
