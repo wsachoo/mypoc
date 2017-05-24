@@ -9,4 +9,5 @@ public interface SolutionTemplateService {
 	public SolutionTmplQuestion findByQuesSeqId(Map<String, Object> paramValues);
 
 	public List<SolutionTmplQuestion> findAllQuestions(Map<String, Object> paramValues);
+	
 }

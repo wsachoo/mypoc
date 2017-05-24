@@ -10,6 +10,7 @@ var customizeGCDataFields = {
 					'</select>';
 		},		
 		managedRouterDropDown : function() {
+			
 			return '<select name="managedRouterForGC" class="form-control" style="width:70%;">'+
 					'<option value="AT&T Managed Router">AT&T Managed Router'+
 					'<option value="Customer Managed Router">Customer Managed Router'+
