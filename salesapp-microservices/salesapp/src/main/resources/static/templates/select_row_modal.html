@@ -43,12 +43,30 @@
 								</tr>	
 								{{/if}}
 							{{else}}
+								{{if (i =='MRC' || i=='NRC') }}
+									{{if i == 'MRC'}}
+									<tr>
+										<td> ${i} </td>
+										<td id="displayMRC"> ${item} </td>
+									</tr>
+									{{else}}
+									<tr>
+										<td> ${i} </td>
+										<td id="displayNRC"> ${item} </td>
+									</tr>
+									{{/if}}	
+								{{else}}
 								<tr>
 									<td> ${i} </td>
 									<td> ${item} </td>
 								</tr>
+								{{/if}}	
 							{{/if}}		
 						{{/each}}
+						<tr>
+							<td>TERM</td>
+							<td id="displayContractTermList">12 Months</td>
+						</tr>
 					</table>
 					
 <!--  					<hr>

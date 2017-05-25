@@ -19,7 +19,14 @@ var customizeGCDataFields = {
 		portSpeedsDropDown : function() {
 			return '<select name="portSpeedListForGC" class="form-control" style="width:70%;">'+
 					'</select>';
-		} 
+		},
+		contractTermDropDowm : function() {
+			return '<select name="contractTermForGC" class="form-control" style="width:70%;">'+
+						'<option value="12 Months">12 Months'+
+						'<option value="24 Months">24 Months'+
+						'<option value="36 Months">36 Months'+
+					'</select>';
+		}
 	};
 
 function convertOjectArrayToObject(paramObject) {
@@ -531,6 +538,7 @@ function onClickCustomizeGCData() {
 	var ipVersionDropDownTmpl = customizeGCDataFields.ipVersionDropDown();
 	var managedRouterDropDownTmpl = customizeGCDataFields.managedRouterDropDown();
 	customizePortSpeedsGCData();
+	customizeContractTermGCData();
 	
 	$("#btnModalGenContract").attr('disabled','true');
 	
@@ -550,12 +558,14 @@ function onClickApplyGCData() {
 	var ipVersionValue = $('select[name="ipVersion"]').val();
 	var managedRouterValue = $('select[name="managedRouterForGC"]').val();
 	var portSpeedValue = $('select[name="portSpeedListForGC"]').val();
+	var contractTermValue = $('select[name="contractTermForGC"]').val();
 	
 	var thisElement = $("#btnApplyGCData");
 	
 	$("#displayIpVersionTd").html(ipVersionValue);
 	$("#displayManagedRouterType").html(managedRouterValue);
 	$("#displayPortSpeedList").html(portSpeedValue);
+	$("#displayContractTermList").html(contractTermValue);
 	
 	var customizeButton = '<input type="button" class="btn btn-primary" id="btnCustomizeGCData" value="Customize" onclick="onClickCustomizeGCData();">';
 	
@@ -574,3 +584,29 @@ function customizePortSpeedsGCData() {
       });
 }
 
+function customizeContractTermGCData() {
+	var contractTermDropDownElem = customizeGCDataFields.contractTermDropDowm();
+	var displayContractTermList = $("#displayContractTermList");
+	displayContractTermList.html(contractTermDropDownElem);
+	
+	
+}
+
+function updateMRCAndNRC(updatedContractTermValue) {
+	var mrc = $("#displayMRC").html().split("$ ")[1];
+	mrc = Number(mrc);
+	var nrc = $("#displayNRC").html().split("$ ")[1];
+	nrc = Number(nrc);
+	var numOfYears = updatedContractTermValue/12;
+	var updatedMRC = mrc * (1 - (numOfYears/10));
+	var updatedNRC = nrc * (1 - (numOfYears/10));
+	$("#displayMRC").html("$ " + updatedMRC);
+	$("#displayNRC").html("$ " + updatedNRC);
+}
+
+$("select[name='contractTermForGC']").on('change', function() {
+	var updatedContractTerm = $("#displayContractTermList").html();
+	var updatedContractTermValue = updatedContractTerm.split(" ")[0];
+	updatedContractTermValue = Number(updatedContractTermValue);
+	updateMRCAndNRC(updatedContractTermValue);
+});
