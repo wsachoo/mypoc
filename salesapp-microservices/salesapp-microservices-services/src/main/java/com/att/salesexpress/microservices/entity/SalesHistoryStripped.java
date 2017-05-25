@@ -26,17 +26,19 @@ public class SalesHistoryStripped extends ResourceSupport {
 	private String ratePlan;
 
 	private String tailTechnologyId;
-	
+
 	private String matchPercentage;
-	
+
 	private String mrc;
-	
+
 	private String nrc;
-	
+
 	private int ruleDesignId;
-	
+
 	private String bundleCd;
-	
+
+	private String term;
+
 	public long getLeadDesignId() {
 		return leadDesignId;
 	}
@@ -132,7 +134,7 @@ public class SalesHistoryStripped extends ResourceSupport {
 	public void setTailTechnologyId(String tailTechnologyId) {
 		this.tailTechnologyId = tailTechnologyId;
 	}
-	
+
 	public String getMatchPercentage() {
 		return matchPercentage;
 	}
@@ -140,8 +142,6 @@ public class SalesHistoryStripped extends ResourceSupport {
 	public void setMatchPercentage(String matchPercentage) {
 		this.matchPercentage = matchPercentage;
 	}
-	
-	
 
 	public String getMrc() {
 		return mrc;
@@ -158,7 +158,7 @@ public class SalesHistoryStripped extends ResourceSupport {
 	public void setNrc(String nrc) {
 		this.nrc = nrc;
 	}
-	
+
 	public int getRuleDesignId() {
 		return ruleDesignId;
 	}
@@ -173,6 +173,14 @@ public class SalesHistoryStripped extends ResourceSupport {
 
 	public void setBundleCd(String bundleCd) {
 		this.bundleCd = bundleCd;
+	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
 	}
 
 	@Override

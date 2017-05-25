@@ -259,6 +259,9 @@ public class SalesHistoryDetail implements Serializable {
 	@Column(name="NRC")
 	private String nrc;
 	
+	@Column(name="TERM")
+	private String term;
+
 	private transient List<String> portSpeedList = new ArrayList<>();
 
 	public SalesHistoryDetail() {
@@ -902,5 +905,13 @@ public class SalesHistoryDetail implements Serializable {
 
 	public void setPortSpeedList(List<String> portSpeedList) {
 		this.portSpeedList = portSpeedList;
+	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
 	}	
 }
