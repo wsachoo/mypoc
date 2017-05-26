@@ -4,24 +4,24 @@ var portSpeedsToCustomizeGCData = {};
 
 var customizeGCDataFields = {
 		ipVersionDropDown  : function() {
-			return '<select name="ipVersion" class="form-control" style="width:70%;">'+
+			return '<select name="ipVersion" class="form-control" style="width:60%;">'+
 						'<option value="IP V4/V6 Dual Stack">IP V4/V6 Dual Stack'+
 						'<option value="IP V4">IP V4'+
 					'</select>';
 		},		
 		managedRouterDropDown : function() {
 			
-			return '<select name="managedRouterForGC" class="form-control" style="width:70%;">'+
+			return '<select name="managedRouterForGC" class="form-control" style="width:60%;">'+
 					'<option value="AT&T Managed Router">AT&T Managed Router'+
 					'<option value="Customer Managed Router">Customer Managed Router'+
 				   '</select>';
 		},
 		portSpeedsDropDown : function() {
-			return '<select name="portSpeedListForGC" class="form-control" style="width:70%;">'+
+			return '<select name="portSpeedListForGC" class="form-control" style="width:60%;">'+
 					'</select>';
 		},
 		contractTermDropDowm : function() {
-			return '<select name="contractTermForGC" class="form-control" style="width:70%;">'+
+			return '<select name="contractTermForGC" class="form-control" style="width:60%;" onchange="javascript:onChangeTermOnOfferViewPopup()">'+
 						'<option value="12 Months">12 Months'+
 						'<option value="24 Months">24 Months'+
 						'<option value="36 Months">36 Months'+
@@ -376,7 +376,7 @@ function displaySelectedRowModal(url, matchPercentage) {
 	$("body").find("#displaySelectedRowModal").remove();
 	var DATA = {};
 	//var objectKeysArray = ["bundleCd", "accessSpeed", "portType", "accessService", "ipVersionLabel", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed",  "managedRouter", "designName", "protocol",  "tailTechnology", "ratePlan"];
-	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "mrc", "nrc", "SUCCESS RATIO"];
+	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc", "SUCCESS RATIO"];
 	//var objectKeysArray = ["accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc"];
 	//remove routingProtocol from the above objectKeysArray 5/10/2017
 	$.each(objectKeysArray, function(k, value) {
@@ -405,11 +405,18 @@ function displaySelectedRowModal(url, matchPercentage) {
 	var modalTemplate = getTemplateDefinition(templatePath);
 	$.template("select_row_modal", modalTemplate);
 	//console.log("displaySelectedRowModal:" + JSON.stringify(DATA));
+	defaultTermPeriod = DATA['TERM'];
+	defaultTermPeriodMRC = DATA['MRC'];
+	defaultTermPeriodNRC = DATA['NRC'];
 	var modalTemplateToDisplay = $.tmpl("select_row_modal", DATA);
 
 	$('body').append(modalTemplateToDisplay);
 	$("#btnDisplayRowSelectModal").trigger('click');
 }
+
+var defaultTermPeriod = "";
+var defaultTermPeriodMRC = "";
+var defaultTermPeriodNRC = "";
 
 function storeDataToGenerateContract(genContractWizardData) {
 	dataToGenContract = {}; //clearing the object before we copy it
@@ -424,7 +431,7 @@ function onClickProceedToGenContract(e) {
 	//console.log("dataToGenContract:"+JSON.stringify(dataToGenContract));
 	var DATA = {};
 	//var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan", "mrc", "nrc"];
-	var objectKeysArray = ["mrc", "nrc"];
+	var objectKeysArray = ["term", "mrc", "nrc"];
 
 	$.each(objectKeysArray, function(k, value) {
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
@@ -592,21 +599,48 @@ function customizeContractTermGCData() {
 	
 }
 
-function updateMRCAndNRC(updatedContractTermValue) {
-	var mrc = $("#displayMRC").html().split("$ ")[1];
+function updateMRCAndNRC(updatedContractTermValue, updatedContractTerm) {
+	var mrc = defaultTermPeriodMRC.split("$ ")[1];
 	mrc = Number(mrc);
-	var nrc = $("#displayNRC").html().split("$ ")[1];
+	var nrc = defaultTermPeriodNRC.split("$ ")[1];
 	nrc = Number(nrc);
-	var numOfYears = updatedContractTermValue/12;
-	var updatedMRC = mrc * (1 - (numOfYears/10));
-	var updatedNRC = nrc * (1 - (numOfYears/10));
-	$("#displayMRC").html("$ " + updatedMRC);
-	$("#displayNRC").html("$ " + updatedNRC);
+	
+	if (updatedContractTermValue == 12) {
+		$("#displayMRC").html("$ " + (mrc * 1));
+		$("#displayNRC").html("$ " + (nrc * 1));
+	}
+	else if (updatedContractTermValue == 24) {
+		$("#displayMRC").html("$ " + (mrc * 0.9).toFixed(2));
+		$("#displayNRC").html("$ " + (nrc * 0.9).toFixed(2));
+	}
+	else if (updatedContractTermValue == 36) {
+		$("#displayMRC").html("$ " + (mrc * 0.8).toFixed(2));
+		$("#displayNRC").html("$ " + (nrc * 0.8).toFixed(2));		
+	}
+	
+	dataToGenContract["mrc"] = $("#displayMRC").html();
+	dataToGenContract["nrc"] = $("#displayNRC").html();
+	dataToGenContract["term"] = updatedContractTerm;
 }
 
-$("select[name='contractTermForGC']").on('change', function() {
-	var updatedContractTerm = $("#displayContractTermList").html();
+/*$(document).ready(function() {
+	$("select[name='contractTermForGC']").on('change', function() {
+		var updatedContractTerm = $("#displayContractTermList").html();
+		var updatedContractTermValue = updatedContractTerm.split(" ")[0];
+		updatedContractTermValue = Number(updatedContractTermValue);
+		updateMRCAndNRC(updatedContractTermValue);
+	});
+
+
+	$("#dispRowSelectModal").on('click', function(e) {
+		alert('clicked');
+	});
+});
+*/
+
+function onChangeTermOnOfferViewPopup() {
+	var updatedContractTerm = $("#displayContractTermList option:selected").text();
 	var updatedContractTermValue = updatedContractTerm.split(" ")[0];
 	updatedContractTermValue = Number(updatedContractTermValue);
-	updateMRCAndNRC(updatedContractTermValue);
-});
+	updateMRCAndNRC(updatedContractTermValue, updatedContractTerm);	
+}

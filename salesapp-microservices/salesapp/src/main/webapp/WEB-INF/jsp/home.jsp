@@ -40,7 +40,7 @@
 <script type="text/javascript"
 	src="${contextPath}/js/lib/jquery.serialize-object.js"></script>
 <script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATDwoHFXe3mRsNJZfFMtMiltwSRTZcRFA"></script>
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQAK2uWmuwWxXMQyirkIkh6_ItqN8SLRc"></script>
 <script type="text/javascript"
 	src="${contextPath}/js/lib/bootstrap.min.js"></script>
 <script type="text/javascript"

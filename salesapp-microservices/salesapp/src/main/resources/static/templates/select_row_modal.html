@@ -56,17 +56,20 @@
 									</tr>
 									{{/if}}	
 								{{else}}
-								<tr>
-									<td> ${i} </td>
-									<td> ${item} </td>
-								</tr>
+									{{if (i =='TERM' || i=='TERM') }}
+										<tr>
+											<td>TERM</td>
+											<td id="displayContractTermList">${item}</td>
+										</tr>
+									{{else}}	
+									<tr>
+										<td> ${i} </td>
+										<td> ${item} </td>
+									</tr>
+									{{/if}}	
 								{{/if}}	
-							{{/if}}		
+							{{/if}}	
 						{{/each}}
-						<tr>
-							<td>TERM</td>
-							<td id="displayContractTermList">12 Months</td>
-						</tr>
 					</table>
 					
 <!--  					<hr>
