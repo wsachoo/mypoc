@@ -16,7 +16,7 @@
 				<c:forEach items="${userSitesData.siteAddresses}" var="objUserSite">
 					<ul id="menu-content" class="menu-content collapse out">
 						<li class="heading1" style="background-color: #777">&nbsp; <input
-							type="checkbox" value="${objUserSite.SITE_ID}"
+							type="checkbox" value="${objUserSite.SITE_ID}" checked="checked"
 							data-name="${objUserSite.SITE_NAME}"> <a
 							data-toggle="collapse" data-target="#sub_${objUserSite.SITE_ID}"
 							class=""> &nbsp; <span

@@ -17,7 +17,7 @@ var customizeGCDataFields = {
 				   '</select>';
 		},
 		portSpeedsDropDown : function() {
-			return '<select name="portSpeedListForGC" class="form-control" style="width:60%;">'+
+			return '<select name="portSpeedListForGC" class="form-control" style="width:60%;" onchange="javascript:onChangePortSpeedViewPopup()">'+
 					'</select>';
 		},
 		contractTermDropDowm : function() {
@@ -369,7 +369,14 @@ function transformDisplayKeyName(v) {
 	}
 }
 
+var lastOfferDesignPopupData = {};
+function displayLastOfferDesignPopup() {
+	displaySelectedRowModal(lastOfferDesignPopupData.url, lastOfferDesignPopupData.matchPercentage);
+}
+
 function displaySelectedRowModal(url, matchPercentage) {
+	lastOfferDesignPopupData.url = url;
+	lastOfferDesignPopupData.matchPercentage = matchPercentage;	
 
 	var data = httpGetWithJsonResponse(url, "");
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
@@ -431,11 +438,15 @@ function onClickProceedToGenContract(e) {
 	//console.log("dataToGenContract:"+JSON.stringify(dataToGenContract));
 	var DATA = {};
 	//var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan", "mrc", "nrc"];
-	var objectKeysArray = ["term", "mrc", "nrc"];
+	var objectKeysArray = ["offerName", "term", "mrc", "nrc"];
 
 	$.each(objectKeysArray, function(k, value) {
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
 		DATA[key] = dataToGenContract[value];
+		
+		if (key == "OFFER NAME") {
+			DATA[key] = dataToGenContract["bundleCd"];
+		}
 	});
 	//var contractWizardDataContent = $("#stepwizard-display-contract-data").tmpl(DATA);
 	//passing the customized fields values to contract data template.
@@ -456,7 +467,6 @@ function onClickProceedToGenContract(e) {
 	removeNextAllSiblingDivRows(topMenuDiv);
 
 	showConfiguredSitesList();
-
 }
 
 function addContractGenTab() {
@@ -643,4 +653,48 @@ function onChangeTermOnOfferViewPopup() {
 	var updatedContractTermValue = updatedContractTerm.split(" ")[0];
 	updatedContractTermValue = Number(updatedContractTermValue);
 	updateMRCAndNRC(updatedContractTermValue, updatedContractTerm);	
+	executeFuncForTerm36Months(updatedContractTermValue, updatedContractTerm);
 }
+
+function onChangePortSpeedViewPopup() {
+	var updatedContractTerm = $("#displayContractTermList option:selected").text();
+	var updatedContractTermValue = updatedContractTerm.split(" ")[0];
+	updatedContractTermValue = Number(updatedContractTermValue);
+	executeFuncForTerm36Months(updatedContractTermValue, updatedContractTerm);	
+}
+
+function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTerm) {
+	if (updatedContractTermValue == 36) {
+		var productName = $("#offerNameValue").text().trim();
+		var accessSpeed = $("select[name='portSpeedListForGC'] option:selected").text();
+		
+		if (productName == "MIS Express" && accessSpeed == "250 MBPS") {
+			bootbox.confirm({
+			    message: "We found that VVB Express is most preferred product for this combination. Would you like to go with it?",
+			    buttons: {
+			        confirm: {
+			            label: 'Yes Sure!',
+			            className: 'btn-primary'
+			        },
+			        cancel: {
+			            label: 'No Thanks',
+			            className: 'btn-success'
+			        }
+			    },
+			    callback: function (result) {
+			    	if (result) {
+			    		var vbb250mbpsUrl = SALESEXPRESS_CONSTANTS.getUrlPath("VVB_250MBPS_URL");
+			    		var vvb250mbpsMatchPercentage = "12.43%";
+			    		$("#dispRowSelectModal .close").click();
+			    		displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage);
+			    	}
+			    }
+			});
+		}
+	}
+}
+
+function setCameHereFromRecommendation() {
+	blnCameHereFromRecommendation = true;
+}
+var blnCameHereFromRecommendation = false;
