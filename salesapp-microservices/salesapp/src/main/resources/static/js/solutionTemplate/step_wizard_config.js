@@ -17,7 +17,7 @@ var customizeGCDataFields = {
 				   '</select>';
 		},
 		portSpeedsDropDown : function() {
-			return '<select name="portSpeedListForGC" class="form-control" style="width:60%;">'+
+			return '<select name="portSpeedListForGC" class="form-control" style="width:60%;" onchange="javascript:onChangePortSpeedViewPopup()">'+
 					'</select>';
 		},
 		contractTermDropDowm : function() {
@@ -656,6 +656,13 @@ function onChangeTermOnOfferViewPopup() {
 	executeFuncForTerm36Months(updatedContractTermValue, updatedContractTerm);
 }
 
+function onChangePortSpeedViewPopup() {
+	var updatedContractTerm = $("#displayContractTermList option:selected").text();
+	var updatedContractTermValue = updatedContractTerm.split(" ")[0];
+	updatedContractTermValue = Number(updatedContractTermValue);
+	executeFuncForTerm36Months(updatedContractTermValue, updatedContractTerm);	
+}
+
 function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTerm) {
 	if (updatedContractTermValue == 36) {
 		var productName = $("#offerNameValue").text().trim();
@@ -663,7 +670,7 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 		
 		if (productName == "MIS Express" && accessSpeed == "250 MBPS") {
 			bootbox.confirm({
-			    message: "We found that VVB Express is most suitable product for this combination. Would you like to go with it?",
+			    message: "We found that VVB Express is most preferred product for this combination. Would you like to go with it?",
 			    buttons: {
 			        confirm: {
 			            label: 'Yes Sure!',
@@ -678,11 +685,16 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 			    	if (result) {
 			    		var vbb250mbpsUrl = SALESEXPRESS_CONSTANTS.getUrlPath("VVB_250MBPS_URL");
 			    		var vvb250mbpsMatchPercentage = "12.43%";
-			    		$("#dispRowSelectModal .close").click()
-			    		setTimeout(function(){ displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage); }, 1000);
+			    		$("#dispRowSelectModal .close").click();
+			    		displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage);
 			    	}
 			    }
 			});
 		}
 	}
 }
+
+function setCameHereFromRecommendation() {
+	blnCameHereFromRecommendation = true;
+}
+var blnCameHereFromRecommendation = false;

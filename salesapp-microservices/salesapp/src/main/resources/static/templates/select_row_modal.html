@@ -1,6 +1,16 @@
 <script>
 	$(document).ready(function() {
-		
+		/*
+		 * This function will be called only when user has selected 250MBPS, MIS Express and 36 Months Term period.
+		 * On this selection the system will recommend user wuth VVB Express product with same 250MPBS speed with term period of 36 months.
+		 */
+		if (blnCameHereFromRecommendation) {
+			blnCameHereFromRecommendation = false;
+			$("#btnCustomizeGCData").click();
+			$("select[name='portSpeedListForGC']").val("250 MBPS");
+			$("select[name='contractTermForGC']").val("36 Months");
+			$("select[name='contractTermForGC']").change();
+		}
 	});
 </script>
 
