@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="_csrf" content="${_csrf.token}" />
-<title>Sales App - SACHIN</title>
+<title>Sales App</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script>
 	var contextPath = "${pageContext.request.contextPath}";
