@@ -17,7 +17,8 @@ public interface SQLConstantsOracle {
 			+ ") countTable "
 			+ ") rankTable "
 			//+ "where rankTable.RNK = 1 and rownum <= :NUMBER_OF_ROWS"; 
-			+ "where rankTable.indexWithinGroup = 1 and rownum <= :NUMBER_OF_ROWS";
+			+ "where rankTable.indexWithinGroup = 1 and rownum <= :NUMBER_OF_ROWS "
+			+ "order by MATCHING_ROW_PERCENTAGE desc, MRC asc";
 	
 	String sqlGetSalesHistoryDataByAccessTypeForOtherAccessType = "select rankTable.* from ("
 			+ "select countTable.*, "
@@ -91,7 +92,8 @@ public interface SQLConstantsOracle {
 			+ " select ACCESS_TYPE_ID, ACCESS_SPEED_ID, count(*) mycount from SALES_TRANS_HISTORY_MIS_EXP  group by ACCESS_TYPE_ID, ACCESS_SPEED_ID )  "
 			+ "a group by a.ACCESS_TYPE_ID, a.ACCESS_SPEED_ID ) firstTable, "
 			//+ "(select count(*) bcount from SALES_TRANSACTION_HISTORY) secondTable";
-			+ "(select count(*) bcount from SALES_TRANS_HISTORY_MIS_EXP) secondTable";
+			+ "(select count(*) bcount from SALES_TRANS_HISTORY_MIS_EXP) secondTable "
+			+ "order by PERCENTAGE desc";
 	
 	String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed = "select * from sales_rules_mis_exp where  access_type = :ACCESS_TYPE_ID and"
 			  + "  ACCESS_SPEED_ID = :ACCESS_SPEED_ID and MRC is not null and ROWNUM <= :NUMBER_OF_ROWS and PORT_SPEED_ID <= :ACCESS_SPEED_ID";

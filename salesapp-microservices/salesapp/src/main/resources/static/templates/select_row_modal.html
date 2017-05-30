@@ -1,3 +1,8 @@
+<script>
+	$(document).ready(function() {
+		
+	});
+</script>
 
 <div class="row" id="displaySelectedRowModal">
 	<!-- Trigger the modal with a button -->
@@ -59,14 +64,30 @@
 									{{if (i =='TERM' || i=='TERM') }}
 										<tr>
 											<td>TERM</td>
-											<td id="displayContractTermList">${item}</td>
+											<!-- <td id="displayContractTermList">${item}</td> -->
+											<td id="displayContractTermList">12 Months</td>
 										</tr>
 									{{else}}	
-									<tr>
-										<td> ${i} </td>
-										<td> ${item} </td>
-									</tr>
-									{{/if}}	
+									{{if i =='ACCESS TYPE' }}
+										<tr>
+											<td> ${i} </td>
+											<!-- <td id="displayContractTermList">${item}</td> -->
+											<td>Ethernet</td>
+										</tr>
+									{{else}}
+										{{if i == "OFFER NAME" }}
+											<tr>
+												<td> ${i} </td>
+												<td id="offerNameValue"> ${item} </td>
+											</tr>
+										{{else}}
+										<tr>
+											<td> ${i} </td>
+											<td> ${item} </td>
+										</tr>
+									{{/if}}
+									{{/if}}
+									{{/if}}		
 								{{/if}}	
 							{{/if}}	
 						{{/each}}

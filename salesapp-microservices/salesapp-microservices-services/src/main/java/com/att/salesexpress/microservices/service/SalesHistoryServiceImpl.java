@@ -45,7 +45,6 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 			numberOfRowsToRetrieve = Integer.parseInt(params.get("NUMBER_OF_ROWS").toString().trim());
 		}
 
-
 		if (containsAllWithValidValues("ACCESS_TYPE_ID,ACCESS_SPEED_ID,PORT_SPEED_ID", params)) {
 		//if (keys.contains("ACCESS_TYPE_ID") && keys.contains("ACCESS_SPEED_ID") && keys.contains("PORT_SPEED_ID")) {
 			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();

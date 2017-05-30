@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="_csrf" content="${_csrf.token}" />
-<title>Sales App</title>
+<title>Sales App - SACHIN</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script>
 	var contextPath = "${pageContext.request.contextPath}";
@@ -61,6 +61,7 @@
 	src="${contextPath}/js/lib/step-wizard.js"></script> --%>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 
 </head>
 <body>

@@ -1,239 +1,314 @@
 <!-- 
 	<script lang="text/javascript" src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
  -->
- <script>
-$(document).ready(function () {	
-		
-});
+<script>
+	$(document).ready(function() {
 
+	});
+	function dummyCDWFunc(e) {
+		e.preventDefault();
+	}
 </script>
 
+<style>
+	.control-label:after {
+	 color: #d00;
+     content: "*";
+     position: absolute;
+     margin-left: 5px;
+	}
+</style>
 
 <div class="container" id="divDispContractData">
-<div class="row">
-  <div class="col-sm-offset-10 col-sm-1">
-	<a href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf " 
-	id="btnPrintTop" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-print" title="Print Pdf"></span></a>	
-  </div>
-
-  <div class="col-sm-1">
-      <input type="button" class="btn btn-primary btn-block" id="btnSelSolTmpl" value="Back" onclick="goBackToStepWizard();"> 
-  </div>
-</div>
-<div class="row">
-<h4>Opportunity Info</h4>
-<table class="table table-striped">
-		<tr>
-			<td>OPPORTUNITY ID</td>
-			<td>1-67YHJK</td>
-		</tr>
-		{{each(i, item) $data}}
-		<tr>
-			<td> ${i} </td>
-			<td> ${item} </td>
-		</tr>
-	{{/each}}
-</table>
-</div>
-
-<div class="row" id="showConfiguredSites">
-<h4>The above configuration is applicable to below sites.</h4>
-	<table id="showConfiguredSitesList" class="table table-striped"></table>
-</div>
-
-<form class="form-inline">	
-	<br/>
-  <h4>Credit And Customer Info</h4>
-  <div class="panel panel-default">
-  <div class="panel-heading">Customer Legal Info</div>
-  <div class="panel-body">
 	<div class="row">
-    <div class="col-sm-1">
-      <label for="name">Name:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="name" class="form-control" id="legalName" placeholder="Best Buy">
-    </div>
-	<div class="col-sm-1"></div> 
-    <div class="col-sm-1">
-      <label for="city">City:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="city" class="form-control" id="city" placeholder="New York">
-    </div>
-	<div class="col-sm-1"></div>
-	<div class="col-sm-1">
-      <label for="email">Country:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="country" class="form-control" id="country" placeholder="USA">
-    </div>
- 	</div>
-	<div class="row" style="margin-top:5px;">
-    <div class="col-sm-1">
-      <label for="sAddress">Address:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="address" class="form-control" id="sAddress" placeholder="77 Green Acres Rd S">
-    </div>
-	<div class="col-sm-1"></div> 
-    <div class="col-sm-1">
-      <label for="state">State:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="state" class="form-control" id="state" placeholder="New York">
-    </div>
-	<div class="col-sm-1"></div>
-	<div class="col-sm-1">
-      <label for="zipcode">Zipcode:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="zipcode" class="form-control" id="zipcode" placeholder="11581">
-    </div>
- 	</div>
-  </div>
-</div>
-<div class="panel panel-default" style="margin-top:10px;">
-  <div class="panel-heading">AT&T Sales Contact Info</div>
-  <div class="panel-body">
+		<div class="col-sm-offset-7 col-sm-1">
+			<a
+				href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf "
+				id="btnPrintTop" class="btn btn-primary btn-block"><span
+				class="glyphicon glyphicon-print" title="Print Pdf"></span></a>
+		</div>
+		<div class="col-sm-2">
+			<input type="button" class="btn btn-primary btn-block"
+				id="btnSelSolTmpl" value="Back To Design" onclick="displayLastOfferDesignPopup();">
+		</div>
+		<div class="col-sm-2">
+			<input type="button" class="btn btn-primary btn-block"
+				id="btnSelSolTmpl2" value="Back To Search" onclick="goBackToStepWizard();">
+		</div>
+	</div>
 	<div class="row">
-    <div class="col-sm-1">
-      <label for="name">Name:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="name" class="form-control" id="salesName" placeholder="JEANINE SHEEHAN">
-    </div>
-	<div class="col-sm-1"></div> 
-    <div class="col-sm-1">
-      <label for="city">Country:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="city" class="form-control" id="city" placeholder="USA">
-    </div>
-	<div class="col-sm-1"></div>
-	<div class="col-sm-1">
-      <label for="email">Manager:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="country" class="form-control" id="country" placeholder="David Lang">
-    </div>
- 	</div>
-	<div class="row" style="margin-top:5px;">
-    <div class="col-sm-1">
-      <label for="sAddress">Address:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="address" class="form-control" id="sAddress" placeholder="225 W RANDOLPH ST">
-    </div>
-	<div class="col-sm-1"></div> 
-    <div class="col-sm-1">
-      <label for="state">Telephone:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="state" class="form-control" id="state" placeholder="484-558-0189">
-    </div>
-	<div class="col-sm-1"></div>
-	<div class="col-sm-1">
-      <label for="zipcode">State:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="zipcode" class="form-control" id="zipcode" placeholder="IL">
-    </div>
- 	</div>
-	<div class="row" style="margin-top:5px;">
-    <div class="col-sm-1">
-      <label for="sAddress">City:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="address" class="form-control" id="sAddress" placeholder="CHICAGO">
-    </div>
-	<div class="col-sm-1"></div> 
-    <div class="col-sm-1">
-      <label for="state">Fax:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="state" class="form-control" id="state" placeholder="484-447-8879">
-    </div>
-	<div class="col-sm-1"></div>
-	<div class="col-sm-1">
-      <label for="zipcode">Region:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="zipcode" class="form-control" id="zipcode" placeholder="US">
-    </div>
- 	</div>
-  </div>
-</div>
+		<h4>Opportunity Info</h4>
+		<table class="table table-striped">
+			<tr>
+				<td>OPPORTUNITY ID</td>
+				<td><a href="#" onclick="dummyCDWFunc(event)">1-67YHJK</a>&nbsp;
+					(Create New Opportunity)</td>
+			</tr>
+			{{each(i, item) $data}}
+			<tr>
+				<td>${i}</td>
+				<td>${item}</td>
+			</tr>
+			{{/each}}
+		</table>
+	</div>
 
+	<div class="row" id="showConfiguredSites">
+		<h4>The above configuration is applicable to below sites.</h4>
+		<table id="showConfiguredSitesList" class="table table-striped"></table>
+	</div>
 
+	<form class="form-inline">
+		<br />
+		<h4>Credit And Customer Info</h4>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a href="#" onclick="dummyCDWFunc(event)"
+					title="legal info about customer">Customer Legal Info</a>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-1">
+						<label for="name" class="control-label">Name:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="name" class="form-control" id="legalName"
+							placeholder="Best Buy">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="city" class="control-label">City:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="city" class="form-control" id="city"
+							placeholder="New York">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="email" class="control-label">Country:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="country" class="form-control" id="country"
+							placeholder="USA">
+					</div>
+				</div>
+				<div class="row" style="margin-top: 5px;">
+					<div class="col-sm-1">
+						<label for="sAddress" class="control-label">Address:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="address" class="form-control" id="sAddress"
+							placeholder="77 Green Acres Rd S">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="state" class="control-label">State:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="state" class="form-control" id="state"
+							placeholder="New York">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="zipcode" class="control-label">Zipcode:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="zipcode" class="form-control" id="zipcode"
+							placeholder="11581">
+					</div>
+				</div>
+				
+				<div class="row" style="margin-top: 5px;">
+					<div class="col-sm-1">
+						<label for="creditId" class="control-label">Credit Id:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="creditId" placeholder="4734924">(<a href="#" onclick="dummyCDWFunc(event)">Do the credit check</a>)
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class="panel panel-default" style="margin-top: 10px;">
+			<div class="panel-heading">
+				<a href="#" onclick="dummyCDWFunc(event)"
+					title="Contact information of AT&T sales person in nearest region">AT&T
+					Sales Contact Info</a>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-1">
+						<label for="name" class="control-label">Name:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="name" class="form-control" id="salesName"
+							placeholder="JEANINE SHEEHAN">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="city" class="control-label">Country:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="city" class="form-control" id="city"
+							placeholder="USA">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="email" class="control-label">Manager:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="country" class="form-control" id="country"
+							placeholder="David Lang">
+					</div>
+				</div>
+				<div class="row" style="margin-top: 5px;">
+					<div class="col-sm-1">
+						<label for="sAddress" class="control-label">Address:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="address" class="form-control" id="sAddress"
+							placeholder="225 W RANDOLPH ST">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="state" class="control-label">Phone:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="state" class="form-control" id="state"
+							placeholder="484-558-0189">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="zipcode" class="control-label">State:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="zipcode" class="form-control" id="zipcode"
+							placeholder="IL">
+					</div>
+				</div>
+				<div class="row" style="margin-top: 5px;">
+					<div class="col-sm-1">
+						<label for="sAddress" class="control-label">City:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="address" class="form-control" id="sAddress"
+							placeholder="CHICAGO">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="state">Fax:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="state" class="form-control" id="state"
+							placeholder="484-447-8879">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="zipcode" class="control-label">Region:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="zipcode" class="form-control" id="zipcode"
+							placeholder="US">
+					</div>
+				</div>
+			</div>
+		</div>
 
-  <div class="panel panel-default" style="margin-top:10px;">
-  <div class="panel-heading">Customer Contact info</div>
-  <div class="panel-body">
-	<div class="row">
-    <div class="col-sm-1">
-      <label for="name">Name:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="name" class="form-control" id="legalName" placeholder="Daisy Duck">
-    </div>
-	<div class="col-sm-1"></div> 
-    <div class="col-sm-1">
-      <label for="city">City:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="text" class="form-control" id="city" placeholder="MINNEAPOLIS">
-    </div>
-	<div class="col-sm-1"></div>
-	<div class="col-sm-1">
-      <label for="email">Country:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="country" class="form-control" id="country" placeholder="USA">
-    </div>
- 	</div>
-	<div class="row" style="margin-top:5px;">
-    <div class="col-sm-1">
-      <label for="sAddress">Address:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="address" class="form-control" id="sAddress" placeholder="901 MARQUETTE AVE">
-    </div>
-	<div class="col-sm-1"></div> 
-    <div class="col-sm-1">
-      <label for="state">State:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="state" class="form-control" id="state" placeholder="MN">
-    </div>
-	<div class="col-sm-1"></div>
-	<div class="col-sm-1">
-      <label for="zipcode">Zipcode:</label>
-    </div>
-    <div class="col-sm-2">
-      <input type="zipcode" class="form-control" id="zipcode" placeholder="55302">
-    </div>
- 	</div>
-  </div>
-</div>
+		<div class="panel panel-default" style="margin-top: 10px;">
+			<div class="panel-heading">
+				<a href="#" onclick="dummyCDWFunc(event)"
+					title="Your contact information">Customer Contact info</a>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-1">
+						<label for="name" class="control-label">Name:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="name" class="form-control" id="legalName"
+							placeholder="Daisy Duck">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="city" class="control-label">City:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="city"
+							placeholder="MINNEAPOLIS">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="email" class="control-label">Country:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="country" class="form-control" id="country"
+							placeholder="USA">
+					</div>
+				</div>
+				<div class="row" style="margin-top: 5px;">
+					<div class="col-sm-1">
+						<label for="sAddress" class="control-label">Address:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="address" class="form-control" id="sAddress"
+							placeholder="901 MARQUETTE AVE">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="state" class="control-label">State:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="state" class="form-control" id="state"
+							placeholder="MN">
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-1">
+						<label for="zipcode" class="control-label">Zipcode:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="zipcode" class="form-control" id="zipcode"
+							placeholder="55302">
+					</div>
+				</div>
+				<div class="row" style="margin-top: 5px;">
+					<div class="col-sm-1">
+						<label for="state" class="control-label">Phone:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="telephone" class="form-control" id="telephone"
+							placeholder="201-567-2849">
+					</div>
+				</div>				
+			</div>
+		</div>
 
 
 		<div class="row" style="margin-top: 10px;">
 			<div class="col-sm-2">
-				<a href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf " 
-				id="btnSelSolTmpl" class="btn btn-primary btn-block">Preview Contract</a>
+				<a
+					href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf "
+					id="btnSelSolTmpl" class="btn btn-primary btn-block">Preview
+					Contract</a>
 			</div>
 			<div class="col-sm-2">
-				<a href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf " 
-				id="btnGCSolTmpl" class="btn btn-primary btn-block">Generate Contract</a>	
+				<a
+					href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf "
+					id="btnGCSolTmpl" class="btn btn-primary btn-block">Generate
+					Contract</a>
 			</div>
-			<div class="col-sm-offset-6 col-sm-1">
-				<a href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf " 
-				id="btnPrintBottom" class="btn btn-primary btn-block" ><span class="glyphicon glyphicon-print" title="Print Pdf"></span></a>	
+			<div class="col-sm-offset-3 col-sm-1">
+				<a
+					href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf "
+					id="btnPrintBottom" class="btn btn-primary btn-block"><span
+					class="glyphicon glyphicon-print" title="Print Pdf"></span></a>
 			</div>
-			<div class="col-sm-1">
+			<div class="col-sm-2">
 				<input type="button" class="btn btn-primary btn-block"
-					id="btnSelSolTmpl" value="Back" onclick="goBackToStepWizard();">
+					id="btnSelSolTmpl3" value="Back To Design" onclick="displayLastOfferDesignPopup();">
+			</div>			
+			<div class="col-sm-2">
+				<input type="button" class="btn btn-primary btn-block"
+					id="btnSelSolTmpl4" value="Back To Search" onclick="goBackToStepWizard();">
 			</div>
 		</div>
 	</form>
