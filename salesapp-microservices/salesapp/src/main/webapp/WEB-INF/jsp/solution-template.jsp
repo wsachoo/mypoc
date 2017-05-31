@@ -59,6 +59,8 @@
 	src="${contextPath}/js/lib/jquery.bootgrid.min.js"></script>
 <%-- <script type="text/javascript"
 	src="${contextPath}/js/lib/step-wizard.js"></script> --%>
+<script type="text/javascript"
+	src="${contextPath}/js/lib/jquery-bootstrap-modal-steps.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
