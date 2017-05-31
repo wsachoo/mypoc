@@ -495,7 +495,7 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 	graph_data.attr = [];
 	graph_data.datasets.push({});
 	
-	graph_data.datasets[0].backgroundColor = [ "red", "green", "blue", "yellow", "maroon", "magenta", "black", "purple"];
+	graph_data.datasets[0].backgroundColor = [ "green", "#61F047", "#47F0D9", "#47BDF0", "#4773F0", "#8A47F0", "#B347F0", "purple"];
 	graph_data.datasets[0].data = [];
 	
 	$.each(tmpData, function(i, value) {
