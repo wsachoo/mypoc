@@ -1,32 +1,74 @@
 <script>
-
-	var termSelectedByUser = dataToGenContract["term"];
-	$(document).ready(function() {
-		$("#previewContactModal").modalSteps();
-	});
 	
+	var termSelectedByUser = false;
+	$(document).ready(function() {
+	    termSelectedByUser = dataToGenContract["term"];
+	    
+		$("#previewContactModal").modalSteps();
+		
+		$("#hrefContractInfoSection").click(function(e) {
+			e.preventDefault();
+			$('#contractInfoSection')[0].scrollIntoView();
+		});
+		$("#hrefTermInfoSection").click(function(e) {
+			e.preventDefault();
+			$('#termInfoSection')[0].scrollIntoView();
+		});
+		$("#hrefRatesInfoSection").click(function(e) {
+			e.preventDefault();
+			$('#ratesInfoSection')[0].scrollIntoView();
+		});
+		$("#hrefTermsAndConditionsInfoSection").click(function(e) {
+			e.preventDefault();
+			$('#termsAndConditionsInfoSection')[0].scrollIntoView();
+			displayTermsAndConditionsText();
+		});
+
+		$("#hrefCheckoutSection").click(function(e) {
+			e.preventDefault();
+			$('#checkoutInfoSection')[0].scrollIntoView();
+		});
+		
+		$("#btnCheckout").on('click', function() {
+			$('#btnSignAndSubmit').removeAttr("disabled");
+		});
+
+	});
+
 	function dummyCDWFunc(e) {
 		e.preventDefault();
 	}
-	
+
+	function displayTermsAndConditionsText() {
+		if (termSelectedByUser == '12 Months') {
+			$("#liTC12Months").css('display', 'inline');
+		} else if (termSelectedByUser == '24 Months') {
+			$("#liTC24Months").css('display', 'inline');
+		} else if (termSelectedByUser == '36 Months') {
+			$("#liTC36Months").css('display', 'inline');
+		}
+	}
+
 	$(document).ready(function() {
-	    var date = new Date();
+		var date = new Date();
 
-	    var day = date.getDate();
-	    var month = date.getMonth() + 1;
-	    var year = date.getFullYear();
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+		var year = date.getFullYear();
 
-	    if (month < 10) month = "0" + month;
-	    if (day < 10) day = "0" + day;
+		if (month < 10)
+			month = "0" + month;
+		if (day < 10)
+			day = "0" + day;
 
-	    var today = year + "-" + month + "-" + day;       
-	    $("#termStart").attr("placeholder", today);
-	    $("#rateEffDate").attr("placeholder", today);
-	    
-	    $("#rateEffDate").attr("placeholder", today);
-	    
-	    $("#term").attr("placeholder", termSelectedByUser);
-	});	
+		var today = year + "-" + month + "-" + day;
+		$("#termStart").attr("placeholder", today);
+		$("#rateEffDate").attr("placeholder", today);
+
+		$("#rateEffDate").attr("placeholder", today);
+
+		$("#term").attr("placeholder", termSelectedByUser);
+	});
 </script>
 
 <style>
@@ -36,6 +78,10 @@
 	position: absolute;
 	margin-left: 5px;
 }
+  #contractInfoSection, #termInfoSection, #ratesInfoSection, #termsAndConditionsInfoSection, #checkoutInfoSection {padding-top:20px; height:700px; }
+
+.navbar-inverse .navbar-nav > li > a {	color: white;}
+  
 </style>
 
 <div class="container" id="divDispContractData">
@@ -63,7 +109,7 @@
 			<tr>
 				<td>OPPORTUNITY ID</td>
 				<td><a href="#" onclick="dummyCDWFunc(event)">1-67YHJK&nbsp;</a><BR>
-					(<u><a href="#" onclick="dummyCDWFunc(event)">Create New
+					(<u><a href="#" onclick="dummyCDWFunc(event)">Edit
 							Opportunity</a></u>)</td>
 			</tr>
 			{{each(i, item) $data}}
@@ -360,10 +406,27 @@
 			<div class="modal-content">
 				<div class="modal-header" style="text-align:center">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Enter Title Here</h4>
+					<h4 style="margin-top: 25px;">Contract Preview</h4>
+					<nav class="navbar navbar-inverse navbar-fixed-top">
+						<div class="container-fluid" style="background-color: #337ab7;">
+
+							<div>
+								<div class="collapse navbar-collapse" id="myNavbar" style="background-color: #337ab7;">
+									<ul class="nav navbar-nav">
+										<li><a href="#" id="hrefContractInfoSection">Contract</a></li>
+										<li><a href="#" id="hrefTermInfoSection">Term</a></li>
+										<li><a href="#" id="hrefRatesInfoSection">Rates</a></li>
+										<li><a href="#" id="hrefTermsAndConditionsInfoSection">Terms & Conditions</a></li>
+										<li><a href="#" id="hrefCheckoutSection">Order Checkout</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</nav>
 				</div>
 				<div class="modal-body">
-						<div class="well">
+						<div id="contractInfoSection">
+						
 							<form class="form-horizontal">
 								<div class="panel panel-default">
 									<div class="panel-heading">Customer Legal Info</div>
@@ -590,7 +653,7 @@
 							</form>
 						</div>
 
-						<div class="well">
+						<div id="termInfoSection">
 							<form class="form-horizontal">
 								<div class="panel panel-default">
 									<div class="panel-heading">Term Info</div>
@@ -664,65 +727,114 @@
 							</form>
 						</div>
 	
-						<div class="well">
-
+						<div id="ratesInfoSection">
+						
 							<form class="form-horizontal">
-								<div class="panel panel-default">
-									<div class="panel-heading">Rates Info</div>
-									<div class="panel-body">
-<!-- 										<div class="row">
-											<div class="col-sm-1">
-												<label for="term">Product:</label>
-											</div>
-											<div class="col-sm-2">
-												<label for="product">MIS Express</label>
-											</div>
-											<div class="col-sm-offset-8 col-sm-1">
-												<label for="term">Rates</label>
-											</div>
- 										</div>
- -->										<div class="row" style="margin-top: 5px;">
+								
+									<h4>Rates Info</h4>
+										<div class="row" style="margin-top: 5px;">
 											<table class="table table-striped">
 												<tr>
-													<th>Product: MIS Express</th>
-													<th>Rate</th>
+													<th>MIS Speed</th>
+													<th>Undiscounted MIS w/ Managed Router Only Installation Fee</th>
 												</tr>
 												<tr>
-													<td>MIS HiCap Flex Port Ethernet Incremental Usage</td>
-													<td>50</td>
+													<td>56 Kbps</td>
+													<td>$999</td>
 												</tr>
 												<tr>
-													<td>MIS HiCap Flex Port Ethernet Commitment 0.5 - 1000
-														Mbps</td>
-													<td>33</td>
+													<td>128 Kbps - 1.5 Mbps</td>
+													<td>$999</td>
 												</tr>
 												<tr>
-													<td>MPLS Managed Enhanced Reports 56K</td>
-													<td>11</td>
+													<td>NxT-1</td>
+													<td>$999</td>
 												</tr>
 												<tr>
-													<td>MIS Tele Installation</td>
-													<td>0</td>
+													<td>Tiered/Full T-3</td>
+													<td>$1,000</td>
 												</tr>
 												<tr>
-													<td>MIS On-Site Installation</td>
-													<td>100</td>
+													<td>Tiered OC-3, OC-12, OC-48</td>
+													<td>$10,000</td>
+												</tr>
+												<tr>
+													<td>Ethernet</td>
+													<td>$1,500*</td>
+												</tr>
+												<tr>
+													<td>10 Gig Ethernet and up</td>
+													<td>$1,500</td>
+												</tr>
+												<tr>
+													<td>Nx10Gig Ethernet</td>
+													<td>$3,500</td>
 												</tr>
 											</table>
 										</div>
-									</div>
-								</div>
+									
 							</form>
 						</div>
-	
-			   </div>
+
+					<div id="termsAndConditionsInfoSection">
+						<form class="form-horizontal">
+							<h4>Terms and Conditions</h4>
+							<div class="row" style="margin-top: 5px;">
+								<ul id="txtTandC">
+									<li id="liTC12Months" style="display: none;">AT&T may discontinue a Service or Service Component as
+										provided in the applicable Service Guide and in the case of a
+										Service or Service Component that is supplied to AT&T by a
+										third party service provider upon thirty (30) days written
+										notice. Test 12 Months
+									</li>
+									<li id="liTC24Months" style="display: none;">AT&T may discontinue a Service or Service Component as
+										provided in the applicable Service Guide and in the case of a
+										Service or Service Component that is supplied to AT&T by a
+										third party service provider upon thirty (30) days written
+										notice. Test 24 Months
+									</li>
+									<li id="liTC36Months" style="display: none;">AT&T may discontinue a Service or Service Component as
+										provided in the applicable Service Guide and in the case of a
+										Service or Service Component that is supplied to AT&T by a
+										third party service provider upon thirty (30) days written
+										notice. Test 36 Months.
+									</li>
+								</ul>
+							</div>
+						</form>
+					</div>
+
+					<div id="checkoutInfoSection">
+						<form class="form-horizontal">
+							<div class="row">
+								<ul>
+									<li>Please click on Add to Cart to add existing order to your cart.</li>
+									<li>Please click on checkout to sign the contract.</li>
+									<li>Please click on Sign and Submit button once you have signed the contract.</li>
+								</ul>
+							</div>
+							
+							<div class="row col-sm-offset-1" style="margin-top: 5px;">
+								<div class="col-sm-4">
+									<button type="button" class="btn btn-primary" data-dismiss="modal" id="btnAddToCart">Add To Cart</button>
+								</div>
+								<div class="col-sm-4">
+									<button type="button" class="btn btn-primary" id="btnCheckout">Checkout</button>
+								</div>
+								<div class="col-sm-4">
+									<button type="button" class="btn btn-primary" id="btnSignAndSubmit" disabled="disabled">Sign And Submit</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
 				<div class="modal-footer" style="text-align:center" id="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
 	</div>
- 
+ </div>
 	<!-- Modal -->
 <!-- 	<div class="modal fade" id="generateContactModal" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -1089,4 +1201,4 @@
 			</div>
 		</div>
 	</div>
- --></div>
+ -->
