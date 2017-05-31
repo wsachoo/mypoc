@@ -1,0 +1,97 @@
+[1mdiff --git a/salesapp-microservices/salesapp/src/main/resources/static/js/lib/jquery-bootstrap-modal-steps.js b/salesapp-microservices/salesapp/src/main/resources/static/js/lib/jquery-bootstrap-modal-steps.js[m
+[1mindex 54325dc..88d2139 100644[m
+[1m--- a/salesapp-microservices/salesapp/src/main/resources/static/js/lib/jquery-bootstrap-modal-steps.js[m
+[1m+++ b/salesapp-microservices/salesapp/src/main/resources/static/js/lib/jquery-bootstrap-modal-steps.js[m
+[36m@@ -9,7 +9,7 @@[m
+             btnPreviousHtml: 'Previous',[m
+             btnNextHtml: 'Next',[m
+             btnLastStepHtml: 'Complete',[m
+[31m-            disableNextButton: false,[m
+[32m+[m[32m            disableButton: false,[m
+             completeCallback: function(){},[m
+             callbacks: {}[m
+         }, options);[m
+[36m@@ -44,7 +44,7 @@[m
+                 var $modalFooter = $modal.find('.modal-footer'),[m
+                     $btnCancel = $modalFooter.find('.js-btn-step[data-orientation=cancel]'),[m
+                     $btnPrevious = $modalFooter.find('.js-btn-step[data-orientation=previous]'),[m
+[31m-                    $btnNext = $modalFooter.find('.js-btn-step[data-orientation=next]'),[m
+[32m+[m[32m                    $btnNext = $modalFooter.find('.js-btn-step[data-orientation=]'),[m
+                     stepCallback = settings.callbacks['1'],[m
+                     actualStep,[m
+                     $actualStep,[m
+[36m@@ -96,7 +96,7 @@[m
+             })[m
+             .on('hidden.bs.modal', function(){[m
+                 var $actualStep = $modal.find('#actual-step'),[m
+[31m-                    $btnNext = $modal.find('.js-btn-step[data-orientation=next]');[m
+[32m+[m[32m                    $btnNext = $modal.find('.js-btn-step[data-orientation=]');[m
+ [m
+                 $modal[m
+                     .find('[data-step]')[m
+[36m@@ -118,7 +118,7 @@[m
+             var $btn = $(this),[m
+                 $actualStep = $modal.find('#actual-step'),[m
+                 $btnPrevious = $modal.find('.js-btn-step[data-orientation=previous]'),[m
+[31m-                $btnNext = $modal.find('.js-btn-step[data-orientation=next]'),[m
+[32m+[m[32m                $btnNext = $modal.find('.js-btn-step[data-orientation=]'),[m
+                 $title = $modal.find('.js-title-step'),[m
+                 orientation = $btn.data('orientation'),[m
+                 actualStep = parseInt($actualStep.val()),[m
+[36m@@ -144,7 +144,7 @@[m
+             }[m
+ [m
+             // Check the orientation to make logical operations with actualStep/nextStep[m
+[31m-            if (orientation === 'next'){[m
+[32m+[m[32m            if (orientation === ''){[m
+                 nextStep = actualStep + 1;[m
+ [m
+                 $btnPrevious.attr('data-step', actualStep);[m
+[36m@@ -199,10 +199,10 @@[m
+                 $btnNext.removeAttr('disabled');[m
+             }[m
+ [m
+[31m-            // Get the next step[m
+[32m+[m[32m            // Get the  step[m
+             $nextStep = $modal.find('[data-step=' + nextStep + ']');[m
+ [m
+[31m-            // Verify if we need to unlock continue btn of the next step[m
+[32m+[m[32m            // Verify if we need to unlock continue btn of the  step[m
+             if ($nextStep.attr('data-unlock-continue')){[m
+                 $btnNext.removeAttr('disabled');[m
+             }[m
+[1mdiff --git a/salesapp-microservices/salesapp/src/main/resources/static/templates/contract_data_wizard.html b/salesapp-microservices/salesapp/src/main/resources/static/templates/contract_data_wizard.html[m
+[1mindex cb907d4..ab132ef 100644[m
+[1m--- a/salesapp-microservices/salesapp/src/main/resources/static/templates/contract_data_wizard.html[m
+[1m+++ b/salesapp-microservices/salesapp/src/main/resources/static/templates/contract_data_wizard.html[m
+[36m@@ -2,9 +2,25 @@[m
+ 	$(document).ready(function() {[m
+ 		$("#generateContactModal").modalSteps();[m
+ 	});[m
+[32m+[m[41m	[m
+ 	function dummyCDWFunc(e) {[m
+ 		e.preventDefault();[m
+ 	}[m
+[32m+[m[41m	[m
+[32m+[m	[32m$(document).ready(function() {[m
+[32m+[m	[32m    var date = new Date();[m
+[32m+[m
+[32m+[m	[32m    var day = date.getDate();[m
+[32m+[m	[32m    var month = date.getMonth() + 1;[m
+[32m+[m	[32m    var year = date.getFullYear();[m
+[32m+[m
+[32m+[m	[32m    if (month < 10) month = "0" + month;[m
+[32m+[m	[32m    if (day < 10) day = "0" + day;[m
+[32m+[m
+[32m+[m	[32m    var today = year + "-" + month + "-" + day;[m[41m       [m
+[32m+[m	[32m    $("#termStart").attr("placeholder", today);[m
+[32m+[m	[32m    $("#rateEffDate").attr("placeholder", today);[m
+[32m+[m	[32m});[m[41m	[m
+ </script>[m
+ [m
+ <style>[m
+[36m@@ -708,4 +724,3 @@[m
+ 		</div>[m
+ 	</div>[m
+ </div>[m
+[31m-[m
