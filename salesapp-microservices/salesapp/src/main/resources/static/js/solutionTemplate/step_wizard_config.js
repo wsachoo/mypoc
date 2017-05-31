@@ -383,7 +383,8 @@ function displaySelectedRowModal(url, matchPercentage) {
 	$("body").find("#displaySelectedRowModal").remove();
 	var DATA = {};
 	//var objectKeysArray = ["bundleCd", "accessSpeed", "portType", "accessService", "ipVersionLabel", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed",  "managedRouter", "designName", "protocol",  "tailTechnology", "ratePlan"];
-	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc", "SUCCESS RATIO"];
+	//var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc", "SUCCESS RATIO"];
+	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc"];
 	//var objectKeysArray = ["accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc"];
 	//remove routingProtocol from the above objectKeysArray 5/10/2017
 	$.each(objectKeysArray, function(k, value) {

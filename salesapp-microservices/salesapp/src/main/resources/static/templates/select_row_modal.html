@@ -1,5 +1,16 @@
 <script>
+	var blnBvoipNeeded = false;
 	$(document).ready(function() {
+		blnBvoipNeeded = false;
+		
+		$("#bvoipNeeded").click(function () {
+		    if ($(this).prop('checked')) {
+		    	blnBvoipNeeded = true;
+		    } else {
+		    	blnBvoipNeeded = false;
+		    }
+		});
+
 		/*
 		 * This function will be called only when user has selected 250MBPS, MIS Express and 36 Months Term period.
 		 * On this selection the system will recommend user wuth VVB Express product with same 250MPBS speed with term period of 36 months.
@@ -102,6 +113,11 @@
 								{{/if}}	
 							{{/if}}	
 						{{/each}}
+						
+						<tr>
+							<td>BVOIP Needed</td>
+							<td><input type="checkbox" name="bvoipNeeded" id="bvoipNeeded"></td>
+						</tr>						
 					</table>
 					
 <!--  					<hr>
