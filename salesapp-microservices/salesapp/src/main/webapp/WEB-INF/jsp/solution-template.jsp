@@ -122,8 +122,7 @@
 					
 					<div class="row sachbottommenu">
 						<div class="col-sm-11 sachfootermenuitem" id="divFooterMessage">
-							Need to apply an access and port speed to all sites before moving
-							on</div>
+							Sales Historical Data Based On Success Ratio</div>
 						<div class="col-sm-1 sachfootermenuitem">
 							<a href="#" id="open-Chat"></a>
 						</div>
