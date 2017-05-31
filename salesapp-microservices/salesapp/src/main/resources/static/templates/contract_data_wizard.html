@@ -1,6 +1,8 @@
 <script>
+
+	var termSelectedByUser = dataToGenContract["term"];
 	$(document).ready(function() {
-		$("#generateContactModal").modalSteps();
+		$("#previewContactModal").modalSteps();
 	});
 	
 	function dummyCDWFunc(e) {
@@ -20,6 +22,10 @@
 	    var today = year + "-" + month + "-" + day;       
 	    $("#termStart").attr("placeholder", today);
 	    $("#rateEffDate").attr("placeholder", today);
+	    
+	    $("#rateEffDate").attr("placeholder", today);
+	    
+	    $("#term").attr("placeholder", termSelectedByUser);
 	});	
 </script>
 
@@ -35,10 +41,10 @@
 <div class="container" id="divDispContractData">
 	<div class="row">
 		<div class="col-sm-offset-7 col-sm-1">
-			<a
+<!-- 			<a
 				href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf "
 				id="btnPrintTop" class="btn btn-primary btn-block"><span
-				class="glyphicon glyphicon-print" title="Print Pdf"></span></a>
+				class="glyphicon glyphicon-print" title="Print Pdf"></span></a> -->
 		</div>
 		<div class="col-sm-2">
 			<input type="button" class="btn btn-primary btn-block"
@@ -300,26 +306,27 @@
 
 
 		<div class="row" style="margin-top: 10px;">
-			<div class="col-sm-2">
+<!-- 			<div class="col-sm-2">
 				<a
 					href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf "
 					id="btnSelSolTmpl" class="btn btn-primary btn-block">Preview
 					Contract</a>
 			</div>
-			<div class="col-sm-2">
+ -->		<div class="col-sm-2">
 				<!-- <a
 					href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf "
 					id="btnGCSolTmpl" class="btn btn-primary btn-block">Generate
 					Contract</a> -->
 				<button class="btn btn-primary btn-block" type="button"
-					data-target="#generateContactModal" data-toggle="modal"
-					data-backdrop="static">Generate Contract</button>
+					data-target="#previewContactModal" data-toggle="modal"
+					data-backdrop="static">Preview Contract</button>
 			</div>
+			<div class="col-sm-2"></div>
 			<div class="col-sm-offset-3 col-sm-1">
-				<a
+<!-- 				<a
 					href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf "
 					id="btnPrintBottom" class="btn btn-primary btn-block"><span
-					class="glyphicon glyphicon-print" title="Print Pdf"></span></a>
+					class="glyphicon glyphicon-print" title="Print Pdf"></span></a> -->
 			</div>
 			<div class="col-sm-2">
 				<input type="button" class="btn btn-primary btn-block"
@@ -339,7 +346,7 @@
 
 
 <div class="container">
-	 	<div class="modal fade" id="generateContactModal" role="dialog">
+	 	<div class="modal fade" id="previewContactModal" role="dialog">
 		<div class="modal-dialog"  style="width: 60%">
 			Modal content
 			<div class="modal-content">
@@ -568,11 +575,8 @@
 												<label for="term">Term:</label>
 											</div>
 											<div class="col-sm-3">
-												<select class="form-control" id="term">
-													<option value="12 Months">12 Months</option>
-													<option value="24 Months">24 Months</option>
-													<option value="36 Months">36 Months</option>
-												</select>
+												<input type="text" class="form-control" id="term"
+													placeholder="">											
 											</div>
 											<div class="col-sm-2"></div>
 											<div class="col-sm-2">
