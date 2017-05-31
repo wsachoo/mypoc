@@ -686,6 +686,8 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 			    		var vbb250mbpsUrl = SALESEXPRESS_CONSTANTS.getUrlPath("VVB_250MBPS_URL");
 			    		var vvb250mbpsMatchPercentage = "12.43%";
 			    		$("#dispRowSelectModal .close").click();
+			    		try { $("div.modal-backdrop").remove(); } catch(ex) {}
+			    		setCameHereFromRecommendation();
 			    		displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage);
 			    	}
 			    }
@@ -698,3 +700,15 @@ function setCameHereFromRecommendation() {
 	blnCameHereFromRecommendation = true;
 }
 var blnCameHereFromRecommendation = false;
+
+
+function executeOnClickOfGenerateContract() {
+	
+	var templatePath = contextPath + "/templates/simplepopup.html";
+	var modalTemplate = getTemplateDefinition(templatePath);
+	$.template("simplepopup", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("simplepopup", {});
+	$("body").find("#displaySelectedRowModal").remove();
+	$('body').append(modalTemplateToDisplay);
+	$("#simplePopupModalButton").trigger('click');
+}

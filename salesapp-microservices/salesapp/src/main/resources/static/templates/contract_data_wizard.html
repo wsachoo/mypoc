@@ -1,9 +1,6 @@
-<!-- 
-	<script lang="text/javascript" src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
- -->
 <script>
 	$(document).ready(function() {
-
+		$("#generateContactModal").modalSteps();
 	});
 	function dummyCDWFunc(e) {
 		e.preventDefault();
@@ -11,12 +8,12 @@
 </script>
 
 <style>
-	.control-label:after {
-	 color: #d00;
-     content: "*";
-     position: absolute;
-     margin-left: 5px;
-	}
+.control-label:after {
+	color: #d00;
+	content: "*";
+	position: absolute;
+	margin-left: 5px;
+}
 </style>
 
 <div class="container" id="divDispContractData">
@@ -29,11 +26,13 @@
 		</div>
 		<div class="col-sm-2">
 			<input type="button" class="btn btn-primary btn-block"
-				id="btnSelSolTmpl" value="Back To Design" onclick="displayLastOfferDesignPopup();">
+				id="btnSelSolTmpl" value="Back To Design"
+				onclick="displayLastOfferDesignPopup();">
 		</div>
 		<div class="col-sm-2">
 			<input type="button" class="btn btn-primary btn-block"
-				id="btnSelSolTmpl2" value="Back To Search" onclick="goBackToStepWizard();">
+				id="btnSelSolTmpl2" value="Back To Search"
+				onclick="goBackToStepWizard();">
 		</div>
 	</div>
 	<div class="row">
@@ -41,8 +40,9 @@
 		<table class="table table-striped">
 			<tr>
 				<td>OPPORTUNITY ID</td>
-				<td><a href="#" onclick="dummyCDWFunc(event)">1-67YHJK</a>&nbsp;
-					(Create New Opportunity)</td>
+				<td><a href="#" onclick="dummyCDWFunc(event)">1-67YHJK&nbsp;</a><BR>
+					(<u><a href="#" onclick="dummyCDWFunc(event)">Create New
+							Opportunity</a></u>)</td>
 			</tr>
 			{{each(i, item) $data}}
 			<tr>
@@ -58,9 +58,7 @@
 		<table id="showConfiguredSitesList" class="table table-striped"></table>
 	</div>
 
-	<form class="form-inline">
-		<br />
-		<h4>Credit And Customer Info</h4>
+	<form class="form-horizontal">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<a href="#" onclick="dummyCDWFunc(event)"
@@ -117,16 +115,18 @@
 							placeholder="11581">
 					</div>
 				</div>
-				
+
 				<div class="row" style="margin-top: 5px;">
 					<div class="col-sm-1">
 						<label for="creditId" class="control-label">Credit Id:</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="creditId" placeholder="4734924">(<a href="#" onclick="dummyCDWFunc(event)">Do the credit check</a>)
+						<input type="text" class="form-control" id="creditId"
+							placeholder="4734924">(<a href="#"
+							onclick="dummyCDWFunc(event)">Do the credit check</a>)
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 		<div class="panel panel-default" style="margin-top: 10px;">
@@ -278,7 +278,7 @@
 						<input type="telephone" class="form-control" id="telephone"
 							placeholder="201-567-2849">
 					</div>
-				</div>				
+				</div>
 			</div>
 		</div>
 
@@ -291,10 +291,13 @@
 					Contract</a>
 			</div>
 			<div class="col-sm-2">
-				<a
+				<!-- <a
 					href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf "
 					id="btnGCSolTmpl" class="btn btn-primary btn-block">Generate
-					Contract</a>
+					Contract</a> -->
+				<button class="btn btn-primary btn-block" type="button"
+					data-target="#generateContactModal" data-toggle="modal"
+					data-backdrop="static">Generate Contract</button>
 			</div>
 			<div class="col-sm-offset-3 col-sm-1">
 				<a
@@ -304,12 +307,405 @@
 			</div>
 			<div class="col-sm-2">
 				<input type="button" class="btn btn-primary btn-block"
-					id="btnSelSolTmpl3" value="Back To Design" onclick="displayLastOfferDesignPopup();">
-			</div>			
+					id="btnSelSolTmpl3" value="Back To Design"
+					onclick="displayLastOfferDesignPopup();">
+			</div>
 			<div class="col-sm-2">
 				<input type="button" class="btn btn-primary btn-block"
-					id="btnSelSolTmpl4" value="Back To Search" onclick="goBackToStepWizard();">
+					id="btnSelSolTmpl4" value="Back To Search"
+					onclick="goBackToStepWizard();">
 			</div>
 		</div>
 	</form>
 </div>
+
+
+
+
+<div class="container">
+	<!-- 	<div class="modal fade" id="generateContactModal" role="dialog">
+		<div class="modal-dialog" style="left:-7.0%;">
+			Modal content
+			<div class="modal-content" style="width:800px;">
+				<div class="modal-header" style="text-align:center">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Enter Title Here</h4>
+				</div>
+				<div class="modal-body">
+					<h4>Enter Body and Prev Next functionality here.</h4>
+			   </div>
+				<div class="modal-footer" style="text-align:center" id="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+ -->
+	<!-- Modal -->
+	<div class="modal fade" id="generateContactModal" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 60%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="js-title-step"></h4>
+				</div>
+				<div class="modal-body">
+					<div class="row hide" data-step="1"
+						data-title="Contract Generation Wizard">
+						<div class="well">
+							<form class="form-horizontal">
+								<div class="panel panel-default">
+									<div class="panel-heading">Customer Legal Info</div>
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-sm-1">
+												<label for="name">Name:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="legalName"
+													placeholder="Best Buy">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="city">City:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="city"
+													placeholder="New York">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="email">Country:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="country"
+													placeholder="USA">
+											</div>
+										</div>
+										<div class="row" style="margin-top: 5px;">
+											<div class="col-sm-1">
+												<label for="sAddress">Address:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="sAddress"
+													placeholder="77 Green Acres Rd S">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="state">State:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="state"
+													placeholder="New York">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="zipcode">Zipcode:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="zipcode"
+													placeholder="11581">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default" style="margin-top: 10px;">
+									<div class="panel-heading">AT&T Sales Contact Info</div>
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-sm-1">
+												<label for="name">Name:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="salesName"
+													placeholder="JEANINE SHEEHAN">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="city">Country:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="city"
+													placeholder="USA">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="email">Manager:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="country"
+													placeholder="David Lang">
+											</div>
+										</div>
+										<div class="row" style="margin-top: 5px;">
+											<div class="col-sm-1">
+												<label for="sAddress">Address:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="sAddress"
+													placeholder="225 W RANDOLPH ST">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="state">Telephone:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="state"
+													placeholder="484-558-0189">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="zipcode">State:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="zipcode"
+													placeholder="IL">
+											</div>
+										</div>
+										<div class="row" style="margin-top: 5px;">
+											<div class="col-sm-1">
+												<label for="sAddress">City:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="sAddress"
+													placeholder="CHICAGO">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="state">Fax:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="state"
+													placeholder="484-447-8879">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="zipcode">Region:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="zipcode"
+													placeholder="US">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default" style="margin-top: 10px;">
+									<div class="panel-heading">Customer Contact info</div>
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-sm-1">
+												<label for="name">Name:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="legalName"
+													placeholder="Daisy Duck">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="city">City:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="city"
+													placeholder="MINNEAPOLIS">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="email">Country:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="country"
+													placeholder="USA">
+											</div>
+										</div>
+										<div class="row" style="margin-top: 5px;">
+											<div class="col-sm-1">
+												<label for="sAddress">Address:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="sAddress"
+													placeholder="901 MARQUETTE AVE">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="state">State:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="state"
+													placeholder="MN">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="zipcode">Zipcode:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="zipcode"
+													placeholder="55302">
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="modal-header" style="text-align: left">
+									<h4>Service Info</h4>
+
+									<div class="panel panel-default" style="margin-top: 10px;">
+										<div class="panel-body">
+											<div class="row">
+												<div class="col-sm-1">
+													<label for="pname">Products:</label>
+												</div>
+												<div class="col-sm-2">
+													<label for="product">MIS Express</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+
+					</div>
+					<div class="row hide" data-step="2"
+						data-title="Contract Generation Wizard">
+						<div class="well">
+							<form class="form-horizontal">
+								<div class="panel panel-default">
+									<div class="panel-heading">Term Info</div>
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-sm-1">
+												<label for="term">Term:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="term"
+													placeholder="12 Months">
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label for="termStart">Term Start:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="termStart"
+													placeholder="New York">
+											</div>
+										</div>
+										<div class="row" style="margin-top: 5px;">
+											<div class="col-sm-1">
+												<label for="rateEffDate">Rate Effective Date:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="rateEffDate"
+													placeholder="225 W RANDOLPH ST">
+											</div>
+											<!-- <div class="col-sm-1"></div> 
+					    <div class="col-sm-1">
+					      <label for="renewal">Renewal:</label>
+					    </div>
+					    <div class="col-sm-2">
+					      <input type="text" class="form-control" id="renewal" placeholder="484-558-0189">
+					    </div> -->
+										</div>
+									</div>
+								</div>
+
+								<br />
+								<div class="panel panel-default">
+									<div class="panel-heading">MARC Info</div>
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-sm-1">
+												<label for="name">MARC:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="marc"
+													placeholder="Enter MARC">
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<br />
+								<div class="panel panel-default">
+									<div class="panel-heading">Credits Info</div>
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-sm-1">
+												<label for="credits">Credits:</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="credits"
+													placeholder="Enter Credits">
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="row hide" data-step="3"
+						data-title="Contract Generation Wizard">
+						<div class="well">
+
+							<form class="form-horizontal">
+								<div class="panel panel-default">
+									<div class="panel-heading">Rates Info</div>
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-sm-1">
+												<label for="term">Product:</label>
+											</div>
+											<div class="col-sm-2">
+												<label for="product">MIS Express</label>
+											</div>
+										</div>
+										<div class="row" style="margin-top: 5px;">
+											<div class="col-sm-1">
+												<label for="term">Rates:</label>
+											</div>
+											<table class="table table-striped">
+												<tr>
+													<td>MIS HiCap Flex Port Ethernet Incremental Usage</td>
+													<td>50</td>
+												</tr>
+												<tr>
+													<td>MIS HiCap Flex Port Ethernet Commitment 0.5 - 1000
+														Mbps</td>
+													<td>33</td>
+												</tr>
+												<tr>
+													<td>MPLS Managed Enhanced Reports 56K</td>
+													<td>11</td>
+												</tr>
+												<tr>
+													<td>MIS Tele Installation</td>
+													<td>0</td>
+												</tr>
+												<tr>
+													<td>MIS On-Site Installation</td>
+													<td>100</td>
+												</tr>
+											</table>
+										</div>
+
+									</div>
+								</div>
+
+							</form>
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default js-btn-step pull-left"
+						data-orientation="cancel" data-dismiss="modal"></button>
+					<button type="button" class="btn btn-warning js-btn-step"
+						data-orientation="previous"></button>
+					<button type="button" class="btn btn-success js-btn-step"
+						data-orientation="next"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
