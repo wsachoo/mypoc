@@ -42,6 +42,8 @@
 			$("#myNavbar").find("ul > li > a").css('background-color','#337ab7 ');
 			$(this).css('background-color','#3399ff ');
 		});
+		
+		changeTandCHeader(blnBvoipNeeded);
 	});
 
 	function dummyCDWFunc(e) {
@@ -55,6 +57,20 @@
 			$("#liTC24Months").css('display', 'inline');
 		} else if (termSelectedByUser == '36 Months') {
 			$("#liTC36Months").css('display', 'inline');
+		}
+	}
+	
+	function changeTandCHeader(blnBvoipNeeded) {
+		if(blnBvoipNeeded) {
+			$("#divBVOIPTandC").css('display','inline');
+			$("#divMISTandC").css('display','none');
+			$("#termsAndConditionsInfoSection").find('h4').html('BVOIP Terms and Conditions');
+			
+		}
+		else {
+			$("#divMISTandC").css('display','inline');
+			$("#divBVOIPTandC").css('display','none');
+			$("#termsAndConditionsInfoSection").find('h4').html('MIS Terms and Conditions');
 		}
 	}
 
@@ -744,6 +760,8 @@
 							<form class="form-horizontal">
 								
 									<h4>Rates Info</h4>
+									<h5>On-Site Installation</h5>
+									<h5>Discount: 50%</h5>
 										<div class="row" style="margin-top: 5px;">
 											<table class="table table-striped">
 												<tr>
@@ -791,7 +809,7 @@
 					<div id="termsAndConditionsInfoSection">
 						<form class="form-horizontal">
 							<h4>Terms and Conditions</h4>
-							<div class="row" style="margin-top: 5px;">
+							<div class="row" style="margin-top: 5px;" id="divMISTandC">
 								<ul id="txtTandC">
 									<li id="liTC12Months" style="display: none;">AT&T may discontinue a Service or Service Component as
 										provided in the applicable Service Guide and in the case of a
@@ -810,6 +828,37 @@
 										Service or Service Component that is supplied to AT&T by a
 										third party service provider upon thirty (30) days written
 										notice. Test 36 Months.
+									</li>
+								</ul>
+							</div>
+							<div class="row" style="margin-top: 5px;" id="divBVOIPTandC">
+								<ul id="txtTandC">
+									
+									<li><strong>Emergency Calling Most of World</strong> <br>
+										At or before Service activation at a Most of World Site with outbound BVoIP calling, Customer certifies it has and agrees to
+										continuously keep individual business lines and other appropriate facilities with a local service provider or other provider
+										capable of, and responsible for, providing Customer access to three-digit emergency dialing services, if AT&T does not provide
+										emergency dialing service and for as long as AT&T provides outbound BVoIP service to that Site. Customer is responsible to
+										ensure that all calls to these emergency dialing service numbers are routed over appropriate facilities to ensure completion
+										provided by that local service provider, or other provider. Customer agrees to indemnify and defend AT&T from and against any
+										and all third-party claims and related loss, liability, damage and expense, arising from Customer's failure to perform Customer's
+										obligations outlined in this Section. AT&T's provisioning of outbound BVoIP service is conditioned upon Customer's full
+										compliance with these obligations, and failure to do so is a material breach of this Agreement.
+									</li>
+									<li><strong>White Pages, Yellow Pages, Directory Assistance</strong><br>
+									White Pages, Yellow Pages and Directory Assistance database listings are subject to (1) rules, regulations, guidelines and requirements of
+									Business Directory Publishers and Directory Assistance providers, including but not limited to AT&T Affiliates, relating to the information
+									which may, may not or must be included in listings, and (2) federal, state and local laws, ordinances and regulations, including those relating
+									to deceptive practices and deceptive advertising. Customer (not AT&T) is solely responsible for complying with (1) and (2). If Customer
+									supplies information to AT&T that, according to the Business Directory Publisher or Directory Assistance provider or otherwise, violates (1) or
+									does or may violate (2), Customer understands that its listing information may, without advance notice, be rejected or removed from White
+									Pages, Yellow Pages and Directory Assistance databases, and Customer will indemnify and hold AT&T and its Affiliates harmless from any and all losses, 
+									liability, damages, fines, claims, costs or expenses (including attorneys’ fees) of any kind, suffered by AT&T, by any AT&T
+									Affiliate, by Customer or by any third party as a result of Customer’s breach of its obligation.
+									</li>
+									<li><strong> Broadband Connectivity</strong> <br>
+									This Pricing Schedule does not include transport necessary for the provision of AT&T Flexible Reach Service Over Any Transport. Customer
+									must obtain broadband connectivity separately under an AT&T or third-party contract.
 									</li>
 								</ul>
 							</div>
