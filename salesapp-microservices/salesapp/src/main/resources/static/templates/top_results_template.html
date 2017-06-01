@@ -10,6 +10,37 @@
 
 	
 	{{each(i, item) data["DATA"]}}
+	{{if i == 0}}
+	<div class="col-sm-4">
+		<div class="jumbotron" style="background-color: #FDB45C; color: white; height: 275px;">
+			<div class="row">
+				<div class="col-sm-8 col-sm-offset-2"
+					style="background-color: #337ab7">
+					<h4>$${data["DATA"][i]["mrc"]}/mo</h4>
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-sm-12">${data["DATA"][i]["bundleCd"]}</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">$${data["DATA"][i]["nrc"]} of OTC</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">${data["DATA"][i]["portSpeed"]} speed</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">${data["DATA"][i]["managedRouter"]}</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-sm-8 col-sm-offset-2">
+					<input link="${data['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" matchPercentage="${data['DATA'][i]['matchPercentage']}" class="btn btn-primary btn-block" value="View Offer Details">
+				</div>
+			</div>
+		</div>
+	</div>
+	{{else}}
 	<div class="col-sm-4">
 		<div class="jumbotron" style="background-color: #5bc0de; color: white; height: 275px;">
 			<div class="row">
@@ -39,5 +70,7 @@
 			</div>
 		</div>
 	</div>
+	
+	{{/if}}
 	{{/each}}
 
