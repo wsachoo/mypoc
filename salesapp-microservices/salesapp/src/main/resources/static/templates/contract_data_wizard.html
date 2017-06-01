@@ -1,5 +1,7 @@
 <script>
 	var termSelectedByUser = false;
+	
+	var isProductCheckedOut = false;
 
 	function executeOnCustomize() {
 		$("#previewContactModal .close").click();
@@ -50,6 +52,23 @@
 		});
 		
 		changeTandCHeader(blnBvoipNeeded);
+		
+		$("#shoppingcart").click(function(e) {
+			e.preventDefault();
+		});
+		
+		
+		$("#btnAddToCart").click(function() {
+			isProductCheckedOut = true;
+			$("#shoppingcart").css("pointer-events", "all");
+		});
+		
+		if (isProductCheckedOut) {
+			$("#shoppingcart").css("pointer-events", "all");
+		}
+		else {
+			$("#shoppingcart").css("pointer-events", "none");
+		}
 	});
 
 	function dummyCDWFunc(e) {
@@ -120,7 +139,7 @@
 
 <div class="container" id="divDispContractData">
 	<div class="row">
-		<div class="col-sm-offset-7 col-sm-1">
+		<div class="col-sm-offset-6 col-sm-1">
 <!-- 			<a
 				href="http://zlt04183.vci.att.com:7007/sce_clsdoc/sce_docdownload.jsp?&file=/opt/app/archive/SSDF/CustomLanguageSupport/Contract_Output/PANBI3525514_2.pdf "
 				id="btnPrintTop" class="btn btn-primary btn-block"><span
@@ -136,6 +155,12 @@
 				id="btnSelSolTmpl2" value="Back To Search"
 				onclick="goBackToStepWizard();">
 		</div>
+		<div class="col-sm-1">
+		    <a href="#" class="btn btn-default btn-block" id="shoppingcart">
+          		<span class="glyphicon glyphicon-shopping-cart"></span> Cart
+        	</a>
+        </div>
+        
 	</div>
 	<div class="row">
 		<h4>Opportunity Info</h4>
