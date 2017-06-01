@@ -39,10 +39,16 @@
 		
 		$("#btnCheckout").on('click', function() {
 			$('#btnSignAndSubmit').removeAttr("disabled");
+									
 		});
 		
 		$("#btnSignAndSubmit").on('click', function() {
 			$("#divSignature").css('display', 'inline');
+			var signAndSubmitAlert = '<div class="alert alert-success">'+
+										'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
+  										'<strong>Success!</strong> Contract has been successfully signed and submitted.'+
+										'</div>';
+			$("#signAndSubmitDiv").append(signAndSubmitAlert);	
 		});
 		
 		$("#myNavbar").find("ul > li > a").click(function(e) {
@@ -52,6 +58,7 @@
 		});
 		
 		changeTandCHeader(blnBvoipNeeded);
+		showPricingTables(blnBvoipNeeded);
 		
 		$("#shoppingcart").click(function(e) {
 			e.preventDefault();
@@ -88,14 +95,20 @@
 	function changeTandCHeader(blnBvoipNeeded) {
 		if(blnBvoipNeeded) {
 			$("#divBVOIPTandC").css('display','inline');
-			$("#divMISTandC").css('display','none');
-			$("#termsAndConditionsInfoSection").find('h4').html('BVOIP Terms and Conditions');
-			
+			$("#divMISTandC").css('display','inline');
 		}
 		else {
 			$("#divMISTandC").css('display','inline');
 			$("#divBVOIPTandC").css('display','none');
-			$("#termsAndConditionsInfoSection").find('h4').html('MIS Terms and Conditions');
+		}
+	}
+	
+	function showPricingTables(blnBvoipNeeded) {
+		if(blnBvoipNeeded) {
+			$("#BVOIPDiscountsTable").css('display','inline');
+		}
+		else{
+			$("#BVOIPDiscountsTable").css('display','none');
 		}
 	}
 
@@ -128,7 +141,8 @@
 	position: absolute;
 	margin-left: 5px;
 }
-  #contractInfoSection, #termInfoSection, #ratesInfoSection, #termsAndConditionsInfoSection, #checkoutInfoSection {padding-top:20px; height:700px; }
+  #contractInfoSection, #termInfoSection,  #termsAndConditionsInfoSection, #checkoutInfoSection {padding-top:20px; height:750px; }
+  #ratesInfoSection {padding-top:20px; height:850px; }
 
 .navbar-inverse .navbar-nav > li > a {	color: white;}
 
@@ -468,7 +482,7 @@
 					<nav class="navbar navbar-inverse navbar-fixed-top">
 						<div class="container-fluid" style="background-color: #337ab7;">
 							<div>
-								<div class="collapse navbar-collapse" id="myNavbar" style="background-color: #337ab7;">
+								<div class="collapse navbar-collapse" id="myNavbar" style="background-color: #337ab7; margin-left: 165px;">
 									<ul class="nav navbar-nav">
 										<li><a href="#" id="hrefContractInfoSection" class="active" style="background-color: rgb(51, 153, 255);">Contact Info</a></li>
 										<li><a href="#" id="hrefTermInfoSection">Contract Term</a></li>
@@ -831,14 +845,54 @@
 												</tr>
 											</table>
 										</div>
-									
+									<div class="row" id="BVOIPDiscountsTable" style="display: none;">
+										<h5>US DISCOUNTS</h5>
+										<h5>Common Billable Elements(Apply Regardless of Underlying Transport Service) </h5>
+										<table class="table table-striped">
+												<tr>
+													<th>Item</th>
+													<th>Type of Charge</th>
+													<th>Element Discount</th>
+												</tr>
+												<tr>
+													<td>US Off-Net Calling Charge<br>(US Terminated Off-Net Calling Charge)</td>
+													<td>Per Usage</td>
+													<td>20.00%</td>
+												</tr>
+												<tr>
+													<td>Non-US Terminated Off-Net Calling Charge-fixed</td>
+													<td>Per Usage</td>
+													<td>20.00%</td>
+												</tr>
+												<tr>
+													<td>Non-US Terminated Off-Net Calling Charge-mobile</td>
+													<td>Per Usage</td>
+													<td>20.00%</td>
+												</tr>
+											</table>
+											<h5>VoIP Module Charges</h5>
+											<table class="table table-striped">
+												<tr>
+													<th>Item</th>
+													<th>Type of Charge</th>
+													<th>Element Discount</th>
+												</tr>
+												<tr>
+													<td>VoIP Module Card(if applicable)</td>
+													<td>MRC, per Concurrent Call (where the list price will vary by number<br> of Concurrent calls)</td>
+													<td>20.00%</td>
+												</tr>
+											</table>
+											
+									</div>
 							</form>
 						</div>
 
 					<div id="termsAndConditionsInfoSection">
 						<form class="form-horizontal">
-							<h4>Terms and Conditions</h4>
+							
 							<div class="row" style="margin-top: 5px;" id="divMISTandC">
+							<h4>MIS Terms and Conditions</h4>
 								<ul id="txtTandC">
 									<li id="liTC12Months" style="display: none;">AT&T may discontinue a Service or Service Component as
 										provided in the applicable Service Guide and in the case of a
@@ -861,6 +915,7 @@
 								</ul>
 							</div>
 							<div class="row" style="margin-top: 5px;" id="divBVOIPTandC">
+							<h4>BVOIP Terms and Conditions</h4>
 								<ul id="txtTandC">
 									
 									<li><strong>Emergency Calling Most of World</strong> <br>
@@ -913,11 +968,10 @@
 								</div>
 								<div class="col-sm-4">
 									<button type="button" class="btn btn-primary" id="btnSignAndSubmit" disabled="disabled">Sign And Submit</button>
-										<div id="divSignature" style="display: none;">
-											<br>
-											Please print your name here : <input type="text" id="txtSignature" class="form-control">
-										</div>
 								</div>
+							</div>
+							<div class="row col-sm-4 col-sm-offset-4" id="signAndSubmitDiv" style="margin-top: 10px;">
+								
 							</div>
 						</form>
 					</div>
