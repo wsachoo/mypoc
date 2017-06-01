@@ -1,6 +1,12 @@
 <script>
-	
 	var termSelectedByUser = false;
+
+	function executeOnCustomize() {
+		$("#previewContactModal .close").click();
+		try { $("div.modal-backdrop").remove(); } catch(ex) {}
+		displayLastOfferDesignPopup();
+	}
+
 	$(document).ready(function() {
 	    termSelectedByUser = dataToGenContract["term"];
 	    
@@ -894,12 +900,20 @@
 					</div>
 				</div>
 				<div class="modal-footer" style="text-align:center" id="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<div class="row">
+						<div class="col-sm-2">
+							<button type="button" class="btn btn-primary btn-block" onclick="executeOnCustomize();">Customize</button>
+						</div>
+						<div class="col-sm-offset-8 col-sm-2">
+							<button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Close</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
  </div>
+
 	<!-- Modal -->
 <!-- 	<div class="modal fade" id="generateContactModal" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
