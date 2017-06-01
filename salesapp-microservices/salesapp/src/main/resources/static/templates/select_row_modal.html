@@ -6,8 +6,10 @@
 		$("#bvoipNeeded").click(function () {
 		    if ($(this).prop('checked')) {
 		    	blnBvoipNeeded = true;
+		    	$("#showDivBvoipFeature").css('display','inline');
 		    } else {
 		    	blnBvoipNeeded = false;
+		    	$("#showDivBvoipFeature").css('display','none');
 		    }
 		});
 
@@ -115,8 +117,18 @@
 						{{/each}}
 						
 						<tr>
-							<td>Has Voice Feature</td>
-							<td><input type="checkbox" name="bvoipNeeded" id="bvoipNeeded"></td>
+							<td>Has Voice Feature 
+							</td>
+							<td><input type="checkbox" name="bvoipNeeded" id="bvoipNeeded">
+								<div id="showDivBvoipFeature" style="display: none;">
+								<select name="bvoipVoiceFeature" class="form-control" id="selectBvoipVoiceFeature" style="width:60%; margin-top: 1px;">
+									<option value="callingPlanB">Calling Plan B
+									<option value="CallingPlanC">Calling Plan C
+								</select>
+								<br>
+								<input type="text" placeholder="Concurrent Calls" id="txtConcurrentCall" class="form-control" style="width:60%; margin-top: 1px;">
+								</div>	
+							</td>
 						</tr>						
 					</table>
 					

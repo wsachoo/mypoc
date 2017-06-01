@@ -37,9 +37,12 @@
 			$('#checkoutInfoSection')[0].scrollIntoView();
 		});
 		
-		$("#btnCheckout").on('click', function(e) {
-			e.preventDefault();
-			$('#btnSignAndSubmit').removeAttr("disabled");
+		$("#chkAgreeForContract").on('click', function(e) {
+			 if ($(this).prop('checked')) {
+		    	$("#btnSignAndSubmit").removeAttr('disabled');
+		    } else {
+		    	$("#btnSignAndSubmit").attr('disabled', 'disabled');
+		    }
 									
 		});
 		
@@ -1027,14 +1030,9 @@
 					<div id="checkoutInfoSection">
 						<form class="form-horizontal">
 							<div class="row">
-								<ul>
-									<li>Please click on 'Add to Cart' button to add this order
-										to your shopping cart.</li>
-									<li>Please click on 'Checkout' button to finalize the
-										order from shopping cart.</li>
-									<li>Please click on 'Sign and Submit' button to sign the
-										contract and submit for eSign processing.</li>
-								</ul>
+								<div class="col-sm-6">
+								<input type="checkbox" id="chkAgreeForContract">I here by sign and agree to the terms and conditions ...
+								</div>
 							</div>
 
 							<div class="row col-sm-offset-1" style="margin-top: 5px;">
@@ -1047,12 +1045,12 @@
 										class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
 									</a>
 								</div>
-								<div class="col-sm-4">
-									<!-- <button type="button" class="btn btn-primary" id="btnCheckout">Checkout</button> -->
+								<!-- <div class="col-sm-4">
+									<button type="button" class="btn btn-primary" id="btnCheckout">Checkout</button>
 									<a href="#" class="btn btn-primary" id="btnCheckout"> <span
 										class="glyphicon glyphicon-shopping-cart"></span> Checkout
 									</a>
-								</div>
+								</div> -->
 								<div class="col-sm-4">
 									<button type="button" class="btn btn-primary"
 										id="btnSignAndSubmit" disabled="disabled">Sign And
