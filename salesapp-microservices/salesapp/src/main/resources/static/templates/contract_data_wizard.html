@@ -32,7 +32,16 @@
 		$("#btnCheckout").on('click', function() {
 			$('#btnSignAndSubmit').removeAttr("disabled");
 		});
-
+		
+		$("#btnSignAndSubmit").on('click', function() {
+			$("#divSignature").css('display', 'inline');
+		});
+		
+		$("#myNavbar").find("ul > li > a").click(function(e) {
+			e.preventDefault();
+			$("#myNavbar").find("ul > li > a").css('background-color','#337ab7 ');
+			$(this).css('background-color','#3399ff ');
+		});
 	});
 
 	function dummyCDWFunc(e) {
@@ -81,6 +90,9 @@
   #contractInfoSection, #termInfoSection, #ratesInfoSection, #termsAndConditionsInfoSection, #checkoutInfoSection {padding-top:20px; height:700px; }
 
 .navbar-inverse .navbar-nav > li > a {	color: white;}
+
+ .light-blue-background { background-color: #3399ff; }
+ .dark-blue-background { background-color: #337ab7; }
   
 </style>
 
@@ -413,7 +425,7 @@
 							<div>
 								<div class="collapse navbar-collapse" id="myNavbar" style="background-color: #337ab7;">
 									<ul class="nav navbar-nav">
-										<li><a href="#" id="hrefContractInfoSection">Contract</a></li>
+										<li><a href="#" id="hrefContractInfoSection" class="active">Contract</a></li>
 										<li><a href="#" id="hrefTermInfoSection">Term</a></li>
 										<li><a href="#" id="hrefRatesInfoSection">Rates</a></li>
 										<li><a href="#" id="hrefTermsAndConditionsInfoSection">Terms & Conditions</a></li>
@@ -823,6 +835,10 @@
 								</div>
 								<div class="col-sm-4">
 									<button type="button" class="btn btn-primary" id="btnSignAndSubmit" disabled="disabled">Sign And Submit</button>
+										<div id="divSignature" style="display: none;">
+											<br>
+											Please print your name here : <input type="text" id="txtSignature" class="form-control">
+										</div>
 								</div>
 							</div>
 						</form>
