@@ -37,7 +37,8 @@
 			$('#checkoutInfoSection')[0].scrollIntoView();
 		});
 		
-		$("#btnCheckout").on('click', function() {
+		$("#btnCheckout").on('click', function(e) {
+			e.preventDefault();
 			$('#btnSignAndSubmit').removeAttr("disabled");
 									
 		});
@@ -71,10 +72,13 @@
     		$("#previewContractButton").trigger('click');
 		});
 		
-		$("#btnAddToCart").click(function() {
+		$("#btnAddToCart").click(function(e) {
+			e.preventDefault();
 			$("#hrefContractInfoSection").trigger('click');
 			isProductCheckedOut = true;
 			$("#shoppingcart").css("pointer-events", "all");
+			$("#shoppingcart").find('span').remove();
+			$("#shoppingcart").append('<span class="badge">1</span>');
 		});
 		
 		if (isProductCheckedOut) {
@@ -971,10 +975,16 @@
 							
 							<div class="row col-sm-offset-1" style="margin-top: 5px;">
 								<div class="col-sm-4">
-									<button type="button" class="btn btn-primary" data-dismiss="modal" id="btnAddToCart">Add To Cart</button>
+									<!-- <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnAddToCart">Add To Cart</button> -->
+							        <a href="#" class="btn btn-primary" id="btnAddToCart" data-dismiss="modal">
+        								<span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
+     								</a>
 								</div>
 								<div class="col-sm-4">
-									<button type="button" class="btn btn-primary" id="btnCheckout">Checkout</button>
+									<!-- <button type="button" class="btn btn-primary" id="btnCheckout">Checkout</button> -->
+									<a href="#" class="btn btn-primary" id="btnCheckout">
+        								<span class="glyphicon glyphicon-shopping-cart"></span> Checkout
+     								</a>
 								</div>
 								<div class="col-sm-4">
 									<button type="button" class="btn btn-primary" id="btnSignAndSubmit" disabled="disabled">Sign And Submit</button>
