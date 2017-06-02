@@ -1,6 +1,7 @@
 var userSolTmplSelectionObject = []; //global object for user selection on step wizard
 var dataToGenContract = {}; //global object to hold the data to display the contract wizard
 var portSpeedsToCustomizeGCData = {};
+var isButtonCustomizeClick = false;
 
 var customizeGCDataFields = {
 		ipVersionDropDown  : function() {
@@ -689,7 +690,9 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 			    		$("#dispRowSelectModal .close").click();
 			    		try { $("div.modal-backdrop").remove(); } catch(ex) {}
 			    		setCameHereFromRecommendation();
-			    		displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage);
+			    		//displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage);
+			    		onClickViewCartAndCheckout(vbb250mbpsUrl);
+			    		
 			    	}
 			    }
 			});
@@ -714,8 +717,7 @@ function executeOnClickOfGenerateContract() {
 	$("#simplePopupModalButton").trigger('click');
 }
 
-function displayConfirmModalAddToCart (designName, speed, mrc, url) {
-	console.log("displayConfirmModalAddToCart");
+function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
 	$("#displayConfirmModalAddToCart").remove();
 	var data = {};
 	data["designName"] = designName;
@@ -729,13 +731,19 @@ function displayConfirmModalAddToCart (designName, speed, mrc, url) {
 	
 	$('body').append(modalTemplateToDisplay);
 	$("#btndisplayConfirmModalAddToCart").trigger('click');
+	if(name != undefined && name != '' && name == 'btnCustomize') {
+		isButtonCustomizeClick = true;
+	}
 }
 
-function onClickViewCartAndCheckout() {
+
+function onClickViewCartAndCheckout(url) {
 	
 	location.hash = "shoppingCart";
 	$('body').find("#divShoppingCartTemplate").remove();
-	var url = $("#btnViewCartAndCheckout").attr('link');
+	if(url == null || url == undefined || url == ''){
+		var url = $("#btnViewCartAndCheckout").attr('link');
+	}
 	
 	var data = httpGetWithJsonResponse(url, "");
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
@@ -778,7 +786,10 @@ function onClickViewCartAndCheckout() {
 	
 	$("#shoppingCartLink").find('.badge').remove();
 	$("#shoppingCartLink").append('<span class="badge">1</span>');
-	
+	if( isButtonCustomizeClick == true) {
+		onClickCustomizeShoppingCart();
+	}
+	isButtonCustomizeClick = false;
 }
 
 function onClickCustomizeShoppingCart() {
@@ -813,7 +824,7 @@ function onClickApplyShoppingCartData() {
 	$("#displayPortSpeedList").html(portSpeedValue);
 	$("#displayContractTermList").html(contractTermValue);
 	
-	var customizeButton = '<input type="button" class="btn btn-primary" id="btnCustomizeShoppingCart" value="Customize" onclick="onClickCustomizeShoppingCart();">';
+	var customizeButton = '<input type="button" class="btn btn-primary" id="btnCustomizeShoppingCart" value="Edit My Cart" onclick="onClickCustomizeShoppingCart();">';
 	
 	thisElement.after(customizeButton);
 	thisElement.remove();
