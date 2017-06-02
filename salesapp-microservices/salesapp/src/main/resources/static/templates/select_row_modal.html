@@ -12,6 +12,15 @@
 		    	$("#showDivBvoipFeature").css('display','none');
 		    }
 		});
+		
+		$("#securityNeeded").click(function() {
+			if ($(this).prop('checked')) {
+		    	$("#securityFeature").css('display','inline');
+		    } else {
+		    	$("#securityFeature").css('display','none');
+		    }
+		
+		});
 
 		/*
 		 * This function will be called only when user has selected 250MBPS, MIS Express and 36 Months Term period.
@@ -117,7 +126,7 @@
 						{{/each}}
 						
 						<tr>
-							<td>Has Voice Feature 
+							<td>Add Voice Feature 
 							</td>
 							<td><input type="checkbox" name="bvoipNeeded" id="bvoipNeeded">
 								<div id="showDivBvoipFeature" style="display: none;">
@@ -128,6 +137,17 @@
 								<br>
 								<input type="text" placeholder="Concurrent Calls" id="txtConcurrentCall" class="form-control" style="width:60%; margin-top: 1px;">
 								</div>	
+							</td>
+						</tr>
+						<tr>
+							<td>Add Security Feature 
+							</td>
+							<td ><input type="checkbox" name="securityNeeded" id="securityNeeded">
+								<select name="securityFeature" class="form-control" id="securityFeature" style="width:60%; margin-top: 1px; display: none;">
+									<option value="cloudBasedSecurity">Cloud Based Security
+									<option value="firewall">Firewall
+									<option value="wirelessBasedSecurity">Wireless Based Security
+								</select>
 							</td>
 						</tr>						
 					</table>
