@@ -1,0 +1,711 @@
+<script>
+	
+$(document).ready(function() {
+    
+    termSelectedByUser = $("#displayContractTermList").html();
+	$("#previewContactModal").modalSteps();
+	
+	$("#hrefContractInfoSection").click(function(e) {
+		e.preventDefault();
+		$('#contractInfoSection')[0].scrollIntoView();
+	});
+	$("#hrefTermInfoSection").click(function(e) {
+		e.preventDefault();
+		$('#termInfoSection')[0].scrollIntoView();
+	});
+	$("#hrefRatesInfoSection").click(function(e) {
+		e.preventDefault();
+		$('#ratesInfoSection')[0].scrollIntoView();
+	});
+	$("#hrefTermsAndConditionsInfoSection").click(function(e) {
+		e.preventDefault();
+		$('#termsAndConditionsInfoSection')[0].scrollIntoView();
+		displayTermsAndConditionsText();
+	});
+
+	$("#hrefCheckoutSection").click(function(e) {
+		e.preventDefault();
+		$('#checkoutInfoSection')[0].scrollIntoView();
+	});
+	
+	$("#chkAgreeForContract").on('click', function(e) {
+		 if ($(this).prop('checked')) {
+	    	$("#btnSignAndSubmit").removeAttr('disabled');
+	    } else {
+	    	$("#btnSignAndSubmit").attr('disabled', 'disabled');
+	    }
+								
+	});
+	
+	$("#btnSignAndSubmit").on('click', function() {
+		$("#divSignature").css('display', 'inline');
+		var signAndSubmitAlert = '<div class="alert alert-success">'+
+									'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
+ 										'<strong>Success!</strong> Contract has been successfully signed and submitted.'+
+								 '</div>';
+		$("#signAndSubmitDiv").append(signAndSubmitAlert);	
+	});
+	
+	$("#myNavbar").find("ul > li > a").click(function(e) {
+		e.preventDefault();
+		$("#myNavbar").find("ul > li > a").css('background-color','#337ab7 ');
+		$(this).css('background-color','#3399ff ');
+	});
+	
+	showMARCElementsData();
+	changeTandCHeader(blnBvoipNeeded);
+	showPricingTables(blnBvoipNeeded);
+	
+});
+
+function changeTandCHeader(blnBvoipNeeded) {
+	if(blnBvoipNeeded) {
+		$("#divBVOIPTandC").css('display','inline');
+		$("#divMISTandC").css('display','inline');
+	}
+	else {
+		$("#divMISTandC").css('display','inline');
+		$("#divBVOIPTandC").css('display','none');
+	}
+}
+	
+function showPricingTables(blnBvoipNeeded) {
+	if(blnBvoipNeeded) {
+		$("#BVOIPDiscountsTable").css('display','inline');
+	}
+	else{
+		$("#BVOIPDiscountsTable").css('display','none');
+	}
+}
+
+function displayTermsAndConditionsText() {
+	if (termSelectedByUser == '12 Months') {
+		$("#liTC12Months").css('display', 'inline');
+	} else if (termSelectedByUser == '24 Months') {
+		$("#liTC24Months").css('display', 'inline');
+	} else if (termSelectedByUser == '36 Months') {
+		$("#liTC36Months").css('display', 'inline');
+	}
+}
+	
+function showMARCElementsData() {
+	var date = new Date();
+
+	var day = date.getDate();
+	var month = date.getMonth() + 1;
+	var year = date.getFullYear();
+
+	if (month < 10)
+		month = "0" + month;
+	if (day < 10)
+		day = "0" + day;
+
+	var today = year + "-" + month + "-" + day;
+	$("#termStart").attr("placeholder", today);
+	$("#rateEffDate").attr("placeholder", today);
+	$("#rateEffDate").attr("placeholder", today);
+	$("#term").attr("placeholder", termSelectedByUser);
+	$("#cartSolutionDate").html(today);
+}
+	
+</script>
+
+<style>
+#contractInfoSection, #termInfoSection, #termsAndConditionsInfoSection {
+	padding-top: 20px;
+	height: 750px;
+}
+
+#checkoutInfoSection {
+	padding-top: 50px;
+	height: 750px;
+}
+
+#ratesInfoSection {
+	padding-top: 20px;
+	height: 850px;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: white;
+}
+
+.light-blue-background {
+	background-color: #3399ff;
+}
+
+.dark-blue-background {
+	background-color: #337ab7;
+}
+</style>
+
+
+
+
+<div class="container" id="checkoutGenerateContractDiv">
+	<button type="button" id="btnPreviewContactModal"
+		style="display: none;" class="btn btn-primary" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+		data-target="#previewContactModal">Open Modal</button>
+	<div class="modal fade" id="previewContactModal" role="dialog">
+		<div class="modal-dialog" style="width: 60%">
+			Modal content
+			<div class="modal-content">
+				<div class="modal-header" style="text-align: center">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<nav class="navbar navbar-inverse navbar-fixed-top">
+						<div class="container-fluid" style="background-color: #337ab7;">
+							<div>
+								<div class="collapse navbar-collapse" id="myNavbar"
+									style="background-color: #337ab7; margin-left: 165px;">
+									<ul class="nav navbar-nav">
+										<li><a href="#" id="hrefContractInfoSection"
+											class="active" style="background-color: rgb(51, 153, 255);">Contact
+												Info</a></li>
+										<li><a href="#" id="hrefTermInfoSection">Contract
+												Term</a></li>
+										<li><a href="#" id="hrefRatesInfoSection">Contract
+												Pricing</a></li>
+										<li><a href="#" id="hrefTermsAndConditionsInfoSection">Terms
+												& Conditions</a></li>
+										<li><a href="#" id="hrefCheckoutSection">Finalize
+												Contract</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</nav>
+				</div>
+				<div class="modal-body">
+					<div id="contractInfoSection">
+
+						<form class="form-horizontal">
+							<div class="panel panel-default">
+								<div class="panel-heading">Customer Legal Info</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-sm-1">
+											<label for="name">Name:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="legalName"
+												placeholder="Best Buy">
+										</div>
+										<div class="col-sm-1">
+											<label for="city">City:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="city"
+												placeholder="New York">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="email">Country:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="country"
+												placeholder="USA">
+										</div>
+									</div>
+									<div class="row" style="margin-top: 5px;">
+										<div class="col-sm-1">
+											<label for="sAddress">Address:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="sAddress"
+												placeholder="77 Green Acres Rd S">
+										</div>
+										<div class="col-sm-1">
+											<label for="state">State:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="state"
+												placeholder="New York">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="zipcode">Zipcode:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="zipcode"
+												placeholder="11581">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default" style="margin-top: 10px;">
+								<div class="panel-heading">AT&T Sales Contact Info</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-sm-1">
+											<label for="name">Name:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="salesName"
+												placeholder="JAYASHREE BASAVARAJU">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="city">Country:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="city"
+												placeholder="USA">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="manager">Manager:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="manager"
+												placeholder="RICHARD BERGE">
+										</div>
+									</div>
+									<div class="row" style="margin-top: 5px;">
+										<div class="col-sm-1">
+											<label for="sAddress">Address:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="sAddress"
+												placeholder="440 N TAMPA AVE">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="state">Phone:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="phone"
+												placeholder="321-841-0000">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="State">State:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="State"
+												placeholder="FL">
+										</div>
+									</div>
+									<div class="row" style="margin-top: 5px;">
+										<div class="col-sm-1">
+											<label for="city">City:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="city"
+												placeholder="CHICAGO">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="state">Fax:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="state"
+												placeholder="321-841-0000">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="zipcode">Region:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="zipcode"
+												placeholder="US">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default" style="margin-top: 10px;">
+								<div class="panel-heading">Customer Contact info</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-sm-1">
+											<label for="name">Name:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="legalName"
+												placeholder="Jayashree B">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="city">City:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="city"
+												placeholder="Orlando">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="email">Country:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="country"
+												placeholder="USA">
+										</div>
+									</div>
+									<div class="row" style="margin-top: 5px;">
+										<div class="col-sm-1">
+											<label for="sAddress">Address:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="sAddress"
+												placeholder="440 N TAMPA AVE">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="state">State:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="state"
+												placeholder="FL">
+										</div>
+
+										<div class="col-sm-1">
+											<label for="zipcode">Zipcode:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="zipcode"
+												placeholder="32805">
+										</div>
+									</div>
+									<div class="row" style="margin-top: 5px;">
+										<div class="col-sm-1">
+											<label for="state" class="">Phone:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="telephone" class="form-control" id="telephone"
+												placeholder="573-446-4578">
+										</div>
+										<div class="col-sm-1">
+											<label for="state" class="">Email:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="email" class="form-control" id="email"
+												placeholder="jb308n@att.com">
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="modal-header" style="text-align: left">
+								<h4>Service Info</h4>
+
+								<div class="panel panel-default" style="margin-top: 10px;">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-sm-1">
+												<label for="pname">Products:</label>
+											</div>
+											<div class="col-sm-2">
+												<label for="product">MIS Express</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<div id="termInfoSection">
+						<form class="form-horizontal">
+							<div class="panel panel-default">
+								<div class="panel-heading">Term Info</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-sm-2">
+											<label for="term">Term:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="term"
+												placeholder="">
+										</div>
+										<div class="col-sm-2"></div>
+										<div class="col-sm-2">
+											<label for="termStart">Term Start:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="termStart"
+												placeholder="31-MAY-2017">
+										</div>
+									</div>
+									<div class="row" style="margin-top: 5px;">
+										<div class="col-sm-2">
+											<label for="rateEffDate">Rate Effective Date:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="rateEffDate"
+												placeholder="31-MAY-2017">
+										</div>
+										<!-- <div class="col-sm-1"></div> 
+					    <div class="col-sm-1">
+					      <label for="renewal">Renewal:</label>
+					    </div>
+					    <div class="col-sm-2">
+					      <input type="text" class="form-control" id="renewal" placeholder="484-558-0189">
+					    </div> -->
+									</div>
+								</div>
+							</div>
+
+							<br />
+							<div class="panel panel-default">
+								<div class="panel-heading">MARC Info</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-sm-2">
+											<label for="name">MARC:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="marc"
+												placeholder="100000">
+										</div>
+									</div>
+								</div>
+							</div>
+							<br />
+							<div class="panel panel-default">
+								<div class="panel-heading">Credits Info</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-sm-2">
+											<label for="credits">Credits:</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="credits"
+												placeholder="Enter Credits">
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<div id="ratesInfoSection">
+
+						<form class="form-horizontal">
+
+							<h4>Rates Info</h4>
+							<h5>On-Site Installation</h5>
+							<h5>Discount: 50%</h5>
+							<div class="row" style="margin-top: 5px;">
+								<table class="table table-striped">
+									<tr>
+										<th>MIS Speed</th>
+										<th>Undiscounted MIS w/ Managed Router Only Installation
+											Fee</th>
+									</tr>
+									<tr>
+										<td>56 Kbps</td>
+										<td>$999</td>
+									</tr>
+									<tr>
+										<td>128 Kbps - 1.5 Mbps</td>
+										<td>$999</td>
+									</tr>
+									<tr>
+										<td>NxT-1</td>
+										<td>$999</td>
+									</tr>
+									<tr>
+										<td>Tiered/Full T-3</td>
+										<td>$1,000</td>
+									</tr>
+									<tr>
+										<td>Tiered OC-3, OC-12, OC-48</td>
+										<td>$10,000</td>
+									</tr>
+									<tr>
+										<td>Ethernet</td>
+										<td>$1,500*</td>
+									</tr>
+									<tr>
+										<td>10 Gig Ethernet and up</td>
+										<td>$1,500</td>
+									</tr>
+									<tr>
+										<td>Nx10Gig Ethernet</td>
+										<td>$3,500</td>
+									</tr>
+								</table>
+							</div>
+							<div class="row" id="BVOIPDiscountsTable" style="display: none;">
+								<h5>
+									<strong>US DISCOUNTS</strong>
+								</h5>
+								<h5>Common Billable Elements(Apply Regardless of Underlying
+									Transport Service)</h5>
+								<table class="table table-striped">
+									<tr>
+										<th>Item</th>
+										<th>Type of Charge</th>
+										<th>Element Discount</th>
+									</tr>
+									<tr>
+										<td>US Off-Net Calling Charge<br>(US Terminated
+											Off-Net Calling Charge)
+										</td>
+										<td>Per Usage</td>
+										<td>20.00%</td>
+									</tr>
+									<tr>
+										<td>Non-US Terminated Off-Net Calling Charge-fixed</td>
+										<td>Per Usage</td>
+										<td>20.00%</td>
+									</tr>
+									<tr>
+										<td>Non-US Terminated Off-Net Calling Charge-mobile</td>
+										<td>Per Usage</td>
+										<td>20.00%</td>
+									</tr>
+								</table>
+								<h5>
+									<strong>VoIP Module Charge</strong>
+								</h5>
+								<table class="table table-striped">
+									<tr>
+										<th>Item</th>
+										<th>Type of Charge</th>
+										<th>Element Discount</th>
+									</tr>
+									<tr>
+										<td>VoIP Module Card(if applicable)</td>
+										<td>MRC, per Concurrent Call (where the list price will
+											vary by number<br> of Concurrent calls)
+										</td>
+										<td>20.00%</td>
+									</tr>
+								</table>
+
+							</div>
+						</form>
+					</div>
+
+					<div id="termsAndConditionsInfoSection">
+						<form class="form-horizontal">
+
+							<div class="row" style="margin-top: 5px;" id="divMISTandC">
+								<h4>MIS Terms and Conditions</h4>
+								<ul id="txtTandC">
+									<li id="liTC12Months" style="display: none;">AT&T may
+										discontinue a Service or Service Component as provided in the
+										applicable Service Guide and in the case of a Service or
+										Service Component that is supplied to AT&T by a third party
+										service provider upon thirty (30) days written notice.</li>
+									<li id="liTC24Months" style="display: none;">AT&T may
+										discontinue a Service or Service Component as provided in the
+										applicable Service Guide and in the case of a Service or
+										Service Component that is supplied to AT&T by a third party
+										service provider upon thirty (30) days written notice.</li>
+									<li id="liTC36Months" style="display: none;">AT&T may
+										discontinue a Service or Service Component as provided in the
+										applicable Service Guide and in the case of a Service or
+										Service Component that is supplied to AT&T by a third party
+										service provider upon thirty (30) days written notice.</li>
+								</ul>
+							</div>
+							<div class="row" style="margin-top: 5px;" id="divBVOIPTandC">
+								<h4>BVOIP Terms and Conditions</h4>
+								<ul id="txtTandC">
+
+									<li><strong>Emergency Calling Most of World</strong> <br>
+										At or before Service activation at a Most of World Site with
+										outbound BVoIP calling, Customer certifies it has and agrees
+										to continuously keep individual business lines and other
+										appropriate facilities with a local service provider or other
+										provider capable of, and responsible for, providing Customer
+										access to three-digit emergency dialing services, if AT&T does
+										not provide emergency dialing service and for as long as AT&T
+										provides outbound BVoIP service to that Site. Customer is
+										responsible to ensure that all calls to these emergency
+										dialing service numbers are routed over appropriate facilities
+										to ensure completion provided by that local service provider,
+										or other provider. Customer agrees to indemnify and defend
+										AT&T from and against any and all third-party claims and
+										related loss, liability, damage and expense, arising from
+										Customer's failure to perform Customer's obligations outlined
+										in this Section. AT&T's provisioning of outbound BVoIP service
+										is conditioned upon Customer's full compliance with these
+										obligations, and failure to do so is a material breach of this
+										Agreement.</li>
+									<li><strong>White Pages, Yellow Pages, Directory
+											Assistance</strong><br> White Pages, Yellow Pages and Directory
+										Assistance database listings are subject to (1) rules,
+										regulations, guidelines and requirements of Business Directory
+										Publishers and Directory Assistance providers, including but
+										not limited to AT&T Affiliates, relating to the information
+										which may, may not or must be included in listings, and (2)
+										federal, state and local laws, ordinances and regulations,
+										including those relating to deceptive practices and deceptive
+										advertising. Customer (not AT&T) is solely responsible for
+										complying with (1) and (2). If Customer supplies information
+										to AT&T that, according to the Business Directory Publisher or
+										Directory Assistance provider or otherwise, violates (1) or
+										does or may violate (2), Customer understands that its listing
+										information may, without advance notice, be rejected or
+										removed from White Pages, Yellow Pages and Directory
+										Assistance databases, and Customer will indemnify and hold
+										AT&T and its Affiliates harmless from any and all losses,
+										liability, damages, fines, claims, costs or expenses
+										(including attorneys� fees) of any kind, suffered by AT&T, by
+										any AT&T Affiliate, by Customer or by any third party as a
+										result of Customer�s breach of its obligation.</li>
+									<li><strong> Broadband Connectivity</strong> <br>
+										This Pricing Schedule does not include transport necessary for
+										the provision of AT&T Flexible Reach Service Over Any
+										Transport. Customer must obtain broadband connectivity
+										separately under an AT&T or third-party contract.</li>
+								</ul>
+							</div>
+						</form>
+					</div>
+
+					<div id="checkoutInfoSection">
+						<form class="form-horizontal">
+							<div class="row">
+								<ul>
+								<input type="checkbox" id="chkAgreeForContract">I here by sign and agree to the terms and conditions ...
+								</ul>
+							</div>
+
+							<div class="row col-sm-offset-1" style="margin-top: 10px;">
+								<div class="col-sm-4">
+									<!-- <button type="button" class="btn btn-primary"
+										data-dismiss="modal" id="btnAddToCart">Add To Cart</button> -->
+
+									<a href="#" class="btn btn-primary" id="btnAddToCart"
+										data-dismiss="modal"> <span
+										class="glyphicon glyphicon-shopping-cart"></span> Add To Cart and Continue..
+									</a>
+								</div>
+								<!-- <div class="col-sm-4">
+									<button type="button" class="btn btn-primary" id="btnCheckout">Checkout</button>
+									<a href="#" class="btn btn-primary" id="btnCheckout"> <span
+										class="glyphicon glyphicon-shopping-cart"></span> Checkout
+									</a>
+								</div> -->
+								<div class="col-sm-4 col-sm-offset-4">
+									<button type="button" class="btn btn-primary"
+										id="btnSignAndSubmit" disabled="disabled">Sign And
+										Submit</button>
+								</div>
+							</div>
+							<div class="row col-sm-4 col-sm-offset-7" id="signAndSubmitDiv"
+								style="margin-top: 10px;"></div>
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer" style="text-align: center"
+					id="modal-footer">
+					<div class="row">
+						<div class="col-sm-2">
+							<button type="button" class="btn btn-primary btn-block"
+								onclick="executeOnCustomize();">Customize</button>
+						</div>
+						<div class="col-sm-offset-8 col-sm-2">
+							<button type="button" class="btn btn-primary btn-block"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,135 +1,135 @@
 <script>
-	var termSelectedByUser = false;
+var termSelectedByUser = false;
+
+var isProductCheckedOut = false;
+
+function executeOnCustomize() {
+	$("#previewContactModal .close").click();
+	try { $("div.modal-backdrop").remove(); } catch(ex) {}
+	displayLastOfferDesignPopup();
+}
+
+$(document).ready(function() {
+    termSelectedByUser = dataToGenContract["term"];
+    
+	$("#previewContactModal").modalSteps();
 	
-	var isProductCheckedOut = false;
-
-	function executeOnCustomize() {
-		$("#previewContactModal .close").click();
-		try { $("div.modal-backdrop").remove(); } catch(ex) {}
-		displayLastOfferDesignPopup();
-	}
-
-	$(document).ready(function() {
-	    termSelectedByUser = dataToGenContract["term"];
-	    
-		$("#previewContactModal").modalSteps();
-		
-		$("#hrefContractInfoSection").click(function(e) {
-			e.preventDefault();
-			$('#contractInfoSection')[0].scrollIntoView();
-		});
-		$("#hrefTermInfoSection").click(function(e) {
-			e.preventDefault();
-			$('#termInfoSection')[0].scrollIntoView();
-		});
-		$("#hrefRatesInfoSection").click(function(e) {
-			e.preventDefault();
-			$('#ratesInfoSection')[0].scrollIntoView();
-		});
-		$("#hrefTermsAndConditionsInfoSection").click(function(e) {
-			e.preventDefault();
-			$('#termsAndConditionsInfoSection')[0].scrollIntoView();
-			displayTermsAndConditionsText();
-		});
-
-		$("#hrefCheckoutSection").click(function(e) {
-			e.preventDefault();
-			$('#checkoutInfoSection')[0].scrollIntoView();
-		});
-		
-		$("#chkAgreeForContract").on('click', function(e) {
-			 if ($(this).prop('checked')) {
-		    	$("#btnSignAndSubmit").removeAttr('disabled');
-		    } else {
-		    	$("#btnSignAndSubmit").attr('disabled', 'disabled');
-		    }
-									
-		});
-		
-		$("#btnSignAndSubmit").on('click', function() {
-			$("#divSignature").css('display', 'inline');
-			var signAndSubmitAlert = '<div class="alert alert-success">'+
-										'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
-  										'<strong>Success!</strong> Contract has been successfully signed and submitted.'+
-										'</div>';
-			$("#signAndSubmitDiv").append(signAndSubmitAlert);	
-		});
-		
-		$("#myNavbar").find("ul > li > a").click(function(e) {
-			e.preventDefault();
-			$("#myNavbar").find("ul > li > a").css('background-color','#337ab7 ');
-			$(this).css('background-color','#3399ff ');
-		});
-		
-		changeTandCHeader(blnBvoipNeeded);
-		showPricingTables(blnBvoipNeeded);
-		
-		$("#shoppingcart").click(function(e) {
-			e.preventDefault();
-			$("#cartSolutionLink").html(dataToGenContract.bundleCd);
-			$("#cartSolutionLinkRow2").html(dataToGenContract.accessSpeed);
-			$("#cartSolutionLinkRow3").html(dataToGenContract.portSpeed);
-			$("#cartSolutionMRC").html(defaultTermPeriodMRC);
-			$("#cartSolutionNRC").html(defaultTermPeriodNRC);
-		});
-		
-		$("#cartSolutionLink").click(function(e) {
-			e.preventDefault();
-    		$("#modalOnCartClick .close").click();
-    		try { $("div.modal-backdrop").remove(); } catch(ex) {}
-    		$("#previewContractButton").trigger('click');
-		});
-		
-		$("#btnAddToCart").click(function(e) {
-			e.preventDefault();
-			$("#hrefContractInfoSection").trigger('click');
-			isProductCheckedOut = true;
-			$("#shoppingcart").css("pointer-events", "all");
-			$("#shoppingcart").find('.badge').remove();
-			$("#shoppingcart").append('<span class="badge">1</span>');			
-		});
-		
-		if (isProductCheckedOut) {
-			$("#shoppingcart").css("pointer-events", "all");
-		}
-		else {
-			$("#shoppingcart").css("pointer-events", "none");
-		}
+	$("#hrefContractInfoSection").click(function(e) {
+		e.preventDefault();
+		$('#contractInfoSection')[0].scrollIntoView();
+	});
+	$("#hrefTermInfoSection").click(function(e) {
+		e.preventDefault();
+		$('#termInfoSection')[0].scrollIntoView();
+	});
+	$("#hrefRatesInfoSection").click(function(e) {
+		e.preventDefault();
+		$('#ratesInfoSection')[0].scrollIntoView();
+	});
+	$("#hrefTermsAndConditionsInfoSection").click(function(e) {
+		e.preventDefault();
+		$('#termsAndConditionsInfoSection')[0].scrollIntoView();
+		displayTermsAndConditionsText();
 	});
 
-	function dummyCDWFunc(e) {
+	$("#hrefCheckoutSection").click(function(e) {
 		e.preventDefault();
+		$('#checkoutInfoSection')[0].scrollIntoView();
+	});
+	
+	$("#chkAgreeForContract").on('click', function(e) {
+		 if ($(this).prop('checked')) {
+	    	$("#btnSignAndSubmit").removeAttr('disabled');
+	    } else {
+	    	$("#btnSignAndSubmit").attr('disabled', 'disabled');
+	    }
+								
+	});
+	
+	$("#btnSignAndSubmit").on('click', function() {
+		$("#divSignature").css('display', 'inline');
+		var signAndSubmitAlert = '<div class="alert alert-success">'+
+									'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
+ 										'<strong>Success!</strong> Contract has been successfully signed and submitted.'+
+									'</div>';
+		$("#signAndSubmitDiv").append(signAndSubmitAlert);	
+	});
+	
+	$("#myNavbar").find("ul > li > a").click(function(e) {
+		e.preventDefault();
+		$("#myNavbar").find("ul > li > a").css('background-color','#337ab7 ');
+		$(this).css('background-color','#3399ff ');
+	});
+	
+	changeTandCHeader(blnBvoipNeeded);
+	showPricingTables(blnBvoipNeeded);
+	
+	$("#shoppingcart").click(function(e) {
+		e.preventDefault();
+		$("#cartSolutionLink").html(dataToGenContract.bundleCd);
+		$("#cartSolutionLinkRow2").html(dataToGenContract.accessSpeed);
+		$("#cartSolutionLinkRow3").html(dataToGenContract.portSpeed);
+		$("#cartSolutionMRC").html(defaultTermPeriodMRC);
+		$("#cartSolutionNRC").html(defaultTermPeriodNRC);
+	});
+	
+	$("#cartSolutionLink").click(function(e) {
+		e.preventDefault();
+   		$("#modalOnCartClick .close").click();
+   		try { $("div.modal-backdrop").remove(); } catch(ex) {}
+   		$("#previewContractButton").trigger('click');
+	});
+	
+	$("#btnAddToCart").click(function(e) {
+		e.preventDefault();
+		$("#hrefContractInfoSection").trigger('click');
+		isProductCheckedOut = true;
+		$("#shoppingcart").css("pointer-events", "all");
+		$("#shoppingcart").find('.badge').remove();
+		$("#shoppingcart").append('<span class="badge">1</span>');			
+	});
+	
+	if (isProductCheckedOut) {
+		$("#shoppingcart").css("pointer-events", "all");
 	}
+	else {
+		$("#shoppingcart").css("pointer-events", "none");
+	}
+});
 
-	function displayTermsAndConditionsText() {
-		if (termSelectedByUser == '12 Months') {
-			$("#liTC12Months").css('display', 'inline');
-		} else if (termSelectedByUser == '24 Months') {
-			$("#liTC24Months").css('display', 'inline');
-		} else if (termSelectedByUser == '36 Months') {
-			$("#liTC36Months").css('display', 'inline');
-		}
+function dummyCDWFunc(e) {
+	e.preventDefault();
+}
+
+function displayTermsAndConditionsText() {
+	if (termSelectedByUser == '12 Months') {
+		$("#liTC12Months").css('display', 'inline');
+	} else if (termSelectedByUser == '24 Months') {
+		$("#liTC24Months").css('display', 'inline');
+	} else if (termSelectedByUser == '36 Months') {
+		$("#liTC36Months").css('display', 'inline');
 	}
-	
-	function changeTandCHeader(blnBvoipNeeded) {
-		if(blnBvoipNeeded) {
-			$("#divBVOIPTandC").css('display','inline');
-			$("#divMISTandC").css('display','inline');
-		}
-		else {
-			$("#divMISTandC").css('display','inline');
-			$("#divBVOIPTandC").css('display','none');
-		}
+}
+
+function changeTandCHeader(blnBvoipNeeded) {
+	if(blnBvoipNeeded) {
+		$("#divBVOIPTandC").css('display','inline');
+		$("#divMISTandC").css('display','inline');
 	}
-	
-	function showPricingTables(blnBvoipNeeded) {
-		if(blnBvoipNeeded) {
-			$("#BVOIPDiscountsTable").css('display','inline');
-		}
-		else{
-			$("#BVOIPDiscountsTable").css('display','none');
-		}
+	else {
+		$("#divMISTandC").css('display','inline');
+		$("#divBVOIPTandC").css('display','none');
 	}
+}
+
+function showPricingTables(blnBvoipNeeded) {
+	if(blnBvoipNeeded) {
+		$("#BVOIPDiscountsTable").css('display','inline');
+	}
+	else{
+		$("#BVOIPDiscountsTable").css('display','none');
+	}
+}
 
 	$(document).ready(function() {
 		var date = new Date();

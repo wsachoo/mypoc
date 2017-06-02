@@ -5,6 +5,16 @@
 			var matchPercentage = $(this).attr('matchPercentage');
 			displaySelectedRowModal(url, matchPercentage);
 		});
+		
+		$("input[name='btnAddToCart']").on('click', function(e) {
+			var designName = $(this).attr('design-name');
+			var speed = $(this).attr('speed');
+			var mrc = $(this).attr('mrc');
+			var url = $(this).attr('link');
+			displayConfirmModalAddToCart(designName, speed, mrc, url);
+		});
+		
+	
 	});
 </script>
 
@@ -12,7 +22,7 @@
 	{{if i != 0 }}
 		{{if (data["DATA"][i]["bundleCd"] == 'VVB Express')}}
 		<div class="col-sm-4">
-			<div class="jumbotron" style="background-color: lightgrey; color: black; height: 275px; border: 1px solid #00b2ff; font-size: 17px;">
+			<div class="jumbotron" style="background-color: lightgrey; color: black; height: 350px; border: 1px solid #00b2ff; font-size: 17px;">
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2"
 						style="background-color: #f2f2f2;">
@@ -33,7 +43,14 @@
 					<div class="col-sm-12">${data["DATA"][i]["managedRouter"]}</div>
 				</div>
 				<div class="row">&nbsp;</div>
-
+				
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2">
+						<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data['DATA'][i]['bundleCd']}" 
+						class="btn" value="Add To Cart" mrc="${data['DATA'][i]['mrc']}" link="${data['DATA'][i]['links'][0]['href']}">
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>				
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
 						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
@@ -44,7 +61,7 @@
 		</div>
 		{{else}}
 		<div class="col-sm-4">
-			<div class="jumbotron" style="background-color: lightgrey; color: black; height: 275px; border: 1px solid orange;  font-size: 17px;">
+			<div class="jumbotron" style="background-color: lightgrey; color: black; height: 350px; border: 1px solid orange;  font-size: 17px;">
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2"
 						style="background-color: #f2f2f2;">
@@ -65,6 +82,13 @@
 					<div class="col-sm-12">${data["DATA"][i]["managedRouter"]}</div>
 				</div>
 				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2">
+						<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data['DATA'][i]['bundleCd']}" 
+						class="btn" value="Add To Cart" mrc="${data['DATA'][i]['mrc']}" link="${data['DATA'][i]['links'][0]['href']}">
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>				
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
 						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
