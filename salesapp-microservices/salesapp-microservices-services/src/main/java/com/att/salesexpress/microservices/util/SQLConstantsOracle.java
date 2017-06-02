@@ -1,6 +1,26 @@
 package com.att.salesexpress.microservices.util;
 
 public interface SQLConstantsOracle {
+
+	String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup = "select rankTable.* from ("
+			+ "select countTable.*, "
+			+ "dense_rank() over (order by countTable.NUMBER_OF_SALES desc) RNK "
+			+ "from ("
+			+ "select "
+			+ "count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD) as NUMBER_OF_SALES, "
+			//+ "concat(ROUND(count(*) over () * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
+			+ "ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2) as MATCHING_ROW_PERCENTAGE, "
+			+ "rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup,"
+			+ "sth.* "
+			//+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY) totalTrans "
+			+ "from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
+			+ "where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
+			+ ") countTable "
+			+ ") rankTable "
+			//+ "where rankTable.RNK = 1 and rownum <= :NUMBER_OF_ROWS"; 
+			+ "where rankTable.indexWithinGroup < :INDEX_WITHIN_GROUP and rownum <= :NUMBER_OF_ROWS "
+			+ "order by MATCHING_ROW_PERCENTAGE desc, MRC asc";
+
 	String sqlGetSalesHistoryDataByAccessType = "select rankTable.* from ("
 			+ "select countTable.*, "
 			+ "dense_rank() over (order by countTable.NUMBER_OF_SALES desc) RNK "
@@ -8,7 +28,7 @@ public interface SQLConstantsOracle {
 			+ "select "
 			+ "count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD) as NUMBER_OF_SALES, "
 			//+ "concat(ROUND(count(*) over () * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
-			+ "concat(ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
+			+ "ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2) as MATCHING_ROW_PERCENTAGE, "
 			+ "rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
 			//+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY) totalTrans "
@@ -27,7 +47,7 @@ public interface SQLConstantsOracle {
 			+ "select "
 			+ "count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) as NUMBER_OF_SALES, "
 			//+ "concat(ROUND(count(*) over () * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
-			+ "concat(ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
+			+ "ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2) as MATCHING_ROW_PERCENTAGE, "
 			+ "rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
 			//+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY) totalTrans "
@@ -45,7 +65,7 @@ public interface SQLConstantsOracle {
 			+ "select "
 			+ "count(*) over (partition by sth.PORT_SPEED_ID, sth.BUNDLE_CD) as NUMBER_OF_SALES, "
 			//+ "concat(ROUND(count(*) over () * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
-			+ "concat(ROUND(count(*) over (partition by sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
+			+ " ROUND(count(*) over (partition by sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2)  as MATCHING_ROW_PERCENTAGE, "
 			+ "rank() over ( partition by sth.PORT_SPEED_ID, sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
 			//+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY where ACCESS_TYPE_ID=:ACCESS_TYPE_ID) totalTrans "
@@ -63,7 +83,7 @@ public interface SQLConstantsOracle {
 			+ "from ("
 			+ "select "
 			+ "count(*) over (partition by sth.BUNDLE_CD) as NUMBER_OF_SALES, "
-			+ "concat(ROUND(count(*) over () * 100/ totalTrans.cnt, 2), '%')  as MATCHING_ROW_PERCENTAGE, "
+			+ "ROUND(count(*) over () * 100/ totalTrans.cnt, 2) as MATCHING_ROW_PERCENTAGE, "
 			+ "rank() over (partition by sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
 			//+ "from SALES_TRANSACTION_HISTORY sth, ("
