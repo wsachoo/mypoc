@@ -65,7 +65,10 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 			if(result.isEmpty()) {
 				result = objSalesHistoryDao.getRecordsByAccessTypeAndAccessSpeedFromMisExpRules(accessType, accessSpeed, numberOfRowsToRetrieve);
 			}
-			
+		  } else if (containsAllWithValidValues("ACCESS_TYPE_ID,indexWithinGroup", params)) {
+			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
+			Integer indexWithinGroup = Integer.parseInt(params.get("indexWithinGroup").toString().trim());
+			result = objSalesHistoryDao.getRecordsByAccessType(accessType, indexWithinGroup, numberOfRowsToRetrieve);
 		//} else if (keys.contains("ACCESS_TYPE_ID")) {
 		  } else if (containsAllWithValidValues("ACCESS_TYPE_ID", params)) {
 			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
