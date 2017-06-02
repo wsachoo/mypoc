@@ -6,9 +6,20 @@
 		$("#bvoipNeeded").click(function () {
 		    if ($(this).prop('checked')) {
 		    	blnBvoipNeeded = true;
+		    	$("#showDivBvoipFeature").css('display','inline');
 		    } else {
 		    	blnBvoipNeeded = false;
+		    	$("#showDivBvoipFeature").css('display','none');
 		    }
+		});
+		
+		$("#securityNeeded").click(function() {
+			if ($(this).prop('checked')) {
+		    	$("#securityFeature").css('display','inline');
+		    } else {
+		    	$("#securityFeature").css('display','none');
+		    }
+		
 		});
 
 		/*
@@ -115,8 +126,29 @@
 						{{/each}}
 						
 						<tr>
-							<td>Has Voice Feature</td>
-							<td><input type="checkbox" name="bvoipNeeded" id="bvoipNeeded"></td>
+							<td>Add Voice Feature 
+							</td>
+							<td><input type="checkbox" name="bvoipNeeded" id="bvoipNeeded">
+								<div id="showDivBvoipFeature" style="display: none;">
+								<select name="bvoipVoiceFeature" class="form-control" id="selectBvoipVoiceFeature" style="width:60%; margin-top: 1px;">
+									<option value="callingPlanB">Calling Plan B
+									<option value="CallingPlanC">Calling Plan C
+								</select>
+								<br>
+								<input type="text" placeholder="Concurrent Calls" id="txtConcurrentCall" class="form-control" style="width:60%; margin-top: 1px;">
+								</div>	
+							</td>
+						</tr>
+						<tr>
+							<td>Add Security Feature 
+							</td>
+							<td ><input type="checkbox" name="securityNeeded" id="securityNeeded">
+								<select name="securityFeature" class="form-control" id="securityFeature" style="width:60%; margin-top: 1px; display: none;">
+									<option value="cloudBasedSecurity">Cloud Based Security
+									<option value="firewall">Firewall
+									<option value="wirelessBasedSecurity">Wireless Based Security
+								</select>
+							</td>
 						</tr>						
 					</table>
 					

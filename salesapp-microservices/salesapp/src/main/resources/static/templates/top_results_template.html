@@ -8,69 +8,72 @@
 	});
 </script>
 
-	
 	{{each(i, item) data["DATA"]}}
-	{{if i == 0}}
-	<div class="col-sm-4">
-		<div class="jumbotron" style="background-color: #FDB45C; color: white; height: 275px;">
-			<div class="row">
-				<div class="col-sm-8 col-sm-offset-2"
-					style="background-color: #337ab7">
-					<h4>$${data["DATA"][i]["mrc"]}/mo</h4>
+	{{if i != 0 }}
+		{{if (data["DATA"][i]["bundleCd"] == 'VVB Express')}}
+		<div class="col-sm-4">
+			<div class="jumbotron" style="background-color: lightgrey; color: black; height: 275px; border: 1px solid #00b2ff; font-size: 17px;">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2"
+						style="background-color: #f2f2f2;">
+						<h4>$${data["DATA"][i]["mrc"]}/mo</h4>
+					</div>
 				</div>
-			</div>
-			<div class="row">&nbsp;</div>
-			<div class="row">
-				<div class="col-sm-12">${data["DATA"][i]["bundleCd"]}</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12">$${data["DATA"][i]["nrc"]} of OTC</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12">${data["DATA"][i]["portSpeed"]} speed</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12">${data["DATA"][i]["managedRouter"]}</div>
-			</div>
-			<div class="row">&nbsp;</div>
-			<div class="row">
-				<div class="col-sm-8 col-sm-offset-2">
-					<input link="${data['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" matchPercentage="${data['DATA'][i]['matchPercentage']}" class="btn btn-primary btn-block" value="View Offer Details">
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-sm-12" style="color: #00b2ff"><strong>${data["DATA"][i]["bundleCd"]}</strong></div>
 				</div>
-			</div>
-		</div>
-	</div>
-	{{else}}
-	<div class="col-sm-4">
-		<div class="jumbotron" style="background-color: #5bc0de; color: white; height: 275px;">
-			<div class="row">
-				<div class="col-sm-8 col-sm-offset-2"
-					style="background-color: #FDB45C">
-					<h4>$${data["DATA"][i]["mrc"]}/mo</h4>
+				<div class="row">
+					<div class="col-sm-12"><strong>$${data["DATA"][i]["nrc"]}</strong> of OTC</div>
 				</div>
-			</div>
-			<div class="row">&nbsp;</div>
-			<div class="row">
-				<div class="col-sm-12">${data["DATA"][i]["bundleCd"]}</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12">$${data["DATA"][i]["nrc"]} of OTC</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12">${data["DATA"][i]["portSpeed"]} speed</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12">${data["DATA"][i]["managedRouter"]}</div>
-			</div>
-			<div class="row">&nbsp;</div>
-			<div class="row">
-				<div class="col-sm-8 col-sm-offset-2">
-					<input link="${data['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" matchPercentage="${data['DATA'][i]['matchPercentage']}" class="btn btn-primary btn-block" value="View Offer Details">
+				<div class="row">
+					<div class="col-sm-12"><strong>${data["DATA"][i]["portSpeed"]}</strong> speed</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">${data["DATA"][i]["managedRouter"]}</div>
+				</div>
+				<div class="row">&nbsp;</div>
+
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2">
+						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
+						class="btn" value="View Offer Details" >
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
+		{{else}}
+		<div class="col-sm-4">
+			<div class="jumbotron" style="background-color: lightgrey; color: black; height: 275px; border: 1px solid orange;  font-size: 17px;">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2"
+						style="background-color: #f2f2f2;">
+						<h4>$${data["DATA"][i]["mrc"]}/mo</h4>
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-sm-12" style="color: orange;"><strong>${data["DATA"][i]["bundleCd"]}</strong></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><strong>$${data["DATA"][i]["nrc"]}</strong> of OTC</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><strong>${data["DATA"][i]["portSpeed"]}</strong> speed</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">${data["DATA"][i]["managedRouter"]}</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2">
+						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
+						class="btn" value="View Offer Details" >
+					</div>
+				</div>
+			</div>
+		</div>
+		{{/if}}
 	{{/if}}
 	{{/each}}
 

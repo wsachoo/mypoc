@@ -15,28 +15,87 @@
 </script>
 
 <div class="row">
-	<div class="col-sm-6">
+<!-- 	<div class="col-sm-6">
 		<label>Sales Historical Data</label>
 	</div>
-	<div class="col-sm-2 col-sm-offset-4">
+	<div class="col-sm-4">
+		<strong>Our Top Selling Offer</strong>
+	</div> -->
+	<div class="col-sm-2 col-sm-offset-10">
 		<a href="#" data-name="solutionTemplate" data-url="stepWizard"
 			id="stepWizardLink">Customize</a>
 	</div>
 </div>
+<hr>
 <div class="row">
-	<div class="col-sm-6">
-		<div style="width: 450px; height: 250px">
+		<div class="col-sm-4" >
+	<strong>Our Top Selling Offer</strong>
+	<div class="jumbotron"
+		style="background-color: #00b2ff; color: white; height: 275px; text-align: center; border: 1px solid black; font-size: 17px;">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2"
+				style="background-color: #FDB45C;">
+				<h4>$1419/mo</h4>
+			</div>
+		</div>
+		<div class="row">&nbsp;</div>
+		<div class="row">
+			<div class="col-sm-12"><strong>MIS Express</strong></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12"><strong>$2500</strong> of OTC</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12"><strong>10 Mbps speed</strong></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">AT&amp;T Managed Router</div>
+		</div>
+		<div class="row">&nbsp;</div>
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<input
+					link="http://IBMADM-VG8736.ITServices.sbc.com:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5129784&amp;leadDesignId=5993843"
+					name="btnViewLink" type="button" matchpercentage="62.96%"
+					class="btn" value="View Offer Details"
+					style="background-color: #FDB45C; border: none;">
+			</div>
+		</div>
+	</div>
+</div>
+	
+	<div class="col-sm-4">
+	<label>Sales Historical Data</label>
+		<div style="height: 250px; width: 500px;">
 			<canvas id="myChart"></canvas>
 		</div>
 	</div>
-	<div class="col-sm-6">
+	<div class="col-sm-4">
+	<!-- <label>Success Percentage</label> -->
+	<br><br><br><br><br><br>
 	<ul>
+	{{each(i, item) data["DATA"]}} 
+			<li>	
+			<div class="col-sm-11">
+				<!-- <input type="radio" name="ACCESS_TYPE_ID" value='${data["DATA"][i]["ACCESS_TYPE_ID"]}'
+					checked="checked">  -->
+					
+						${data["DATA"][i]["ACCESS_SPEED_S"]}(Success
+						Percentage <b>${data["DATA"][i]["PERCENTAGE"]}%)</b>
+					
+			</div>
+			</li>
+	{{/each}}
+	</ul>
+	</div>
+	
+	<!-- <ul>
 	{{each(i, item) data["DATA"]}} 
 		<div class="row">
 			<li>	
 			<div class="col-sm-11">
-				<!-- <input type="radio" name="ACCESS_TYPE_ID" value='${data["DATA"][i]["ACCESS_TYPE_ID"]}'
-					checked="checked"> --> 
+				<input type="radio" name="ACCESS_TYPE_ID" value='${data["DATA"][i]["ACCESS_TYPE_ID"]}'
+					checked="checked"> 
 					
 						${data["DATA"][i]["ACCESS_SPEED_S"]}(Success
 						Percentage <b>${data["DATA"][i]["PERCENTAGE"]}%)</b>
@@ -45,7 +104,7 @@
 			</li>
 		</div>
 	{{/each}}
-	</ul>
+	</ul> -->
 	<!-- 		<div class="row">
 			<div class="col-sm-11 col-sm-offset-1">
 				<input type="radio" name="ACCESS_TYPE_ID" value="Private Line">
@@ -59,5 +118,6 @@
 				<br>&nbsp;&nbsp;&nbsp;&nbsp;(Success Percentage <b>${Other_PERCENTAGE}%)</b>
 			</div>
 		</div> -->
-	</div>
+
 </div>
+<hr>
