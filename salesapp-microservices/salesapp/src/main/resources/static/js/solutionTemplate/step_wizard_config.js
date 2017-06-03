@@ -681,7 +681,7 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 		
 		if (productName == "MIS Express" && accessSpeed == "250 MBPS") {
 			bootbox.confirm({
-			    message: "We found that VVB Express is most preferred product for this combination. Would you like to go with it?",
+			    message: "Analytics suggests VVB Bundle as most suitable offer for the required Design Configuration.",
 			    buttons: {
 			        confirm: {
 			            label: 'Yes Sure!',
@@ -812,7 +812,7 @@ function onClickCustomizeShoppingCart() {
 	customizeContractTermGCData();
 
 	var thisElement = $("#btnCustomizeShoppingCart");
-	thisElement.html('Apply');
+	thisElement.html('Update My Cart <span class="glyphicon glyphicon-shopping-cart"></span>');
 	thisElement.attr('id','btnApplyShoppingCartData');
 	thisElement.attr('onclick','onClickApplyShoppingCartData();');
 	$("#displayIpVersionTd").empty();
