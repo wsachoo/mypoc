@@ -97,7 +97,7 @@
 							id="sachtopmenu_generateContract">
 							<a href="#" id="shoppingCartLink" style="color: white;"
 								data-name="contractGeneration"
-								data-url="${pageContext.request.contextPath}/generateContract"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</a>
+								data-url="${pageContext.request.contextPath}/generateContract"> My Cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
 						</div>
 					</div>
 					<div class="clearfix"></div>

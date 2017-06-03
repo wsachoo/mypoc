@@ -13,47 +13,54 @@ $(document).ready(function() {
 
 	$("#securityNeeded").click(function() {
 		if ($(this).prop('checked')) {
-			$("#securityFeature").css('display', 'inline');
+			$("#securityFeatureDiv").css('display', 'inline');
 		} else {
-			$("#securityFeature").css('display', 'none');
+			$("#securityFeatureDiv").css('display', 'none');
 		}
 	});
 });
 </script>
 
 <div class="container-fluid" id="divShoppingCartTemplate">
-		<div class="row col-sm-10" style="text-align: center;">
-			<label style="font-size: 20px;">My Cart Details</label>
-			<hr>
+		<div class="row" style="text-align: left;">
+			<div class="col-sm-6">
+				<label style="font-size: 22px;">My Cart Details</label>
+			</div>
+			<div class=col-sm-6>
+				<input type="button" value="Back To Offers" id="btnGoBackToOffers" class="btn btn-primary col-sm-offset-3" onclick="goBackToOffers();">
+			</div>
 		</div>
-		<div class="row col-sm-10">
+		<hr>
+		<div class="row">
 		<div class="col-sm-6">
-		<h5><b>Item Description</b></h5>
+		{{each(i, item) $data}}
+			{{if (i == 'DESIGN NAME')}}
+				<strong style="font-size: 22px;">1. ${item} &nbsp;<span class="glyphicon glyphicon-trash" ></span></strong> <br>
+			{{/if}}	
+		{{/each}}
 		
-		<ul>
 			{{each(i, item) $data}}
-				{{if (i == 'DESIGN NAME' || i == 'MRC')}}
-					{{if (i == 'DESIGN NAME')}}
-						<li>${item}</li>
-					{{else}}
-						<li><strong>${item}</strong> Effective monthly charge</li>
+				{{if (i == 'ACCESS BANDWIDTH')}}
+					{{if (i == 'ACCESS BANDWIDTH')}}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${item}
 					{{/if}}
 				{{/if}}	
 			{{/each}}
-		</ul>	
-		</div>
-		<div class=col-sm-6 >
-			Delete this Item <span class="glyphicon glyphicon-trash" alt="Delete this Item"></span><br>
-			<br>
-			<button type="button"  id="btnCustomizeShoppingCart" class="btn btn-primary" onclick="onClickCustomizeShoppingCart();" style="float: left;">Edit My Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
-			<input type="button" value="Back To Offers" id="btnGoBackToOffers" class="btn btn-primary col-sm-offset-3" onclick="goBackToOffers();">
+			
 		</div>
 
+		<div class="col-sm-6">
+			{{each(i, item) $data}}
+			{{if (i == 'MRC')}}
+				<strong style="font-size: 22px;">${item}</strong> <br>Effective monthly charge
+			{{/if}}	
+		{{/each}}
 		</div>
-		
+		</div>
+		<br>
 		<div class="row col-sm-10" >
 		<div class="col-sm-6">
-		<h5><strong>Oppurtunity & Configuration options</strong></h5>
+		<strong style="font-size: 18px;">Oppurtunity & Configuration options</strong>
 		</div>
 		<div class="col-sm-12">
 		<table class="table table-striped">
@@ -133,32 +140,50 @@ $(document).ready(function() {
 								{{/if}}	
 							{{/if}}	
 						{{/each}}
+						</table>
+						<strong style="font-size: 18px;">Additional Features</strong>
+						<div class="col-sm-12">
+						<table class="table table-striped">
 						<tr>
-							<td>Add Voice Feature 
+							<td>Add Voice Feature? &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="bvoipNeeded" id="bvoipNeeded"> Yes
 							</td>
-							<td><input type="checkbox" name="bvoipNeeded" id="bvoipNeeded">
-								<div id="showDivBvoipFeature" style="display: none;">
-								<select name="bvoipVoiceFeature" class="form-control" id="selectBvoipVoiceFeature" style="width:60%; margin-top: 1px;">
-									<option value="callingPlanB">Calling Plan B
-									<option value="CallingPlanC">Calling Plan C
-								</select>
-								<br>
-								<input type="text" placeholder="Concurrent Calls" id="txtConcurrentCall" class="form-control" style="width:60%; margin-top: 1px;">
-								</div>	
+							<td>
+							<div class="row">
+								<div class="col-sm-1">
+									
+								</div>
+								<div class="col-sm-8" id="showDivBvoipFeature" style="display: none;">
+										Calling Plan <select name="bvoipVoiceFeature" class="form-control"
+											id="selectBvoipVoiceFeature" style="width: 60%;">
+											<option value="callingPlanB">Calling Plan B</option>
+											<option value="CallingPlanC">Calling Plan C</option>
+										</select>
+										Concurrent calls <input type="text" placeholder="6" id="txtConcurrentCall"
+											class="form-control" style="width: 60%;">
+								</div>
+							</div>
 							</td>
 						</tr>
 						<tr>
-							<td>Add Security Feature 
+							<td>Add Security Feature? &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="securityNeeded" id="securityNeeded"> Yes
 							</td>
-							<td ><input type="checkbox" name="securityNeeded" id="securityNeeded">
-								<select name="securityFeature" class="form-control" id="securityFeature" style="width:60%; margin-top: 1px; display: none;">
-									<option value="cloudBasedSecurity">Cloud Based Security
-									<option value="firewall">Firewall
-									<option value="wirelessBasedSecurity">Wireless Based Security
-								</select>
-							</td>
+						<td>
+							<div class="row">
+								<div class="col-sm-1">
+									
+								</div>
+								<div class="col-sm-8" id="securityFeatureDiv" style="display: none;">
+										<select name="securityFeature" class="form-control" id="securityFeatureSelect" style="width:60%;">
+											<option value="cloudBasedSecurity">Cloud Based Security
+											<option value="firewall">Firewall
+											<option value="wirelessBasedSecurity">Wireless Based Security
+										</select>
+								</div>
+							</div>
+						</td>
 						</tr>
-		</table>
+						</table>
+						</div>
 		</div>
 		<div class="clearfix col-sm-12" style="text-align: center;">
 		<hr>
@@ -168,7 +193,7 @@ $(document).ready(function() {
 		
 	</div>
 	<div class="row col-sm-10" >
-		
-		<input type="button" value="Checkout & Generate Contract" id="btnCheckoutGenContract" class="btn btn-primary col-sm-offset-3"  onclick="onClickCheckoutAndGenContract();">
+		<button type="button"  id="btnCustomizeShoppingCart" class="btn btn-primary" onclick="onClickCustomizeShoppingCart();" style="float: left;">Edit My Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
+		<input type="button" value="Checkout & Generate Contract" id="btnCheckoutGenContract" class="btn btn-primary" onclick="onClickCheckoutAndGenContract();" style="float: right;">
 	</div>
 </div>
