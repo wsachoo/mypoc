@@ -50,7 +50,7 @@ $(document).ready(function() {
 		
 		<div class="row col-sm-10" >
 		<div class="col-sm-6">
-		<h5>Oppurtunity & Configuration options</h5>
+		<h5><strong>Oppurtunity & Configuration options</strong></h5>
 		</div>
 		<div class="col-sm-12">
 		<table class="table table-striped">
@@ -159,13 +159,14 @@ $(document).ready(function() {
 		</div>
 		<div class="clearfix col-sm-12" style="text-align: center;">
 		<hr>
-			You have currently one Item in the cart.
+			You have currently one Item in the cart.<br>
 		<hr>
 		</div>
 		
 	</div>
 	<div class="row col-sm-10" >
-		<input type="button" value="Edit My Cart" id="btnCustomizeShoppingCart" class="btn btn-primary" onclick="onClickCustomizeShoppingCart();" style="float: left;">
-		<input type="button" value="Checkout & Generate Contract" id="btnCheckoutGenContract" class="btn btn-primary" style="float: right;" onclick="onClickCheckoutAndGenContract();">
+		<button type="button"  id="btnCustomizeShoppingCart" class="btn btn-primary" onclick="onClickCustomizeShoppingCart();" style="float: left;">Edit My Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
+		<input type="button" value="Back To Offers" id="btnGoBackToOffers" class="btn btn-primary col-sm-offset-3" onclick="goBackToOffers();">
+		<input type="button" value="Checkout & Generate Contract" id="btnCheckoutGenContract" class="btn btn-primary " style="float: right;" onclick="onClickCheckoutAndGenContract();">
 	</div>
 </div>

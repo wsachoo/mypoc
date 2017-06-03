@@ -742,6 +742,8 @@ function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
 	$("#btndisplayConfirmModalAddToCart").trigger('click');
 	if(name != undefined && name != '' && name == 'btnCustomize') {
 		isButtonCustomizeClick = true;
+		$("#dispConfirmAddToCartModal #modal-footer").find('button').html('Continue <span class="glyphicon glyphicon-shopping-cart"></span>');
+		$("#dispConfirmAddToCartModal").find('p').html('has been successfully added to the Cart and ready for customization.')
 	}
 }
 
@@ -809,7 +811,7 @@ function onClickCustomizeShoppingCart() {
 	customizeContractTermGCData();
 
 	var thisElement = $("#btnCustomizeShoppingCart");
-	thisElement.attr('value','Apply');
+	thisElement.html('Apply');
 	thisElement.attr('id','btnApplyShoppingCartData');
 	thisElement.attr('onclick','onClickApplyShoppingCartData();');
 	$("#displayIpVersionTd").empty();
@@ -833,7 +835,7 @@ function onClickApplyShoppingCartData() {
 	$("#displayPortSpeedList").html(portSpeedValue);
 	$("#displayContractTermList").html(contractTermValue);
 	
-	var customizeButton = '<input type="button" class="btn btn-primary" id="btnCustomizeShoppingCart" value="Edit My Cart" onclick="onClickCustomizeShoppingCart();">';
+	var customizeButton = '<button type="button"  id="btnCustomizeShoppingCart" class="btn btn-primary" onclick="onClickCustomizeShoppingCart();" style="float: left;">Edit My Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>';
 	
 	thisElement.after(customizeButton);
 	thisElement.remove();
@@ -849,3 +851,6 @@ function onClickCheckoutAndGenContract() {
 	$("#btnPreviewContactModal").trigger('click');
 }
 
+function goBackToOffers() {
+	window.history.back();
+}
