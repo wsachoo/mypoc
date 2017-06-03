@@ -30,7 +30,7 @@
 } */
 </style>
 <div class='row'>
-  <div class='col-sm-12'><strong style='font-size: 18px'>Other Recommended offers</strong><br><br></div>
+  <div class='col-sm-12'><strong style='font-size: 18px'>Recommendations for you</strong><br><br></div>
 </div>
 
 <div class="row">
@@ -38,21 +38,23 @@
 	{{if i > 1 && i < 6 }}
 		{{if (data["DATA"][i]["bundleCd"] == 'VVB Express')}}
 
-
-			
-
 		<div class="col-sm-3">
-			<div class="jumbotron" style="background-color: #777; color: black; height: 325px; font-size: 17px;">
+			<div class="jumbotron" style="background-color: #3399ff; color: black; height: 325px; font-size: 17px;">
 
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2"
-						style="background-color: #f2f2f2;">
+						style="background-color: #FDB45C; color: white;">
 						<h4>$${data["DATA"][i]["mrc"]}/mo</h4>
 					</div>
 				</div>
 				<div class="row">&nbsp;</div>
-				<div class="row">
-					<div class="col-sm-12" style="color: #00b2ff"><strong>${data["DATA"][i]["bundleCd"]}</strong></div>
+				<div class="row" style="color: white; text-align: center;"><strong>${data["DATA"][i]["bundleCd"]}</strong></div>
+				<div class="row" style="color: white; text-align: center;"><strong>$${data["DATA"][i]["nrc"]}</strong> of OTC</div>
+				<div class="row" style="color: white; text-align: center;"><strong>${data["DATA"][i]["portSpeed"]}</strong> speed</div>
+				<div class="row" style="color: white; text-align: center;">${data["DATA"][i]["managedRouter"]}</div>
+				
+<!-- 				<div class="row">
+					<div class="col-sm-12" style="color: white"><strong>${data["DATA"][i]["bundleCd"]}</strong></div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12" style="color: white;"><strong>$${data["DATA"][i]["nrc"]}</strong> of OTC</div>
@@ -63,23 +65,22 @@
 				<div class="row">
 					<div class="col-sm-12" style="color: white;">${data["DATA"][i]["managedRouter"]}</div>
 				</div>
-				<div class="row">&nbsp;</div>
+ -->				<div class="row">&nbsp;</div>
 				
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
-						<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data['DATA'][i]['bundleCd']}" 
-						class="btn" value="Add To Cart" mrc="${data['DATA'][i]['mrc']}" link="${data['DATA'][i]['links'][0]['href']}">
+						<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="background-color: #FDB45C; color: white;" design-name="${data['DATA'][i]['bundleCd']}" 
+						class="btn btn-block" value="Add To Cart" mrc="${data['DATA'][i]['mrc']}" link="${data['DATA'][i]['links'][0]['href']}">
 					</div>
-				</div>
-				<div class="row">&nbsp;</div>				
-				<div class="row">
+				</div>	
+				<div class="row" style="margin-top: 10px">
 					<!-- <div class="col-sm-8 col-sm-offset-2">
 						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
 						class="btn" value="View Offer Details" >
 					</div> -->
 					<div class="col-sm-8 col-sm-offset-2">
-						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
-						class="btn" value="Customize" mrc="${data['DATA'][i]['mrc']}" design-name="${data['DATA'][i]['bundleCd']}" speed="${data['DATA'][i]['portSpeed']}">
+						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="background-color: #FDB45C; color: white;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
+						class="btn btn-block" value="Customize" mrc="${data['DATA'][i]['mrc']}" design-name="${data['DATA'][i]['bundleCd']}" speed="${data['DATA'][i]['portSpeed']}">
 					</div>
 				</div>
 			</div>
@@ -87,43 +88,34 @@
 		{{else}}
 
 		<div class="col-sm-3">
-			<div class="jumbotron" style="background-color: #777; color: black; height: 325px; font-size: 17px;">
+			<div class="jumbotron" style="background-color: #FDB45C; color: black; height: 325px; font-size: 17px;">
 
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2"
-						style="background-color: #f2f2f2;">
+						style="background-color: #3399ff; color: white;">
 						<h4>$${data["DATA"][i]["mrc"]}/mo</h4>
 					</div>
 				</div>
 				<div class="row">&nbsp;</div>
-				<div class="row" >
-					<div class="col-sm-12" style="color: orange;"><strong>${data["DATA"][i]["bundleCd"]}</strong></div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12" style="color: white;"><strong>$${data["DATA"][i]["nrc"]}</strong> of OTC</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12" style="color: white;"><strong>${data["DATA"][i]["portSpeed"]}</strong> speed</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12" style="color: white;">${data["DATA"][i]["managedRouter"]}</div>
-				</div>
+				<div class="row" style="color: white; text-align: center;"><strong>${data["DATA"][i]["bundleCd"]}</strong></div>
+				<div class="row" style="color: white; text-align: center;"><strong>$${data["DATA"][i]["nrc"]}</strong> of OTC</div>
+				<div class="row" style="color: white; text-align: center;"><strong>${data["DATA"][i]["portSpeed"]}</strong> speed</div>
+				<div class="row" style="color: white; text-align: center;">${data["DATA"][i]["managedRouter"]}</div>
 				<div class="row">&nbsp;</div>
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
-						<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data['DATA'][i]['bundleCd']}" 
-						class="btn" value="Add To Cart" mrc="${data['DATA'][i]['mrc']}" link="${data['DATA'][i]['links'][0]['href']}">
+						<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="background-color: #3399ff; color: white;" design-name="${data['DATA'][i]['bundleCd']}" 
+						class="btn btn-block" value="Add To Cart" mrc="${data['DATA'][i]['mrc']}" link="${data['DATA'][i]['links'][0]['href']}">
 					</div>
 				</div>
-				<div class="row">&nbsp;</div>				
-				<div class="row">
+				<div class="row" style="margin-top: 10px">
 					<!-- <div class="col-sm-8 col-sm-offset-2">
 						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
 						class="btn" value="View Offer Details" >
 					</div> -->
 					<div class="col-sm-8 col-sm-offset-2">
-						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
-						class="btn" value="Customize" mrc="${data['DATA'][i]['mrc']}" design-name="${data['DATA'][i]['bundleCd']}" speed="${data['DATA'][i]['portSpeed']}">
+						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="background-color: #3399ff; color: white;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
+						class="btn btn-block" value="Customize" mrc="${data['DATA'][i]['mrc']}" design-name="${data['DATA'][i]['bundleCd']}" speed="${data['DATA'][i]['portSpeed']}">
 					</div> 
 				</div>
 			</div>
@@ -134,7 +126,7 @@
 </div>
 
 <div class='row'>
-  <div class='col-sm-12'><strong style='font-size: 18px'>Other offers</strong><br><br></div>
+  <div class='col-sm-12'><strong style='font-size: 18px'>Other Recommendations</strong><br><br></div>
 </div>
 
 
@@ -181,34 +173,25 @@
 					</div>
 				</div>
 				<div class="row">&nbsp;</div>
-				<div class="row">
-					<div class="col-sm-12" style="color: #00b2ff"><strong>${data2["DATA"][i]["bundleCd"]}</strong></div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12" style="color: white;"><strong>$${data2["DATA"][i]["nrc"]}</strong> of OTC</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12" style="color: white;"><strong>${data2["DATA"][i]["portSpeed"]}</strong> speed</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12" style="color: white;">${data2["DATA"][i]["managedRouter"]}</div>
-				</div>
+				<div class="row" style="color: #00b2ff; text-align: center;"><strong>${data2["DATA"][i]["bundleCd"]}</strong></div>
+				<div class="row" style="color: white; text-align: center;"><strong>$${data2["DATA"][i]["nrc"]}</strong> of OTC</div>
+				<div class="row" style="color: white; text-align: center;"><strong>${data2["DATA"][i]["portSpeed"]}</strong> speed</div>
+				<div class="row" style="color: white; text-align: center;">${data2["DATA"][i]["managedRouter"]}</div>
 				<div class="row">&nbsp;</div>
-				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
+				<div class="row" style="color: #00b2ff; text-align: center;">
+				    <div class="col-sm-8 col-sm-offset-2">
 						<input speed="${data2['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data2['DATA'][i]['bundleCd']}" 
-						class="btn" value="Add To Cart" mrc="${data2['DATA'][i]['mrc']}" link="${data2['DATA'][i]['links'][0]['href']}">
+						class="btn btn-block" value="Add To Cart" mrc="${data2['DATA'][i]['mrc']}" link="${data2['DATA'][i]['links'][0]['href']}">
 					</div>
 				</div>
-				<div class="row">&nbsp;</div>
-				<div class="row">
+				<div class="row" style="margin-top: 10px">
 					<!-- <div class="col-sm-8 col-sm-offset-2">
 						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
 						class="btn" value="View Offer Details" >
 					</div> -->
 					<div class="col-sm-8 col-sm-offset-2">
 						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
-						class="btn" value="Customize" mrc="${data2['DATA'][i]['mrc']}" design-name="${data2['DATA'][i]['bundleCd']}" speed="${data2['DATA'][i]['portSpeed']}">
+						class="btn btn-block" value="Customize" mrc="${data2['DATA'][i]['mrc']}" design-name="${data2['DATA'][i]['bundleCd']}" speed="${data2['DATA'][i]['portSpeed']}">
 					</div> 					
 				</div>
 			</div>
@@ -223,35 +206,26 @@
 					</div>
 				</div>
 				<div class="row">&nbsp;</div>
-				<div class="row" >
-					<div class="col-sm-12" style="color: orange;"><strong>${data2["DATA"][i]["bundleCd"]}</strong></div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12" style="color: white;"><strong>$${data2["DATA"][i]["nrc"]}</strong> of OTC</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12" style="color: white;"><strong>${data2["DATA"][i]["portSpeed"]}</strong> speed</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12" style="color: white;">${data2["DATA"][i]["managedRouter"]}</div>
-				</div>
+				<div class="row" style="color: #FDB45C; text-align: center;"><strong>${data2["DATA"][i]["bundleCd"]}</strong></div>
+				<div class="row" style="color: white; text-align: center;"><strong>$${data2["DATA"][i]["nrc"]}</strong> of OTC</div>
+				<div class="row" style="color: white; text-align: center;"><strong>${data2["DATA"][i]["portSpeed"]}</strong> speed</div>
+				<div class="row" style="color: white; text-align: center;">${data2["DATA"][i]["managedRouter"]}</div>
 				<div class="row">&nbsp;</div>
-				<div class="row">
-				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
+				<div class="row" style="color: #00b2ff; text-align: center;">
+				    <div class="col-sm-8 col-sm-offset-2">
 						<input speed="${data2['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data2['DATA'][i]['bundleCd']}" 
-						class="btn" value="Add To Cart" mrc="${data2['DATA'][i]['mrc']}" link="${data2['DATA'][i]['links'][0]['href']}">
+						class="btn btn-block" value="Add To Cart" mrc="${data2['DATA'][i]['mrc']}" link="${data2['DATA'][i]['links'][0]['href']}">
 					</div>
 				</div>
-				<div class="row">&nbsp;</div>
+				<div class="row" style="margin-top: 10px">
 					<!-- <div class="col-sm-8 col-sm-offset-2">
 						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
 						class="btn" value="View Offer Details" >
 					</div> -->
 					<div class="col-sm-8 col-sm-offset-2">
 						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
-						class="btn" value="Customize" mrc="${data2['DATA'][i]['mrc']}" design-name="${data2['DATA'][i]['bundleCd']}" speed="${data2['DATA'][i]['portSpeed']}">
-					</div> 
+						class="btn btn-block" value="Customize" mrc="${data2['DATA'][i]['mrc']}" design-name="${data2['DATA'][i]['bundleCd']}" speed="${data2['DATA'][i]['portSpeed']}">
+					</div> 					
 				</div>
 			</div>
 		</div>
