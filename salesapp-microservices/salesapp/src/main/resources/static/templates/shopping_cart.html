@@ -27,7 +27,7 @@ $(document).ready(function() {
 			<hr>
 		</div>
 		<div class="row col-sm-10">
-		<div class="col-sm-7">
+		<div class="col-sm-6">
 		<h5><b>Item Description</b></h5>
 		
 		<ul>
@@ -41,10 +41,13 @@ $(document).ready(function() {
 				{{/if}}	
 			{{/each}}
 		</ul>	
-			</div>
-			<div class=col-sm-5 >
-				Delete this Item <span class="glyphicon glyphicon-trash" alt="Delete this Item"></span>
-			</div>
+		</div>
+		<div class=col-sm-6 >
+			Delete this Item <span class="glyphicon glyphicon-trash" alt="Delete this Item"></span><br>
+			<br>
+			<button type="button"  id="btnCustomizeShoppingCart" class="btn btn-primary" onclick="onClickCustomizeShoppingCart();" style="float: left;">Edit My Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			<input type="button" value="Back To Offers" id="btnGoBackToOffers" class="btn btn-primary col-sm-offset-3" onclick="goBackToOffers();">
+		</div>
 
 		</div>
 		
@@ -165,8 +168,7 @@ $(document).ready(function() {
 		
 	</div>
 	<div class="row col-sm-10" >
-		<button type="button"  id="btnCustomizeShoppingCart" class="btn btn-primary" onclick="onClickCustomizeShoppingCart();" style="float: left;">Edit My Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
-		<input type="button" value="Back To Offers" id="btnGoBackToOffers" class="btn btn-primary col-sm-offset-3" onclick="goBackToOffers();">
-		<input type="button" value="Checkout & Generate Contract" id="btnCheckoutGenContract" class="btn btn-primary " style="float: right;" onclick="onClickCheckoutAndGenContract();">
+		
+		<input type="button" value="Checkout & Generate Contract" id="btnCheckoutGenContract" class="btn btn-primary col-sm-offset-3"  onclick="onClickCheckoutAndGenContract();">
 	</div>
 </div>
