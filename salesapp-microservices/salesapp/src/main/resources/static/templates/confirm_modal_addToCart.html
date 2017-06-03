@@ -1,3 +1,14 @@
+<script>
+
+$(document).ready(function() {
+	$("#btnConfimModalClose").click(function() {
+		try { $("div.modal-backdrop").remove(); } catch(ex) {}
+	});
+});
+
+
+</script>
+
 <div class="row" id="displayConfirmModalAddToCart">
 	<!-- Trigger the modal with a button -->
 	<button type="button" id="btndisplayConfirmModalAddToCart"
@@ -9,7 +20,7 @@
 			<!-- Modal content-->
 			<div class="modal-content" style="width:800px; top:250px;">
 				<div class="modal-header" style="text-align:center">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<button type="button" id="btnConfimModalClose" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body" style="text-align: center;">
 				 <a href="#">
