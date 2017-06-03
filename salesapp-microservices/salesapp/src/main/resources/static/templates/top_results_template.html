@@ -41,19 +41,29 @@
 	(data["DATA"][i]["bundleCd"] == 'VVB Express')}}
 
 	<div class="col-sm-3">
-		<div class="jumbotron"
-			style="background-color: #efefef; color: black; height: 325px; font-size: 17px; border: 1px solid #33ccff; border-radius: 25px;">
 
-			<div class="row" style="color: black; text-align: center;">
-				${data["DATA"][i]["bundleCd"]}</div>
+		<div class="jumbotron"
+			style="background-color: #efefef; color: black; border: 1px solid #33ccff; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
+			<div class="row" style="text-align: center;">
+				<span style="color: black; font-size: 18px;">${data["DATA"][i]["bundleCd"]}</span>
+				<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px; border-color: black;">
+			</div>
+			<div class="row" style="text-align: center;">
+				<span style="color: black; font-size: 22px; font-weight: bold;">${data["DATA"][i]["portSpeed"]}
+					Speed</span>
+				<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: black;">
+			</div>
+			<div class="row" style="text-align: center;">
+				<span style="color: black; font-size: 17px;">${data["DATA"][i]["managedRouter"]}</span>
+				<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: black;">
+			</div>
+
+			<div class="row" style="text-align: center;">
+				<span style="color: black; font-size: 17px;">$${data["DATA"][i]["nrc"]}
+					of OTC</span>
+			</div>
 			<div class="row"
-				style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
-				${data["DATA"][i]["portSpeed"]} Speed</div>
-			<div class="row" style="color: black; text-align: center;">${data["DATA"][i]["managedRouter"]}</div>
-			<div class="row" style="color: black; text-align: center;">
-				$${data["DATA"][i]["nrc"]} of OTC</div>
-			<div class="row"
-				style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
+				style="color: black; text-align: center; font-size: 22px; font-weight: bold;">
 				$${data["DATA"][i]["mrc"]}</div>
 			<div class="row"
 				style="color: black; text-align: center; font-size: 14px; font-weight: bold;">Effective
@@ -62,7 +72,7 @@
 			<div class="row">
 				<div class="col-sm-10 col-sm-offset-1">
 					<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart"
-						type="button" 
+						type="button"
 						style="color: black; background-color: #f2f2f2; border: 1px solid;"
 						design-name="${data['DATA'][i]['bundleCd']}" class="btn btn-block"
 						value="Add To Cart" mrc="${data['DATA'][i]['mrc']}"
@@ -91,18 +101,28 @@
 
 	<div class="col-sm-3">
 		<div class="jumbotron"
-			style="background-color: #efefef; color: black; height: 325px; font-size: 17px; border: 1px solid #ff9900; border-radius: 25px;">
+			style="background-color: #efefef; color: black; border: 1px solid #ff9900; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
 
-			<div class="row" style="color: black; text-align: center;">
-				${data["DATA"][i]["bundleCd"]}</div>
+			<div class="row" style="text-align: center;">
+				<span style="color: black; font-size: 18px;">${data["DATA"][i]["bundleCd"]}</span>
+				<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: black;">
+			</div>
+			<div class="row" style="text-align: center;">
+				<span style="color: black; font-size: 22px; font-weight: bold;">${data["DATA"][i]["portSpeed"]}
+					Speed</span>
+				<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: black;">
+			</div>
+			<div class="row" style="text-align: center;">
+				<span style="color: black; font-size: 17px;">${data["DATA"][i]["managedRouter"]}</span>
+				<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: black;">
+			</div>
+
+			<div class="row" style="text-align: center;">
+				<span style="color: black; font-size: 17px;">$${data["DATA"][i]["nrc"]}
+					of OTC</span>
+			</div>
 			<div class="row"
-				style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
-				${data["DATA"][i]["portSpeed"]} Speed</div>
-			<div class="row" style="color: black; text-align: center;">${data["DATA"][i]["managedRouter"]}</div>
-			<div class="row" style="color: black; text-align: center;">
-				$${data["DATA"][i]["nrc"]} of OTC</div>
-			<div class="row"
-				style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
+				style="color: black; text-align: center; font-size: 22px; font-weight: bold;">
 				$${data["DATA"][i]["mrc"]}</div>
 			<div class="row"
 				style="color: black; text-align: center; font-size: 14px; font-weight: bold;">Effective
@@ -111,7 +131,7 @@
 			<div class="row">
 				<div class="col-sm-10 col-sm-offset-1">
 					<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart"
-						type="button" 
+						type="button"
 						style="color: black; background-color: #f2f2f2; border: 1px solid;"
 						design-name="${data['DATA'][i]['bundleCd']}" class="btn btn-block"
 						value="Add To Cart" mrc="${data['DATA'][i]['mrc']}"
@@ -166,23 +186,34 @@
 				'VVB Express')}}
 				<div class="col-sm-3">
 					<div class="jumbotron"
-						style="background-color: #efefef; color: black; height: 325px; font-size: 17px; border: 1px solid #33ccff; border-radius: 25px;">
+						style="background-color: #efefef; color: black; border: 1px solid #33ccff; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
 
-						<div class="row" style="color: black; text-align: center;">
-							${data2["DATA"][i]["bundleCd"]}</div>
+						<div class="row" style="text-align: center;">
+							<span style="color: black; font-size: 18px;">${data2["DATA"][i]["bundleCd"]}</span>
+							<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: black;">
+						</div>
+						<div class="row" style="text-align: center;">
+							<span style="color: black; font-size: 22px; font-weight: bold;">${data2["DATA"][i]["portSpeed"]}
+								Speed</span>
+							<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: black;">
+						</div>
+						<div class="row" style="text-align: center;">
+							<span style="color: black; font-size: 17px;">${data2["DATA"][i]["managedRouter"]}</span>
+							<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: black;">
+						</div>
+
+						<div class="row" style="text-align: center;">
+							<span style="color: black; font-size: 17px;">$${data2["DATA"][i]["nrc"]}
+								of OTC</span>
+						</div>
 						<div class="row"
-							style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
-							${data2["DATA"][i]["portSpeed"]} Speed</div>
-						<div class="row" style="color: black; text-align: center;">${data2["DATA"][i]["managedRouter"]}</div>
-						<div class="row" style="color: black; text-align: center;">
-							$${data2["DATA"][i]["nrc"]} of OTC</div>
-						<div class="row"
-							style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
+							style="color: black; text-align: center; font-size: 22px; font-weight: bold;">
 							$${data2["DATA"][i]["mrc"]}</div>
 						<div class="row"
 							style="color: black; text-align: center; font-size: 14px; font-weight: bold;">Effective
 							Monthly Price</div>
 						<div class="row">&nbsp;</div>
+
 						<div class="row" style="color: #00b2ff; text-align: center;">
 							<div class="col-sm-10 col-sm-offset-1">
 								<input speed="${data2['DATA'][i]['portSpeed']}"
@@ -214,24 +245,39 @@
 				</div>
 				{{else}}
 				<div class="col-sm-3">
-					<div class="jumbotron"
-						style="background-color: #efefef; color: black; height: 325px; font-size: 17px; border: 1px solid #ff9900; border-radius: 25px;">
 
-						<div class="row" style="color: black; text-align: center;">
-							${data2["DATA"][i]["bundleCd"]}</div>
+
+					<div class="jumbotron"
+						style="background-color: #efefef; color: black; border: 1px solid #ff9900; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
+
+						<div class="row" style="text-align: center;">
+							<span style="color: black; font-size: 18px;">${data2["DATA"][i]["bundleCd"]}</span>
+							<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: black;">
+						</div>
+						<div class="row" style="text-align: center;">
+							<span style="color: black; font-size: 22px; font-weight: bold;">${data2["DATA"][i]["portSpeed"]}
+								Speed</span>
+							<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: black;">
+						</div>
+						<div class="row" style="text-align: center;">
+							<span style="color: black; font-size: 17px;">${data2["DATA"][i]["managedRouter"]}</span>
+							<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: black;">
+						</div>
+
+						<div class="row" style="text-align: center;">
+							<span style="color: black; font-size: 17px;">$${data2["DATA"][i]["nrc"]}
+								of OTC</span>
+						</div>
 						<div class="row"
-							style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
-							${data2["DATA"][i]["portSpeed"]} Speed</div>
-						<div class="row" style="color: black; text-align: center;">${data2["DATA"][i]["managedRouter"]}</div>
-						<div class="row" style="color: black; text-align: center;">
-							$${data2["DATA"][i]["nrc"]} of OTC</div>
-						<div class="row"
-							style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
+							style="color: black; text-align: center; font-size: 22px; font-weight: bold;">
 							$${data2["DATA"][i]["mrc"]}</div>
 						<div class="row"
 							style="color: black; text-align: center; font-size: 14px; font-weight: bold;">Effective
 							Monthly Price</div>
 						<div class="row">&nbsp;</div>
+
+
+
 						<div class="row" style="color: #00b2ff; text-align: center;">
 							<div class="col-sm-10 col-sm-offset-1">
 								<input speed="${data2['DATA'][i]['portSpeed']}"
