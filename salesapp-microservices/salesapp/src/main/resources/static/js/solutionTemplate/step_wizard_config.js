@@ -749,6 +749,7 @@ function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
 
 
 function onClickViewCartAndCheckout(url) {
+	try { $("div.modal-backdrop").remove(); } catch(ex) {}
 	
 	location.hash = "shoppingCart";
 	$('body').find("#divShoppingCartTemplate").remove();
