@@ -7,7 +7,7 @@
 	<div class="modal fade" id="dispConfirmAddToCartModal" role="dialog">
 		<div class="modal-dialog" style="left:-7.0%;">
 			<!-- Modal content-->
-			<div class="modal-content" style="width:800px;">
+			<div class="modal-content" style="width:800px; top:250px;">
 				<div class="modal-header" style="text-align:center">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
@@ -15,11 +15,12 @@
 				 <a href="#">
           			<span class="glyphicon glyphicon-ok" style="color:green; font-size: 15px;"></span>
         		</a>
-					${designName} (${speed}, $${mrc}/mo) has been successfully added to the Cart.
+					<strong>${designName} (${speed}, $${mrc}/mo)</strong> <p>has been successfully added to the Cart.</p>
 				</div>
 				<div class="modal-footer" style="text-align:center" id="modal-footer">
-					<input type="button" class="btn btn-primary" data-dismiss="modal" id="btnViewCartAndCheckout" 
-					value="View Cart and Checkout" onclick="onClickViewCartAndCheckout();" style="float: left;" link="${url}">
+				 <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnViewCartAndCheckout" 
+					onclick="onClickViewCartAndCheckout();" style="float: left;" link="${url}">View Cart and Checkout <span class="glyphicon glyphicon-shopping-cart"></span>
+				</button>
 					<input type="button" value="Check Other Offers" data-dismiss="modal" class="btn btn-primary" style="float: right;">
 					
 				</div>
