@@ -506,7 +506,7 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 	graph_data.attr = [];
 	graph_data.datasets.push({});
 	
-	graph_data.datasets[0].backgroundColor = [ "green", "#61F047", "#47F0D9", "#47BDF0", "#4773F0", "#8A47F0", "#B347F0", "purple"];
+	graph_data.datasets[0].backgroundColor = [ "#3399ff", "#e6f2ff", "#47F0D9", "#47BDF0", "#4773F0", "#8A47F0", "#B347F0", "purple"];
 	graph_data.datasets[0].data = [];
 	
 	$.each(tmpData, function(i, value) {
@@ -681,7 +681,7 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 		
 		if (productName == "MIS Express" && accessSpeed == "250 MBPS") {
 			bootbox.confirm({
-			    message: "Analytics suggests VVB Bundle as most suitable offer for the required Design Configuration. Would you like to go with it?",
+			    message: "Our analysis suggests VVB Bundle as most suitable offer. Would you like to switch the offer from MIS Express to VVB Bundle?",
 			    buttons: {
 			        confirm: {
 			            label: 'Yes Sure!',

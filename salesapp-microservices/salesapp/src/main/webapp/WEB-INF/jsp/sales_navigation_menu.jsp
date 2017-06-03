@@ -20,7 +20,7 @@
  --%>
 <div id="header" class="navbar navbar-default navbar-fixed-top">
 	<div class="navbar-header">
-  		<img src="${pageContext.request.contextPath}/images/salesexpresslogo.png"/>
+  		<img height="99px;" src="${pageContext.request.contextPath}/images/salesexpresslogosolutions.png"/>
   	</div>
 </div>
 
