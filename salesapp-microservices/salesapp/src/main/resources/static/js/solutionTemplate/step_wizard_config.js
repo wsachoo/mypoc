@@ -681,7 +681,7 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 		
 		if (productName == "MIS Express" && accessSpeed == "250 MBPS") {
 			bootbox.confirm({
-			    message: "Analytics suggests VVB Bundle as most suitable offer for the required Design Configuration.",
+			    message: "Analytics suggests VVB Bundle as most suitable offer for the required Design Configuration. Would you like to go with it?",
 			    buttons: {
 			        confirm: {
 			            label: 'Yes Sure!',
