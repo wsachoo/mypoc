@@ -8,9 +8,9 @@
 	});
 </script>
 <style>
-.carousel-control.right, .carousel-control.left {
+/* .carousel-control.right, .carousel-control.left {
   background-image:none;
-}
+} */
 </style>
 <div class='row'>
   <div class='col-sm-12'><strong style='font-size: 18px'>Other Recommended offers</strong><br><br></div>
@@ -110,14 +110,17 @@
 
 	{{each(i, item) data2["DATA"]}}
 	
-	{{if i % 4 == 0 && i != 0 }}
+	{{if i % 2 == 0 && i != 0 }}
+			<div class="col-sm-3"></div>
 		</div>
 	{{/if}}
-	 {{if i % 4 === 0 }}
+	 {{if i % 2 === 0 }}
 	 	{{if i === 0 }}
 	 		<div class="item active">
+	 			<div class="col-sm-3"></div>
 	 	{{else}}
 	 		<div class="item">
+	 			<div class="col-sm-3"></div>
 	 	{{/if}}
 	 {{/if}}
 	
@@ -193,10 +196,10 @@
 
         <!-- Carousel controls -->
         <a class="carousel-control left" href="#myCarousel" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="glyphicon glyphicon-chevron-left" style="color: #337ab7"></span>
         </a>
         <a class="carousel-control right" href="#myCarousel" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="glyphicon glyphicon-chevron-right" style="color: #337ab7"></span>
         </a>
 
 </div>
