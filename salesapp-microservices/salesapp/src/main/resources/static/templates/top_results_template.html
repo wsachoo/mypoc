@@ -5,6 +5,23 @@
 			var matchPercentage = $(this).attr('matchPercentage');
 			displaySelectedRowModal(url, matchPercentage);
 		});
+		
+		$("input[name='btnAddToCart']").on('click', function(e) {
+			var designName = $(this).attr('design-name');
+			var speed = $(this).attr('speed');
+			var mrc = $(this).attr('mrc');
+			var url = $(this).attr('link');
+			displayConfirmModalAddToCart(designName, speed, mrc, url);
+		});
+		
+		$("input[name='btnCustomize']").on('click', function(e) {
+			var designName = $(this).attr('design-name');
+			var speed = $(this).attr('speed');
+			var mrc = $(this).attr('mrc');
+			var url = $(this).attr('link');
+			var name = $(this).attr('name');
+			displayConfirmModalAddToCart(designName, speed, mrc, url, name);
+		});
 	});
 </script>
 <style>
@@ -20,8 +37,13 @@
 	{{each(i, item) data["DATA"]}}
 	{{if i > 1 && i < 6 }}
 		{{if (data["DATA"][i]["bundleCd"] == 'VVB Express')}}
+
+
+			
+
 		<div class="col-sm-3">
 			<div class="jumbotron" style="background-color: #777; color: black; height: 325px; font-size: 17px;">
+
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2"
 						style="background-color: #f2f2f2;">
@@ -42,18 +64,31 @@
 					<div class="col-sm-12" style="color: white;">${data["DATA"][i]["managedRouter"]}</div>
 				</div>
 				<div class="row">&nbsp;</div>
-
+				
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
+						<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data['DATA'][i]['bundleCd']}" 
+						class="btn" value="Add To Cart" mrc="${data['DATA'][i]['mrc']}" link="${data['DATA'][i]['links'][0]['href']}">
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>				
+				<div class="row">
+					<!-- <div class="col-sm-8 col-sm-offset-2">
 						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
 						class="btn" value="View Offer Details" >
+					</div> -->
+					<div class="col-sm-8 col-sm-offset-2">
+						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
+						class="btn" value="Customize" mrc="${data['DATA'][i]['mrc']}" design-name="${data['DATA'][i]['bundleCd']}" speed="${data['DATA'][i]['portSpeed']}">
 					</div>
 				</div>
 			</div>
 		</div>
 		{{else}}
+
 		<div class="col-sm-3">
 			<div class="jumbotron" style="background-color: #777; color: black; height: 325px; font-size: 17px;">
+
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2"
 						style="background-color: #f2f2f2;">
@@ -76,9 +111,20 @@
 				<div class="row">&nbsp;</div>
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
+						<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data['DATA'][i]['bundleCd']}" 
+						class="btn" value="Add To Cart" mrc="${data['DATA'][i]['mrc']}" link="${data['DATA'][i]['links'][0]['href']}">
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>				
+				<div class="row">
+					<!-- <div class="col-sm-8 col-sm-offset-2">
 						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
 						class="btn" value="View Offer Details" >
-					</div>
+					</div> -->
+					<div class="col-sm-8 col-sm-offset-2">
+						<input link="${data['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data['DATA'][i]['matchPercentage']}" 
+						class="btn" value="Customize" mrc="${data['DATA'][i]['mrc']}" design-name="${data['DATA'][i]['bundleCd']}" speed="${data['DATA'][i]['portSpeed']}">
+					</div> 
 				</div>
 			</div>
 		</div>
@@ -148,12 +194,22 @@
 					<div class="col-sm-12" style="color: white;">${data2["DATA"][i]["managedRouter"]}</div>
 				</div>
 				<div class="row">&nbsp;</div>
-
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
+						<input speed="${data2['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data2['DATA'][i]['bundleCd']}" 
+						class="btn" value="Add To Cart" mrc="${data2['DATA'][i]['mrc']}" link="${data2['DATA'][i]['links'][0]['href']}">
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<!-- <div class="col-sm-8 col-sm-offset-2">
 						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
 						class="btn" value="View Offer Details" >
-					</div>
+					</div> -->
+					<div class="col-sm-8 col-sm-offset-2">
+						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
+						class="btn" value="Customize" mrc="${data2['DATA'][i]['mrc']}" design-name="${data2['DATA'][i]['bundleCd']}" speed="${data2['DATA'][i]['portSpeed']}">
+					</div> 					
 				</div>
 			</div>
 		</div>
@@ -181,10 +237,21 @@
 				</div>
 				<div class="row">&nbsp;</div>
 				<div class="row">
+				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
+						<input speed="${data2['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data2['DATA'][i]['bundleCd']}" 
+						class="btn" value="Add To Cart" mrc="${data2['DATA'][i]['mrc']}" link="${data2['DATA'][i]['links'][0]['href']}">
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+					<!-- <div class="col-sm-8 col-sm-offset-2">
 						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
 						class="btn" value="View Offer Details" >
-					</div>
+					</div> -->
+					<div class="col-sm-8 col-sm-offset-2">
+						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
+						class="btn" value="Customize" mrc="${data2['DATA'][i]['mrc']}" design-name="${data2['DATA'][i]['bundleCd']}" speed="${data2['DATA'][i]['portSpeed']}">
+					</div> 
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,7 @@
 var userSolTmplSelectionObject = []; //global object for user selection on step wizard
 var dataToGenContract = {}; //global object to hold the data to display the contract wizard
 var portSpeedsToCustomizeGCData = {};
+var isButtonCustomizeClick = false;
 
 var customizeGCDataFields = {
 		ipVersionDropDown  : function() {
@@ -698,7 +699,9 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 			    		$("#dispRowSelectModal .close").click();
 			    		try { $("div.modal-backdrop").remove(); } catch(ex) {}
 			    		setCameHereFromRecommendation();
-			    		displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage);
+			    		//displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage);
+			    		onClickViewCartAndCheckout(vbb250mbpsUrl);
+			    		
 			    	}
 			    }
 			});
@@ -722,3 +725,127 @@ function executeOnClickOfGenerateContract() {
 	$('body').append(modalTemplateToDisplay);
 	$("#simplePopupModalButton").trigger('click');
 }
+
+function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
+	$("#displayConfirmModalAddToCart").remove();
+	var data = {};
+	data["designName"] = designName;
+	data["speed"] = speed;
+	data["mrc"] = mrc;
+	data["url"] = url
+	var templatePath = contextPath + "/templates/confirm_modal_addToCart.html";
+	var modalTemplate = getTemplateDefinition(templatePath);
+	$.template("confirm_modal_addToCart", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("confirm_modal_addToCart", data);
+	
+	$('body').append(modalTemplateToDisplay);
+	$("#btndisplayConfirmModalAddToCart").trigger('click');
+	if(name != undefined && name != '' && name == 'btnCustomize') {
+		isButtonCustomizeClick = true;
+	}
+}
+
+
+function onClickViewCartAndCheckout(url) {
+	
+	location.hash = "shoppingCart";
+	$('body').find("#divShoppingCartTemplate").remove();
+	if(url == null || url == undefined || url == ''){
+		var url = $("#btnViewCartAndCheckout").attr('link');
+	}
+	
+	var data = httpGetWithJsonResponse(url, "");
+	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
+	portSpeedsToCustomizeGCData = data["portSpeedList"];//store port speed list
+	
+	
+
+	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc"];
+	
+	var DATA = {};
+	$.each(objectKeysArray, function(k, value) {
+		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
+		key = transformDisplayKeyName(key);
+		
+		DATA[key] = dataToGenContract[value];
+		
+		if (key == "OFFER NAME") {
+			DATA[key] = dataToGenContract["bundleCd"];
+		}
+		else if(key == "MRC" || key == "NRC") {
+			data[value] = "$ "+ data[value];
+			DATA[key] = data[value];
+		}
+	});
+	
+	defaultTermPeriod = DATA["TERM"];
+	defaultTermPeriodMRC = DATA["MRC"];
+	defaultTermPeriodNRC = DATA["NRC"];
+	$('<div class="row" id="displayShoppingCart"></div>').insertAfter("div.sachtopmenu");
+	addContractGenTab();
+	
+	var templatePath = contextPath + "/templates/shopping_cart.html";
+	var modalTemplate = getTemplateDefinition(templatePath);
+	$.template("shopping_cart", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("shopping_cart", DATA);
+	
+	$("#displayShoppingCart").append(modalTemplateToDisplay);
+	var topMenuDiv = $("#displayShoppingCart");
+	removeNextAllSiblingDivRows(topMenuDiv);
+	
+	$("#shoppingCartLink").find('.badge').remove();
+	$("#shoppingCartLink").append('<span class="badge">1</span>');
+	if( isButtonCustomizeClick == true) {
+		onClickCustomizeShoppingCart();
+	}
+	isButtonCustomizeClick = false;
+}
+
+function onClickCustomizeShoppingCart() {
+
+	var ipVersionDropDownTmpl = customizeGCDataFields.ipVersionDropDown();
+	var managedRouterDropDownTmpl = customizeGCDataFields.managedRouterDropDown();
+	customizePortSpeedsGCData();
+	customizeContractTermGCData();
+
+	var thisElement = $("#btnCustomizeShoppingCart");
+	thisElement.attr('value','Apply');
+	thisElement.attr('id','btnApplyShoppingCartData');
+	thisElement.attr('onclick','onClickApplyShoppingCartData();');
+	$("#displayIpVersionTd").empty();
+	$("#displayIpVersionTd").append(ipVersionDropDownTmpl);
+	$("#displayManagedRouterType").empty();
+	$("#displayManagedRouterType").append(managedRouterDropDownTmpl);
+
+}
+
+function onClickApplyShoppingCartData() {
+	
+	var ipVersionValue = $('select[name="ipVersion"]').val();
+	var managedRouterValue = $('select[name="managedRouterForGC"]').val();
+	var portSpeedValue = $('select[name="portSpeedListForGC"]').val();
+	var contractTermValue = $('select[name="contractTermForGC"]').val();
+	
+	var thisElement = $("#btnApplyShoppingCartData");
+	
+	$("#displayIpVersionTd").html(ipVersionValue);
+	$("#displayManagedRouterType").html(managedRouterValue);
+	$("#displayPortSpeedList").html(portSpeedValue);
+	$("#displayContractTermList").html(contractTermValue);
+	
+	var customizeButton = '<input type="button" class="btn btn-primary" id="btnCustomizeShoppingCart" value="Edit My Cart" onclick="onClickCustomizeShoppingCart();">';
+	
+	thisElement.after(customizeButton);
+	thisElement.remove();
+}
+
+function onClickCheckoutAndGenContract() {
+	$("#checkoutGenerateContractDiv").remove();
+	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
+	var modalTemplate = getTemplateDefinition(templatePath);
+	$.template("checkout_generate_contract", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract", {});
+	$('body').append(modalTemplateToDisplay);
+	$("#btnPreviewContactModal").trigger('click');
+}
+

@@ -1,0 +1,171 @@
+<script>
+var blnBvoipNeeded = false;
+$(document).ready(function() {
+	$("#bvoipNeeded").click(function() {
+		if ($(this).prop('checked')) {
+			blnBvoipNeeded = true;
+			$("#showDivBvoipFeature").css('display', 'inline');
+		} else {
+			blnBvoipNeeded = false;
+			$("#showDivBvoipFeature").css('display', 'none');
+		}
+	});
+
+	$("#securityNeeded").click(function() {
+		if ($(this).prop('checked')) {
+			$("#securityFeature").css('display', 'inline');
+		} else {
+			$("#securityFeature").css('display', 'none');
+		}
+	});
+});
+</script>
+
+<div class="container-fluid" id="divShoppingCartTemplate">
+		<div class="row col-sm-10" style="text-align: center;">
+			<label style="font-size: 20px;">My Cart Details</label>
+			<hr>
+		</div>
+		<div class="row col-sm-10">
+		<div class="col-sm-7">
+		<h5><b>Item Description</b></h5>
+		
+		<ul>
+			{{each(i, item) $data}}
+				{{if (i == 'DESIGN NAME' || i == 'MRC')}}
+					{{if (i == 'DESIGN NAME')}}
+						<li>${item}</li>
+					{{else}}
+						<li><strong>${item}</strong> Effective monthly charge</li>
+					{{/if}}
+				{{/if}}	
+			{{/each}}
+		</ul>	
+			</div>
+			<div class=col-sm-5 >
+				Delete this Item <span class="glyphicon glyphicon-trash" alt="Delete this Item"></span>
+			</div>
+
+		</div>
+		
+		<div class="row col-sm-10" >
+		<div class="col-sm-6">
+		<h5>Oppurtunity & Configuration options</h5>
+		</div>
+		<div class="col-sm-12">
+		<table class="table table-striped">
+			<tr>
+				<td>OPPORTUNITY ID</td>
+				<td>1-67YHJK&nbsp;<BR>
+					<a href="#">Edit Opportunity</a>
+				</td>
+			</tr>
+			{{each(i, item) $data}}
+							{{if ( i == 'IP VERSION' || i == 'MANAGED ROUTER' || i == 'PORT SPEED') }}
+								{{if (i == 'IP VERSION' || i == 'PORT SPEED') }}
+									{{if (i == 'IP VERSION') }}
+										<tr>
+											<td> ${i} </td>
+											<td id="displayIpVersionTd"> 
+										    	${item}
+		    								 </td>
+		    							</tr>
+		    						{{else}}
+		    							<tr>
+											<td> ${i} </td>
+											<td id="displayPortSpeedList"> 
+										    	${item}
+		    								 </td>
+		    							</tr>
+		    						{{/if}}		
+								{{else}}
+								<tr>
+									<td> ${i} </td>
+									<td id="displayManagedRouterType">
+										${item}
+										</td>
+								</tr>	
+								{{/if}}
+							{{else}}
+								{{if (i =='MRC' || i=='NRC') }}
+									{{if i == 'MRC'}}
+									<tr>
+										<td> ${i} </td>
+										<td id="displayMRC"> ${item} </td>
+									</tr>
+									{{else}}
+									<tr>
+										<td> ${i} </td>
+										<td id="displayNRC"> ${item} </td>
+									</tr>
+									{{/if}}	
+								{{else}}
+									{{if (i =='TERM' || i=='TERM') }}
+										<tr>
+											<td>TERM</td>
+											<!-- <td id="displayContractTermList">${item}</td> -->
+											<td id="displayContractTermList">12 Months</td>
+										</tr>
+									{{else}}	
+									{{if i =='ACCESS TYPE' }}
+										<tr>
+											<td> ${i} </td>
+											<!-- <td id="displayContractTermList">${item}</td> -->
+											<td>Ethernet</td>
+										</tr>
+									{{else}}
+										{{if i == "OFFER NAME" }}
+											<tr>
+												<td> ${i} </td>
+												<td id="offerNameValue"> ${item} </td>
+											</tr>
+										{{else}}
+										<tr>
+											<td> ${i} </td>
+											<td> ${item} </td>
+										</tr>
+									{{/if}}
+									{{/if}}
+									{{/if}}		
+								{{/if}}	
+							{{/if}}	
+						{{/each}}
+						<tr>
+							<td>Add Voice Feature 
+							</td>
+							<td><input type="checkbox" name="bvoipNeeded" id="bvoipNeeded">
+								<div id="showDivBvoipFeature" style="display: none;">
+								<select name="bvoipVoiceFeature" class="form-control" id="selectBvoipVoiceFeature" style="width:60%; margin-top: 1px;">
+									<option value="callingPlanB">Calling Plan B
+									<option value="CallingPlanC">Calling Plan C
+								</select>
+								<br>
+								<input type="text" placeholder="Concurrent Calls" id="txtConcurrentCall" class="form-control" style="width:60%; margin-top: 1px;">
+								</div>	
+							</td>
+						</tr>
+						<tr>
+							<td>Add Security Feature 
+							</td>
+							<td ><input type="checkbox" name="securityNeeded" id="securityNeeded">
+								<select name="securityFeature" class="form-control" id="securityFeature" style="width:60%; margin-top: 1px; display: none;">
+									<option value="cloudBasedSecurity">Cloud Based Security
+									<option value="firewall">Firewall
+									<option value="wirelessBasedSecurity">Wireless Based Security
+								</select>
+							</td>
+						</tr>
+		</table>
+		</div>
+		<div class="clearfix col-sm-12" style="text-align: center;">
+		<hr>
+			You have currently one Item in the cart.
+		<hr>
+		</div>
+		
+	</div>
+	<div class="row col-sm-10" >
+		<input type="button" value="Edit My Cart" id="btnCustomizeShoppingCart" class="btn btn-primary" onclick="onClickCustomizeShoppingCart();" style="float: left;">
+		<input type="button" value="Checkout & Generate Contract" id="btnCheckoutGenContract" class="btn btn-primary" style="float: right;" onclick="onClickCheckoutAndGenContract();">
+	</div>
+</div>
