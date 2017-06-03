@@ -10,7 +10,7 @@
 			var accessSpeed = $(this).val().split("_")[1];
 			displayDataGridWithTop5Records(accessType, accessSpeed);
 		});
-		
+
 		$("input[name='btnAddToCart']").on('click', function(e) {
 			var designName = $(this).attr('design-name');
 			var speed = $(this).attr('speed');
@@ -18,7 +18,7 @@
 			var url = $(this).attr('link');
 			displayConfirmModalAddToCart(designName, speed, mrc, url);
 		});
-		
+
 		$("input[name='btnCustomize']").on('click', function(e) {
 			var designName = $(this).attr('design-name');
 			var speed = $(this).attr('speed');
@@ -31,119 +31,115 @@
 	});
 </script>
 
-<div class="row">
+<!-- <div class="row">
 	<div class="col-sm-2 col-sm-offset-10">
 		<a href="#" data-name="solutionTemplate" data-url="stepWizard"
 			class="btn-block" id="stepWizardLink">Customize</a>
 	</div>
-</div>
+</div> -->
 <div class="row">&nbsp;</div>
 <div class="row">
 	<div class="col-sm-6">
-		<label style="font-size: 18px">Sales Historical Data</label>
+		<label style="font-size: 18px">Our Top Selling Offers</label>
 	</div>
-	<div class="col-sm-6">
-		<strong style="color: black; font-size: 20px">Our Top
-			Selling Offers</strong><br>
+	<div class="col-sm-4">
+		<strong style="color: black; font-size: 20px">Sales Historical Data</strong><br>
+	</div>
+	<div class="col-sm-2">
+		<a href="#" data-name="solutionTemplate" data-url="stepWizard"
+			class="btn-block" id="stepWizardLink">Customize</a>
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-6">
-		<div style="height: 325px; width: 650px;">
-			<canvas id="myChart"></canvas>
-		</div>
-	</div>
 	<div class="col-sm-6">
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="jumbotron"
-	style="background-color: #FDB45C; color: black; height: 325px; font-size: 17px;">
-	<div class="row">
-		<div class="col-sm-8 col-sm-offset-2"
-			style="background-color: #3399ff; color: white;">
-			<h4>$1419/mo</h4>
-		</div>
-	</div>
-	<div class="row">&nbsp;</div>
-	<div class="row" style="color: white; text-align: center;">
-		<strong>MIS Express</strong>
-	</div>
-	<div class="row" style="color: white; text-align: center;">
-		<strong>$2500</strong> of OTC
-	</div>
-	<div class="row" style="color: white; text-align: center;">
-		<strong>10 Mbps</strong> speed
-	</div>
-	<div class="row" style="color: white; text-align: center;">AT&amp;T
-		Managed Router</div>
-	<div class="row">&nbsp;</div>
-	<div class="row">
-		<div class="col-sm-8 col-sm-offset-2">
-			<input speed="10 Mbps" name="btnAddToCart" type="button"
-				style="background-color: #3399ff; color: white;"
-				design-name="MIS Express" class="btn btn-block" value="Add To Cart"
-				mrc="1419"
-				link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5129784&amp;leadDesignId=5993843">
-		</div>
-	</div>
-	<div class="row" style="margin-top: 10px">
-		<!-- <div _tmplitem="2"  class="col-sm-8 col-sm-offset-2">        <input _tmplitem="2"  link="http://IBMADM-VG8736.ITServices.sbc.com:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5129784&leadDesignId=5993843" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="62.96"         class="btn" value="View Offer Details" >       </div> -->
-		<div class="col-sm-8 col-sm-offset-2">
-			<input
-				link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5129784&amp;leadDesignId=5993843"
-				name="btnCustomize" type="button"
-				style="background-color: #3399ff; color: white;"
-				matchpercentage="62.96" class="btn btn-block" value="Customize"
-				mrc="1419" design-name="MIS Express" speed="10 Mbps">
-		</div>
-	</div>
-</div>
+					style="background-color: #33ccff; color: black; height: 325px; font-size: 17px; border: 1px solid; border-radius: 25px;">
+					<div class="row" style="color: white; text-align: center;">
+						MIS Express
+					</div>
+					<div class="row" style="color: white; text-align: center;font-size: 18px; font-weight: bold;">
+						10 Mbps Speed
+					</div>
+					<div class="row" style="color: white; text-align: center;">AT&amp;T
+						Managed Router</div>
+					<div class="row" style="color: white; text-align: center;">
+						$2500 of OTC
+					</div>
+					<div class="row" style="color: white; text-align: center;font-size: 18px; font-weight: bold;">
+						$ 1419
+					</div>
+					<div class="row" style="color: white; text-align: center; font-size: 14px;font-weight: bold;">Effective Monthly Price</div>
+					<div class="row">&nbsp;</div>
+					<div class="row">
+						<div class="col-sm-10 col-sm-offset-1">
+							<input speed="10 Mbps" name="btnAddToCart" type="button"
+								style="background-color: #efefef;color: black; border: 1px solid;"
+								design-name="MIS Express" class="btn btn-block"
+								value="Add To Cart" mrc="1419"
+								link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5129784&amp;leadDesignId=5993843">
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px">
+						<!-- <div _tmplitem="2"  class="col-sm-8 col-sm-offset-2">        <input _tmplitem="2"  link="http://IBMADM-VG8736.ITServices.sbc.com:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5129784&leadDesignId=5993843" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="62.96"         class="btn" value="View Offer Details" >       </div> -->
+						<div class="col-sm-8 col-sm-offset-2">
+							<input
+								link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5129784&amp;leadDesignId=5993843"
+								name="btnCustomize" type="button"
+								style="background-color: #efefef;color: black; border: 1px solid;"
+								matchpercentage="62.96" class="btn btn-block" value="Customize"
+								mrc="1419" design-name="MIS Express" speed="10 Mbps">
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="jumbotron"
-	style="background-color: #3399ff; color: black; height: 325px; font-size: 17px;">
-	<div class="row">
-		<div class="col-sm-8 col-sm-offset-2"
-			style="background-color: #FDB45C; color: white;">
-			<h4>$2128.5/mo</h4>
-		</div>
-	</div>
-	<div class="row">&nbsp;</div>
-	<div class="row" style="color: white; text-align: center;">
-		<strong>VVB Express</strong>
-	</div>
-	<div class="row" style="color: white; text-align: center;">
-		<strong>$3750</strong> of OTC
-	</div>
-	<div class="row" style="color: white; text-align: center;">
-		<strong>10 Mbps</strong> speed
-	</div>
-	<div class="row" style="color: white; text-align: center;">AT&amp;T
-		Managed Router</div>
-	<!--     <div _tmplitem="2"  class="row">       <div _tmplitem="2"  class="col-sm-12" style="color: white"><strong _tmplitem="2" >VVB Express</strong></div>      </div>      <div _tmplitem="2"  class="row">       <div _tmplitem="2"  class="col-sm-12" style="color: white;"><strong _tmplitem="2" >$3750</strong> of OTC</div>      </div>      <div _tmplitem="2"  class="row">       <div _tmplitem="2"  class="col-sm-12" style="color: white;"><strong _tmplitem="2" >10 Mbps</strong> speed</div>      </div>      <div _tmplitem="2"  class="row">       <div _tmplitem="2"  class="col-sm-12" style="color: white;">AT&T Managed Router</div>      </div>   -->
-	<div class="row">&nbsp;</div>
-	<div class="row">
-		<div class="col-sm-8 col-sm-offset-2">
-			<input speed="10 Mbps" name="btnAddToCart" type="button"
-				style="background-color: #FDB45C; color: white;"
-				design-name="VVB Express" class="btn btn-block" value="Add To Cart"
-				mrc="2128.5"
-				link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5229783&amp;leadDesignId=5993843">
-		</div>
-	</div>
-	<div class="row" style="margin-top: 10px">
-		<!-- <div _tmplitem="2"  class="col-sm-8 col-sm-offset-2">        <input _tmplitem="2"  link="http://IBMADM-VG8736.ITServices.sbc.com:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5229783&leadDesignId=5993843" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="62.96"         class="btn" value="View Offer Details" >       </div> -->
-		<div class="col-sm-8 col-sm-offset-2">
-			<input
-				link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5229783&amp;leadDesignId=5993843"
-				name="btnCustomize" type="button"
-				style="background-color: #FDB45C; color: white;"
-				matchpercentage="62.96" class="btn btn-block" value="Customize"
-				mrc="2128.5" design-name="VVB Express" speed="10 Mbps">
-		</div>
-	</div>
-</div>
+					style="background-color: #33ccff; color: black; height: 325px; font-size: 17px; border: 1px solid; border-radius: 25px;">
+					<div class="row" style="color: white; text-align: center;">
+						VVB Express
+					</div>
+					<div class="row" style="color: white; text-align: center;font-size: 18px; font-weight: bold;">
+						10 Mbps Speed
+					</div>
+					<div class="row" style="color: white; text-align: center;">AT&amp;T
+						Managed Router</div>
+					<div class="row" style="color: white; text-align: center;">
+						$3750 of OTC
+					</div>
+					<div class="row" style="color: white; text-align: center;font-size: 18px; font-weight: bold;">
+						$ 2128.5
+					</div>
+					<div class="row" style="color: white; text-align: center; font-size: 14px; font-weight: bold;">Effective Monthly Price</div>
+					<div class="row">&nbsp;</div>
+					<div class="row">
+						<div class="col-sm-10 col-sm-offset-1">
+							<input speed="10 Mbps" name="btnAddToCart" type="button"
+								style="background-color: #efefef;color: black; border: 1px solid;"
+								design-name="VVB Express" class="btn btn-block"
+								value="Add To Cart" mrc="2128.5"
+								link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5229783&amp;leadDesignId=5993843">
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px">
+						<!-- <div _tmplitem="2"  class="col-sm-8 col-sm-offset-2">        <input _tmplitem="2"  link="http://IBMADM-VG8736.ITServices.sbc.com:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5229783&leadDesignId=5993843" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="62.96"         class="btn" value="View Offer Details" >       </div> -->
+						<div class="col-sm-8 col-sm-offset-2">
+							<input
+								link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5229783&amp;leadDesignId=5993843"
+								name="btnCustomize" type="button"
+								style="background-color: #efefef;color: black; border: 1px solid;"
+								matchpercentage="62.96" class="btn btn-block" value="Customize"
+								mrc="2128.5" design-name="VVB Express" speed="10 Mbps">
+						</div>
+					</div>
+				</div>
 			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div style="height: 325px; width: 650px;">
+			<canvas id="myChart"></canvas>
 		</div>
 	</div>
 </div>
