@@ -24,12 +24,26 @@
 		});
 	});
 </script>
+<style>
+/* .carousel-control.right, .carousel-control.left {
+  background-image:none;
+} */
+</style>
+<div class='row'>
+  <div class='col-sm-12'><strong style='font-size: 18px'>Other Recommended offers</strong><br><br></div>
+</div>
 
+<div class="row">
 	{{each(i, item) data["DATA"]}}
-	{{if i != 0 }}
+	{{if i > 1 && i < 6 }}
 		{{if (data["DATA"][i]["bundleCd"] == 'VVB Express')}}
-		<div class="col-sm-4">
-			<div class="jumbotron" style="background-color: lightgrey; color: black; height: 350px; border: 1px solid #00b2ff; font-size: 17px;">
+
+
+			
+
+		<div class="col-sm-3">
+			<div class="jumbotron" style="background-color: #777; color: black; height: 325px; font-size: 17px;">
+
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2"
 						style="background-color: #f2f2f2;">
@@ -41,13 +55,13 @@
 					<div class="col-sm-12" style="color: #00b2ff"><strong>${data["DATA"][i]["bundleCd"]}</strong></div>
 				</div>
 				<div class="row">
-					<div class="col-sm-12"><strong>$${data["DATA"][i]["nrc"]}</strong> of OTC</div>
+					<div class="col-sm-12" style="color: white;"><strong>$${data["DATA"][i]["nrc"]}</strong> of OTC</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-12"><strong>${data["DATA"][i]["portSpeed"]}</strong> speed</div>
+					<div class="col-sm-12" style="color: white;"><strong>${data["DATA"][i]["portSpeed"]}</strong> speed</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-12">${data["DATA"][i]["managedRouter"]}</div>
+					<div class="col-sm-12" style="color: white;">${data["DATA"][i]["managedRouter"]}</div>
 				</div>
 				<div class="row">&nbsp;</div>
 				
@@ -71,8 +85,10 @@
 			</div>
 		</div>
 		{{else}}
-		<div class="col-sm-4">
-			<div class="jumbotron" style="background-color: lightgrey; color: black; height: 350px; border: 1px solid orange;  font-size: 17px;">
+
+		<div class="col-sm-3">
+			<div class="jumbotron" style="background-color: #777; color: black; height: 325px; font-size: 17px;">
+
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2"
 						style="background-color: #f2f2f2;">
@@ -80,17 +96,17 @@
 					</div>
 				</div>
 				<div class="row">&nbsp;</div>
-				<div class="row">
+				<div class="row" >
 					<div class="col-sm-12" style="color: orange;"><strong>${data["DATA"][i]["bundleCd"]}</strong></div>
 				</div>
 				<div class="row">
-					<div class="col-sm-12"><strong>$${data["DATA"][i]["nrc"]}</strong> of OTC</div>
+					<div class="col-sm-12" style="color: white;"><strong>$${data["DATA"][i]["nrc"]}</strong> of OTC</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-12"><strong>${data["DATA"][i]["portSpeed"]}</strong> speed</div>
+					<div class="col-sm-12" style="color: white;"><strong>${data["DATA"][i]["portSpeed"]}</strong> speed</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-12">${data["DATA"][i]["managedRouter"]}</div>
+					<div class="col-sm-12" style="color: white;">${data["DATA"][i]["managedRouter"]}</div>
 				</div>
 				<div class="row">&nbsp;</div>
 				<div class="row">
@@ -115,4 +131,142 @@
 		{{/if}}
 	{{/if}}
 	{{/each}}
+</div>
 
+<div class='row'>
+  <div class='col-sm-12'><strong style='font-size: 18px'>Other offers</strong><br><br></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Wrapper for carousel items -->
+        <div class="carousel-inner">
+
+	{{each(i, item) data2["DATA"]}}
+	
+	{{if i % 2 == 0 && i != 0 }}
+			<div class="col-sm-3"></div>
+		</div>
+	{{/if}}
+	 {{if i % 2 === 0 }}
+	 	{{if i === 0 }}
+	 		<div class="item active">
+	 			<div class="col-sm-3"></div>
+	 	{{else}}
+	 		<div class="item">
+	 			<div class="col-sm-3"></div>
+	 	{{/if}}
+	 {{/if}}
+	
+	{{if i > -1}}
+		{{if (data2["DATA"][i]["bundleCd"] == 'VVB Express')}}
+		<div class="col-sm-3">
+			<div class="jumbotron" style="background-color: #777; color: black; height: 325px; font-size: 17px;">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2"
+						style="background-color: #f2f2f2;">
+						<h4>$${data2["DATA"][i]["mrc"]}/mo</h4>
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-sm-12" style="color: #00b2ff"><strong>${data2["DATA"][i]["bundleCd"]}</strong></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12" style="color: white;"><strong>$${data2["DATA"][i]["nrc"]}</strong> of OTC</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12" style="color: white;"><strong>${data2["DATA"][i]["portSpeed"]}</strong> speed</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12" style="color: white;">${data2["DATA"][i]["managedRouter"]}</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2">
+						<input speed="${data2['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data2['DATA'][i]['bundleCd']}" 
+						class="btn" value="Add To Cart" mrc="${data2['DATA'][i]['mrc']}" link="${data2['DATA'][i]['links'][0]['href']}">
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<!-- <div class="col-sm-8 col-sm-offset-2">
+						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
+						class="btn" value="View Offer Details" >
+					</div> -->
+					<div class="col-sm-8 col-sm-offset-2">
+						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
+						class="btn" value="Customize" mrc="${data2['DATA'][i]['mrc']}" design-name="${data2['DATA'][i]['bundleCd']}" speed="${data2['DATA'][i]['portSpeed']}">
+					</div> 					
+				</div>
+			</div>
+		</div>
+		{{else}}
+		<div class="col-sm-3">
+			<div class="jumbotron" style="background-color: #777; color: black; height: 325px; font-size: 17px;">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2"
+						style="background-color: #f2f2f2;">
+						<h4>$${data2["DATA"][i]["mrc"]}/mo</h4>
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row" >
+					<div class="col-sm-12" style="color: orange;"><strong>${data2["DATA"][i]["bundleCd"]}</strong></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12" style="color: white;"><strong>$${data2["DATA"][i]["nrc"]}</strong> of OTC</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12" style="color: white;"><strong>${data2["DATA"][i]["portSpeed"]}</strong> speed</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12" style="color: white;">${data2["DATA"][i]["managedRouter"]}</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2">
+						<input speed="${data2['DATA'][i]['portSpeed']}" name="btnAddToCart" type="button" style="color: black; background-color: #f2f2f2;" design-name="${data2['DATA'][i]['bundleCd']}" 
+						class="btn" value="Add To Cart" mrc="${data2['DATA'][i]['mrc']}" link="${data2['DATA'][i]['links'][0]['href']}">
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+					<!-- <div class="col-sm-8 col-sm-offset-2">
+						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
+						class="btn" value="View Offer Details" >
+					</div> -->
+					<div class="col-sm-8 col-sm-offset-2">
+						<input link="${data2['DATA'][i]['links'][0]['href']}" name="btnCustomize" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="${data2['DATA'][i]['matchPercentage']}" 
+						class="btn" value="Customize" mrc="${data2['DATA'][i]['mrc']}" design-name="${data2['DATA'][i]['bundleCd']}" speed="${data2['DATA'][i]['portSpeed']}">
+					</div> 
+				</div>
+			</div>
+		</div>
+		{{/if}}
+	{{/if}}
+
+	{{/each}}
+    </div>
+
+        <!-- Carousel controls -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" style="color: #337ab7"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" style="color: #337ab7"></span>
+        </a>
+
+</div>

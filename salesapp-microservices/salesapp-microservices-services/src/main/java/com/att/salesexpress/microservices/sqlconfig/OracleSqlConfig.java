@@ -14,6 +14,12 @@ public class OracleSqlConfig {
 	public String sqlGetSalesHistoryDataByAccessType() {
 		return SQLConstantsOracle.sqlGetSalesHistoryDataByAccessType;
 	}
+	
+	@Bean
+	public String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup() {
+		return SQLConstantsOracle.sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup;
+	}
+	
 
 	@Bean
 	public String sqlGetSalesHistoryDataByAccessTypeForOtherAccessType() {

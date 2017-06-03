@@ -16,4 +16,7 @@ public interface SalesHistoryDao {
 	
 	List<Map<String, Object>> getRecordsByAccessTypeAccessSpeedPortSpeedFromMisExpRules(String accessType, int accessSpeed, int portSpeed, int numberOfRows);
 
+	public List<Map<String, Object>> getRecordsByAccessType(String accessType, Integer indexWithinGroup,
+			int numberOfRowsToRetrieve);
+
 }

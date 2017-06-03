@@ -22,7 +22,10 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 
 	@Autowired
 	private String sqlGetSalesHistoryDataByAccessType;
-
+	
+	@Autowired
+	private String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup;
+	
 	@Autowired
 	private String sqlGetSalesHistoryPercentageRecordsByAccessType;
 
@@ -58,7 +61,29 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 		logger.info("Exiting getRecordsByAccessType() method.");
 		return rows;
 	}
+	
+	@Override
+	public List<Map<String, Object>> getRecordsByAccessType(String accessType, Integer indexWithinGroup, int numberOfRows) {
+		logger.info("Inside getRecordsByAccessType() method.");
+		Map<String, Object> namedParameters = new HashMap<>();
 
+		String sql = null;
+
+		if ("Other".equals(accessType)) {
+			sql = sqlGetSalesHistoryDataByAccessTypeForOtherAccessType;
+		} else {
+			sql = sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup;
+		}
+
+		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
+		namedParameters.put("ACCESS_TYPE_ID", accessType);
+		namedParameters.put("INDEX_WITHIN_GROUP", indexWithinGroup);
+
+		List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(sql, namedParameters);
+		logger.info("Exiting getRecordsByAccessType() method.");
+		return rows;
+	}
+	
 	@Override
 	public List<Map<String, Object>> getRecordsByAccessTypeAndAccessSpeed(String accessType, int accessSpeed,
 			int numberOfRows) {

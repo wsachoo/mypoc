@@ -110,12 +110,12 @@ function displayDataGrid(data, templateFormat) {
 function displayDataGridWithTop5Records(accessType, accessSpeed) {
 	var tmpObj = {};
 	tmpObj["ACCESS_TYPE_ID"] = accessType;
-	tmpObj["NUMBER_OF_ROWS"] = 6;
+	tmpObj["NUMBER_OF_ROWS"] = 10;
 	tmpObj["ACCESS_SPEED_ID"] = accessSpeed;
 	
 	var jsonData = JSON.stringify(tmpObj);
 	var promise = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_RECOMMENDATION_URL"), jsonData);
-	promise.done(function(data, textStatus, jqXHR){
+	promise.done(function(data, textStatus, jqXHR) {
 		
 	$("#solutionTemplateBottomFrame").empty();
 		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
@@ -127,9 +127,18 @@ function displayDataGridWithTop5Records(accessType, accessSpeed) {
 			var templatePath = contextPath + "/templates/top_results_template.html";
 			var topResultsTemplate = getTemplateDefinition(templatePath);
 			$.template("top_results_template", topResultsTemplate);
-			var topResultsTemplateToDisplay = $.tmpl("top_results_template", {"data":data});
 			
-			$("#solutionTemplateBottomFrame").append(topResultsTemplateToDisplay);
+			var tmpObj2 = {};
+			tmpObj2["ACCESS_TYPE_ID"] = accessType;
+			tmpObj2["NUMBER_OF_ROWS"] = 25;
+			tmpObj2["indexWithinGroup"] = 4;
+			tmpObj2["ACCESS_SPEED_ID"] = accessSpeed;
+			var jsonData2 = JSON.stringify(tmpObj2);
+			var promise2 = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_RECOMMENDATION_URL"), jsonData2);
+			promise2.done(function(data2, textStatus, jqXHR) {
+				var topResultsTemplateToDisplay = $.tmpl("top_results_template", {"data":data, "data2":data2});
+				$("#solutionTemplateBottomFrame").append(topResultsTemplateToDisplay);				
+			});
 		}
 		else{
 			$("#solutionTemplateBottomFrame").empty();
