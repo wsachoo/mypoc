@@ -408,7 +408,7 @@ function displaySelectedRowModal(url, matchPercentage) {
 		}
 		else if (key == "SUCCESS RATIO") {
 			if(matchPercentage == null || matchPercentage == '') {
-				DATA["SUCCESS RATIO"] = 'This is brand new solution based upon MIS Express Rules Data';
+				DATA["SUCCESS RATIO"] = 'This is brand new solution based upon ADI Express Rules Data';
 			}else {
 				DATA["SUCCESS RATIO"] = matchPercentage;
 			}
@@ -679,7 +679,7 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 		var productName = $("#offerNameValue").text().trim();
 		var accessSpeed = $("select[name='portSpeedListForGC'] option:selected").text();
 		
-		if (productName == "MIS Express" && accessSpeed == "250 MBPS") {
+		if (productName == "ADI Express" && accessSpeed == "250 MBPS") {
 			bootbox.confirm({
 			    message: "Our analysis suggests VVB Bundle as most suitable offer. Would you like to switch the offer from MIS Express to VVB Bundle?",
 			    buttons: {
