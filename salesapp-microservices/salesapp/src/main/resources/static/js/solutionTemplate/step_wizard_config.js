@@ -119,11 +119,14 @@ function displayDataGridWithTop5Records(accessType, accessSpeed) {
 		
 	$("#solutionTemplateBottomFrame").empty();
 		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
-		/*		var gridTemplateFormat = {
-				header : "",
-				pagination : ""
-			}
-			displayDataGrid(data, gridTemplateFormat);*/
+	
+	        var soltemplatePath = contextPath + "/templates/solution_template_top_solutions.html";
+	        var toplSolutionTemplate = getTemplateDefinition(soltemplatePath);
+	        $.template("solution_template_top_solutions", toplSolutionTemplate);
+    		var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", {"data":data});
+        	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
+        	$("#solutionTemplateTopFrame").trigger('create');
+
 			var templatePath = contextPath + "/templates/top_results_template.html";
 			var topResultsTemplate = getTemplateDefinition(templatePath);
 			$.template("top_results_template", topResultsTemplate);
@@ -133,11 +136,24 @@ function displayDataGridWithTop5Records(accessType, accessSpeed) {
 			tmpObj2["NUMBER_OF_ROWS"] = 25;
 			tmpObj2["indexWithinGroup"] = 4;
 			tmpObj2["ACCESS_SPEED_ID"] = accessSpeed;
+			
 			var jsonData2 = JSON.stringify(tmpObj2);
 			var promise2 = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_RECOMMENDATION_URL"), jsonData2);
+			
 			promise2.done(function(data2, textStatus, jqXHR) {
 				var topResultsTemplateToDisplay = $.tmpl("top_results_template", {"data":data, "data2":data2});
-				$("#solutionTemplateBottomFrame").append(topResultsTemplateToDisplay);				
+				$("#solutionTemplateBottomFrame").append(topResultsTemplateToDisplay);
+				
+				
+		        //START: Code top display graph
+		    	var promise3 = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL"), "{}");
+		    	promise3.done(function(data3, textStatus, jqXHR){
+		        	drawPieGraphOnTopSolutionTemplatePage(data3);
+		        	
+		    	}).fail(function(jqXHR, textStatus, errorThrown) {
+		    		console.log(textStatus);
+		    	}); 
+		    	//END: Code top display graph				
 			});
 		}
 		else{
@@ -392,11 +408,7 @@ function displaySelectedRowModal(url, matchPercentage) {
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	$("body").find("#displaySelectedRowModal").remove();
 	var DATA = {};
-	//var objectKeysArray = ["bundleCd", "accessSpeed", "portType", "accessService", "ipVersionLabel", "mrc", "nrc", "SUCCESS RATIO", "accessType", "portSpeed",  "managedRouter", "designName", "protocol",  "tailTechnology", "ratePlan"];
-	//var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc", "SUCCESS RATIO"];
 	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc"];
-	//var objectKeysArray = ["accessService", "ipVersionLabel", "bundleCd", "mrc", "nrc"];
-	//remove routingProtocol from the above objectKeysArray 5/10/2017
 	$.each(objectKeysArray, function(k, value) {
 		
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
@@ -446,9 +458,7 @@ function onClickProceedToGenContract(e) {
 	location.hash = "contractGeneration";
 	
 	$('body').find("#displayContractWizard").remove();
-	//console.log("dataToGenContract:"+JSON.stringify(dataToGenContract));
 	var DATA = {};
-	//var objectKeysArray = ["accessType", "accessSpeed", "portType", "portSpeed", "designName", "accessService", "ipVersionLabel", "protocol", "routingProtocol", "tailTechnology", "bundleCd","ratePlan", "mrc", "nrc"];
 	var objectKeysArray = ["offerName", "term", "mrc", "nrc"];
 
 	$.each(objectKeysArray, function(k, value) {
@@ -518,6 +528,7 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 	
     var canvas = document.getElementById("myChart");
     var ctx = canvas.getContext("2d");
+    
     var myNewChart = new Chart(ctx, {
       type: 'pie',
       data: graph_data
@@ -527,10 +538,7 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
         var activePoints = myNewChart.getElementsAtEvent(evt);
         var chartData = activePoints[0]['_chart'].config.data;
         var idx = activePoints[0]['_index'];
-
-        var label = chartData.labels[idx];
-        //displayDataGridWithTop5Records(label);
-        
+        var label = chartData.labels[idx];       
         $('input[name="ACCESS_TYPE_ID"][value="' + label + '"]').prop('checked', true);
 
       };
