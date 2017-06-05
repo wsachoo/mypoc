@@ -681,7 +681,7 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 		
 		if (productName == "ADI Express" && accessSpeed == "250 MBPS") {
 			bootbox.confirm({
-			    message: "Our analysis suggests VVB Bundle as most suitable offer. Would you like to switch the offer from MIS Express to VVB Bundle?",
+			    message: "Our analysis suggests VVB Bundle as most suitable offer. Would you like to switch the offer from ADI Express to VVB Bundle?",
 			    buttons: {
 			        confirm: {
 			            label: 'Yes Sure!',
