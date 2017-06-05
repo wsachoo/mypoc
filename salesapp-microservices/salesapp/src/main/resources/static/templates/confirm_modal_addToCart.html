@@ -4,6 +4,10 @@ $(document).ready(function() {
 	$("#btnConfimModalClose").click(function() {
 		try { $("div.modal-backdrop").remove(); } catch(ex) {}
 	});
+	
+	$("#btnCheckOtherOffersModalClose").click(function() {
+		try { $("div.modal-backdrop").remove(); } catch(ex) {}
+	});
 });
 
 
@@ -32,7 +36,7 @@ $(document).ready(function() {
 				 <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnViewCartAndCheckout" 
 					onclick="onClickViewCartAndCheckout();" style="float: left;" link="${url}">View Cart and Checkout <span class="glyphicon glyphicon-shopping-cart"></span>
 				</button>
-					<input type="button" value="Check Other Offers" data-dismiss="modal" class="btn btn-primary" style="float: right;">
+					<input type="button" value="Check Other Offers" data-dismiss="modal" class="btn btn-primary" style="float: right;" id="btnCheckOtherOffersModalClose" >
 					
 				</div>
 			</div>
