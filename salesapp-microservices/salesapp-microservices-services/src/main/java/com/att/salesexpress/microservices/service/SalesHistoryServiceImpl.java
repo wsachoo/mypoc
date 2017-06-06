@@ -1,7 +1,6 @@
 package com.att.salesexpress.microservices.service;
 
-
-import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,12 +24,14 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 
 	private static final int DEFAULT_NUMBER_OF_ROWS_TO_RETRIEVE = 10;
 
+	DecimalFormat df2 = new DecimalFormat(".00");
+
 	@Autowired
 	private SalesHistoryDao objSalesHistoryDao;
 
 	@Autowired
 	SalesHistoryDetailRepository objSalesHistoryDetailRepository;
-	
+
 	@Autowired
 	SalesRulesMisExpRepository objSalesRulesMisExpRepository;
 
@@ -38,7 +39,7 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 	public List<SalesHistoryStripped> getRecommendationBasedOnSalesHistory(Map<String, Object> params) {
 		List<Map<String, Object>> result = new ArrayList<>();
 		Set<String> keys = params.keySet();
-		
+
 		int numberOfRowsToRetrieve = DEFAULT_NUMBER_OF_ROWS_TO_RETRIEVE;
 
 		if (keys.contains("NUMBER_OF_ROWS")) {
@@ -46,31 +47,37 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		}
 
 		if (containsAllWithValidValues("ACCESS_TYPE_ID,ACCESS_SPEED_ID,PORT_SPEED_ID", params)) {
-		//if (keys.contains("ACCESS_TYPE_ID") && keys.contains("ACCESS_SPEED_ID") && keys.contains("PORT_SPEED_ID")) {
+			// if (keys.contains("ACCESS_TYPE_ID") &&
+			// keys.contains("ACCESS_SPEED_ID") &&
+			// keys.contains("PORT_SPEED_ID")) {
 			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
 			Integer accessSpeed = Integer.parseInt(params.get("ACCESS_SPEED_ID").toString().trim());
 			Integer portSpeed = Integer.parseInt(params.get("PORT_SPEED_ID").toString().trim());
 
-			result = objSalesHistoryDao.sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed(accessType,accessSpeed, portSpeed, numberOfRowsToRetrieve);
-			if(result.isEmpty()){
-				result = objSalesHistoryDao.getRecordsByAccessTypeAccessSpeedPortSpeedFromMisExpRules(accessType, accessSpeed, portSpeed, numberOfRowsToRetrieve);
+			result = objSalesHistoryDao.sqlGetSalesHistoryDataByAccessTypeAndPortSpeedAndAccessSpeed(accessType,
+					accessSpeed, portSpeed, numberOfRowsToRetrieve);
+			if (result.isEmpty()) {
+				result = objSalesHistoryDao.getRecordsByAccessTypeAccessSpeedPortSpeedFromMisExpRules(accessType,
+						accessSpeed, portSpeed, numberOfRowsToRetrieve);
 			}
-						
-		//} else if (keys.contains("ACCESS_TYPE_ID") && keys.contains("ACCESS_SPEED_ID")) {
-		  }	else if (containsAllWithValidValues("ACCESS_TYPE_ID,ACCESS_SPEED_ID", params)) {
+
+			// } else if (keys.contains("ACCESS_TYPE_ID") &&
+			// keys.contains("ACCESS_SPEED_ID")) {
+		} else if (containsAllWithValidValues("ACCESS_TYPE_ID,ACCESS_SPEED_ID", params)) {
 			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
 			Integer accessSpeed = Integer.parseInt(params.get("ACCESS_SPEED_ID").toString().trim());
 			result = objSalesHistoryDao.getRecordsByAccessTypeAndAccessSpeed(accessType, accessSpeed,
 					numberOfRowsToRetrieve);
-			if(result.isEmpty()) {
-				result = objSalesHistoryDao.getRecordsByAccessTypeAndAccessSpeedFromMisExpRules(accessType, accessSpeed, numberOfRowsToRetrieve);
+			if (result.isEmpty()) {
+				result = objSalesHistoryDao.getRecordsByAccessTypeAndAccessSpeedFromMisExpRules(accessType, accessSpeed,
+						numberOfRowsToRetrieve);
 			}
-		  } else if (containsAllWithValidValues("ACCESS_TYPE_ID,indexWithinGroup", params)) {
+		} else if (containsAllWithValidValues("ACCESS_TYPE_ID,indexWithinGroup", params)) {
 			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
 			Integer indexWithinGroup = Integer.parseInt(params.get("indexWithinGroup").toString().trim());
 			result = objSalesHistoryDao.getRecordsByAccessType(accessType, indexWithinGroup, numberOfRowsToRetrieve);
-		//} else if (keys.contains("ACCESS_TYPE_ID")) {
-		  } else if (containsAllWithValidValues("ACCESS_TYPE_ID", params)) {
+			// } else if (keys.contains("ACCESS_TYPE_ID")) {
+		} else if (containsAllWithValidValues("ACCESS_TYPE_ID", params)) {
 			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
 			result = objSalesHistoryDao.getRecordsByAccessType(accessType, numberOfRowsToRetrieve);
 		}
@@ -80,11 +87,10 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		for (Map<String, Object> map : result) {
 			returnValue.add(transformToSalesHistoryStripped(map));
 		}
-		
+
 		return returnValue;
 	}
-	
-	
+
 	@Override
 	public List<Map<String, Object>> getSalesPercentageByAccessType(Map<String, Object> params) {
 		List<Map<String, Object>> result = new ArrayList<>();
@@ -96,41 +102,41 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		if (keys.contains("NUMBER_OF_ROWS")) {
 			numberOfRowsToRetrieve = Integer.parseInt(params.get("NUMBER_OF_ROWS").toString().trim());
 		}
-		
+
 		result = objSalesHistoryDao.sqlGetSalesHistoryPercentageRecordsByAccessType(numberOfRowsToRetrieve);
 		return result;
-	}	
+	}
 
 	private boolean containsAllWithValidValues(String Keys, Map<String, Object> params) {
 
 		List<String> keyset = Arrays.asList(Keys.split(","));
-		
+
 		for (String string : keyset) {
 			string = string.trim();
 			if (params.get(string) == null) {
 				return false;
 			}
-			
+
 			String value = params.get(string).toString().trim();
 			if ("".equals(value)) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
 	private SalesHistoryStripped transformToSalesHistoryStripped(Map<String, Object> map) {
 		SalesHistoryStripped objSalesHistoryDO = new SalesHistoryStripped();
-		
-		if(!map.containsKey("DESIGN_RULE_ID")){
+
+		if (!map.containsKey("DESIGN_RULE_ID")) {
 			objSalesHistoryDO.setSiteId(Long.parseLong(map.get("SITE_ID").toString()));
 			objSalesHistoryDO.setLeadDesignId(Long.parseLong(map.get("LEAD_DESIGN_ID").toString()));
 		}
-		if(map.containsKey("DESIGN_RULE_ID")){
+		if (map.containsKey("DESIGN_RULE_ID")) {
 			objSalesHistoryDO.setRuleDesignId((Integer.parseInt(map.get("DESIGN_RULE_ID").toString())));
 		}
-		
+
 		objSalesHistoryDO.setAccessArchitecture(
 				map.get("ACCESS_ARCHITECTURE") != null ? map.get("ACCESS_ARCHITECTURE").toString() : "");
 		objSalesHistoryDO.setAccessSpeed((String) map.get("ACCESS_SPEED"));
@@ -149,10 +155,9 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		objSalesHistoryDO.setMatchPercentage(
 				map.get("MATCHING_ROW_PERCENTAGE") != null ? map.get("MATCHING_ROW_PERCENTAGE").toString() : "");
 
-		objSalesHistoryDO.setMrc(
-				map.get("MRC") != null ? map.get("MRC").toString() : "");
-		objSalesHistoryDO.setNrc(
-				map.get("NRC") != null ? map.get("NRC").toString() : "");
+		objSalesHistoryDO.setMrc(map.get("MRC") != null ? 
+				df2.format(Double.parseDouble(map.get("MRC").toString())) : "");
+		objSalesHistoryDO.setNrc(map.get("NRC") != null ? df2.format(Double.parseDouble(map.get("NRC").toString())) : "");
 
 		objSalesHistoryDO.setBundleCd(map.get("BUNDLE_CD") != null ? map.get("BUNDLE_CD").toString() : "");
 		objSalesHistoryDO.setTerm(map.get("TERM") != null ? map.get("TERM").toString() : "");
@@ -167,7 +172,7 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		objSalesHistoryDetailPK.setLeadDesignId(leadDesignId);
 
 		SalesHistoryDetail objSalesHistoryDetail = objSalesHistoryDetailRepository.findById(objSalesHistoryDetailPK);
-		
+
 		String accessSpeedId = objSalesHistoryDetail.getAccessSpeedId().toString();
 
 		List<String> portSpeedList = objSalesRulesMisExpRepository.findDistinctPortSpeedByAccessSpeedId(accessSpeedId);
@@ -179,8 +184,9 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 	public SalesRulesMisExpDetail getSalesHistoryOrderDetailByDesignRuleId(int designRuleId) {
 		SalesRulesMisExpDetailPK objSalesRulesMisExpDetailPk = new SalesRulesMisExpDetailPK();
 		objSalesRulesMisExpDetailPk.setDesignRuleId(designRuleId);
-		SalesRulesMisExpDetail objSalesRulesMisExpDetail = objSalesRulesMisExpRepository.findById(objSalesRulesMisExpDetailPk);
-		
+		SalesRulesMisExpDetail objSalesRulesMisExpDetail = objSalesRulesMisExpRepository
+				.findById(objSalesRulesMisExpDetailPk);
+
 		String accessSpeedId = objSalesRulesMisExpDetail.getAccessSpeedId().toString();
 
 		List<String> portSpeedList = objSalesRulesMisExpRepository.findDistinctPortSpeedByAccessSpeedId(accessSpeedId);
@@ -188,6 +194,5 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 
 		return objSalesRulesMisExpDetail;
 	}
-
 
 }

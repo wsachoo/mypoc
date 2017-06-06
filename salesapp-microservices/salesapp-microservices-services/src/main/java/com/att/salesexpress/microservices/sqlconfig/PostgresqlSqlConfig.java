@@ -7,12 +7,17 @@ import org.springframework.context.annotation.Profile;
 import com.att.salesexpress.microservices.util.SQLConstantsPostgresql;
 
 @Configuration
-@Profile("bluemix")
+@Profile("postgresql")
 public class PostgresqlSqlConfig {
-	
+
 	@Bean
 	public String sqlGetSalesHistoryDataByAccessType() {
 		return SQLConstantsPostgresql.sqlGetSalesHistoryDataByAccessType;
+	}
+
+	@Bean
+	public String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup() {
+		return SQLConstantsPostgresql.sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup;
 	}
 
 	@Bean
@@ -33,5 +38,15 @@ public class PostgresqlSqlConfig {
 	@Bean
 	public String sqlGetSalesHistoryPercentageRecordsByAccessType() {
 		return SQLConstantsPostgresql.sqlGetSalesHistoryPercentageRecordsByAccessType;
+	}
+
+	@Bean
+	public String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed() {
+		return SQLConstantsPostgresql.sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed;
+	}
+
+	@Bean
+	public String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed() {
+		return SQLConstantsPostgresql.sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed;
 	}
 }

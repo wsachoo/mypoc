@@ -510,6 +510,8 @@ function onNextButtonClick($thisRef) {
 function drawPieGraphOnTopSolutionTemplatePage(data) {
 	var tmpData = data["DATA"];
 	
+	console.log("XXXX: " + JSON.stringify(tmpData));
+	
 	var graph_data = {};
 	graph_data.labels = [];
 	graph_data.datasets = [];
@@ -520,9 +522,21 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 	graph_data.datasets[0].data = [];
 	
 	$.each(tmpData, function(i, value) {
-
-		graph_data.labels.push((value.ACCESS_TYPE_ID.split("_")[1])/1000 + " Mbps");
-		graph_data.datasets[0].data.push(value.PERCENTAGE || value.percentage);
+		
+		if (value.ACCESS_TYPE_ID) {
+			graph_data.labels.push((value.ACCESS_TYPE_ID.split("_")[1])/1000 + " Mbps");
+		}
+		else {
+			graph_data.labels.push((value.access_type_id.split("_")[1])/1000 + " Mbps");
+		}
+		
+		if (value.PERCENTAGE) {
+			graph_data.datasets[0].data.push(value.PERCENTAGE || value.percentage);
+		}
+		else {
+			graph_data.datasets[0].data.push(value.percentage || value.percentage);
+		}
+		
 		graph_data.attr.push();
 	});
 	
