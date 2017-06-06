@@ -240,3 +240,19 @@ footer.navbar-default.navbar-fixed-bottom
 	margin-left: 4.333%;
 } 
 
+
+.col-sm-1-5 {
+	position: relative;
+	min-height: 1px;
+	padding-right: 15px;
+	padding-left: 15px;
+}	
+
+@media (min-width: 700px) {
+	.col-sm-1-5 {
+		width: 20%;
+		float: left;
+	}
+}
+
+
