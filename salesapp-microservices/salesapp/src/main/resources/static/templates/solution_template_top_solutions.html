@@ -30,13 +30,6 @@
 
 	});
 </script>
-
-<!-- <div class="row">
-	<div class="col-sm-2 col-sm-offset-10">
-		<a href="#" data-name="solutionTemplate" data-url="stepWizard"
-			class="btn-block" id="stepWizardLink">Customize</a>
-	</div>
-</div> -->
 <div class="row">&nbsp;</div>
 <div class="row">
 	<div class="col-sm-6">
@@ -57,91 +50,96 @@
 				<div class="jumbotron"
 					style="background-color: #ff9900; color: black; border: 1px solid; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
 					<div class="row" style="text-align: center;">
-						<span style="color: white;font-size: 18px;">ADI Express</span>
+						<span style="color: white;font-size: 18px;">${data["DATA"][0]["bundleCd"]}</span>
 						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
 					</div>					
 					<div class="row" style="text-align: center;">
-						<span style="color: white;font-size: 22px; font-weight: bold;">10 Mbps Speed</span>
+						<span style="color: white;font-size: 22px; font-weight: bold;">${data["DATA"][0]["portSpeed"]}</span>
 						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
 					</div>
 					<div class="row" style="text-align: center;">
-						<span style="color: white;font-size: 17px;">AT&amp;T Managed Router</span>
+						<span style="color: white;font-size: 17px;">${data["DATA"][0]["managedRouter"]}</span>
 						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
 					</div>					
 
 					<div class="row" style="text-align: center;">
-						<span style="color: white;font-size: 17px;">$2500 of OTC</span>
+						<span style="color: white;font-size: 17px;">$${data["DATA"][0]["nrc"]} of OTC</span>
 					</div>
 					<div class="row" style="color: white; text-align: center;font-size: 22px; font-weight: bold;">
-						$1419
+						$${data["DATA"][0]["mrc"]}
 					</div>
 					<div class="row" style="color: white; text-align: center; font-size: 14px;font-weight: bold;">Effective Monthly Price</div>
 					<div class="row">&nbsp;</div>
 					<div class="row">
 						<div class="col-sm-10 col-sm-offset-1">
-							<input speed="10 Mbps" name="btnAddToCart" type="button"
-								style="background-color: #efefef;color: black; border: 1px solid;"
-								design-name="ADI Express" class="btn btn-block"
-								value="Add To Cart" mrc="1419"
-								link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5129784&amp;leadDesignId=5993843">
+							<input speed="${data['DATA'][0]['portSpeed']}" name="btnAddToCart"
+								type="button"
+								style="color: black; background-color: #efefef; border: 1px solid;"
+								design-name="${data['DATA'][0]['bundleCd']}" class="btn btn-block"
+								value="Add To Cart" mrc="${data['DATA'][0]['mrc']}"
+								link="${data['DATA'][0]['links'][0]['href']}">
 						</div>
 					</div>
 					<div class="row" style="margin-top: 10px">
-						<!-- <div _tmplitem="2"  class="col-sm-8 col-sm-offset-2">        <input _tmplitem="2"  link="http://IBMADM-VG8736.ITServices.sbc.com:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5129784&leadDesignId=5993843" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="62.96"         class="btn" value="View Offer Details" >       </div> -->
 						<div class="col-sm-8 col-sm-offset-2">
-							<input
-								link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5129784&amp;leadDesignId=5993843"
+							<input link="${data['DATA'][0]['links'][0]['href']}"
 								name="btnCustomize" type="button"
-								style="background-color: #efefef;color: black; border: 1px solid;"
-								matchpercentage="62.96" class="btn btn-block" value="Customize"
-								mrc="1419" design-name="ADI Express" speed="10 Mbps">
+								style="background-color: #efefef; border: 1px solid;"
+								matchPercentage="${data['DATA'][0]['matchPercentage']}"
+								class="btn btn-block" value="Customize"
+								mrc="${data['DATA'][0]['mrc']}"
+								design-name="${data['DATA'][0]['bundleCd']}"
+								speed="${data['DATA'][0]['portSpeed']}">
+								
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-6">
-
 				<div class="jumbotron"
 					style="background-color: #33ccff; color: black; border: 1px solid; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
 					<div class="row" style="text-align: center;">
-						<span style="color: white;font-size: 18px;">VVB Express</span>
+						<span style="color: white;font-size: 18px;">${data["DATA"][1]["bundleCd"]}</span>
 						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
 					</div>					
 					<div class="row" style="text-align: center;">
-						<span style="color: white;font-size: 22px; font-weight: bold;">10 Mbps Speed</span>
+						<span style="color: white;font-size: 22px; font-weight: bold;">${data["DATA"][1]["portSpeed"]}</span>
 						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
 					</div>
 					<div class="row" style="text-align: center;">
-						<span style="color: white;font-size: 17px;">AT&amp;T Managed Router</span>
+						<span style="color: white;font-size: 17px;">${data["DATA"][1]["managedRouter"]}</span>
 						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
 					</div>					
 
 					<div class="row" style="text-align: center;">
-						<span style="color: white;font-size: 17px;">$3750 of OTC</span>
+						<span style="color: white;font-size: 17px;">$${data["DATA"][1]["nrc"]} of OTC</span>
 					</div>
 					<div class="row" style="color: white; text-align: center;font-size: 22px; font-weight: bold;">
-						$2128.51
+						$${data["DATA"][1]["mrc"]}
 					</div>
 					<div class="row" style="color: white; text-align: center; font-size: 14px;font-weight: bold;">Effective Monthly Price</div>
 					<div class="row">&nbsp;</div>
 					<div class="row">
 						<div class="col-sm-10 col-sm-offset-1">
-							<input speed="10 Mbps" name="btnAddToCart" type="button"
-								style="background-color: #efefef;color: black; border: 1px solid;"
-								design-name="VVB Express" class="btn btn-block"
-								value="Add To Cart" mrc="2128.5"
-								link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5229783&amp;leadDesignId=5993843">
+							<input speed="${data['DATA'][1]['portSpeed']}" name="btnAddToCart"
+								type="button"
+								style="color: black; background-color: #efefef; border: 1px solid;"
+								design-name="${data['DATA'][1]['bundleCd']}" class="btn btn-block"
+								value="Add To Cart" mrc="${data['DATA'][1]['mrc']}"
+								link="${data['DATA'][1]['links'][0]['href']}">
 						</div>
 					</div>
 					<div class="row" style="margin-top: 10px">
-						<!-- <div _tmplitem="2"  class="col-sm-8 col-sm-offset-2">        <input _tmplitem="2"  link="http://IBMADM-VG8736.ITServices.sbc.com:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5229783&leadDesignId=5993843" name="btnViewLink" type="button" style="color: black; background-color: #f2f2f2;" matchPercentage="62.96"         class="btn" value="View Offer Details" >       </div> -->
 						<div class="col-sm-8 col-sm-offset-2">
-							<input
-								link="http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=5229783&amp;leadDesignId=5993843"
+							<input link="${data['DATA'][1]['links'][0]['href']}"
 								name="btnCustomize" type="button"
-								style="background-color: #efefef;color: black; border: 1px solid;"
-								matchpercentage="62.96" class="btn btn-block" value="Customize"
-								mrc="2128.5" design-name="VVB Express" speed="10 Mbps">
+								style="background-color: #efefef; border: 1px solid;"
+								matchPercentage="${data['DATA'][1]['matchPercentage']}"
+								class="btn btn-block" value="Customize"
+								mrc="${data['DATA'][1]['mrc']}"
+								design-name="${data['DATA'][1]['bundleCd']}"
+								speed="${data['DATA'][1]['portSpeed']}">
+								
 						</div>
 					</div>
 				</div>
