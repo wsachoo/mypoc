@@ -20,23 +20,25 @@ public class SalesExpressMicroServicesApplication extends SpringBootServletIniti
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(SalesExpressMicroServicesApplication.class);
 	}
-	
+
 	public static void main(String[] args) {
-        SpringApplication application = new SpringApplication(SalesExpressMicroServicesApplication.class);
-        application.run(args);
+		SpringApplication application = new SpringApplication(SalesExpressMicroServicesApplication.class);
+		application.run(args);
 	}
-	
+
 	@Autowired
 	SalesHistoryDao objSalesHistoryDao;
 
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-	/*	List<Map<String, Object>> result = objSalesHistoryDao.getRecordsByAccessTypeAndAccessSpeed("Ethernet", 10000, 11);
-		for (Map<String, Object> map : result) {
-			System.out.println(map.get("DBOR_SOLUTION_ID"));
-			System.out.println();
-		}*/
-		
+		/*
+		 * List<Map<String, Object>> result =
+		 * objSalesHistoryDao.getRecordsByAccessTypeAndAccessSpeed("Ethernet",
+		 * 10000, 11); for (Map<String, Object> map : result) {
+		 * System.out.println(map.get("DBOR_SOLUTION_ID"));
+		 * System.out.println(); }
+		 */
+
 	}
 }
