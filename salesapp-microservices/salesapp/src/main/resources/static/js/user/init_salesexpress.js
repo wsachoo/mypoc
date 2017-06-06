@@ -16,9 +16,9 @@ SALESEXPRESS_CONSTANTS = (function() {
 			"select_speed_configure_options" : contextPath + "/templates/select_speed_configure_options.html",
 			"modify_configuration_options" 	 : contextPath + "/templates/modify_configuration_options.html",
 			"service_features_template" 	 : contextPath + "/templates/service_features_template.html",
-			"service_features_data"			 : contextPath + "/templates/service_features_data.html",
+			/*"service_features_data"			 : contextPath + "/templates/service_features_data.html",
 			"service_features_security" 	 : contextPath + "/templates/service_features_security.html",
-			"service_features_misc"			 : contextPath + "/templates/service_features_misc.html",
+			"service_features_misc"			 : contextPath + "/templates/service_features_misc.html",*/
 			"show_results_template"			 : contextPath + "/templates/show_results_template.html",
 			"port_config_options_template" 	 : contextPath + "/templates/port_config_options_template.html",
 			"service_features_init" 	 	 : contextPath + "/templates/service_features_init.html",
