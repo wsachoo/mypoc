@@ -82,22 +82,22 @@
 		<div id="main-wrapper">
 			<div class="container-fluid salesexpress-content-area" id="solTemplateConfigPlaceholder">
 					<div class="row sachtopmenu">
-						<div class="col-sm-6 col-xs-12 sachmenuitemactive"
+						<div class="col-sm-4 col-xs-12 sachmenuitemactive"
 							id="sachtopmenu_gMap">
 							<%-- <a href="#" style="color: white" data-name="siteMap" data-url="${pageContext.request.contextPath}/login/${userId}/${solutionId}">Site Map</a> --%>
 							<a href="#" style="color: white" data-name="siteMap"
 								data-url="solutionTemplate">Site Map</a>
 						</div>
-						<div class="col-sm-6 col-xs-12 sachmenuitem"
+						<div class="col-sm-4 col-xs-12 sachmenuitem"
 							id="sachtopmenu_solutionTemplate">
-							<a href="${pageContext.request.contextPath}/user/solutionTemplate/stepWizard" style="color: white" data-name="solutionTemplate"
-								data-url="stepWizard">Integrated Solutions</a>
+							<a href="${pageContext.request.contextPath}/user/solutionTemplate/topCustomerSolutions" style="color: white" data-name="topCustomerSolutions"
+								data-url="topCustomerSolutions">Integrated Solutions</a>
 						</div>
-						<div class="sachmenuitem" style="display: none;"
-							id="sachtopmenu_generateContract">
+						<div class="col-sm-4 col-xs-12 sachmenuitem"
+							id="sachtopmenu_myCart">
 							<a href="#" id="shoppingCartLink" style="color: white;"
-								data-name="contractGeneration"
-								data-url="${pageContext.request.contextPath}/generateContract"> My Cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
+								data-name="myCart"
+								data-url="${pageContext.request.contextPath}/myCart"> My Cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
 						</div>
 					</div>
 					<div class="clearfix"></div>

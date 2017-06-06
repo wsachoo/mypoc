@@ -466,7 +466,7 @@ function onClickProceedToGenContract(e) {
 		DATA["MANAGED ROUTER"] = $("#displayManagedRouterType").html();
 	
 	$('<div class="row" id="displayContractWizard"></div>').insertAfter("div.sachtopmenu");
-	addContractGenTab();
+	//addContractGenTab();
 		
 	var templatePath = contextPath + "/templates/contract_data_wizard.html";
 	var contractDataTemplate = getTemplateDefinition(templatePath);
@@ -480,11 +480,17 @@ function onClickProceedToGenContract(e) {
 	showConfiguredSitesList();
 }
 
-function addContractGenTab() {
+/*function addContractGenTab() {
 	$("#sachtopmenu_gMap").removeClass('col-sm-6 col-xs-12 sachmenuitemactive').addClass('col-sm-4 col-xs-12 sachmenuitem'); //changes span of existing tabs
 	$("#sachtopmenu_solutionTemplate").removeClass('col-sm-6 col-xs-12 sachmenuitemactive').addClass('col-sm-4 col-xs-12 sachmenuitem'); //changes span of existing tabs
 	$("#sachtopmenu_generateContract").css("display", "inline");
 	$("#sachtopmenu_generateContract").addClass('col-sm-4 col-xs-12 sachmenuitemactive');
+}*/
+
+function activateMyCartTab() {
+	$("#sachtopmenu_gMap").removeClass('col-sm-4 col-xs-12 sachmenuitemactive').addClass('col-sm-4 col-xs-12 sachmenuitem'); 
+	$("#sachtopmenu_solutionTemplate").removeClass('col-sm-4 col-xs-12 sachmenuitemactive').addClass('col-sm-4 col-xs-12 sachmenuitem'); 
+	$("#sachtopmenu_myCart").addClass('col-sm-4 col-xs-12 sachmenuitemactive');
 }
 
 
@@ -785,8 +791,8 @@ function onClickViewCartAndCheckout(url) {
 	defaultTermPeriodMRC = DATA["MRC"];
 	defaultTermPeriodNRC = DATA["NRC"];
 	$('<div class="row" id="displayShoppingCart"></div>').insertAfter("div.sachtopmenu");
-	addContractGenTab();
-	
+	//addContractGenTab();
+	activateMyCartTab();
 	var templatePath = contextPath + "/templates/shopping_cart.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
 	$.template("shopping_cart", modalTemplate);
@@ -853,5 +859,6 @@ function onClickCheckoutAndGenContract() {
 }
 
 function goBackToOffers() {
+	$("#shoppingCartLink").find('.badge').remove();
 	window.history.back();
 }

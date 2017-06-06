@@ -26,7 +26,7 @@ function hashChange(){
 	var page = location.hash.slice(1);
 	
 	if (page.includes("topCustomerSolutions")) {
-		changeTab("stepWizard");
+		changeTab("topCustomerSolutions");
     	var topMenuDiv = $("div.sachtopmenu");
     	removeNextAllSiblingDivRows(topMenuDiv);
 
@@ -125,9 +125,12 @@ function hashChange(){
 }
 
 function changeTab(tabDataName) {
+	if(tabDataName == "stepWizard") {
+		tabDataName = "topCustomerSolutions";
+	}
 	var div1 = $('a[data-name="siteMap"]').closest("div");
-	var div2 = $('a[data-name="solutionTemplate"]').closest("div");
-	var div3 = $('a[data-name="contractGeneration"]').closest("div");
+	var div2 = $('a[data-name="topCustomerSolutions"]').closest("div");
+	var div3 = $('a[data-name="myCart"]').closest("div");
 	div1.removeClass("sachmenuitemactive");
 	div1.addClass("sachmenuitem");
 	div2.removeClass("sachmenuitemactive");
@@ -137,11 +140,11 @@ function changeTab(tabDataName) {
 	var searchPattern = 'a[data-url="' + tabDataName + '"]';
 	var selectedTabElementDiv =  $(searchPattern).closest("div");
 	var topMenuDivId = selectedTabElementDiv.attr('id');
-	if(topMenuDivId != 'sachtopmenu_generateContract'){ // added to show contract generation tab
+/*	if(topMenuDivId != 'sachtopmenu_generateContract'){ // added to show contract generation tab
 		$("#sachtopmenu_generateContract").css("display", "none");
 		$("#sachtopmenu_gMap").removeClass('col-sm-4 col-xs-12').addClass('col-sm-6 col-xs-12');
 		$("#sachtopmenu_solutionTemplate").removeClass('col-sm-4 col-xs-12').addClass('col-sm-6 col-xs-12');
-	}
+	}*/
 	selectedTabElementDiv.removeClass("sachmenuitem");
 	selectedTabElementDiv.addClass("sachmenuitemactive");
 }
