@@ -59,12 +59,12 @@ public interface SQLConstantsOracle {
 			+ "            rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup, "
 			+ "            sth.* "
 			+ "            from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
-			+ "            where sth.ACCESS_TYPE_ID = 'ETHERNET' "
+			+ "            where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
 			+ "            ) countTable "
 			+ "            ) rankTable "
-			+ "            where rankTable.indexWithinGroup < 3"
+			+ "            where rankTable.indexWithinGroup < :INDEX_WITHIN_GROUP"
 			+ "            order by MATCHING_ROW_PERCENTAGE desc, MRC asc"
-			+ ") x where x.myrow=1 and rownum <= 25";
+			+ ") x where x.myrow=1 and rownum <= :NUMBER_OF_ROWS";
 			
 	String sqlGetSalesHistoryDataByAccessType = "select rankTable.* from ("
 			+ "select countTable.*, "
