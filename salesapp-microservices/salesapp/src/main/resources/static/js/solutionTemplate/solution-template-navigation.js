@@ -29,7 +29,8 @@ function hashChange(){
 		changeTab("topCustomerSolutions");
     	var topMenuDiv = $("div.sachtopmenu");
     	removeNextAllSiblingDivRows(topMenuDiv);
-
+    	$("#shoppingCartLink").find('.badge').remove();
+    	
     	var frameFormat = "<div class='clearfix'></div>";
     	frameFormat = frameFormat  + "<div class='row salesexpress-content-margin'>";
     	frameFormat = frameFormat  + "  <div class='col-sm-12'  style='height:50%;'>"; 
@@ -81,7 +82,8 @@ function hashChange(){
     	displayUserSitesOnGoogleMap();		
 	}
 	else if (page == "") {
-    	changeTab(contextPath + "/user/solutionTemplate");
+    	//changeTab(contextPath + "/user/solutionTemplate");
+		changeTab("solutionTemplate");
     	var topMenuDiv = $("div.sachtopmenu");
     	removeNextAllSiblingDivRows(topMenuDiv);
     	
@@ -107,7 +109,7 @@ function changeTab(tabDataName) {
 	div1.addClass("sachmenuitem");
 	div2.removeClass("sachmenuitemactive");
 	div2.addClass("sachmenuitem");
-	div3.removeClass("sachmenuitemactive");//added to show contract generation tab
+	div3.removeClass("sachmenuitemactive");
 	div3.addClass("sachmenuitem");
 	var searchPattern = 'a[data-url="' + tabDataName + '"]';
 	var selectedTabElementDiv =  $(searchPattern).closest("div");
