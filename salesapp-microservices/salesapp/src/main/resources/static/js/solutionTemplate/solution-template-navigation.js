@@ -42,35 +42,7 @@ function hashChange(){
         topMenuDiv.after(frameFormat);
         topMenuDiv.trigger('create');
         
-        var templatePath = contextPath + "/templates/solution_template_top_solutions.html";
-        var toplSolutionTemplate = getTemplateDefinition(templatePath);
-        $.template("solution_template_top_solutions", toplSolutionTemplate);
-        
-    	var promise = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL"), "{}");
-    	promise.done(function(data, textStatus, jqXHR){
-    		var tmpData = data["DATA"];
-    		
-/*    		var percentObject = {};
-    		$.each(tmpData, function(i, value) {
-    			var accessType = value.ACCESS_TYPE_ID || value.access_type_id;
-    			accessType = accessType.replace(/ /g, '_');
-<<<<<<< HEAD
-    			percentObject[accessType + "_PERCENTAGE"] = value.PERCENTAGE;
-    		});*/
-    		/*	percentObject[accessType + "_PERCENTAGE"] = value.PERCENTAGE || value.percentage;
-    		});*/
-    		
-        	var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", {"data":data});
-        	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
-        	$("#solutionTemplateTopFrame").trigger('create');
-        	
-        	console.log("DATADATA: " + JSON.stringify(data));
-        	drawPieGraphOnTopSolutionTemplatePage(data);
-        	displayDataGridWithTop5Records("ETHERNET");
-        	
-    	}).fail(function(jqXHR, textStatus, errorThrown) {
-    		console.log(textStatus);
-    	}); 
+        displayDataGridWithTop5Records("ETHERNET");
     }	
 	else if (page.includes("stepWizard")) {
 		changeTab(page);
