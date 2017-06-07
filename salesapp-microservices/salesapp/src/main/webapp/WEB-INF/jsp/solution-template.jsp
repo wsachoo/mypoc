@@ -181,6 +181,9 @@
 			location.replace("${contextPath}/user/home");
 		
 		});
+		$("#shoppingCartLink").click(function(e) {
+			return false;
+		});
 	});
 </script>
 </html>
