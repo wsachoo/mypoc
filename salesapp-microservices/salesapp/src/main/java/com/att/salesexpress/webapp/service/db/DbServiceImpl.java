@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,7 +27,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
-import com.att.salesexpress.webapp.bean.admin.ProductConfigBean;
 import com.att.salesexpress.webapp.entity.SalesRules;
 import com.att.salesexpress.webapp.entity.SalesSite;
 import com.att.salesexpress.webapp.pojos.AccessSpeedDO;
@@ -44,6 +44,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 public class DbServiceImpl implements DbService {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Value("${DB_TYPE}")
+	private String dbType;
 
 	@Autowired
 	@Qualifier("hikariOraJdbcTemplate")
@@ -102,6 +105,10 @@ public class DbServiceImpl implements DbService {
 		logger.debug("Inside insertSiteConfigurationData() method.");
 
 		String sqlSeq = "SELECT SLEXP_SITEDETAIL_TX_SEQ.nextval as trxn_seq FROM dual";
+		
+		if ("POSTGRESQL".equalsIgnoreCase(dbType)) {
+			sqlSeq = "SELECT nextval('SLEXP_SITEDETAIL_TX_SEQ')";
+		}
 		final Long seqNum = jdbcTemplate.queryForObject(sqlSeq, Long.class);
 
 		final String sql = "INSERT INTO SLEXP_SITEDETAIL_TX (ID, USER_ID, SOLUTION_ID, ACCESS_DATA) VALUES (?, ?, ?, ?)";
@@ -309,10 +316,10 @@ public class DbServiceImpl implements DbService {
 		logger.debug("inside getServiceFeaturesMetaDataBySiteName debug mode");
 		logger.info("Inside getServiceFeaturesMetaDataBySiteName() method with siteType {}", siteType);
 		String sql = "select SERVICE_FEATURES_METADATA from SLEXP_SITE_CONFIG where SITE_NAME = ?";
-		String servFeaturesMDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { siteType }, String.class);
-		return servFeaturesMDataJson ;
+		String servFeaturesMDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { siteType },
+				String.class);
+		return servFeaturesMDataJson;
 	}
-
 
 	public void saveIglooResponseInDb(Long transactionId, String iglooResponsString) {
 		logger.debug("Inside saveIglooResponseInDb() method.");
@@ -328,32 +335,31 @@ public class DbServiceImpl implements DbService {
 				"select SERVICE_FEATURES_METADATA from SLEXP_SITE_CONFIG where SITE_NAME='testSite'", String.class);
 		return strServiceFeaturesConfig;
 	}
-	
+
 	@Override
 	public void updateServiceFeaturesConfiguration(String jsonString) throws SQLException {
 		logger.debug("Inside updateServiceFeaturesConfiguration() method.");
 		String sqlUpdate = "update SLEXP_SITE_CONFIG set SERVICE_FEATURES_METADATA = ? ";
 		int iReturnVal = jdbcTemplate.update(sqlUpdate, jsonString);
-		logger.debug("Return value after service and features update : " + iReturnVal);	
+		logger.debug("Return value after service and features update : " + iReturnVal);
 	}
-	
+
 	@Override
 	public void checkIfRuleAlreadyExits(final List<SalesRules> salesRulesEntityList) {
 		logger.debug("Inside checkIfRuleAlreadyExits() method.");
 		String sql = "select count(1) from sales_rules where ACCESS_SPEED_ID=? and PORT_SPEED_ID=? and upper(PRODUCT)=? and port_type=?";
-		
+
 		for (SalesRules salesRules : salesRulesEntityList) {
-			Integer iRowCount = jdbcTemplate.queryForObject(sql, Integer.class, 
-						salesRules.getAccessSpeed(), salesRules.getPortSpeed(), salesRules.getProductName().toUpperCase(), salesRules.getPortType());
+			Integer iRowCount = jdbcTemplate.queryForObject(sql, Integer.class, salesRules.getAccessSpeed(),
+					salesRules.getPortSpeed(), salesRules.getProductName().toUpperCase(), salesRules.getPortType());
 			if (iRowCount == 1) {
 				salesRules.setBlnExitsInDb(true);
-			}
-			else {
+			} else {
 				salesRules.setBlnExitsInDb(false);
 			}
 		}
 	}
-	
+
 	@Override
 	public void saveProductConfiguration(final List<SalesRules> salesRulesEntityList) throws SQLException {
 		logger.debug("Entered saveProductConfiguration() method.");
@@ -378,7 +384,7 @@ public class DbServiceImpl implements DbService {
 				return salesRulesEntityList.size();
 			}
 		});
-		
+
 		logger.debug("Exiting saveProductConfiguration() method.");
 	}
 
@@ -389,7 +395,7 @@ public class DbServiceImpl implements DbService {
 
 		final String sqlBatchUpdate = "UPDATE sales_rules "
 				+ "SET PORT_TYPE=?, MRC=?, NRC=? where ACCESS_SPEED_ID=? and PORT_SPEED_ID=? and upper(PRODUCT)=? and PORT_TYPE=?";
-		
+
 		jdbcTemplate.batchUpdate(sqlBatchUpdate, new BatchPreparedStatementSetter() {
 
 			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
@@ -408,12 +414,11 @@ public class DbServiceImpl implements DbService {
 			}
 		});
 
-		
 		logger.debug("Exiting updateProductConfiguration() method.");
 	}
-	
+
 	@Override
-	public List<Map<String,Object>> getDistinctProductsToConfigure(){
+	public List<Map<String, Object>> getDistinctProductsToConfigure() {
 		logger.debug("inside getDistinctProductsToConfigure");
 		final String getDistinctProducts = "SELECT DISTINCT(PRODUCT) as PRODUCT FROM SALES_RULES ORDER BY PRODUCT";
 		return jdbcTemplate.queryForList(getDistinctProducts);
@@ -439,20 +444,21 @@ public class DbServiceImpl implements DbService {
 				return salesRulesEntityList.size();
 			}
 		});
-		
-		logger.debug("Exiting deleteProductConfiguration() method.");		
+
+		logger.debug("Exiting deleteProductConfiguration() method.");
 	}
 
 	@Override
 	public void deleteProductConfiguration(String portType, Long accessSpeed, Long portSpeed) {
 		logger.debug("Entered deleteProductConfigurationForAllProducts() method.");
 
-		final String sql= "DELETE FROM sales_rules WHERE PORT_TYPE=? AND ACCESS_SPEED_ID=? AND PORT_SPEED_ID=?";
-		jdbcTemplate.update(sql, new Object[] { portType, accessSpeed, portSpeed }, new int[] {Types.VARCHAR, Types.DOUBLE, Types.DOUBLE});
-		
-		logger.debug("Exiting deleteProductConfigurationForAllProducts() method.");		
+		final String sql = "DELETE FROM sales_rules WHERE PORT_TYPE=? AND ACCESS_SPEED_ID=? AND PORT_SPEED_ID=?";
+		jdbcTemplate.update(sql, new Object[] { portType, accessSpeed, portSpeed },
+				new int[] { Types.VARCHAR, Types.DOUBLE, Types.DOUBLE });
+
+		logger.debug("Exiting deleteProductConfigurationForAllProducts() method.");
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> getAccessSpeedByAccessType(String productType, String accessType) {
 		String sql = "select distinct(ACCESS_SPEED_ID) as ACCESS_SPEED_ID from sales_rules where PRODUCT=? and port_type=? order by ACCESS_SPEED_ID";
@@ -464,7 +470,8 @@ public class DbServiceImpl implements DbService {
 	public List<Map<String, Object>> getPortSpeedsByAccessSpeed(String productType, String accessType,
 			Long accessSpeed) {
 		String sql = "select distinct PORT_SPEED_ID from sales_rules where PRODUCT=? and port_type=? and ACCESS_SPEED_ID=? order by PORT_SPEED_ID";
-		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { productType, accessType, accessSpeed });
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql,
+				new Object[] { productType, accessType, accessSpeed });
 		return rows;
 	}
 
