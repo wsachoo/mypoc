@@ -270,6 +270,7 @@ function displayAvailProdInLeftNav(returnResultData) {
 	$.each(gUserDetails.siteAddresses, function(i, value) {
 		var productsFound = 
 			$.grep(returnResultData, function(site, ind) {
+				var site_ids = site['SITE_IDS'] || site['site_ids'];
 	  		    var productExists = site['SITE_IDS'].split(",").indexOf("" + value.SITE_ID) != -1;
 	            return productExists;
 		});
