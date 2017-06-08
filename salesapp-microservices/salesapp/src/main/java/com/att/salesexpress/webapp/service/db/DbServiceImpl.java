@@ -284,7 +284,8 @@ public class DbServiceImpl implements DbService {
 	}
 
 	public Long fetchDefaultSolutionIdByUserId(String userId) {
-		String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?) and rownum=1";
+		//String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?) and rownum=1";
+		String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?)";
 		Long solutionId = jdbcTemplate.queryForObject(sql, Long.class, userId);
 		logger.debug("Solution id retrieved from database is  {}", solutionId);
 		return solutionId;
@@ -364,10 +365,16 @@ public class DbServiceImpl implements DbService {
 	public void saveProductConfiguration(final List<SalesRules> salesRulesEntityList) throws SQLException {
 		logger.debug("Entered saveProductConfiguration() method.");
 
-		final String sqlBatchInsert = "INSERT INTO sales_rules ("
+		String sqlBatchInsert = "INSERT INTO sales_rules ("
 				+ "ID, RULE_ID, PRODUCT, RATE_PLAN, PORT_TYPE, ACCESS_SPEED_ID, PORT_SPEED_ID, MIN_MBC, MRC, NRC "
 				+ ") VALUES (SALES_RULES_ID_SEQ.NEXTVAL, SALES_RULES_RULE_ID_SEQ.NEXTVAL, ?, NULL, ?, ?, ?, NULL, ?, ?)";
 
+		if ("POSTGRESQL".equalsIgnoreCase(dbType)) {
+			sqlBatchInsert = "INSERT INTO sales_rules ("
+					+ "ID, RULE_ID, PRODUCT, RATE_PLAN, PORT_TYPE, ACCESS_SPEED_ID, PORT_SPEED_ID, MIN_MBC, MRC, NRC "
+					+ ") VALUES (nextval('SALES_RULES_ID_SEQ'), SALES_RULES_RULE_ID_SEQ.NEXTVAL, ?, NULL, ?, ?, ?, NULL, ?, ?)";
+		}
+		
 		jdbcTemplate.batchUpdate(sqlBatchInsert, new BatchPreparedStatementSetter() {
 
 			public void setValues(PreparedStatement pstmt, int i) throws SQLException {
