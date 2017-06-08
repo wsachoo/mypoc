@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -27,6 +28,9 @@ import com.att.salesexpress.webapp.entity.SalesUser;
 public class SalesUserDetailsService implements UserDetailsService {
 	
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Value("${DB_TYPE}")
+	private String dbType;
 
 	@Autowired
 	@Qualifier("hikariOraJdbcTemplate")
@@ -41,7 +45,15 @@ public class SalesUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("Inside loadUserByUsername() method");
 		SalesUser salesUser = null;
-
+		logger.info("The database connected to is: " + dbType);
+		if ("POSTGRESQL".equalsIgnoreCase(dbType)) {
+			
+			sqlAuthUser = "select a.username, a.password, a.enabled, a.accountNonExpired, "
+				+ "a.credentialsNonExpired, a.accountNonLocked, a.firstname, a.lastname, "
+				+ "(select b.authority from sales_authorities b where b.username=a.username) as authorities "
+				+ "from SALES_USERS a where a.username=?";
+		}
+		
 		try {
 			salesUser = jdbcTemplate.queryForObject(sqlAuthUser, new RowMapper<SalesUser>() {
 
