@@ -2,7 +2,7 @@ package com.att.salesexpress.microservices.util;
 
 public interface SQLConstantsOracle {
 
-	String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup = "select rankTable.* from ("
+	String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup20170607 = "select rankTable.* from ("
 			+ "select countTable.*, "
 			+ "dense_rank() over (order by countTable.NUMBER_OF_SALES desc) RNK "
 			+ "from ("
@@ -20,6 +20,51 @@ public interface SQLConstantsOracle {
 			//+ "where rankTable.RNK = 1 and rownum <= :NUMBER_OF_ROWS"; 
 			+ "where rankTable.indexWithinGroup < :INDEX_WITHIN_GROUP and rownum <= :NUMBER_OF_ROWS "
 			+ "order by MATCHING_ROW_PERCENTAGE desc, MRC asc";
+	
+	String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroupComplexWay = "select * from SALES_TRANS_HISTORY_MIS_EXP where ROWID in ("
+			+ "select min(m.ROWID) from SALES_TRANS_HISTORY_MIS_EXP m , ("
+			+ "select distinct DESIGN_NAME,ACCESS_SPEED_ID, MANAGED_ROUTER, MRC, NRC from ( "
+			+ "select rankTable.DESIGN_NAME,rankTable.ACCESS_SPEED_ID, rankTable.MANAGED_ROUTER, rankTable.MRC, rankTable.NRC  from ("
+			+ "    select countTable.*, "
+			+ "        dense_rank() over (order by countTable.NUMBER_OF_SALES desc) RNK "
+			+ "        from ("
+			+ "        select"
+			+ "        count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD) as NUMBER_OF_SALES, "
+			+ "        ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2) as MATCHING_ROW_PERCENTAGE, "
+			+ "        rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup, "
+			+ "        sth.* "
+			+ "        from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
+			+ "        where sth.ACCESS_TYPE_ID = 'ETHERNET' "
+			+ "        ) countTable  ) rankTable "
+			+ "    where rankTable.indexWithinGroup < 4 "
+			+ "    order by MATCHING_ROW_PERCENTAGE desc, MRC asc"
+			+ " ) x where rownum <= 25 "
+			+ ") n "
+			+ "where m.DESIGN_NAME=n.DESIGN_NAME and "
+			+ "m.ACCESS_SPEED_ID=n.ACCESS_SPEED_ID and "
+			+ "m.MANAGED_ROUTER=n.MANAGED_ROUTER and "
+			+ "m.MRC=n.MRC and "
+			+ "m.NRC=n.NRC "
+			+ "group by  m.DESIGN_NAME, m.ACCESS_SPEED_ID, m.MANAGED_ROUTER, m.MRC, m.NRC "
+			+ ")";
+
+	String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup = "select * from ( select "
+			+ "row_number() over(partition by rankTable.DESIGN_NAME,rankTable.ACCESS_SPEED_ID, rankTable.MANAGED_ROUTER, rankTable.MRC, rankTable.NRC order by rankTable.SITE_ID) myrow, "
+			+ "rankTable.* from ( "
+			+ "        select countTable.*, "
+			+ "            dense_rank() over (order by countTable.NUMBER_OF_SALES desc) RNK "
+			+ "            from ( select "
+			+ "            count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD) as NUMBER_OF_SALES, "
+			+ "            ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2) as MATCHING_ROW_PERCENTAGE, "
+			+ "            rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup, "
+			+ "            sth.* "
+			+ "            from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
+			+ "            where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
+			+ "            ) countTable "
+			+ "            ) rankTable "
+			+ "            where rankTable.indexWithinGroup < :INDEX_WITHIN_GROUP"
+			+ "            order by MATCHING_ROW_PERCENTAGE desc, MRC asc"
+			+ ") x where x.myrow=1 and rownum <= :NUMBER_OF_ROWS";
 
 	String sqlGetSalesHistoryDataByAccessType = "select rankTable.* from ("
 			+ "select countTable.*, "
