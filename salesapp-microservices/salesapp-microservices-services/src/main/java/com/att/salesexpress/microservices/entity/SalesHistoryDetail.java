@@ -254,10 +254,10 @@ public class SalesHistoryDetail implements Serializable {
 	private String tailTechnologyS;
 	
 	@Column(name="MRC")
-	private String mrc;
+	private Double mrc;
 
 	@Column(name="NRC")
-	private String nrc;
+	private Double nrc;
 	
 	@Column(name="TERM")
 	private String term;
@@ -883,19 +883,19 @@ public class SalesHistoryDetail implements Serializable {
 		this.tailTechnologyS = tailTechnologyS;
 	}
 
-	public String getMrc() {
+	public Double getMrc() {
 		return mrc;
 	}
 
-	public void setMrc(String mrc) {
+	public void setMrc(Double mrc) {
 		this.mrc = mrc;
 	}
 
-	public String getNrc() {
+	public Double getNrc() {
 		return nrc;
 	}
 
-	public void setNrc(String nrc) {
+	public void setNrc(Double nrc) {
 		this.nrc = nrc;
 	}
 
