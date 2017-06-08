@@ -110,7 +110,7 @@ public interface SQLConstantsPostgresql {
 			+ "order by PERCENTAGE desc";
 	
 	String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed = "select * from sales_rules_mis_exp where  access_type = :ACCESS_TYPE_ID and"
-			  + "  ACCESS_SPEED_ID = :ACCESS_SPEED_ID and MRC is not null and PORT_SPEED_ID <= :ACCESS_SPEED_ID LIMIT :NUMBER_OF_ROWS";
+			  + "  ACCESS_SPEED_ID = :ACCESS_SPEED_ID_STRING and MRC is not null and PORT_SPEED_ID <= :ACCESS_SPEED_ID LIMIT :NUMBER_OF_ROWS";
 	
 	String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed = "select * from sales_rules_mis_exp where  access_type = :ACCESS_TYPE_ID and"
 			  + "  ACCESS_SPEED_ID = :ACCESS_SPEED_ID and PORT_SPEED_ID =:PORT_SPEED_ID  and MRC is not null LIMIT 1";
