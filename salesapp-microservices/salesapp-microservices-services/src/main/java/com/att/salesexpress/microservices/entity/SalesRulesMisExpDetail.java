@@ -44,10 +44,10 @@ public class SalesRulesMisExpDetail implements Serializable {
 	private String ipVersionLabel;
 
 	@Column(name = "MRC")
-	private int mrc;
+	private Double mrc;
 
 	@Column(name = "NRC")
-	private int nrc;
+	private Double nrc;
 
 	@Column(name = "PORT_SPEED")
 	private String portSpeed;
@@ -135,19 +135,19 @@ public class SalesRulesMisExpDetail implements Serializable {
 		this.accessService = accessService;
 	}
 
-	public int getMrc() {
+	public Double getMrc() {
 		return mrc;
 	}
 
-	public void setMrc(int mrc) {
+	public void setMrc(Double mrc) {
 		this.mrc = mrc;
 	}
 
-	public int getNrc() {
+	public Double getNrc() {
 		return nrc;
 	}
 
-	public void setNrc(int nrc) {
+	public void setNrc(Double nrc) {
 		this.nrc = nrc;
 	}
 

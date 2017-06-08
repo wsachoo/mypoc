@@ -7,11 +7,16 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository(value = "SalesHistoryDao")
 public class SalesHistoryDaoImpl implements SalesHistoryDao {
+	
+	@Value("${DB_TYPE}")
+	private String dbType;
+	
 	static final Logger logger = LoggerFactory.getLogger(SalesHistoryDaoImpl.class);
 
 	@Autowired
@@ -145,7 +150,13 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 		Map<String, Object> namedParameters = new HashMap<>();
 		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
 		namedParameters.put("ACCESS_TYPE_ID", accessType);
-		namedParameters.put("ACCESS_SPEED_ID", accessSpeed);
+		if(("POSTGRESQL").equalsIgnoreCase(dbType)) {
+			String accessSpeedAsString = Integer.toString(accessSpeed);
+			namedParameters.put("ACCESS_SPEED_ID_STRING", accessSpeedAsString);
+			namedParameters.put("ACCESS_SPEED_ID", accessSpeed);
+		}else{
+			namedParameters.put("ACCESS_SPEED_ID", accessSpeed);
+		} 
 
 		List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(sql, namedParameters);
 		
@@ -163,7 +174,11 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 		Map<String, Object> namedParameters = new HashMap<>();
 		namedParameters.put("NUMBER_OF_ROWS", numberOfRows);
 		namedParameters.put("ACCESS_TYPE_ID", accessType);
-		namedParameters.put("ACCESS_SPEED_ID", accessSpeed);
+		if(("POSTGRESQL").equalsIgnoreCase(dbType)) {
+			namedParameters.put("ACCESS_SPEED_ID", String.valueOf(accessSpeed));
+		}else{
+			namedParameters.put("ACCESS_SPEED_ID", accessSpeed);
+		}
 		namedParameters.put("PORT_SPEED_ID", portSpeed);
 
 		List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(sql, namedParameters);
