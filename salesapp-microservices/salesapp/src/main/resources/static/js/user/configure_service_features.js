@@ -271,7 +271,8 @@ function displayAvailProdInLeftNav(returnResultData) {
 		var productsFound = 
 			$.grep(returnResultData, function(site, ind) {
 				var site_ids = site['SITE_IDS'] || site['site_ids'];
-	  		    var productExists = site['SITE_IDS'].split(",").indexOf("" + value.SITE_ID) != -1;
+				var valueSiteId = value.SITE_ID || value.site_id;
+	  		    var productExists = site_ids.split(",").indexOf("" + value.SITE_ID) != -1;
 	            return productExists;
 		});
 		productsBySiteId[value.SITE_ID] = productsFound;
