@@ -132,9 +132,17 @@ public class DbServiceImpl implements DbService {
 		logger.debug("Inside insertSiteConfigurationDataInRelational() method.");
 		final List<UserSiteDesignDO> userSiteDesignDOList = new ArrayList<>(userDesignDo.getSiteDesignList().values());
 
-		final String sqlBatchInsert = "INSERT INTO sales_design (" + "SITE_ID, RATE_PLAN, PORT_TYPE, "
+		String sqlBatchInsert = "INSERT INTO sales_design (" + "SITE_ID, RATE_PLAN, PORT_TYPE, "
 				+ "ACCESS_SPEED, PORT_SPEED, L2_PROTOCOL, " + "HCF_MIN_COMMITMENT_ID, COS_YN, CREATED_DATE, "
 				+ "CREATED_ID, MODIFIED_DATE, MODIFIED_ID, SOLUTION_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE, ?, ?)";
+
+		logger.info("The database connected to is: " + dbType);
+		if ("POSTGRESQL".equalsIgnoreCase(dbType)) {
+			
+			sqlBatchInsert = "INSERT INTO sales_design (" + "SITE_ID, RATE_PLAN, PORT_TYPE, "
+					+ "ACCESS_SPEED, PORT_SPEED, L2_PROTOCOL, " + "HCF_MIN_COMMITMENT_ID, COS_YN, CREATED_DATE, "
+					+ "CREATED_ID, MODIFIED_DATE, MODIFIED_ID, SOLUTION_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, now(), ?, now(), ?, ?)";
+		}
 
 		jdbcTemplate.batchUpdate(sqlBatchInsert, new BatchPreparedStatementSetter() {
 
@@ -233,6 +241,13 @@ public class DbServiceImpl implements DbService {
 		String sql = "select a.PRODUCT, a.MRC, a.NRC, LISTAGG(b.SITE_ID, ',') WITHIN GROUP (ORDER BY b.SITE_ID) AS SITE_IDS "
 				+ "from SALES_RULES a, sales_design b " + "where a.ACCESS_SPEED_ID = b.ACCESS_SPEED "
 				+ "and a.PORT_SPEED_ID=b.PORT_SPEED and b.SOLUTION_ID=?" + "group by a.PRODUCT, a.MRC, a.NRC";
+		
+		if ("POSTGRESQL".equalsIgnoreCase(dbType)) {
+			sql = "select a.PRODUCT, a.MRC, a.NRC, string_agg(b.SITE_ID::text, ',') AS SITE_IDS "
+					+ "from SALES_RULES a, sales_design b " + "where a.ACCESS_SPEED_ID = b.ACCESS_SPEED "
+					+ "and a.PORT_SPEED_ID=b.PORT_SPEED and b.SOLUTION_ID=?" + "group by a.PRODUCT, a.MRC, a.NRC";
+		}
+		
 		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, solutionId);
 		return resultList;
 	}
@@ -246,12 +261,12 @@ public class DbServiceImpl implements DbService {
 				PortSpeedDO portSpeedDO = new PortSpeedDO();
 				portSpeedDO.setPortType(accessType);
 				portSpeedDO.setAccessSpeed(accessSpeed);
-				portSpeedDO.setPortSpeed(rs.getString("PORT_SPEED_ID"));
-				portSpeedDO.setMrc(rs.getString("MRC"));
-				portSpeedDO.setNrc(rs.getString("NRC"));
+				portSpeedDO.setPortSpeed(Long.valueOf(rs.getLong("PORT_SPEED_ID")).toString());
+				portSpeedDO.setMrc(Long.valueOf(rs.getLong("MRC")).toString());
+				portSpeedDO.setNrc(Long.valueOf(rs.getLong("NRC")).toString());
 				return portSpeedDO;
 			}
-		}, accessSpeed, accessType);
+		}, Long.parseLong(accessSpeed), accessType);
 		return list;
 	}
 
