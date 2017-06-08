@@ -243,6 +243,7 @@ function handleProceedToResults($thisRef, eventSource){
 	
 	var formElement = $("form");
 	formElement.children('div').not('.sachtopmenu,.sachbottommenu,.chat-box').remove();
+	resultData = capitalize_jsobject_keys(resultData);
 	var serviceFeaturesInit= $.tmpl("show_results_template", { "packageData" : resultData});
 	var topmenudiv = formElement.find("div.sachtopmenu");
 	topmenudiv.after(serviceFeaturesInit);
