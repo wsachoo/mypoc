@@ -323,12 +323,15 @@ function handleCommonService($thisRef, eventSource){
 
 function handleProceedToGenerateContract($thisRef, eventSource) {
 
-    $("#sachtopmenu_serviceFeatures").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem'); //changes span of existing tabs
-    $("#sachtopmenu_results").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem'); //changes span of existing tabs
+    //$("#sachtopmenu_serviceFeatures").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem'); //changes span of existing tabs
+    //$("#sachtopmenu_results").removeClass('col-sm-3 col-xs-12 sachmenuitemactive').addClass('col-sm-2 col-xs-12 sachmenuitem'); //changes span of existing tabs
 
-    $("#sachtopmenu_generateContract").css("display", "inline");
-    $("#sachtopmenu_generateContract").addClass('col-sm-2 col-xs-12 sachmenuitemactive');
-
+    //$("#sachtopmenu_generateContract").css("display", "inline");
+    //$("#sachtopmenu_generateContract").addClass('col-sm-2 col-xs-12 sachmenuitemactive');
+	
+	$("#sachtopmenu_results").removeClass('sachmenuitemactive').addClass('sachmenuitem');
+	$("#sachtopmenu_generateContract").removeClass('sachmenuitem').addClass('sachmenuitemactive');
+	
     var formElement = $("form");
     formElement.children('div').not('.sachtopmenu,.sachbottommenu,.chat-box, #chat_window_1, .msg_container').remove();
     var generateContractInit = $.tmpl("generate_contract_template");

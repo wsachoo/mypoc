@@ -359,11 +359,11 @@ function performTabChangeAction(tabDataName) {
 	var searchPattern = 'a[data-name="' + tabDataName + '"]';
 	var selectedTabElementDiv =  $(searchPattern).closest("div");
 	var topMenuDivId = selectedTabElementDiv.attr('id');
-	if(topMenuDivId != 'sachtopmenu_generateContract'){ // added to show contract generation tab
+/*	if(topMenuDivId != 'sachtopmenu_generateContract'){ // added to show contract generation tab
 		$("#sachtopmenu_generateContract").css("display", "none");
 		$("#sachtopmenu_results").removeClass('col-sm-2 col-xs-12').addClass('col-sm-3 col-xs-12');
 		$("#sachtopmenu_serviceFeatures").removeClass('col-sm-2 col-xs-12').addClass('col-sm-3 col-xs-12');
-	}
+	}*/
 	selectedTabElementDiv.removeClass("sachmenuitem");
 	selectedTabElementDiv.addClass("sachmenuitemactive");
 
