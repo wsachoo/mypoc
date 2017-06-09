@@ -5,12 +5,12 @@ $(document).ready(function() {
 		bootbox.confirm({
 		    message: "Are you sure you would like to send the contract for eSign?",
 		    buttons: {
-		        confirm: {
-		            label: 'Yes',
-		            className: 'btn-primary'
-		        },
 		        cancel: {
 		            label: 'No, I would like to verify again',
+		            className: 'btn-primary'
+		        },
+		        confirm: {
+		            label: 'Yes',
 		            className: 'btn-primary'
 		        }
 		    },
@@ -19,7 +19,7 @@ $(document).ready(function() {
 		    		$("#divSignature").css('display', 'inline');
 		    		var signAndSubmitAlert = '<div class="alert alert-success">'+
 		    									'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
-		     										'<strong>Success!</strong> Contract has been successfully signed and submitted.'+
+		     										'This contract has been successfully sent to eSign.'+
 		    								 '</div>';
 		    		$("#signAndSubmitDiv").append(signAndSubmitAlert);	
 		    	}
