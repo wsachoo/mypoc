@@ -872,10 +872,29 @@ function onClickApplyShoppingCartData() {
 
 function onClickCheckoutAndGenContract() {
 	$("#checkoutGenerateContractDiv").remove();
+	var serviceLocations = {};
+	var sitePhysicalLocations = [];
+
+	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
+		var siteName = $(this).attr('data-name');
+		for(var i = 0; i < gUserDetails.siteAddresses.length; i++) {
+			var tmpServiceLocations = {};
+			if(siteName == gUserDetails.siteAddresses[i].site_name) {
+				tmpServiceLocations["siteName"] = gUserDetails.siteAddresses[i].site_name || gUserDetails.siteAddresses[i].SITE_NAME;
+				tmpServiceLocations["siteAddress"] = gUserDetails.siteAddresses[i].site_addr || gUserDetails.siteAddresses[i].SITE_ADDR;
+				sitePhysicalLocations.push(tmpServiceLocations);
+			}
+		}
+		
+	});
+	
+	serviceLocations["siteNameAddress"] = sitePhysicalLocations;
+	var numOfLocations = serviceLocations["siteNameAddress"].length;
+	serviceLocations["numOfLocations"] = numOfLocations;
 	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
 	$.template("checkout_generate_contract", modalTemplate);
-	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract", {});
+	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract", {"serviceLocations" : serviceLocations});
 	$('body').append(modalTemplateToDisplay);
 	$("#btnPreviewContactModal").trigger('click');
 }

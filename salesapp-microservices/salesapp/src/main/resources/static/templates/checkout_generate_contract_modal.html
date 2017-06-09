@@ -9,6 +9,10 @@ $(document).ready(function() {
 		e.preventDefault();
 		$('#contractInfoSection')[0].scrollIntoView();
 	});
+	$("#hrefServiceLocationInfoSection").click(function(e) {
+		e.preventDefault();
+		$('#serviceLocationInfoSection')[0].scrollIntoView();
+	});
 	$("#hrefTermInfoSection").click(function(e) {
 		e.preventDefault();
 		$('#termInfoSection')[0].scrollIntoView();
@@ -156,18 +160,20 @@ function showMARCElementsData() {
 						<div class="container-fluid" style="background-color: #337ab7;">
 							<div>
 								<div class="collapse navbar-collapse" id="myNavbar"
-									style="background-color: #337ab7; margin-left: 165px;">
+									style="background-color: #337ab7;">
 									<ul class="nav navbar-nav">
 										<li><a href="#" id="hrefContractInfoSection"
-											class="active" style="background-color: rgb(51, 153, 255);">Contact
+											class="active" style="background-color: rgb(51, 153, 255);">1.Contact
 												Info</a></li>
-										<li><a href="#" id="hrefTermInfoSection">Contract
+										<li><a href="#" id="hrefServiceLocationInfoSection"
+											class="" >2.Service Locations</a></li>		
+										<li><a href="#" id="hrefTermInfoSection">3.Contract
 												Term</a></li>
-										<li><a href="#" id="hrefRatesInfoSection">Contract
+										<li><a href="#" id="hrefRatesInfoSection">4.Contract
 												Pricing</a></li>
-										<li><a href="#" id="hrefTermsAndConditionsInfoSection">Terms
+										<li><a href="#" id="hrefTermsAndConditionsInfoSection">5.Terms
 												& Conditions</a></li>
-										<li><a href="#" id="hrefCheckoutSection">Finalize
+										<li><a href="#" id="hrefCheckoutSection">6.Finalize
 												Contract</a></li>
 									</ul>
 								</div>
@@ -403,7 +409,39 @@ function showMARCElementsData() {
 							</div>
 						</form>
 					</div>
-
+					<div id="serviceLocationInfoSection">
+						<form class="form-horizontal">
+						Total of ${serviceLocations["numOfLocations"]} Locations
+						{{each(i, item) serviceLocations["siteNameAddress"] }}
+							<div class="panel panel-default results-panel" style="margin-top: 5px;">
+							  <div class="panel-heading"><strong>${i+1}.${item["siteName"]}</strong></div>
+							  <div class="panel-body">
+							    	<div class="row">
+							        	<div class="col-lg-5"> 
+							        	<strong>${item["siteAddress"]}</strong><br>
+							        	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent magna dolor, gravida id odio quis, gravida eleifend orci.
+							        	 Maecenas ex sapien, efficitur nec finibus vitae, porttitor rutrum ligula.
+							        	  Maecenas placerat consectetur dolor eu interdum. 
+							        	  Quisque cursus sapien cursus lacinia vestibulum
+							        	</div>
+							                <div class="col-lg-3">
+							                	 <strong>[ Additonal Contact Info ]</strong>
+							               		 <input type="text" class="form-control" id="contactName" placeholder="Name" style="margin-top: 5px;">
+							                	 <input type="text" class="form-control" id="contactEmail" placeholder="Email" style="margin-top: 5px;">
+							               		 <input type="text" class="form-control" id="contactPhone" placeholder="Phone" style="margin-top: 5px;">
+							                </div>
+							                  
+							          		<div class="col-lg-1">
+							          		</div>
+							          		<div class="col-lg-3">
+							                 * Additional Terms and Conditions
+							          		</div>
+							         </div>
+							     </div>
+							</div>
+							{{/each}}
+						</form>
+					</div> 
 					<div id="termInfoSection">
 						<form class="form-horizontal">
 							<div class="panel panel-default">
