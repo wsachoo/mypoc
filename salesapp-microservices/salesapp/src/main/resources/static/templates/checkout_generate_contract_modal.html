@@ -1,6 +1,31 @@
 <script>
 	
 $(document).ready(function() {
+    function displayYesNoPopup() {
+		bootbox.confirm({
+		    message: "Are you sure you would like to send the contract for eSign?",
+		    buttons: {
+		        confirm: {
+		            label: 'Yes',
+		            className: 'btn-primary'
+		        },
+		        cancel: {
+		            label: 'No, I would like to verify again',
+		            className: 'btn-primary'
+		        }
+		    },
+		    callback: function (result) {
+		    	if (result) {
+		    		$("#divSignature").css('display', 'inline');
+		    		var signAndSubmitAlert = '<div class="alert alert-success">'+
+		    									'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
+		     										'<strong>Success!</strong> Contract has been successfully signed and submitted.'+
+		    								 '</div>';
+		    		$("#signAndSubmitDiv").append(signAndSubmitAlert);	
+		    	}
+		    }
+		});	
+    }
     
     termSelectedByUser = $("#displayContractTermList").html();
 	$("#previewContactModal").modalSteps();
@@ -37,14 +62,19 @@ $(document).ready(function() {
 								
 	});
 	
+	
 	$("#btnSignAndSubmit").on('click', function() {
+		displayYesNoPopup();	
+	});
+	
+/* 	$("#btnSignAndSubmit").on('click', function() {
 		$("#divSignature").css('display', 'inline');
 		var signAndSubmitAlert = '<div class="alert alert-success">'+
 									'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
  										'<strong>Success!</strong> Contract has been successfully signed and submitted.'+
 								 '</div>';
 		$("#signAndSubmitDiv").append(signAndSubmitAlert);	
-	});
+	}); */
 	
 	$("#myNavbar").find("ul > li > a").click(function(e) {
 		e.preventDefault();
@@ -661,7 +691,7 @@ function showMARCElementsData() {
 						<form class="form-horizontal">
 							<div class="row">
 								<ul>
-								<input type="checkbox" id="chkAgreeForContract"> I here by sign and agree to the terms and conditions ...
+								<input type="checkbox" id="chkAgreeForContract"> As a seller I understand and agree to the below terms and conditions.
 								</ul>
 							</div>
 
@@ -683,8 +713,7 @@ function showMARCElementsData() {
 								</div> -->
 								<div class="col-sm-4 col-sm-offset-4">
 									<button type="button" class="btn btn-primary"
-										id="btnSignAndSubmit" disabled="disabled">Sign And
-										Submit</button>
+										id="btnSignAndSubmit" disabled="disabled">Generate & Send for eSign</button>
 								</div>
 							</div>
 							<div class="row col-sm-4 col-sm-offset-4" id="signAndSubmitDiv"
