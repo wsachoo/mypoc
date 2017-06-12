@@ -69,6 +69,7 @@ public class DbServiceImpl implements DbService {
 		returnValues.put("user_id", userId);
 		returnValues.put("solution_id", solutionId);
 		returnValues.put("siteAddresses", rows);
+		logger.debug("Exiting findUserDetailByUserIdSolutionId() method.");
 		return returnValues;
 	}
 
