@@ -33,29 +33,17 @@ $(document).ready(function() {
 		<hr>
 		<div class="row">
 		<div class="col-sm-6">
-		{{each(i, item) $data}}
-			{{if (i == 'DESIGN NAME')}}
-				<strong style="font-size: 22px;">1. ${item} &nbsp;<span class="glyphicon glyphicon-trash" ></span></strong> <br>
-			{{/if}}	
-		{{/each}}
-		
-			{{each(i, item) $data}}
-				{{if (i == 'ACCESS BANDWIDTH')}}
-					{{if (i == 'ACCESS BANDWIDTH')}}
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${item}
-					{{/if}}
-				{{/if}}	
-			{{/each}}
-			
+				<strong style="font-size: 22px;">1. ${DATA["DESIGN NAME"]} &nbsp;<span class="glyphicon glyphicon-trash" ></span></strong> <br>
+				<div style="margin-left: 4%;">
+					${DATA["ACCESS BANDWIDTH"]}<br>
+					${DATA["NRC"]} of OTC<br>
+					${DATA["MANAGED ROUTER"]}<br>
+				</div>
 		</div>
 
 		<div class="col-sm-6">
-			{{each(i, item) $data}}
-			{{if (i == 'MRC')}}
-				<strong style="font-size: 22px;">${item}</strong> <br>Effective monthly charge
-			{{/if}}	
-		{{/each}}
-		</div>
+				<strong style="font-size: 22px;">${DATA["MRC"]}</strong> <br>Effective monthly charge
+			</div>
 		</div>
 		<br>
 		<div class="row col-sm-10" >
@@ -70,7 +58,7 @@ $(document).ready(function() {
 					<a href="#">Edit Opportunity</a>
 				</td>
 			</tr>
-			{{each(i, item) $data}}
+			{{each(i, item) DATA}}
 							{{if ( i == 'IP VERSION' || i == 'MANAGED ROUTER' || i == 'PORT SPEED') }}
 								{{if (i == 'IP VERSION' || i == 'PORT SPEED') }}
 									{{if (i == 'IP VERSION') }}

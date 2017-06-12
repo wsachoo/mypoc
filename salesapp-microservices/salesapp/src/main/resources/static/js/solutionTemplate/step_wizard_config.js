@@ -817,7 +817,7 @@ function onClickViewCartAndCheckout(url) {
 	var templatePath = contextPath + "/templates/shopping_cart.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
 	$.template("shopping_cart", modalTemplate);
-	var modalTemplateToDisplay = $.tmpl("shopping_cart", DATA);
+	var modalTemplateToDisplay = $.tmpl("shopping_cart", {"DATA" : DATA});
 	
 	$("#displayShoppingCart").append(modalTemplateToDisplay);
 	var topMenuDiv = $("#displayShoppingCart");
