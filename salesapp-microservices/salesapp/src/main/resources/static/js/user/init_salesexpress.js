@@ -25,7 +25,10 @@ SALESEXPRESS_CONSTANTS = (function() {
 			"init_access_config_template" 	 : contextPath + "/templates/init_access_config_template.html",
 			"init_gmap_template" 			 : contextPath + "/templates/init_gmap_template.html",
 			"generate_contract_template" 	 : contextPath + "/templates/generate_contract.html",
-			"common_services_features_template": contextPath + "/templates/common_services_features.html"
+			"common_services_features_template": contextPath + "/templates/common_services_features.html",
+			"confirm_modal_addToCart": contextPath + "/templates/confirm_modal_addToCart.html",
+			"top_results_template": contextPath + "/templates/top_results_template.html",
+			"solution_template_top_solutions": contextPath + "/templates/solution_template_top_solutions.html"
 	};
 	
 	var _jsonDataUrls = {

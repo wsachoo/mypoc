@@ -120,17 +120,18 @@ function displayDataGridWithTop5Records(accessType, accessSpeed) {
 	$("#solutionTemplateBottomFrame").empty();
 		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
 	
-	        var soltemplatePath = contextPath + "/templates/solution_template_top_solutions.html";
+/*	        var soltemplatePath = contextPath + "/templates/solution_template_top_solutions.html";
 	        var toplSolutionTemplate = getTemplateDefinition(soltemplatePath);
 	        $.template("solution_template_top_solutions", toplSolutionTemplate);
+*/	        
     		var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", {"data":data});
         	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
         	$("#solutionTemplateTopFrame").trigger('create');
 
-			var templatePath = contextPath + "/templates/top_results_template.html";
+/*			var templatePath = contextPath + "/templates/top_results_template.html";
 			var topResultsTemplate = getTemplateDefinition(templatePath);
 			$.template("top_results_template", topResultsTemplate);
-			
+*/			
 			var tmpObj2 = {};
 			tmpObj2["ACCESS_TYPE_ID"] = accessType;
 			tmpObj2["NUMBER_OF_ROWS"] = 25;
@@ -760,9 +761,9 @@ function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
 	data["speed"] = speed;
 	data["mrc"] = mrc;
 	data["url"] = url
-	var templatePath = contextPath + "/templates/confirm_modal_addToCart.html";
+/*	var templatePath = contextPath + "/templates/confirm_modal_addToCart.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("confirm_modal_addToCart", modalTemplate);
+	$.template("confirm_modal_addToCart", modalTemplate);*/
 	var modalTemplateToDisplay = $.tmpl("confirm_modal_addToCart", data);
 	
 	$('body').append(modalTemplateToDisplay);
