@@ -815,10 +815,10 @@ function onClickViewCartAndCheckout(url) {
 	$('<div class="row" id="displayShoppingCart"></div>').insertAfter("div.sachtopmenu");
 	//addContractGenTab();
 	activateMyCartTab();
-	var templatePath = contextPath + "/templates/shopping_cart.html";
+/*	var templatePath = contextPath + "/templates/shopping_cart.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("shopping_cart", modalTemplate);
-	var modalTemplateToDisplay = $.tmpl("shopping_cart", DATA);
+	$.template("shopping_cart", modalTemplate);*/
+	var modalTemplateToDisplay = $.tmpl("shopping_cart_url", {"DATA" : DATA});
 	
 	$("#displayShoppingCart").append(modalTemplateToDisplay);
 	var topMenuDiv = $("#displayShoppingCart");
@@ -891,10 +891,10 @@ function onClickCheckoutAndGenContract() {
 	serviceLocations["siteNameAddress"] = sitePhysicalLocations;
 	var numOfLocations = serviceLocations["siteNameAddress"].length;
 	serviceLocations["numOfLocations"] = numOfLocations;
-	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
+/*	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("checkout_generate_contract", modalTemplate);
-	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract", {"serviceLocations" : serviceLocations});
+	$.template("checkout_generate_contract", modalTemplate);*/
+	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract_modal_url", {"serviceLocations" : serviceLocations});
 	$('body').append(modalTemplateToDisplay);
 	$("#btnPreviewContactModal").trigger('click');
 }
