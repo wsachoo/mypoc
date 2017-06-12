@@ -516,7 +516,7 @@ function onNextButtonClick($thisRef) {
 function drawPieGraphOnTopSolutionTemplatePage(data) {
 	var tmpData = data["DATA"];
 	
-	console.log("XXXX: " + JSON.stringify(tmpData));
+	//console.log("XXXX: " + JSON.stringify(tmpData));
 	
 	var graph_data = {};
 	graph_data.labels = [];
@@ -878,7 +878,7 @@ function onClickCheckoutAndGenContract() {
 		var siteName = $(this).attr('data-name');
 		for(var i = 0; i < gUserDetails.siteAddresses.length; i++) {
 			var tmpServiceLocations = {};
-			if(siteName == gUserDetails.siteAddresses[i].site_name) {
+			if(siteName == gUserDetails.siteAddresses[i].site_name || siteName == gUserDetails.siteAddresses[i].SITE_NAME) {
 				tmpServiceLocations["siteName"] = gUserDetails.siteAddresses[i].site_name || gUserDetails.siteAddresses[i].SITE_NAME;
 				tmpServiceLocations["siteAddress"] = gUserDetails.siteAddresses[i].site_addr || gUserDetails.siteAddresses[i].SITE_ADDR;
 				sitePhysicalLocations.push(tmpServiceLocations);
