@@ -25,7 +25,10 @@ SALESEXPRESS_CONSTANTS = (function() {
 			"init_access_config_template" 	 : contextPath + "/templates/init_access_config_template.html",
 			"init_gmap_template" 			 : contextPath + "/templates/init_gmap_template.html",
 			"generate_contract_template" 	 : contextPath + "/templates/generate_contract.html",
-			"common_services_features_template": contextPath + "/templates/common_services_features.html"
+			"common_services_features_template": contextPath + "/templates/common_services_features.html",
+			"confirm_modal_addToCart": contextPath + "/templates/confirm_modal_addToCart.html",
+			"top_results_template": contextPath + "/templates/top_results_template.html",
+			"solution_template_top_solutions": contextPath + "/templates/solution_template_top_solutions.html"
 	};
 	
 	var _jsonDataUrls = {
@@ -48,11 +51,15 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"getPortSpeedsByAccessSpeedUrl" : "getPortSpeedsByAccessSpeed",
 		"getDistinctAccessSpeedByAccessTypeUrl" : "getDistinctAccessSpeedByAccessType",
 		"getDistinctPortSpeedsByAccessSpeedUrl" : "getDistinctPortSpeedsByAccessSpeed",
-		"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://localhost:8080/user/salesHistory/getRecommendationBasedOnSalesHistory",
-		"ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL" : "http://localhost:8080/user/salesHistory/getSalesPercentageByAccessType",
+		//"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://localhost:2226/user/salesHistory/getRecommendationBasedOnSalesHistory",
+		//"ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL" : "http://localhost:2226/user/salesHistory/getSalesPercentageByAccessType",
+		//"VVB_250MBPS_URL" : "http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=99998924592&leadDesignId=6120229"
+		"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://zldv2366.vci.att.com:2226/user/salesHistory/getRecommendationBasedOnSalesHistory",
+		"ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL" : "http://zldv2366.vci.att.com:2226/user/salesHistory/getSalesPercentageByAccessType",
+		"VVB_250MBPS_URL" : "http://zldv2366.vci.att.com:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=99998924592&leadDesignId=6120229"
 		//"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://salesappmicroserviceproxy.mybluemix.net/user/salesHistory/getRecommendationBasedOnSalesHistory",
 		//"ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL" : "http://salesappmicroserviceproxy.mybluemix.net/user/salesHistory/getSalesPercentageByAccessType",\
-		"VVB_250MBPS_URL" : "http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=99998924592&leadDesignId=6120229"
+
 	};
 	
 	return {
