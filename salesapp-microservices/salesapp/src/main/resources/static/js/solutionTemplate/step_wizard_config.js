@@ -838,7 +838,7 @@ function onClickCustomizeShoppingCart() {
 	var managedRouterDropDownTmpl = customizeGCDataFields.managedRouterDropDown();
 	customizePortSpeedsGCData();
 	customizeContractTermGCData();
-
+	enableAdditionalFeaturesCheckBox();
 	var thisElement = $("#btnCustomizeShoppingCart");
 	thisElement.html('Update My Cart <span class="glyphicon glyphicon-shopping-cart"></span>');
 	thisElement.attr('id','btnApplyShoppingCartData');
@@ -848,6 +848,13 @@ function onClickCustomizeShoppingCart() {
 	$("#displayManagedRouterType").empty();
 	$("#displayManagedRouterType").append(managedRouterDropDownTmpl);
 
+}
+
+function enableAdditionalFeaturesCheckBox() {
+	
+	$("#bvoipNeeded").removeAttr('disabled');
+	$("#securityNeeded").removeAttr('disabled');
+	
 }
 
 function onClickApplyShoppingCartData() {
