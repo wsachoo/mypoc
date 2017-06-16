@@ -11,6 +11,6 @@ public class RestletServiceImpl implements RestletService {
 
 	public final void speak(Exchange e) {
 		e.setOut(e.getIn());
-		e.getOut().setBody("Hello World!");
+		e.getOut().setBody("Hello World From SalesAppService!");
 	}
 }
