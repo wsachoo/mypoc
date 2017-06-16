@@ -1,0 +1,21 @@
+package com.att.pricerd;
+
+import org.apache.camel.builder.RouteBuilder;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.att.ajsc.common.camel.AjscRouteBuilder;
+
+@Component
+public class Routes extends RouteBuilder {
+
+	@Autowired
+	private AjscRouteBuilder ajscRoute;
+
+	@Override
+	public void configure() throws Exception {
+		ajscRoute.initialize(this);
+		ajscRoute.setRoute(from("restlet:/service/hello").to("bean:restletServiceImpl?method=speak"));
+
+	}
+
+}
