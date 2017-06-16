@@ -46,7 +46,7 @@ public class HelloTest {
 		assertEquals(200, response.getStatus());
 
 		String actualResponseEntity = response.readEntity(String.class);
-		String expectedResponseEntity = "Hello World!";
+		String expectedResponseEntity = "Hello World From SalesAppService!";
 		assertEquals(expectedResponseEntity, actualResponseEntity);
 	}
 }
