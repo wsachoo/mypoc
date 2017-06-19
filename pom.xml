@@ -14,7 +14,7 @@
 	</parent>
 
 	<properties>
-	    <swagger.directory>${basedir}/target/classes/META-INF/resources/swagger</swagger.directory>
+		<swagger.directory>${basedir}/target/classes/META-INF/resources/swagger</swagger.directory>
 		<icd.file>service.json</icd.file>
 		<icd.package>com.att.pricerd.service.restlet</icd.package>
 		<java.version>1.8</java.version>
@@ -24,13 +24,29 @@
 		<service.account>ajsc-svc-account</service.account>
 		<namespace>com.att.pricerd</namespace>
 		<sdk.java.restlet.common>6.2.0.2</sdk.java.restlet.common>
+		<hibernate-jpa.version>1.0.0.Final</hibernate-jpa.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+
+<!-- 		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency> -->
+
+		<dependency> <groupId>com.oracle</groupId> <artifactId>ojdbc6</artifactId> 
+			<version>11.2.0.3</version> </dependency>
+
+		<dependency>
 			<groupId>com.att.ajsc</groupId>
 			<artifactId>sdk-java-restlet-common</artifactId>
 			<version>${sdk.java.restlet.common}</version>
+			<!-- <exclusions> <exclusion> <groupId>org.apache.tomcat</groupId> <artifactId>tomcat-jdbc</artifactId> 
+				</exclusion> </exclusions> -->
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
@@ -38,9 +54,16 @@
 			<version>2.24</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<version>${hibernate-jpa.version}</version>
+		</dependency>
+   <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+        </dependency>		
 	</dependencies>
-
-
 
 	<build>
 		<pluginManagement>
@@ -114,7 +137,7 @@
 			</resource>
 		</resources>
 		<plugins>
-            <plugin>
+			<plugin>
 				<groupId>com.github.kongchen</groupId>
 				<artifactId>swagger-maven-plugin</artifactId>
 				<configuration>

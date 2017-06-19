@@ -15,10 +15,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import com.att.ajsc.common.utility.SystemPropertiesLoader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class HelloTest {
 
 	@LocalServerPort
@@ -26,10 +27,10 @@ public class HelloTest {
 	@Value("${server.contextPath}")
 	private String context;
 
-	static{
-		SystemPropertiesLoader.addSystemProperties(); 
+	static {
+		SystemPropertiesLoader.addSystemProperties();
 	}
-	
+
 	@Autowired
 	private Client client;
 
@@ -47,6 +48,6 @@ public class HelloTest {
 
 		String actualResponseEntity = response.readEntity(String.class);
 		String expectedResponseEntity = "Hello World From SalesAppService!";
-	//	assertEquals(expectedResponseEntity, actualResponseEntity);
+		// assertEquals(expectedResponseEntity, actualResponseEntity);
 	}
 }
