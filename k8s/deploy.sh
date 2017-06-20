@@ -41,7 +41,7 @@ EOF
 
 PREFIX=${K8S_CTX}-${TARGET_ENV}-${APP_NS}-${APP_NAME}
 
-generate ${SCRIPT_DIR}/cfgmap.tpl.${TARGET_ENV}.yml ${SCRIPT_DIR}/.${PREFIX}-cfgmap.yml
+generate ${SCRIPT_DIR}/cfgmap.tpl.yml ${SCRIPT_DIR}/.${PREFIX}-cfgmap.yml
 generate ${SCRIPT_DIR}/deployment.tpl.yml ${SCRIPT_DIR}/.${PREFIX}-deployment.yml
 generate ${SCRIPT_DIR}/svc.tpl.yml ${SCRIPT_DIR}/.${PREFIX}-svc.yml
 
