@@ -27,6 +27,11 @@ spec:
             configMapKeyRef:
               key: config-env
               name: "${APP_NAME}"
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+            configMapKeyRef:
+              key: config-spring-profiles-active
+              name: "${APP_NAME}"
         image: "${IMAGE_NAME}"
         imagePullPolicy: Always
         name: "${APP_NAME}"

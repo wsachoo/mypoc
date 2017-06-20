@@ -6,4 +6,4 @@ metadata:
   namespace: "${APP_NS:-default}"
 data:
   config-env: dev
-  config-SPRING_PROFILES_ACTIVE: development
+  config-spring-profiles-active: development
