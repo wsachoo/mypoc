@@ -87,6 +87,8 @@ node("docker") {
                         "K8S_CTX=${K8S_CONTEXT}",
                         "APP_NS=${KUBE_NAMESPACE}",
                         "TARGET_ENV=TEST",
+                        "spring.profiles.active=development",
+                        "SPRING_PROFILES_ACTIVE=development",
                         "IMAGE_NAME=${IMAGE_NAME}",
                         "VERSION=${VERSION}",
                         "LABEL_VERSION=${LABEL_VERSION}",
