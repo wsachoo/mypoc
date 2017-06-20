@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Profile;
 import com.att.pricerd.microservices.util.SQLConstantsPostgresql;
 
 @Configuration
-@Profile("postgresql")
+@Profile("default")
 public class PostgresqlSqlConfig {
 
 	@Bean

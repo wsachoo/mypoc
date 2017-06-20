@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Profile;
 import com.att.pricerd.microservices.util.SQLConstantsOracle;
 
 @Configuration
-@Profile("default")
+@Profile("development")
 public class OracleSqlConfig {
 	
 	@Bean
