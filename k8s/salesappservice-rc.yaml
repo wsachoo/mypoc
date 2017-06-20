@@ -4,7 +4,7 @@ metadata:
   name: salesappservice
   namespace: com-att-pricerd
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     app: salesappservice
   template:
