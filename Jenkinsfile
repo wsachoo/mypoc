@@ -9,8 +9,8 @@ properties([[$class: 'ParametersDefinitionProperty', parameterDefinitions: [
 [$class: 'hudson.model.StringParameterDefinition', name: 'K8S_USERNAME',defaultValue: "root"],
 [$class: 'hudson.model.PasswordParameterDefinition', name: 'K8S_PASSWORD',defaultValue: "ch4ng3m3"],
 [$class: 'hudson.model.StringParameterDefinition', name: 'K8S_NAME',defaultValue: "m93659@ajsc.att.com"],
-[$class: 'hudson.model.StringParameterDefinition', name: 'K8S_PODS_REPLICAS',defaultValue: "2"],
-[$class: 'hudson.model.StringParameterDefinition', name: 'K8S_SERVICE_ACCOUNT',defaultValue: "default"]   
+[$class: 'hudson.model.StringParameterDefinition', name: 'K8S_PODS_REPLICAS',defaultValue: "1"],
+[$class: 'hudson.model.StringParameterDefinition', name: 'K8S_SERVICE_ACCOUNT',defaultValue: "com-att-pricerd"]   
 ]]]) 
 
 /**
