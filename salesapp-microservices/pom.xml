@@ -15,6 +15,7 @@
 		<module>salesapp-microservices-webapp</module>
 		<module>salesapp</module>
 		<module>salesapp-iglooconsumer</module>
+		<module>salesapp-microservice-kubectl-client</module>
 	</modules>
 
 	<name>salesapp-microservices</name>

@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.att.salesexpress.microservices</groupId>
+		<artifactId>salesapp-microservices</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>com.att.salesexpress.microservices.kubeclient</groupId>
+	<artifactId>salesapp-microservice-kubectl-client</artifactId>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<start-class>com.att.salesexpress.microservices.kubeclient.SalesHistoryConsumerApplication</start-class>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.att.aft</groupId>
+			<artifactId>dme2</artifactId>
+			<version>3.2.9</version>
+		</dependency>
+	</dependencies>
+
+</project>
