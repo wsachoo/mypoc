@@ -48,7 +48,8 @@ public interface SQLConstantsOracle {
 			+ "group by  m.DESIGN_NAME, m.ACCESS_SPEED_ID, m.MANAGED_ROUTER, m.MRC, m.NRC "
 			+ ")";
 
-	String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup = "select * from ( select "
+	String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup = "select * from ( "
+			+ "select * from ( select "
 			+ "row_number() over(partition by rankTable.DESIGN_NAME,rankTable.ACCESS_SPEED_ID, rankTable.MANAGED_ROUTER, rankTable.MRC, rankTable.NRC order by rankTable.SITE_ID) myrow, "
 			+ "rankTable.* from ( "
 			+ "        select countTable.*, "
@@ -64,7 +65,8 @@ public interface SQLConstantsOracle {
 			+ "            ) rankTable "
 			+ "            where rankTable.indexWithinGroup < :INDEX_WITHIN_GROUP"
 			+ "            order by MATCHING_ROW_PERCENTAGE desc, MRC asc"
-			+ ") x where x.myrow=1 and rownum <= :NUMBER_OF_ROWS";
+			+ ") x where x.myrow=1 and rownum <= :NUMBER_OF_ROWS"
+			+ " ) outerfilter where outerfilter.ACCESS_SPEED_ID in (50000, 150000)  and outerfilter.indexWithinGroup=1";
 
 	String sqlGetSalesHistoryDataByAccessType = "select rankTable.* from ("
 			+ "select countTable.*, "
