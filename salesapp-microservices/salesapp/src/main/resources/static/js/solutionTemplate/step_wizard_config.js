@@ -728,8 +728,8 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 			    		$("#dispRowSelectModal .close").click();
 			    		try { $("div.modal-backdrop").remove(); } catch(ex) {}
 			    		setCameHereFromRecommendation();
-			    		displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage);
-			    		//onClickViewCartAndCheckout(vbb250mbpsUrl);
+			    		//displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage);
+			    		onClickViewCartAndCheckout(vbb250mbpsUrl);
 			    	}
 			    }
 			});

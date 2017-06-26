@@ -24,12 +24,14 @@ public class SalesAuthenticationSuccessHandler implements AuthenticationSuccessH
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    public final Integer SESSION_TIMEOUT_IN_SECONDS = 60 * 15;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		logger.debug("Authentication successful");
 		handle(request, response, authentication);
+        request.getSession().setMaxInactiveInterval(SESSION_TIMEOUT_IN_SECONDS);
 		clearAuthenticationAttributes(request);
 	}
 
