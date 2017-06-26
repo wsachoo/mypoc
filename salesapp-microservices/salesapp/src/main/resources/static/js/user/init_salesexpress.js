@@ -54,12 +54,18 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"getPortSpeedsByAccessSpeedUrl" : "getPortSpeedsByAccessSpeed",
 		"getDistinctAccessSpeedByAccessTypeUrl" : "getDistinctAccessSpeedByAccessType",
 		"getDistinctPortSpeedsByAccessSpeedUrl" : "getDistinctPortSpeedsByAccessSpeed",
+		//"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://localhost:3226/user/salesHistory/getRecommendationBasedOnSalesHistory",
+		//"ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL" : "http://localhost:3226/user/salesHistory/getSalesPercentageByAccessType",
+		//"VVB_250MBPS_URL" : "http://localhost:3226/user/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=99998924592&leadDesignId=6120229"
+
 		"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://localhost:2226/user/salesHistory/getRecommendationBasedOnSalesHistory",
 		"ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL" : "http://localhost:2226/user/salesHistory/getSalesPercentageByAccessType",
 		"VVB_250MBPS_URL" : "http://localhost:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=99998924592&leadDesignId=6120229"
+		
 		//"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://zldv2366.vci.att.com:2226/user/salesHistory/getRecommendationBasedOnSalesHistory",
 		//"ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL" : "http://zldv2366.vci.att.com:2226/user/salesHistory/getSalesPercentageByAccessType",
 		//"VVB_250MBPS_URL" : "http://zldv2366.vci.att.com:2222/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId?siteId=99998924592&leadDesignId=6120229"
+		
 		//"ZUUL_GATEWAY_RECOMMENDATION_URL" : "http://salesappmicroserviceproxy.mybluemix.net/user/salesHistory/getRecommendationBasedOnSalesHistory",
 		//"ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL" : "http://salesappmicroserviceproxy.mybluemix.net/user/salesHistory/getSalesPercentageByAccessType",\
 
