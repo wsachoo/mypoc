@@ -8,8 +8,10 @@
 <title>Sales App</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script>
+	console.info = function() {}
+	console.group = function() {}
+
 	var contextPath = "${pageContext.request.contextPath}";
-	
 	
 	/* document.write('<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />'); */
 	document
