@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	console.log("this file js");
 	/*var navListItems = $('div.setup-panel div a'),
 		allWells = $('.setup-content'),
 		allNextBtn = $('#btnNext');
