@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,7 @@ import com.att.salesexpress.microservices.entity.SalesHistoryDetailPK;
 import com.att.salesexpress.microservices.entity.SalesHistoryStripped;
 import com.att.salesexpress.microservices.entity.SalesRulesMisExpDetail;
 import com.att.salesexpress.microservices.entity.SalesRulesMisExpDetailPK;
+import com.att.salesexpress.microservices.entity.SalesVnfRule;
 
 @Service
 public class SalesHistoryServiceImpl implements SalesHistoryService {
@@ -155,9 +159,10 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		objSalesHistoryDO.setMatchPercentage(
 				map.get("MATCHING_ROW_PERCENTAGE") != null ? map.get("MATCHING_ROW_PERCENTAGE").toString() : "");
 
-		objSalesHistoryDO.setMrc(map.get("MRC") != null ? 
-				df2.format(Double.parseDouble(map.get("MRC").toString())) : "");
-		objSalesHistoryDO.setNrc(map.get("NRC") != null ? df2.format(Double.parseDouble(map.get("NRC").toString())) : "");
+		objSalesHistoryDO
+				.setMrc(map.get("MRC") != null ? df2.format(Double.parseDouble(map.get("MRC").toString())) : "");
+		objSalesHistoryDO
+				.setNrc(map.get("NRC") != null ? df2.format(Double.parseDouble(map.get("NRC").toString())) : "");
 
 		objSalesHistoryDO.setBundleCd(map.get("BUNDLE_CD") != null ? map.get("BUNDLE_CD").toString() : "");
 		objSalesHistoryDO.setTerm(map.get("TERM") != null ? map.get("TERM").toString() : "");
@@ -193,6 +198,11 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		objSalesRulesMisExpDetail.setPortSpeedList(portSpeedList);
 
 		return objSalesRulesMisExpDetail;
+	}
+
+	@Override
+	public List<SalesVnfRule> getRecommendedVnfDevices() {
+		return objSalesHistoryDao.getRecommendedVnfDevices();
 	}
 
 }

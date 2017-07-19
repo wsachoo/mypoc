@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.att.salesexpress.microservices.entity.SalesHistoryDetail;
 import com.att.salesexpress.microservices.entity.SalesHistoryStripped;
 import com.att.salesexpress.microservices.entity.SalesRulesMisExpDetail;
+import com.att.salesexpress.microservices.entity.SalesVnfRule;
 import com.att.salesexpress.microservices.service.SalesHistoryService;
 
 @RestController
@@ -109,4 +110,12 @@ public class SalesHistoryController {
 		logger.info("Returning result from getSalesHistoryOrderDetailByDesignRuleId method");
 		return new ResponseEntity<SalesRulesMisExpDetail>(objSalesRulesmisExpDetail, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/salesHistory/getRecommendedVnfDevices", method = RequestMethod.GET, produces = {
+	"application/json" })
+	@CrossOrigin
+	public HttpEntity<List<SalesVnfRule>> getRecommendedVnfDevices() {
+		List<SalesVnfRule> result = objSalesHistoryService.getRecommendedVnfDevices();
+	    return new ResponseEntity<List<SalesVnfRule>>(result, HttpStatus.OK);
+	}	
 }

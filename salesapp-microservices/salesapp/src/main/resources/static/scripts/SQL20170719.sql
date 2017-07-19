@@ -46,3 +46,33 @@ Insert into ADOPT_SB2.SALES_FLEX_TERM_DISCOUNT (ID,TERM_IN_MONTHS,DISCOUNT_PERC,
 Insert into ADOPT_SB2.SALES_FLEX_TERM_DISCOUNT (ID,TERM_IN_MONTHS,DISCOUNT_PERC,DEVICE_ID) values (10,36,33,1);
 Insert into ADOPT_SB2.SALES_FLEX_TERM_DISCOUNT (ID,TERM_IN_MONTHS,DISCOUNT_PERC,DEVICE_ID) values (11,48,42,1);
 Insert into ADOPT_SB2.SALES_FLEX_TERM_DISCOUNT (ID,TERM_IN_MONTHS,DISCOUNT_PERC,DEVICE_ID) values (12,60,49,1);
+
+
+
+select * from (
+  select 
+    dense_rank() over (partition by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1) order by a.RATE desc) RNK,
+    a.* 
+  from SALES_VNF_RULES a where a.RATE <> 0 and SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1) <> 'FGT'
+) t1 
+where t1.RNK <=1
+order by RATE
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+with tInline as (
+  select * from SALES_VNF_RULES where ROWID in (
+  select min(ROWID)
+  from SALES_VNF_RULES a where a.RATE <>0
+  group by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1), a.RATE
+  ) 
+) 
+select RULE_ID,VNF_ID,VIRTUAL_FEATURE_NAME,TYPE_OF_RATE,CURRENCY,RATE,EXTERNAL_RATE_ID,ACTIVE_YN,MANAGEMENT_TYPE  from (
+  select 
+    dense_rank() over (partition by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1) order by a.RATE desc) RNK,
+    a.* 
+  from tInline a where a.RATE <> 0 
+) t1 
+where t1.RNK <=1
+order by VNF_ID
+----------------------------------------------------------------------------------------------------------------------------------------

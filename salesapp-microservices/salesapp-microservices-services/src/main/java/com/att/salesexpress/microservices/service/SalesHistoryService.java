@@ -6,6 +6,7 @@ import java.util.Map;
 import com.att.salesexpress.microservices.entity.SalesHistoryDetail;
 import com.att.salesexpress.microservices.entity.SalesHistoryStripped;
 import com.att.salesexpress.microservices.entity.SalesRulesMisExpDetail;
+import com.att.salesexpress.microservices.entity.SalesVnfRule;
 
 public interface SalesHistoryService {
 	public List<SalesHistoryStripped> getRecommendationBasedOnSalesHistory(Map<String, Object> params);
@@ -15,5 +16,6 @@ public interface SalesHistoryService {
 	List<Map<String, Object>> getSalesPercentageByAccessType(Map<String, Object> params);
 	
 	public SalesRulesMisExpDetail getSalesHistoryOrderDetailByDesignRuleId(int designRuleId);
-
+	
+	List<SalesVnfRule> getRecommendedVnfDevices();
 }
