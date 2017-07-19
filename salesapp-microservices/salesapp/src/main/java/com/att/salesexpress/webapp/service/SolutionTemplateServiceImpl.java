@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.att.salesexpress.webapp.entity.SalesFlexDiscountData;
 import com.att.salesexpress.webapp.entity.SolutionTmplQuestion;
 import com.att.salesexpress.webapp.service.db.DbServiceJpa;
 
@@ -39,5 +40,16 @@ public class SolutionTemplateServiceImpl implements SolutionTemplateService {
 		}
 		logger.debug("Solution Template Questions retrieved are: " + solutionTmplQuestions);
 		return solutionTmplQuestions;
+	}
+
+	@Override
+	public List<SalesFlexDiscountData> findAllSalesFlexDiscountData() {
+		logger.debug("Entered findAllSalesFlexDiscountData() method");
+		List<SalesFlexDiscountData> salesFlexDiscountDataList = dbServiceJpa.findAllSalesFlexDiscountData();
+		for (SalesFlexDiscountData salesFlexDiscountData : salesFlexDiscountDataList) {
+			salesFlexDiscountData.setSalesFlexDiscountData(null);
+		}
+		logger.debug("Exiting findAllSalesFlexDiscountData() method");
+		return salesFlexDiscountDataList;
 	}
 }

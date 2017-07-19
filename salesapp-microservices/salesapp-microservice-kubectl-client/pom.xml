@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<start-class>com.att.salesexpress.microservices.kubeclient.SalesHistoryConsumerApplication</start-class>
+		<start-class>com.att.salesexpress.microservices.kubeclient.SalesMicroServiceDme2ClientApplication</start-class>
 	</properties>
 	
 	<dependencies>

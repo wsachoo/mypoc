@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.att.salesexpress.webapp.entity.SalesFlexDiscountData;
 import com.att.salesexpress.webapp.entity.SolutionTmplQuestion;
 import com.att.salesexpress.webapp.service.SalesExpressOperationService;
 import com.att.salesexpress.webapp.service.SolutionTemplateService;
@@ -99,10 +100,20 @@ public class SalesSolutionTemplateController {
 		return view;
 	}
 
-/*	@RequestMapping(value = { "/user/solutionTemplate/stepWizard" }, method = RequestMethod.GET)
-	public ModelAndView getSolutionStepWizard(HttpServletRequest request) throws JsonProcessingException {
-		logger.debug("inside getSolutionStepWizard() method");
-		ModelAndView view = new ModelAndView("step-wizard");
-		return view;
-	}*/
+	/*
+	 * @RequestMapping(value = { "/user/solutionTemplate/stepWizard" }, method =
+	 * RequestMethod.GET) public ModelAndView
+	 * getSolutionStepWizard(HttpServletRequest request) throws
+	 * JsonProcessingException { logger.debug(
+	 * "inside getSolutionStepWizard() method"); ModelAndView view = new
+	 * ModelAndView("step-wizard"); return view; }
+	 */
+
+	@RequestMapping(value = "/user/solutionTemplate/getAllSalesFlexDiscountData", method = RequestMethod.GET, produces = {
+			"application/json" })
+	@ResponseBody
+	public ResponseEntity<List<SalesFlexDiscountData>> getAllSalesFlexDiscountData(HttpServletRequest request) throws JsonProcessingException {
+		List<SalesFlexDiscountData> SalesFlexDiscountDataList = solutionTemplateService.findAllSalesFlexDiscountData();
+		return new ResponseEntity<List<SalesFlexDiscountData>>(SalesFlexDiscountDataList, HttpStatus.OK);
+	}
 }
