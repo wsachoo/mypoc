@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.att.salesexpress.webapp.entity.SalesFlexDiscountData;
 import com.att.salesexpress.webapp.entity.SolutionTmplQuestion;
 
 @Repository
@@ -46,6 +47,14 @@ public class DbServiceJpaImpl implements DbServiceJpa {
 		Query query = em.createNamedQuery("SolutionTmplQuestion.findAll");
 		@SuppressWarnings("unchecked")
 		List<SolutionTmplQuestion> result = query.getResultList();
+		return result;
+	}
+
+	@Override
+	public List<SalesFlexDiscountData> findAllSalesFlexDiscountData() {
+		TypedQuery<SalesFlexDiscountData> q = em.createNamedQuery("SalesFlexDiscountData.findAllTopLevels",
+				SalesFlexDiscountData.class);
+		List<SalesFlexDiscountData> result = q.getResultList();
 		return result;
 	}
 }

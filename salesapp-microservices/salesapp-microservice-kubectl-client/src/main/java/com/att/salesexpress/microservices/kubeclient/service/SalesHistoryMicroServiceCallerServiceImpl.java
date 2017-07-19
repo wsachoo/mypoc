@@ -27,7 +27,10 @@ public class SalesHistoryMicroServiceCallerServiceImpl implements SalesHistoryMi
 
 	@Value("${salesappservice_context_getRecommendationBasedOnSalesHistory}")
 	private String urlGetRecommendationBasedOnSalesHistory;
-
+	
+	@Value("${salesappservice_context_getSalesHistoryOrderDetailBySiteIdLeadDesignId}")
+	private String urlGetSalesHistoryOrderDetailBySiteIdLeadDesignId;
+	
 	@Value("${salesappservice_GRMEndPoint}")
 	private String clientUri;
 
@@ -61,7 +64,7 @@ public class SalesHistoryMicroServiceCallerServiceImpl implements SalesHistoryMi
 				e.printStackTrace();
 			}
 
-			returnValue.put("DATA", strResult);
+			returnValue.put("DATA", result);
 			returnValue.put("STATUS", "SUCCESS");
 
 			logger.debug("Exiting getSalesRecommendationFromHistory() method.");
@@ -108,7 +111,7 @@ public class SalesHistoryMicroServiceCallerServiceImpl implements SalesHistoryMi
 				e.printStackTrace();
 			}
 
-			returnValue.put("DATA", strResult);
+			returnValue.put("DATA", result);
 			returnValue.put("STATUS", "SUCCESS");
 
 			logger.debug("Exiting getSalesRecommendationFromHistory() method.");
@@ -140,5 +143,29 @@ public class SalesHistoryMicroServiceCallerServiceImpl implements SalesHistoryMi
 		logger.info("Exiting circuitBreakerGetSalesPercentageByAccessType() method.");
 
 		return returnValue;
+	}
+
+	@Override
+	public String getSalesHistoryOrderDetailBySiteIdLeadDesignId(Long siteId, Long leadDesignId) {
+		logger.debug("Inside getSalesHistoryOrderDetailBySiteIdLeadDesignId() method.");
+		String returnValue = null;
+
+		try {
+			salesDME2Client.setGrmEntryUrl(clientUri);
+			salesDME2Client.setContextPath(urlGetSalesHistoryOrderDetailBySiteIdLeadDesignId);
+
+			Map<String, String> queryParams = new HashMap<>();
+			queryParams.put("leadDesignId", leadDesignId.toString());
+			queryParams.put("siteId", siteId.toString());
+			
+			salesDME2Client.setQueryParams(queryParams);
+			returnValue = salesDME2Client.call();
+
+			logger.debug("Exiting getSalesHistoryOrderDetailBySiteIdLeadDesignId() method with returnValue: {}", returnValue);
+			return returnValue;
+		} catch (RuntimeException ex) {
+			logger.error("Some exception occurred while calling micro service: {}", ExceptionUtils.getStackTrace(ex));
+			return returnValue;
+		}
 	}
 }
