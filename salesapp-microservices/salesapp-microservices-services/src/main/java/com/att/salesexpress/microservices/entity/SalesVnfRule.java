@@ -2,6 +2,9 @@ package com.att.salesexpress.microservices.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.springframework.hateoas.ResourceSupport;
+
 import java.math.BigDecimal;
 
 
@@ -12,7 +15,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name="SALES_VNF_RULES")
 @NamedQuery(name="SalesVnfRule.findAll", query="SELECT s FROM SalesVnfRule s")
-public class SalesVnfRule implements Serializable {
+public class SalesVnfRule extends ResourceSupport implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="RULE_ID")

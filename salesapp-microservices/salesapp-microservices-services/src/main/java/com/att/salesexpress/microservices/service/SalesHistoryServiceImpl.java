@@ -1,5 +1,6 @@
 package com.att.salesexpress.microservices.service;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.att.salesexpress.microservices.dao.SalesHistoryDao;
 import com.att.salesexpress.microservices.dao.SalesHistoryDetailRepository;
 import com.att.salesexpress.microservices.dao.SalesRulesMisExpRepository;
+import com.att.salesexpress.microservices.dao.SalesVnfRuleRepository;
 import com.att.salesexpress.microservices.entity.SalesHistoryDetail;
 import com.att.salesexpress.microservices.entity.SalesHistoryDetailPK;
 import com.att.salesexpress.microservices.entity.SalesHistoryStripped;
@@ -38,6 +40,9 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 
 	@Autowired
 	SalesRulesMisExpRepository objSalesRulesMisExpRepository;
+	
+	@Autowired
+	SalesVnfRuleRepository objSalesVnfRuleRepository;
 
 	@Override
 	public List<SalesHistoryStripped> getRecommendationBasedOnSalesHistory(Map<String, Object> params) {
@@ -205,4 +210,10 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		return objSalesHistoryDao.getRecommendedVnfDevices();
 	}
 
+	@Override
+	public SalesVnfRule getRecommendedVnfDeviceByRuleId(BigDecimal ruleId) {
+		SalesVnfRule objSalesVnfRule = objSalesVnfRuleRepository
+				.findByRuleId(ruleId);
+		return objSalesVnfRule;
+	}
 }

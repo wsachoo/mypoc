@@ -8,7 +8,7 @@ import javax.persistence.Embeddable;
 import org.springframework.hateoas.ResourceSupport;
 
 @Embeddable
-public class SalesRulesMisExpDetailPK extends ResourceSupport implements Serializable{
+public class SalesRulesMisExpDetailPK extends ResourceSupport implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
