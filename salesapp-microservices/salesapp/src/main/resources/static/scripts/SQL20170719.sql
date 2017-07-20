@@ -46,3 +46,69 @@ Insert into ADOPT_SB2.SALES_FLEX_TERM_DISCOUNT (ID,TERM_IN_MONTHS,DISCOUNT_PERC,
 Insert into ADOPT_SB2.SALES_FLEX_TERM_DISCOUNT (ID,TERM_IN_MONTHS,DISCOUNT_PERC,DEVICE_ID) values (10,36,33,1);
 Insert into ADOPT_SB2.SALES_FLEX_TERM_DISCOUNT (ID,TERM_IN_MONTHS,DISCOUNT_PERC,DEVICE_ID) values (11,48,42,1);
 Insert into ADOPT_SB2.SALES_FLEX_TERM_DISCOUNT (ID,TERM_IN_MONTHS,DISCOUNT_PERC,DEVICE_ID) values (12,60,49,1);
+
+
+
+select * from (
+  select 
+    dense_rank() over (partition by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1) order by a.RATE desc) RNK,
+    a.* 
+  from SALES_VNF_RULES a where a.RATE <> 0 and SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1) <> 'FGT'
+) t1 
+where t1.RNK <=1
+order by RATE
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+with tInline as (
+  select * from SALES_VNF_RULES where ROWID in (
+  select min(ROWID)
+  from SALES_VNF_RULES a where a.RATE <>0
+  group by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1), a.RATE
+  ) 
+) 
+select RULE_ID,VNF_ID,VIRTUAL_FEATURE_NAME,TYPE_OF_RATE,CURRENCY,RATE,EXTERNAL_RATE_ID,ACTIVE_YN,MANAGEMENT_TYPE  from (
+  select 
+    dense_rank() over (partition by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1) order by a.RATE desc) RNK,
+    a.* 
+  from tInline a where a.RATE <> 0 
+) t1 
+where t1.RNK <=1
+order by VNF_ID
+----------------------------------------------------------------------------------------------------------------------------------------
+
+  CREATE TABLE "ADOPT_SB2"."SALES_UCPE_RULES" 
+   (	
+    "RULE_ID" NUMBER(10,0) primary key, 
+	"DEVICE_ID" VARCHAR2(20 BYTE), 
+	"MANUFACTURE_NAME" VARCHAR2(20 BYTE), 
+	"MODEL_NAME" VARCHAR2(20 BYTE), 
+	"STORAGE" VARCHAR2(20 BYTE), 
+	"CURRENCY" VARCHAR2(5 BYTE), 
+	"MRC_RATE" NUMBER(10,0), 
+	"NRC_RATE" NUMBER(10,0), 
+	"EXTERNAL_RATE_ID" VARCHAR2(10 BYTE), 
+	"ACTIVE_YN" VARCHAR2(5 BYTE)
+   )
+
+set define off
+Insert into ADOPT_SB2.SALES_UCPE_RULES (RULE_ID,DEVICE_ID,MANUFACTURE_NAME,MODEL_NAME,STORAGE,CURRENCY,MRC_RATE,NRC_RATE,EXTERNAL_RATE_ID,ACTIVE_YN) values (501,'ATT-U401','AT&T','U401','Medium','USD','260',450,'141607','Y');
+Insert into ADOPT_SB2.SALES_UCPE_RULES (RULE_ID,DEVICE_ID,MANUFACTURE_NAME,MODEL_NAME,STORAGE,CURRENCY,MRC_RATE,NRC_RATE,EXTERNAL_RATE_ID,ACTIVE_YN) values (502,'ATT-U412','AT&T','U412','Medium','USD','260',0,'144396','Y');
+Insert into ADOPT_SB2.SALES_UCPE_RULES (RULE_ID,DEVICE_ID,MANUFACTURE_NAME,MODEL_NAME,STORAGE,CURRENCY,MRC_RATE,NRC_RATE,EXTERNAL_RATE_ID,ACTIVE_YN) values (503,'ATT-U210','AT&T','U210','Medium','USD','350',0,'151668','Y');
+Insert into ADOPT_SB2.SALES_UCPE_RULES (RULE_ID,DEVICE_ID,MANUFACTURE_NAME,MODEL_NAME,STORAGE,CURRENCY,MRC_RATE,NRC_RATE,EXTERNAL_RATE_ID,ACTIVE_YN) values (504,'ATT-U410T','AT&T','U410-T','Medium','USD','350',0,'171383','Y');
+Insert into ADOPT_SB2.SALES_UCPE_RULES (RULE_ID,DEVICE_ID,MANUFACTURE_NAME,MODEL_NAME,STORAGE,CURRENCY,MRC_RATE,NRC_RATE,EXTERNAL_RATE_ID,ACTIVE_YN) values (505,'ATT-U412T','AT&T','U412-T','Medium','USD','450',0,'171384','Y');
+Insert into ADOPT_SB2.SALES_UCPE_RULES (RULE_ID,DEVICE_ID,MANUFACTURE_NAME,MODEL_NAME,STORAGE,CURRENCY,MRC_RATE,NRC_RATE,EXTERNAL_RATE_ID,ACTIVE_YN) values (506,'ATT-U210T','AT&T','U210-T','Medium','USD','250',0,'171382','Y');
+
+
+
+select RULE_ID, DEVICE_ID, MANUFACTURE_NAME, MODEL_NAME, STORAGE, CURRENCY, MRC_RATE, NRC_RATE, EXTERNAL_RATE_ID, ACTIVE_YN  from (
+  select 
+    dense_rank() over (partition by SUBSTR(a.MODEL_NAME, 0, decode(INSTR(a.MODEL_NAME, '-', 1)-1, -1, length(a.MODEL_NAME), INSTR(a.MODEL_NAME, '-', 1)-1)) order by a.MRC_RATE desc) RNK,
+    a.* 
+  from SALES_UCPE_RULES a where a.ACTIVE_YN = 'Y'
+) t1 
+where t1.RNK <=1
+order by RULE_ID
+
+
+----------------------------------------------------------------------------------------------------------------------------------------

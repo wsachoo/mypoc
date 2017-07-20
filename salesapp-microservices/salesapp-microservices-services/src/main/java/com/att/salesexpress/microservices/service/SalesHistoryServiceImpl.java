@@ -1,5 +1,6 @@
 package com.att.salesexpress.microservices.service;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,17 +8,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.att.salesexpress.microservices.dao.SalesHistoryDao;
 import com.att.salesexpress.microservices.dao.SalesHistoryDetailRepository;
 import com.att.salesexpress.microservices.dao.SalesRulesMisExpRepository;
+import com.att.salesexpress.microservices.dao.SalesVnfRuleRepository;
 import com.att.salesexpress.microservices.entity.SalesHistoryDetail;
 import com.att.salesexpress.microservices.entity.SalesHistoryDetailPK;
 import com.att.salesexpress.microservices.entity.SalesHistoryStripped;
 import com.att.salesexpress.microservices.entity.SalesRulesMisExpDetail;
 import com.att.salesexpress.microservices.entity.SalesRulesMisExpDetailPK;
+import com.att.salesexpress.microservices.entity.SalesVnfRule;
 
 @Service
 public class SalesHistoryServiceImpl implements SalesHistoryService {
@@ -34,6 +40,9 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 
 	@Autowired
 	SalesRulesMisExpRepository objSalesRulesMisExpRepository;
+	
+	@Autowired
+	SalesVnfRuleRepository objSalesVnfRuleRepository;
 
 	@Override
 	public List<SalesHistoryStripped> getRecommendationBasedOnSalesHistory(Map<String, Object> params) {
@@ -155,9 +164,10 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		objSalesHistoryDO.setMatchPercentage(
 				map.get("MATCHING_ROW_PERCENTAGE") != null ? map.get("MATCHING_ROW_PERCENTAGE").toString() : "");
 
-		objSalesHistoryDO.setMrc(map.get("MRC") != null ? 
-				df2.format(Double.parseDouble(map.get("MRC").toString())) : "");
-		objSalesHistoryDO.setNrc(map.get("NRC") != null ? df2.format(Double.parseDouble(map.get("NRC").toString())) : "");
+		objSalesHistoryDO
+				.setMrc(map.get("MRC") != null ? df2.format(Double.parseDouble(map.get("MRC").toString())) : "");
+		objSalesHistoryDO
+				.setNrc(map.get("NRC") != null ? df2.format(Double.parseDouble(map.get("NRC").toString())) : "");
 
 		objSalesHistoryDO.setBundleCd(map.get("BUNDLE_CD") != null ? map.get("BUNDLE_CD").toString() : "");
 		objSalesHistoryDO.setTerm(map.get("TERM") != null ? map.get("TERM").toString() : "");
@@ -195,4 +205,15 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		return objSalesRulesMisExpDetail;
 	}
 
+	@Override
+	public List<SalesVnfRule> getRecommendedVnfDevices() {
+		return objSalesHistoryDao.getRecommendedVnfDevices();
+	}
+
+	@Override
+	public SalesVnfRule getRecommendedVnfDeviceByRuleId(BigDecimal ruleId) {
+		SalesVnfRule objSalesVnfRule = objSalesVnfRuleRepository
+				.findByRuleId(ruleId);
+		return objSalesVnfRule;
+	}
 }

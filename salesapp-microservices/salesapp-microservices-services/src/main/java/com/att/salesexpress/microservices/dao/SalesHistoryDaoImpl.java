@@ -1,5 +1,7 @@
 package com.att.salesexpress.microservices.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.RowMapperResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+
+import com.att.salesexpress.microservices.entity.SalesVnfRule;
 
 @Repository(value = "SalesHistoryDao")
 public class SalesHistoryDaoImpl implements SalesHistoryDao {
@@ -45,6 +53,35 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 	
 	@Autowired
 	private String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed;
+	
+	@Autowired
+	private String sqlGetFindRecommendedVnfDevices;
+	
+	@Override
+	public List<SalesVnfRule> getRecommendedVnfDevices() {
+		logger.info("Entered getFindRecommendedVnfDevices() method.");
+
+		List<SalesVnfRule> result = namedParameterJdbcTemplate.query(sqlGetFindRecommendedVnfDevices, new RowMapperResultSetExtractor<>(new RowMapper<SalesVnfRule>() {
+
+			@Override
+			public SalesVnfRule mapRow(ResultSet rs, int rowNum) throws SQLException {
+				// TODO Auto-generated method stub
+				SalesVnfRule v = new SalesVnfRule();
+				v.setActiveYn(rs.getString("ACTIVE_YN"));
+				v.setCurrency(rs.getString("CURRENCY"));
+				v.setExternalRateId(rs.getString("EXTERNAL_RATE_ID"));
+				v.setManagementType(rs.getString("MANAGEMENT_TYPE"));
+				v.setRate(rs.getString("RATE"));
+				v.setTypeOfRate(rs.getString("TYPE_OF_RATE"));
+				v.setVirtualFeatureName(rs.getString("VIRTUAL_FEATURE_NAME"));
+				v.setVnfId(rs.getString("VNF_ID"));
+				v.setRuleId(rs.getBigDecimal("RULE_ID"));
+				return v;
+			}
+		}));
+		logger.info("Exiting getFindRecommendedVnfDevices() method.");
+		return result;
+	}
 
 	@Override
 	public List<Map<String, Object>> getRecordsByAccessType(String accessType, int numberOfRows) {

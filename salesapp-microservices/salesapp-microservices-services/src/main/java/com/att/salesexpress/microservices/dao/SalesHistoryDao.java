@@ -3,6 +3,8 @@ package com.att.salesexpress.microservices.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.att.salesexpress.microservices.entity.SalesVnfRule;
+
 public interface SalesHistoryDao {
 	public List<Map<String, Object>> getRecordsByAccessType(String accessType, int numberOfRows);
 
@@ -18,5 +20,7 @@ public interface SalesHistoryDao {
 
 	public List<Map<String, Object>> getRecordsByAccessType(String accessType, Integer indexWithinGroup,
 			int numberOfRowsToRetrieve);
+
+	List<SalesVnfRule> getRecommendedVnfDevices();
 
 }

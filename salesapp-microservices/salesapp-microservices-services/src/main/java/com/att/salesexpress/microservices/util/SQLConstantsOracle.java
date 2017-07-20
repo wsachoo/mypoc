@@ -168,4 +168,20 @@ public interface SQLConstantsOracle {
 	String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed = "select * from sales_rules_mis_exp where  access_type = :ACCESS_TYPE_ID and"
 			  + "  ACCESS_SPEED_ID = :ACCESS_SPEED_ID and PORT_SPEED_ID =:PORT_SPEED_ID  and MRC is not null and ROWNUM <= 1";
 	
+    String sqlFindRecommendedVnfDevices = "With tInline as ( " + 
+            "select * from SALES_VNF_RULES where ROWID in ( " + 
+            "  select min(ROWID) " + 
+            "       from SALES_VNF_RULES a where a.RATE <> 0 " + 
+            "       group by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1), a.RATE " + 
+            "       )  " + 
+            "     )  " + 
+            "     select RULE_ID,VNF_ID,VIRTUAL_FEATURE_NAME,TYPE_OF_RATE,CURRENCY,RATE,EXTERNAL_RATE_ID,ACTIVE_YN,MANAGEMENT_TYPE  from ( " + 
+            "       select  " + 
+            "         dense_rank() over (partition by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1) order by a.RATE desc) RNK, " + 
+            "         a.*  " + 
+            "       from tInline a where a.RATE <> 0 " +  
+            "     ) t1  " + 
+            "     where t1.RNK <= 1 " + 
+            "     order by VNF_ID ";	
+	
 }

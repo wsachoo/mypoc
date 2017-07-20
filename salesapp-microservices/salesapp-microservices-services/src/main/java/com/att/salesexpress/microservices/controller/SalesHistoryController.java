@@ -3,6 +3,7 @@ package com.att.salesexpress.microservices.controller;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.core.LinkBuilderSupport;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.att.salesexpress.microservices.entity.SalesHistoryDetail;
 import com.att.salesexpress.microservices.entity.SalesHistoryStripped;
 import com.att.salesexpress.microservices.entity.SalesRulesMisExpDetail;
+import com.att.salesexpress.microservices.entity.SalesVnfRule;
 import com.att.salesexpress.microservices.service.SalesHistoryService;
 
 @RestController
@@ -96,8 +100,7 @@ public class SalesHistoryController {
 	"application/json" })
 	@CrossOrigin
 	public HttpEntity<SalesRulesMisExpDetail> getSalesHistoryOrderDetailByDesignRuleId(
-			
-			@RequestParam(value = "designRuleId", required = true) int designRuleId) {
+		@RequestParam(value = "designRuleId", required = true) int designRuleId) {
 		logger.info("Inside getSalesHistoryOrderDetailByDesignRuleId method");
 
 		SalesRulesMisExpDetail objSalesRulesmisExpDetail = objSalesHistoryService
@@ -109,4 +112,39 @@ public class SalesHistoryController {
 		logger.info("Returning result from getSalesHistoryOrderDetailByDesignRuleId method");
 		return new ResponseEntity<SalesRulesMisExpDetail>(objSalesRulesmisExpDetail, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/salesHistory/getRecommendedVnfDevices", method = RequestMethod.GET, produces = {
+	"application/json" })
+	@CrossOrigin
+	public HttpEntity<List<SalesVnfRule>> getRecommendedVnfDevices() {
+		logger.info("Entered getSalesHistoryOrderDetailByDesignRuleId method");
+		List<SalesVnfRule> result = objSalesHistoryService.getRecommendedVnfDevices();
+		
+		for (SalesVnfRule salesVnfRule : result) {
+			Link selfLink = linkTo(
+					methodOn(SalesHistoryController.class).getRecommendedVnfDeviceByRuleId(salesVnfRule.getRuleId())).withRel("siteDetail");
+			salesVnfRule.add(selfLink);	
+		} 
+
+		logger.info("Exiting getSalesHistoryOrderDetailByDesignRuleId method");
+	    return new ResponseEntity<List<SalesVnfRule>>(result, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/salesHistory/getRecommendedVnfDeviceByRuleId", method = RequestMethod.GET, produces = {
+	"application/json" })
+	@CrossOrigin
+	public  HttpEntity<SalesVnfRule> getRecommendedVnfDeviceByRuleId(
+			@RequestParam(value = "ruleId", required = true) BigDecimal ruleId) {
+		
+		logger.info("Inside getRecommendedVnfDeviceByRuleId method");
+
+		SalesVnfRule objSalesVnfRule = objSalesHistoryService
+				.getRecommendedVnfDeviceByRuleId(ruleId);
+		Link selfLink = linkTo(methodOn(SalesHistoryController.class)
+				.getRecommendedVnfDeviceByRuleId(ruleId)).withSelfRel();
+		objSalesVnfRule.add(selfLink);
+
+		logger.info("Returning result from getRecommendedVnfDeviceByRuleId method");
+		return new ResponseEntity<SalesVnfRule>(objSalesVnfRule, HttpStatus.OK);
+	}	
 }
