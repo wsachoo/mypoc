@@ -17,6 +17,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.att.salesexpress.microservices.entity.SalesUcpeRule;
 import com.att.salesexpress.microservices.entity.SalesVnfRule;
 
 @Repository(value = "SalesHistoryDao")
@@ -57,9 +58,41 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 	@Autowired
 	private String sqlGetFindRecommendedVnfDevices;
 	
+	@Autowired
+	private String sqlGetFindRecommendedUcpeDevices;
+
+	@Override
+	public List<SalesUcpeRule> getRecommendedUcpeDevices() {
+		logger.info("Entered getRecommendedUcpeDevices() method.");
+
+		List<SalesUcpeRule> result = namedParameterJdbcTemplate.query(sqlGetFindRecommendedUcpeDevices, new RowMapperResultSetExtractor<>(new RowMapper<SalesUcpeRule>() {
+
+			@Override
+			public SalesUcpeRule mapRow(ResultSet rs, int rowNum) throws SQLException {
+				SalesUcpeRule v = new SalesUcpeRule();
+				v.setActiveYn(rs.getString("ACTIVE_YN"));
+				v.setCurrency(rs.getString("CURRENCY"));
+				v.setExternalRateId(rs.getString("EXTERNAL_RATE_ID"));
+				
+				v.setDeviceId(rs.getString("DEVICE_ID"));
+				v.setManufactureName(rs.getString("MANUFACTURE_NAME"));
+				v.setModelName(rs.getString("MODEL_NAME"));
+				v.setStorage(rs.getString("STORAGE"));
+				v.setRuleId(rs.getLong("RULE_ID"));
+				v.setMrcRate(rs.getBigDecimal("MRC_RATE"));
+				v.setNrcRate(rs.getBigDecimal("NRC_RATE"));
+				
+				return v;
+			}
+		}));
+		
+		logger.info("Exiting getRecommendedUcpeDevices() method.");
+		return result;
+	}
+
 	@Override
 	public List<SalesVnfRule> getRecommendedVnfDevices() {
-		logger.info("Entered getFindRecommendedVnfDevices() method.");
+		logger.info("Entered getRecommendedVnfDevices() method.");
 
 		List<SalesVnfRule> result = namedParameterJdbcTemplate.query(sqlGetFindRecommendedVnfDevices, new RowMapperResultSetExtractor<>(new RowMapper<SalesVnfRule>() {
 
@@ -79,7 +112,8 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 				return v;
 			}
 		}));
-		logger.info("Exiting getFindRecommendedVnfDevices() method.");
+		
+		logger.info("Exiting getRecommendedVnfDevices() method.");
 		return result;
 	}
 
@@ -106,7 +140,7 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 	
 	@Override
 	public List<Map<String, Object>> getRecordsByAccessType(String accessType, Integer indexWithinGroup, int numberOfRows) {
-		logger.info("Inside getRecordsByAccessType() method.");
+		logger.info("Inside getRecordsByAccessType(indexWithinGroup) method.");
 		Map<String, Object> namedParameters = new HashMap<>();
 
 		String sql = null;
@@ -122,7 +156,7 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 		namedParameters.put("INDEX_WITHIN_GROUP", indexWithinGroup);
 
 		List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(sql, namedParameters);
-		logger.info("Exiting getRecordsByAccessType() method.");
+		logger.info("Exiting getRecordsByAccessType(indexWithinGroup) method.");
 		return rows;
 	}
 	

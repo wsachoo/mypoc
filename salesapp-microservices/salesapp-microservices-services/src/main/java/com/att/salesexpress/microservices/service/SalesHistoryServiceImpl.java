@@ -8,21 +8,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.att.salesexpress.microservices.dao.SalesHistoryDao;
 import com.att.salesexpress.microservices.dao.SalesHistoryDetailRepository;
 import com.att.salesexpress.microservices.dao.SalesRulesMisExpRepository;
+import com.att.salesexpress.microservices.dao.SalesUcpeRuleRepository;
 import com.att.salesexpress.microservices.dao.SalesVnfRuleRepository;
 import com.att.salesexpress.microservices.entity.SalesHistoryDetail;
 import com.att.salesexpress.microservices.entity.SalesHistoryDetailPK;
 import com.att.salesexpress.microservices.entity.SalesHistoryStripped;
 import com.att.salesexpress.microservices.entity.SalesRulesMisExpDetail;
 import com.att.salesexpress.microservices.entity.SalesRulesMisExpDetailPK;
+import com.att.salesexpress.microservices.entity.SalesUcpeRule;
 import com.att.salesexpress.microservices.entity.SalesVnfRule;
 
 @Service
@@ -40,9 +39,12 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 
 	@Autowired
 	SalesRulesMisExpRepository objSalesRulesMisExpRepository;
-	
+
 	@Autowired
 	SalesVnfRuleRepository objSalesVnfRuleRepository;
+
+	@Autowired
+	SalesUcpeRuleRepository objSalesUcpeRuleRepository;
 
 	@Override
 	public List<SalesHistoryStripped> getRecommendationBasedOnSalesHistory(Map<String, Object> params) {
@@ -212,8 +214,18 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 
 	@Override
 	public SalesVnfRule getRecommendedVnfDeviceByRuleId(BigDecimal ruleId) {
-		SalesVnfRule objSalesVnfRule = objSalesVnfRuleRepository
-				.findByRuleId(ruleId);
+		SalesVnfRule objSalesVnfRule = objSalesVnfRuleRepository.findByRuleId(ruleId);
 		return objSalesVnfRule;
+	}
+
+	@Override
+	public List<SalesUcpeRule> getRecommendedUcpeDevices() {
+		return objSalesHistoryDao.getRecommendedUcpeDevices();
+	}
+
+	@Override
+	public SalesUcpeRule getRecommendedUcpeDeviceByRuleId(Long ruleId) {
+		SalesUcpeRule objSalesUcpeRule = objSalesUcpeRuleRepository.findByRuleId(ruleId);
+		return objSalesUcpeRule;
 	}
 }
