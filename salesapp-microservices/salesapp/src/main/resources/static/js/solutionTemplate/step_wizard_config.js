@@ -2,6 +2,7 @@ var userSolTmplSelectionObject = []; //global object for user selection on step 
 var dataToGenContract = {}; //global object to hold the data to display the contract wizard
 var portSpeedsToCustomizeGCData = {};
 var isButtonCustomizeClick = false;
+var jsonObjectToShoppingCartTmpl = {};
 
 var customizeGCDataFields = {
 		ipVersionDropDown  : function() {
@@ -542,7 +543,7 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
       };
 }
 
-function showConfiguredSitesList() {
+var siteConfigListAsArray = function showConfiguredSitesList() {
 	$("#showConfiguredSitesList tr").remove();
 	var checkSiteNames = []
 	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
@@ -553,7 +554,9 @@ function showConfiguredSitesList() {
 		var siteName = "<tr><td>"+ value +"</td></tr>";
 		$("#showConfiguredSites").find('table').append(siteName);
 	});
-}
+	
+	return checkSiteNames
+};
 
 var checkSitesSelection = function() {
 	var checkSiteNames = []
@@ -706,8 +709,8 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 			    		try { $("div.modal-backdrop").remove(); } catch(ex) {}
 			    		setCameHereFromRecommendation();
 			    		//displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage);
-			    		onClickViewCartAndCheckout(vbb250mbpsUrl);
-			    		
+			    		//onClickViewCartAndCheckout(vbb250mbpsUrl);
+			    		onClickViewCartAndCheckoutNew(vbb250mbpsUrl);
 			    	}
 			    }
 			});
@@ -861,4 +864,76 @@ function onClickCheckoutAndGenContract() {
 function goBackToOffers() {
 	$("#shoppingCartLink").find('.badge').remove();
 	window.history.back();
+}
+
+
+function onClickViewCartAndCheckoutNew(url) {
+	try { $("div.modal-backdrop").remove(); } catch(ex) {}
+	
+	//location.hash = "myCart";
+	$('body').find("#divShoppingCartTemplate").remove();
+	if(url == null || url == undefined || url == ''){
+		var url = $("#btnViewCartAndCheckout").attr('link');
+	}
+
+	var data = httpGetWithJsonResponse(url, "");
+	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
+	portSpeedsToCustomizeGCData = data["portSpeedList"];//store port speed list
+	
+	var configSiteList = []
+	var configSiteList = siteConfigListAsArray();
+	
+	
+	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc"];
+	
+	var DATA = {};
+	$.each(objectKeysArray, function(k, value) {
+		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
+		key = transformDisplayKeyName(key);
+		
+		DATA[key] = dataToGenContract[value];
+		
+		if (key == "OFFER NAME") {
+			DATA[key] = dataToGenContract["bundleCd"];
+		}
+		else if(key == "MRC" || key == "NRC") {
+			data[value] = "$ "+ data[value];
+			DATA[key] = data[value];
+		}
+	});
+	
+	DATA["siteList"] = configSiteList;
+	defaultTermPeriod = DATA["TERM"];
+	defaultTermPeriodMRC = DATA["MRC"];
+	defaultTermPeriodNRC = DATA["NRC"];
+	$('<div class="row" id="displayShoppingCart"></div>').insertAfter("div.sachtopmenu");
+	//addContractGenTab();
+	activateMyCartTab();
+	
+	//jsonObjectToShoppingCartTmpl = DATA;
+	
+	
+	for(var i = 0; i < DATA["siteList"].length; i++) {
+		var site = DATA["siteList"][i];
+		jsonObjectToShoppingCartTmpl[site] =  DATA;
+	}
+	
+	
+	
+	var templatePath = contextPath + "/templates/shopping_cart.html";
+	var modalTemplate = getTemplateDefinition(templatePath);
+	$.template("shopping_cart", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("shopping_cart", {"jsonObjectToShoppingCartTmpl" : jsonObjectToShoppingCartTmpl});
+	
+	$("#displayShoppingCart").append(modalTemplateToDisplay);
+	var topMenuDiv = $("#displayShoppingCart");
+	removeNextAllSiblingDivRows(topMenuDiv);
+	
+	$("#shoppingCartLink").find('.badge').remove();
+	var itemsInCart = Object.keys(jsonObjectToShoppingCartTmpl).length;
+	$("#shoppingCartLink").append('<span class="badge">'+ itemsInCart +'</span>');
+	if( isButtonCustomizeClick == true) {
+		onClickCustomizeShoppingCart();
+	}
+	isButtonCustomizeClick = false;
 }

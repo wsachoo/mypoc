@@ -29,7 +29,7 @@ function hashChange(){
 		changeTab("topCustomerSolutions");
     	var topMenuDiv = $("div.sachtopmenu");
     	removeNextAllSiblingDivRows(topMenuDiv);
-    	$("#shoppingCartLink").find('.badge').remove();
+    	//$("#shoppingCartLink").find('.badge').remove();
     	
     	var frameFormat = "<div class='clearfix'></div>";
     	frameFormat = frameFormat  + "<div class='row salesexpress-content-margin'>";
@@ -108,6 +108,15 @@ function hashChange(){
     	topMenuDiv.after(initGmapTemplate);
     	topMenuDiv.trigger('create');
     	displayUserSitesOnGoogleMap();		
+	}
+	else if(page.includes("myCart")) {
+		//dataToGenContract is the global object from step_wizard_config.js file
+		if(Object.keys(dataToGenContract).length == 0) {
+			alert("Cart is Empty. Please Select atleast one offer to view your cart.");
+		}else{
+		changeTab(page);
+		onClickViewCartAndCheckoutNew();
+		}
 	}
 	else if (page == "") {
     	//changeTab(contextPath + "/user/solutionTemplate");

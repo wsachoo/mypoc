@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: SalesExpressPoc
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: vg8736
+Implementation-Vendor-Id: com.att.salesexpress
+Build-Jdk: 1.8.0_121
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+Main-Class: com.att.salesexpress.poc.Main
+
