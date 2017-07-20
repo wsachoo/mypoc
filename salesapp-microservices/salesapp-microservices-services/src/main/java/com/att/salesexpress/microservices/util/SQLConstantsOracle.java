@@ -182,6 +182,15 @@ public interface SQLConstantsOracle {
             "       from tInline a where a.RATE <> 0 " +  
             "     ) t1  " + 
             "     where t1.RNK <= 1 " + 
-            "     order by VNF_ID ";	
+            "     order by VNF_ID ";
+    
+    String sqlFindRecommendedUcpeDevices = "select RULE_ID, DEVICE_ID, MANUFACTURE_NAME, MODEL_NAME, STORAGE, CURRENCY, MRC_RATE, NRC_RATE, EXTERNAL_RATE_ID, ACTIVE_YN  from ("
+    		+ "select "
+    		+ "dense_rank() over (partition by SUBSTR(a.MODEL_NAME, 0, decode(INSTR(a.MODEL_NAME, '-', 1)-1, -1, length(a.MODEL_NAME), INSTR(a.MODEL_NAME, '-', 1)-1)) order by a.MRC_RATE desc) RNK, "
+    		+ "a.* "
+    		+ "from SALES_UCPE_RULES a where a.ACTIVE_YN = 'Y' "
+    		+ ") t1 "
+    		+ "where t1.RNK <=1 "
+    		+ " order by RULE_ID";
 	
 }

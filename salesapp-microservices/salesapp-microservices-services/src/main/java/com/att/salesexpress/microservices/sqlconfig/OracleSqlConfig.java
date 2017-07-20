@@ -55,4 +55,10 @@ public class OracleSqlConfig {
 	public String sqlGetFindRecommendedVnfDevices() {
 		return SQLConstantsOracle.sqlFindRecommendedVnfDevices;
 	}	
+	
+	@Bean
+	public String sqlGetFindRecommendedUcpeDevices() {
+		return SQLConstantsOracle.sqlFindRecommendedUcpeDevices;
+	}	
+		
 }
