@@ -26,7 +26,7 @@ public interface SalesHistoryDao {
 	public List<Map<String, Object>> getRecordsByAccessType(String accessType, Integer indexWithinGroup,
 			int numberOfRowsToRetrieve);
 
-	List<SalesVnfRule> getRecommendedVnfDevices();
+	List<Object> getRecommendedVnfDevices();
 
-	List<SalesUcpeRule> getRecommendedUcpeDevices();
+	List<Object> getRecommendedUcpeDevices();
 }

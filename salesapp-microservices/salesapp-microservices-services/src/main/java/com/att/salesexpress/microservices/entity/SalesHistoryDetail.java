@@ -22,6 +22,8 @@ import java.util.List;
 public class SalesHistoryDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private transient String productType = "OTHER";
+	
 	@EmbeddedId
 	private SalesHistoryDetailPK id;
 
@@ -914,4 +916,9 @@ public class SalesHistoryDetail implements Serializable {
 	public void setTerm(String term) {
 		this.term = term;
 	}	
+
+	public String getProductType() {
+		return productType;
+	}
+
 }

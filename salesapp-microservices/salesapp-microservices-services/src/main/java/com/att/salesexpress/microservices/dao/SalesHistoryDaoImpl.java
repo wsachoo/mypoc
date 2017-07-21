@@ -62,10 +62,10 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 	private String sqlGetFindRecommendedUcpeDevices;
 
 	@Override
-	public List<SalesUcpeRule> getRecommendedUcpeDevices() {
+	public List<Object> getRecommendedUcpeDevices() {
 		logger.info("Entered getRecommendedUcpeDevices() method.");
 
-		List<SalesUcpeRule> result = namedParameterJdbcTemplate.query(sqlGetFindRecommendedUcpeDevices, new RowMapperResultSetExtractor<>(new RowMapper<SalesUcpeRule>() {
+		List<Object> result = namedParameterJdbcTemplate.query(sqlGetFindRecommendedUcpeDevices, new RowMapperResultSetExtractor<>(new RowMapper<Object>() {
 
 			@Override
 			public SalesUcpeRule mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -91,10 +91,10 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 	}
 
 	@Override
-	public List<SalesVnfRule> getRecommendedVnfDevices() {
+	public List<Object> getRecommendedVnfDevices() {
 		logger.info("Entered getRecommendedVnfDevices() method.");
 
-		List<SalesVnfRule> result = namedParameterJdbcTemplate.query(sqlGetFindRecommendedVnfDevices, new RowMapperResultSetExtractor<>(new RowMapper<SalesVnfRule>() {
+		List<Object> result = namedParameterJdbcTemplate.query(sqlGetFindRecommendedVnfDevices, new RowMapperResultSetExtractor<>(new RowMapper<Object>() {
 
 			@Override
 			public SalesVnfRule mapRow(ResultSet rs, int rowNum) throws SQLException {
