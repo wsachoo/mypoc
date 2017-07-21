@@ -95,7 +95,59 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6">
+
+ 			<div class="col-sm-6">
+				<div class="jumbotron"
+					style="background-color: #33ccff; color: black; border: 1px solid; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
+					<div class="row" style="text-align: center;">
+						<span style="color: white;font-size: 18px;">FLEXWARE</span>
+						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
+					</div>					
+					<div class="row" style="text-align: center;">
+						<span style="color: white;font-size: 22px; font-weight: bold;">${data["DATA"][1]["vnfId"]}</span>
+						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
+					</div>
+					<div class="row" style="text-align: center;">
+						<span style="color: white;font-size: 17px;">${data["DATA"][1]["managementType"]} Managed</span>
+						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
+					</div>					
+
+					<div class="row" style="text-align: center;">
+						<span style="color: white;font-size: 17px;">External Rate Id ${data["DATA"][1]["externalRateId"]}</span>
+					</div>
+					<div class="row" style="color: white; text-align: center;font-size: 22px; font-weight: bold;">
+						$${data["DATA"][1]["rate"]}
+					</div>
+					<div class="row" style="color: white; text-align: center; font-size: 14px;font-weight: bold;">Effective Monthly Price</div>
+					<div class="row">&nbsp;</div>
+					<div class="row">
+						<div class="col-sm-10 col-sm-offset-1">
+							<input speed="${data['DATA'][1]['portSpeed']}" name="btnAddToCart"
+								type="button"
+								style="color: black; background-color: #efefef; border: 1px solid;"
+								design-name="${data['DATA'][1]['bundleCd']}" class="btn btn-block"
+								value="Add To Cart" mrc="${data['DATA'][1]['mrc']}"
+								link="${data['DATA'][1]['links'][0]['href']}">
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px">
+						<div class="col-sm-8 col-sm-offset-2">
+							<input link="${data['DATA'][1]['links'][0]['href']}"
+								name="btnCustomize" type="button"
+								style="background-color: #efefef; border: 1px solid;"
+								matchPercentage="${data['DATA'][1]['matchPercentage']}"
+								class="btn btn-block" value="Customize"
+								mrc="${data['DATA'][1]['mrc']}"
+								design-name="${data['DATA'][1]['bundleCd']}"
+								speed="${data['DATA'][1]['portSpeed']}">
+								
+						</div>
+					</div>
+				</div>
+			</div> 	
+
+
+<!-- 			<div class="col-sm-6">
 				<div class="jumbotron"
 					style="background-color: #33ccff; color: black; border: 1px solid; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
 					<div class="row" style="text-align: center;">
@@ -143,7 +195,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>  -->
 		</div>
 	</div>
 	<div class="col-sm-6">
@@ -151,4 +203,5 @@
 			<canvas id="myChart"></canvas>
 		</div>
 	</div>
+
 </div>

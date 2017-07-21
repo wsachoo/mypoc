@@ -37,8 +37,8 @@
 </div>
 
 <div class="row">
-	{{each(i, item) data["DATA"]}} {{if i > 1 && i < 6 }} {{if
-	(data["DATA"][i]["bundleCd"] == 'VVB Express')}}
+	{{each(i, item) data["DATA"]}} {{if i > 1 && i < 6 }} 
+	{{if (data["DATA"][i]["bundleCd"] == 'VVB Express')}}
 
 	<div class="col-sm-3">
 
@@ -94,7 +94,115 @@
 		</div>
 	</div>
 	{{else}}
-
+		{{if (data["DATA"][i]["productType"] == 'FLEXWARE-VNF')}}
+	
+		<div class="col-sm-3">
+	
+			<div class="jumbotron"
+				style="background-color: #efefef; color: black; border: 1px solid #33ccff; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
+				<div class="row" style="text-align: center;">
+					<span style="color: black; font-size: 18px;">FLEXWARE</span>
+					<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px; border-color: #cccccc;">
+				</div>
+				<div class="row" style="text-align: center;">
+					<span style="color: black; font-size: 22px; font-weight: bold;">${data["DATA"][i]["vnfId"]}
+						</span>
+					<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: #cccccc;">
+				</div>
+				<div class="row" style="text-align: center;">
+					<span style="color: black; font-size: 17px;">${data["DATA"][i]["managementType"]} Managed</span>
+					<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: #cccccc;">
+				</div>
+	
+				<div class="row" style="text-align: center;">
+					<span style="color: black; font-size: 17px;">External Rate Id ${data["DATA"][1]["externalRateId"]}</span>
+				</div>
+				<div class="row"
+					style="color: black; text-align: center; font-size: 22px; font-weight: bold;">
+					$${data["DATA"][i]["rate"]}</div>
+				<div class="row"
+					style="color: black; text-align: center; font-size: 14px; font-weight: bold;">Effective
+					Monthly Price</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart"
+							type="button"
+							style="color: black; background-color: #f2f2f2; border: 1px solid;"
+							design-name="${data['DATA'][i]['bundleCd']}" class="btn btn-block"
+							value="Add To Cart" mrc="${data['DATA'][i]['mrc']}"
+							link="${data['DATA'][i]['links'][0]['href']}">
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px">
+					<div class="col-sm-8 col-sm-offset-2">
+						<input link="${data['DATA'][i]['links'][0]['href']}"
+							name="btnCustomize" type="button"
+							style="color: black; background-color: #f2f2f2; border: 1px solid;"
+							matchPercentage="${data['DATA'][i]['matchPercentage']}"
+							class="btn btn-block" value="Customize"
+							mrc="${data['DATA'][i]['mrc']}"
+							design-name="${data['DATA'][i]['bundleCd']}"
+							speed="${data['DATA'][i]['portSpeed']}">
+					</div>
+				</div>
+			</div>
+		</div>
+		{{else}}
+			{{if (data["DATA"][i]["productType"] == 'FLEXWARE-UCPE')}}
+			<div class="col-sm-3">
+				<div class="jumbotron"
+					style="background-color: #efefef; color: black; border: 1px solid #33ccff; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
+					<div class="row" style="text-align: center;">
+						<span style="color: black; font-size: 18px;">FLEXWARE</span>
+						<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px; border-color: #cccccc;">
+					</div>
+					<div class="row" style="text-align: center;">
+						<span style="color: black; font-size: 22px; font-weight: bold;">${data["DATA"][i]["deviceId"]}
+							</span>
+						<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: #cccccc;">
+					</div>
+					<div class="row" style="text-align: center;">
+						<span style="color: black; font-size: 17px;">${data["DATA"][i]["manufactureName"]} Managed</span>
+						<hr style="width: 60%; margin-top: 1px; margin-bottom: 1px;border-color: #cccccc;">
+					</div>
+		
+					<div class="row" style="text-align: center;">
+						<span style="color: black; font-size: 17px;">${getNRCAvailabilityString(data["DATA"][i]["nrcRate"], " of OTC")}
+							</span>
+					</div>
+					<div class="row"
+						style="color: black; text-align: center; font-size: 22px; font-weight: bold;">
+						$${data["DATA"][i]["mrcRate"]}</div>
+					<div class="row"
+						style="color: black; text-align: center; font-size: 14px; font-weight: bold;">Effective
+						Monthly Price</div>
+					<div class="row">&nbsp;</div>
+					<div class="row">
+						<div class="col-sm-10 col-sm-offset-1">
+							<input speed="${data['DATA'][i]['portSpeed']}" name="btnAddToCart"
+								type="button"
+								style="color: black; background-color: #f2f2f2; border: 1px solid;"
+								design-name="${data['DATA'][i]['bundleCd']}" class="btn btn-block"
+								value="Add To Cart" mrc="${data['DATA'][i]['mrc']}"
+								link="${data['DATA'][i]['links'][0]['href']}">
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px">
+						<div class="col-sm-8 col-sm-offset-2">
+							<input link="${data['DATA'][i]['links'][0]['href']}"
+								name="btnCustomize" type="button"
+								style="color: black; background-color: #f2f2f2; border: 1px solid;"
+								matchPercentage="${data['DATA'][i]['matchPercentage']}"
+								class="btn btn-block" value="Customize"
+								mrc="${data['DATA'][i]['mrc']}"
+								design-name="${data['DATA'][i]['bundleCd']}"
+								speed="${data['DATA'][i]['portSpeed']}">
+						</div>
+					</div>
+				</div>
+			</div>
+			{{else}}
 	<div class="col-sm-3">
 		<div class="jumbotron"
 			style="background-color: #efefef; color: black; border: 1px solid #ff9900; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
@@ -152,7 +260,7 @@
 			</div>
 		</div>
 	</div>
-	{{/if}} {{/if}} {{/each}}
+	{{/if}} {{/if}} {{/if}} {{/if}} {{/each}}
 </div>
 
 <div class='row'>
@@ -164,7 +272,6 @@
 
 
 <div class="row">
-
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
 		<!-- Wrapper for carousel items -->
 		<div class="carousel-inner">
@@ -316,3 +423,4 @@
 			</a>
 
 		</div>
+</div></div>

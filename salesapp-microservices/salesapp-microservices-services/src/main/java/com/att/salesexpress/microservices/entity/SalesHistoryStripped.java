@@ -3,6 +3,9 @@ package com.att.salesexpress.microservices.entity;
 import org.springframework.hateoas.ResourceSupport;
 
 public class SalesHistoryStripped extends ResourceSupport {
+	
+	private transient String productType = "OTHER";
+	
 	private long leadDesignId;
 
 	private long siteId;
@@ -192,4 +195,7 @@ public class SalesHistoryStripped extends ResourceSupport {
 				+ ", ratePlan=" + ratePlan + ", tailTechnologyId=" + tailTechnologyId + "]";
 	}
 
+	public String getProductType() {
+		return productType;
+	}
 }

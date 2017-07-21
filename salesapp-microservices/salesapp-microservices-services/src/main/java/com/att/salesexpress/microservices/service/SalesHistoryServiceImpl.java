@@ -8,10 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.att.salesexpress.microservices.dao.SalesHistoryDao;
+import com.att.salesexpress.microservices.dao.SalesHistoryDaoImpl;
 import com.att.salesexpress.microservices.dao.SalesHistoryDetailRepository;
 import com.att.salesexpress.microservices.dao.SalesRulesMisExpRepository;
 import com.att.salesexpress.microservices.dao.SalesUcpeRuleRepository;
@@ -27,7 +30,11 @@ import com.att.salesexpress.microservices.entity.SalesVnfRule;
 @Service
 public class SalesHistoryServiceImpl implements SalesHistoryService {
 
+	static final Logger logger = LoggerFactory.getLogger(SalesHistoryServiceImpl.class);
+	
 	private static final int DEFAULT_NUMBER_OF_ROWS_TO_RETRIEVE = 10;
+
+	private static final int NUMBER_OF_PRODUCTS_TO_DISPLAY = 10;
 
 	DecimalFormat df2 = new DecimalFormat(".00");
 
@@ -47,7 +54,8 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 	SalesUcpeRuleRepository objSalesUcpeRuleRepository;
 
 	@Override
-	public List<SalesHistoryStripped> getRecommendationBasedOnSalesHistory(Map<String, Object> params) {
+	public List<Object> getRecommendationBasedOnSalesHistory(Map<String, Object> params) {
+		logger.info("Entered getRecommendationBasedOnSalesHistory() method");
 		List<Map<String, Object>> result = new ArrayList<>();
 		Set<String> keys = params.keySet();
 
@@ -58,9 +66,6 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		}
 
 		if (containsAllWithValidValues("ACCESS_TYPE_ID,ACCESS_SPEED_ID,PORT_SPEED_ID", params)) {
-			// if (keys.contains("ACCESS_TYPE_ID") &&
-			// keys.contains("ACCESS_SPEED_ID") &&
-			// keys.contains("PORT_SPEED_ID")) {
 			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
 			Integer accessSpeed = Integer.parseInt(params.get("ACCESS_SPEED_ID").toString().trim());
 			Integer portSpeed = Integer.parseInt(params.get("PORT_SPEED_ID").toString().trim());
@@ -71,9 +76,6 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 				result = objSalesHistoryDao.getRecordsByAccessTypeAccessSpeedPortSpeedFromMisExpRules(accessType,
 						accessSpeed, portSpeed, numberOfRowsToRetrieve);
 			}
-
-			// } else if (keys.contains("ACCESS_TYPE_ID") &&
-			// keys.contains("ACCESS_SPEED_ID")) {
 		} else if (containsAllWithValidValues("ACCESS_TYPE_ID,ACCESS_SPEED_ID", params)) {
 			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
 			Integer accessSpeed = Integer.parseInt(params.get("ACCESS_SPEED_ID").toString().trim());
@@ -83,27 +85,68 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 				result = objSalesHistoryDao.getRecordsByAccessTypeAndAccessSpeedFromMisExpRules(accessType, accessSpeed,
 						numberOfRowsToRetrieve);
 			}
+		//###################################################################################################################
+		//START: Following 2 conditions are being called on the recommendations page
 		} else if (containsAllWithValidValues("ACCESS_TYPE_ID,indexWithinGroup", params)) {
 			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
 			Integer indexWithinGroup = Integer.parseInt(params.get("indexWithinGroup").toString().trim());
 			result = objSalesHistoryDao.getRecordsByAccessType(accessType, indexWithinGroup, numberOfRowsToRetrieve);
-			// } else if (keys.contains("ACCESS_TYPE_ID")) {
 		} else if (containsAllWithValidValues("ACCESS_TYPE_ID", params)) {
 			String accessType = params.get("ACCESS_TYPE_ID").toString().trim();
 			result = objSalesHistoryDao.getRecordsByAccessType(accessType, numberOfRowsToRetrieve);
 		}
-
-		List<SalesHistoryStripped> returnValue = new ArrayList<>();
+		//END: Following 2 conditions are being called on the recommendations page
+		//###################################################################################################################
+		List<Object> salesHistoryStrippedList = new ArrayList<>();
 
 		for (Map<String, Object> map : result) {
-			returnValue.add(transformToSalesHistoryStripped(map));
+			salesHistoryStrippedList.add(transformToSalesHistoryStripped(map));
 		}
+		
+		List<Object> returnValue = shuffleAndArrangeProducts(salesHistoryStrippedList, objSalesHistoryDao.getRecommendedVnfDevices(), objSalesHistoryDao.getRecommendedUcpeDevices());
 
+		logger.info("Exiting getRecommendationBasedOnSalesHistory() method");
+		return returnValue;
+		//return salesHistoryStrippedList;
+	}
+
+	/**
+	 * Arranges the products in proper order fir displaying on recommendation page.
+	 * 
+	 * @param salesHistoryStrippedList
+	 * @param recommendedVnfDevices
+	 * @param recommendedUcpeDevices
+	 * @return
+	 */
+	private List<Object> shuffleAndArrangeProducts(List<Object> salesHistoryStrippedList,
+			List<Object> recommendedVnfDevices, List<Object> recommendedUcpeDevices) {
+		logger.info("Entered shuffleAndArrangeProducts() method");
+		List<Object> returnValue = new ArrayList<>();
+		
+		int i = 0;
+		while (returnValue.size() <= NUMBER_OF_PRODUCTS_TO_DISPLAY) {
+			if (salesHistoryStrippedList.size() > i) {
+				returnValue.add(salesHistoryStrippedList.get(i));
+			}
+			
+			if (recommendedVnfDevices.size() > i) {
+				returnValue.add(recommendedVnfDevices.get(i));
+			}
+			
+			if (recommendedUcpeDevices.size() > i) {
+				returnValue.add(recommendedUcpeDevices.get(i));
+			}
+			
+			i++;
+		}
+		
+		logger.info("Exiting shuffleAndArrangeProducts() method");
 		return returnValue;
 	}
 
 	@Override
 	public List<Map<String, Object>> getSalesPercentageByAccessType(Map<String, Object> params) {
+		logger.info("Entered getSalesPercentageByAccessType() method");
 		List<Map<String, Object>> result = new ArrayList<>();
 
 		Set<String> keys = params.keySet();
@@ -115,6 +158,7 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		}
 
 		result = objSalesHistoryDao.sqlGetSalesHistoryPercentageRecordsByAccessType(numberOfRowsToRetrieve);
+		logger.info("Exiting getSalesPercentageByAccessType() method");
 		return result;
 	}
 
@@ -179,6 +223,7 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 
 	@Override
 	public SalesHistoryDetail getSalesHistoryOrderDetailBySiteIdLeadDesignId(Long siteId, Long leadDesignId) {
+		logger.info("Entered getSalesHistoryOrderDetailBySiteIdLeadDesignId() method");
 		SalesHistoryDetailPK objSalesHistoryDetailPK = new SalesHistoryDetailPK();
 		objSalesHistoryDetailPK.setSiteId(siteId);
 		objSalesHistoryDetailPK.setLeadDesignId(leadDesignId);
@@ -189,11 +234,14 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 
 		List<String> portSpeedList = objSalesRulesMisExpRepository.findDistinctPortSpeedByAccessSpeedId(accessSpeedId);
 		objSalesHistoryDetail.setPortSpeedList(portSpeedList);
+		
+		logger.info("Exiting getSalesHistoryOrderDetailBySiteIdLeadDesignId() method");
 		return objSalesHistoryDetail;
 	}
 
 	@Override
 	public SalesRulesMisExpDetail getSalesHistoryOrderDetailByDesignRuleId(int designRuleId) {
+		logger.info("Entered getSalesHistoryOrderDetailByDesignRuleId() method");
 		SalesRulesMisExpDetailPK objSalesRulesMisExpDetailPk = new SalesRulesMisExpDetailPK();
 		objSalesRulesMisExpDetailPk.setDesignRuleId(designRuleId);
 		SalesRulesMisExpDetail objSalesRulesMisExpDetail = objSalesRulesMisExpRepository
@@ -204,11 +252,12 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		List<String> portSpeedList = objSalesRulesMisExpRepository.findDistinctPortSpeedByAccessSpeedId(accessSpeedId);
 		objSalesRulesMisExpDetail.setPortSpeedList(portSpeedList);
 
+		logger.info("Exiting getSalesHistoryOrderDetailByDesignRuleId() method");
 		return objSalesRulesMisExpDetail;
 	}
 
 	@Override
-	public List<SalesVnfRule> getRecommendedVnfDevices() {
+	public List<Object> getRecommendedVnfDevices() {
 		return objSalesHistoryDao.getRecommendedVnfDevices();
 	}
 
@@ -219,7 +268,7 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 	}
 
 	@Override
-	public List<SalesUcpeRule> getRecommendedUcpeDevices() {
+	public List<Object> getRecommendedUcpeDevices() {
 		return objSalesHistoryDao.getRecommendedUcpeDevices();
 	}
 

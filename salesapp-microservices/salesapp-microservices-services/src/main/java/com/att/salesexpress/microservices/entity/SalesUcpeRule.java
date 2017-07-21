@@ -18,6 +18,8 @@ import java.math.BigDecimal;
 public class SalesUcpeRule extends ResourceSupport implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private transient String productType = "FLEXWARE-UCPE";
+	
 	@Id
 	@Column(name="RULE_ID")
 	private long ruleId;
@@ -130,5 +132,8 @@ public class SalesUcpeRule extends ResourceSupport implements Serializable {
 	public void setStorage(String storage) {
 		this.storage = storage;
 	}
-
+	
+	public String getProductType() {
+		return productType;
+	}
 }

@@ -11,7 +11,7 @@ import com.att.salesexpress.microservices.entity.SalesUcpeRule;
 import com.att.salesexpress.microservices.entity.SalesVnfRule;
 
 public interface SalesHistoryService {
-	public List<SalesHistoryStripped> getRecommendationBasedOnSalesHistory(Map<String, Object> params);
+	public List<Object> getRecommendationBasedOnSalesHistory(Map<String, Object> params);
 
 	public SalesHistoryDetail getSalesHistoryOrderDetailBySiteIdLeadDesignId(Long siteId, Long leadDesignId);
 
@@ -19,11 +19,11 @@ public interface SalesHistoryService {
 
 	public SalesRulesMisExpDetail getSalesHistoryOrderDetailByDesignRuleId(int designRuleId);
 
-	List<SalesVnfRule> getRecommendedVnfDevices();
+	List<Object> getRecommendedVnfDevices();
 
 	public SalesVnfRule getRecommendedVnfDeviceByRuleId(BigDecimal ruleId);
 
-	List<SalesUcpeRule> getRecommendedUcpeDevices();
+	List<Object> getRecommendedUcpeDevices();
 
 	SalesUcpeRule getRecommendedUcpeDeviceByRuleId(Long ruleId);
 }

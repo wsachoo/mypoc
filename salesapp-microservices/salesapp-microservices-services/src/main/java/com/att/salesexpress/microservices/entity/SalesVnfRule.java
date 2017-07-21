@@ -17,6 +17,8 @@ import java.math.BigDecimal;
 @NamedQuery(name="SalesVnfRule.findAll", query="SELECT s FROM SalesVnfRule s")
 public class SalesVnfRule extends ResourceSupport implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	private transient String productType = "FLEXWARE-VNF";
 
 	@Column(name="RULE_ID")
 	@Id
@@ -119,4 +121,7 @@ public class SalesVnfRule extends ResourceSupport implements Serializable {
 		this.vnfId = vnfId;
 	}
 
+	public String getProductType() {
+		return productType;
+	}
 }
