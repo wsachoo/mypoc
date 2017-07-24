@@ -18,6 +18,13 @@ $(document).ready(function() {
 			$("#securityFeatureDiv").css('display', 'none');
 		}
 	});
+	
+/* 	$("button [name='btnCustomizeShoppingCart']").on('click', function(e) {
+			alert("from cart1");
+			var siteId = $(this).attr('siteid');
+			onClickCustomizeShoppingCart(siteId);
+	}); */
+	
 });
 </script>
 
@@ -33,15 +40,15 @@ $(document).ready(function() {
 		<hr>                              
 		<!--  -->
 	{{each(j, item) jsonObjectToShoppingCartTmpl}}
-		<div class="row">
+		<div class="row" id="divCartConfig">
 			<div class="col-md-10">
 				<div class="panel panel-primary ">
 					<div class="panel-heading" style="background-color: #3399ff;">
-						<h3 class="panel-title"><span style="font-size: 22px;"> ${j} &nbsp;</span></h3>
+						<h3 class="panel-title"><span style="font-size: 22px;"> ${jsonObjectToShoppingCartTmpl[j]["siteName"]} &nbsp;</span></h3>
 						<span class="pull-right clickable"><i
 							class="glyphicon glyphicon-chevron-up"></i></span>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" id="divCartConfigBody-${j}">
 						<div class="row">
 							<div class="col-sm-6">
 								<strong style="font-size: 20px;">
@@ -59,9 +66,9 @@ $(document).ready(function() {
 							<div class="col-sm-6">
 								<strong style="font-size: 22px;">${jsonObjectToShoppingCartTmpl[j]["MRC"]}</strong>
 								<br>Effective monthly charge<br>
-								<button type="button" id="btnCustomizeShoppingCart"
-									class="btn btn-primary"
-									onclick="onClickCustomizeShoppingCart();" style="float: left;">
+								<button type="button" id="btnCustomizeShoppingCart" name="btnCustomizeShoppingCart"
+									class="btn btn-primary" siteId= "${j}" onclick="onClickCustomizeShoppingCart( ${j}, '${jsonObjectToShoppingCartTmpl[j]['ID'].links[0]['href']}');"
+									style="float: left;">
 									Edit My Cart <span class="glyphicon glyphicon-shopping-cart"></span>
 								</button>
 							</div>
@@ -82,58 +89,81 @@ $(document).ready(function() {
 												Opportunity</a>
 										</td>
 									</tr>
-									{{each(i, item) jsonObjectToShoppingCartTmpl[j]}} {{if ( i ==
-									'IP VERSION' || i == 'MANAGED ROUTER' || i == 'PORT SPEED') }}
-									{{if (i == 'IP VERSION' || i == 'PORT SPEED') }} {{if (i == 'IP
-									VERSION') }}
+									{{each(i, item) jsonObjectToShoppingCartTmpl[j]}}
+									{{if i == 'ID'}}
+									
+									{{else}}
+											{{if ( i == 'IP VERSION' || i == 'MANAGED ROUTER' || i == 'PORT SPEED') }}
+								{{if (i == 'IP VERSION' || i == 'PORT SPEED') }}
+									{{if (i == 'IP VERSION') }}
+										<tr>
+											<td> ${i} </td>
+											<td id="displayIpVersionTd"> 
+										    	${item}
+		    								 </td>
+		    							</tr>
+		    						{{else}}
+		    							<tr>
+											<td> ${i} </td>
+											<td id="displayPortSpeedList"> 
+										    	${item}
+		    								 </td>
+		    							</tr>
+		    						{{/if}}		
+								{{else}}
+								<tr>
+									<td> ${i} </td>
+									<td id="displayManagedRouterType">
+										${item}
+										</td>
+								</tr>	
+								{{/if}}
+							{{else}}
+								{{if (i =='MRC' || i=='NRC') }}
+									{{if i == 'MRC'}}
 									<tr>
-										<td>${i}</td>
-										<td id="displayIpVersionTd">${item}</td>
+										<td> ${i} </td>
+										<td id="displayMRC"> ${item} </td>
 									</tr>
 									{{else}}
 									<tr>
-										<td>${i}</td>
-										<td id="displayPortSpeedList">${item}</td>
+										<td> ${i} </td>
+										<td id="displayNRC"> ${item} </td>
 									</tr>
-									{{/if}} {{else}}
-									<tr>
-										<td>${i}</td>
-										<td id="displayManagedRouterType">${item}</td>
-									</tr>
-									{{/if}} {{else}} {{if (i =='MRC' || i=='NRC') }} {{if i ==
-									'MRC'}}
-									<tr>
-										<td>${i}</td>
-										<td id="displayMRC">${item}</td>
-									</tr>
+									{{/if}}	
+								{{else}}
+									{{if (i =='TERM' || i=='TERM') }}
+										<tr>
+											<td>TERM</td>
+											<!-- <td id="displayContractTermList">${item}</td> -->
+											<td id="displayContractTermList">12 Months</td>
+										</tr>
+									{{else}}	
+									{{if i =='ACCESS TYPE' }}
+										<tr>
+											<td> ${i} </td>
+											<!-- <td id="displayContractTermList">${item}</td> -->
+											<td>Ethernet</td>
+										</tr>
 									{{else}}
-									<tr>
-										<td>${i}</td>
-										<td id="displayNRC">${item}</td>
-									</tr>
-									{{/if}} {{else}} {{if (i =='TERM' || i=='TERM') }}
-									<tr>
-										<td>TERM</td>
-										<!-- <td id="displayContractTermList">${item}</td> -->
-										<td id="displayContractTermList">12 Months</td>
-									</tr>
-									{{else}} {{if i =='ACCESS TYPE' }}
-									<tr>
-										<td>${i}</td>
-										<!-- <td id="displayContractTermList">${item}</td> -->
-										<td>Ethernet</td>
-									</tr>
-									{{else}} {{if i == "OFFER NAME" }}
-									<tr>
-										<td>${i}</td>
-										<td id="offerNameValue">${item}</td>
-									</tr>
-									{{else}}
-									<tr>
-										<td>${i}</td>
-										<td>${item}</td>
-									</tr>
-									{{/if}} {{/if}} {{/if}} {{/if}} {{/if}} {{/each}}
+										{{if i == "OFFER NAME" }}
+											<tr>
+												<td> ${i} </td>
+												<td id="offerNameValue"> ${item} </td>
+											</tr>
+										{{else}}
+										<tr>
+											<td> ${i} </td>
+											<td> ${item} </td>
+										</tr>
+									{{/if}}
+									{{/if}}
+									{{/if}}		
+								{{/if}}	
+							{{/if}}	
+									{{/if}} 
+									 
+									{{/each}}
 								</table>
 								<strong style="font-size: 18px;">Additional Features</strong>
 								<div class="col-sm-12">

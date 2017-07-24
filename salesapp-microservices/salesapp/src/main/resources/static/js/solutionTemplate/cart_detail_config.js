@@ -12,3 +12,21 @@ $(document).ready(function() {
 		}
 	})
 });
+
+function saveCartDetailConfigData(ipVersionValue, managedRouterValue, portSpeedValue, contractTermValue, siteId) {
+	jsonObjectToShoppingCartTmpl[siteId]["IP VERSION"] = ipVersionValue;
+	jsonObjectToShoppingCartTmpl[siteId]["MANAGED ROUTER"] = managedRouterValue;
+	jsonObjectToShoppingCartTmpl[siteId]["PORT SPEED"] = portSpeedValue;
+	jsonObjectToShoppingCartTmpl[siteId]["TERM"] = contractTermValue;
+}
+
+function showCartDetails(jsonObjectToShoppingCartTmpl) {
+	var templatePath = contextPath + "/templates/shopping_cart.html";
+	var modalTemplate = getTemplateDefinition(templatePath);
+	$.template("shopping_cart", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("shopping_cart", {"jsonObjectToShoppingCartTmpl" : jsonObjectToShoppingCartTmpl});
+	
+	$("#displayShoppingCart").append(modalTemplateToDisplay);
+	var topMenuDiv = $("#displayShoppingCart");
+	removeNextAllSiblingDivRows(topMenuDiv);
+}

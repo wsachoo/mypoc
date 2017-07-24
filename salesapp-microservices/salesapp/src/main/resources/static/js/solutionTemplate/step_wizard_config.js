@@ -610,23 +610,28 @@ function onClickApplyGCData() {
 	thisElement.remove();
 }
 
-function customizePortSpeedsGCData() {
+function customizePortSpeedsGCData(siteId, url) {
 	var portSpeedsDropDownElem = customizeGCDataFields.portSpeedsDropDown();
-	var displayPortSpeedList = $("#displayPortSpeedList");
-	displayPortSpeedList.html(portSpeedsDropDownElem);
 	
+	var divShoppingCartConfigBody = "#divCartConfigBody-"+siteId; //current site config div
+	var displayPortSpeedList = $(divShoppingCartConfigBody).find("#displayPortSpeedList");
+	
+	displayPortSpeedList.html(portSpeedsDropDownElem);
+	var data = httpGetWithJsonResponse(url, "");
+	var portSpeedsToCustomizeGCData = data["portSpeedList"];
 	 $.each(portSpeedsToCustomizeGCData, function(key, value) {
         var option = $('<option />').prop('value', value).text(value);
         $('#displayPortSpeedList select').append(option);
       });
 }
 
-function customizeContractTermGCData() {
+function customizeContractTermGCData(siteId) {
 	var contractTermDropDownElem = customizeGCDataFields.contractTermDropDowm();
-	var displayContractTermList = $("#displayContractTermList");
+	
+	var divShoppingCartConfigBody = "#divCartConfigBody-"+siteId; //current site config div
+	var displayContractTermList = $(divShoppingCartConfigBody).find("#displayContractTermList");
+	
 	displayContractTermList.html(contractTermDropDownElem);
-	
-	
 }
 
 function updateMRCAndNRC(updatedContractTermValue, updatedContractTerm) {
@@ -813,41 +818,49 @@ function onClickViewCartAndCheckout(url) {
 	isButtonCustomizeClick = false;
 }
 
-function onClickCustomizeShoppingCart() {
-
+function onClickCustomizeShoppingCart(siteId, url) {
+	
 	var ipVersionDropDownTmpl = customizeGCDataFields.ipVersionDropDown();
 	var managedRouterDropDownTmpl = customizeGCDataFields.managedRouterDropDown();
-	customizePortSpeedsGCData();
-	customizeContractTermGCData();
-
-	var thisElement = $("#btnCustomizeShoppingCart");
+	customizePortSpeedsGCData(siteId, url);
+	customizeContractTermGCData(siteId);
+	
+	var divShoppingCartConfigBody = "#divCartConfigBody-"+siteId; //current site config div
+	
+	var thisElement = $(divShoppingCartConfigBody).find("#btnCustomizeShoppingCart");
 	thisElement.html('Update My Cart <span class="glyphicon glyphicon-shopping-cart"></span>');
 	thisElement.attr('id','btnApplyShoppingCartData');
-	thisElement.attr('onclick','onClickApplyShoppingCartData();');
-	$("#displayIpVersionTd").empty();
-	$("#displayIpVersionTd").append(ipVersionDropDownTmpl);
-	$("#displayManagedRouterType").empty();
-	$("#displayManagedRouterType").append(managedRouterDropDownTmpl);
+	thisElement.attr('name','btnApplyShoppingCartData');
+	thisElement.removeAttr('onclick');
+	thisElement.attr('onclick','onClickApplyShoppingCartData('+siteId+', \"'+url+'\");');
+	//thisElement.attr('siteid', siteId);
+	
+	$(divShoppingCartConfigBody).find("#displayIpVersionTd").empty();
+	$(divShoppingCartConfigBody).find("#displayIpVersionTd").append(ipVersionDropDownTmpl);
+	$(divShoppingCartConfigBody).find("#displayManagedRouterType").empty();
+	$(divShoppingCartConfigBody).find("#displayManagedRouterType").append(managedRouterDropDownTmpl);
 
 }
 
-function onClickApplyShoppingCartData() {
+function onClickApplyShoppingCartData(siteId, url) {
+	var divShoppingCartConfigBody = "#divCartConfigBody-"+siteId; //current site config div
 	
-	var ipVersionValue = $('select[name="ipVersion"]').val();
-	var managedRouterValue = $('select[name="managedRouterForGC"]').val();
-	var portSpeedValue = $('select[name="portSpeedListForGC"]').val();
-	var contractTermValue = $('select[name="contractTermForGC"]').val();
+	var ipVersionValue = $(divShoppingCartConfigBody).find('select[name="ipVersion"]').val();
+	var managedRouterValue = $(divShoppingCartConfigBody).find('select[name="managedRouterForGC"]').val();
+	var portSpeedValue = $(divShoppingCartConfigBody).find('select[name="portSpeedListForGC"]').val();
+	var contractTermValue = $(divShoppingCartConfigBody).find('select[name="contractTermForGC"]').val();
 	
-	var thisElement = $("#btnApplyShoppingCartData");
+	saveCartDetailConfigData(ipVersionValue, managedRouterValue, portSpeedValue, contractTermValue, siteId);//declared in cart_detail_config.js
+	var thisElement = $(divShoppingCartConfigBody).find("#btnApplyShoppingCartData");
 	
-	$("#displayIpVersionTd").html(ipVersionValue);
-	$("#displayManagedRouterType").html(managedRouterValue);
-	$("#displayPortSpeedList").html(portSpeedValue);
-	$("#displayContractTermList").html(contractTermValue);
-	
-	var customizeButton = '<button type="button"  id="btnCustomizeShoppingCart" class="btn btn-primary" onclick="onClickCustomizeShoppingCart();" style="float: left;">Edit My Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>';
-	
+	$(divShoppingCartConfigBody).find("#displayIpVersionTd").html(ipVersionValue);
+	$(divShoppingCartConfigBody).find("#displayManagedRouterType").html(managedRouterValue);
+	$(divShoppingCartConfigBody).find("#displayPortSpeedList").html(portSpeedValue);
+	$(divShoppingCartConfigBody).find("#displayContractTermList").html(contractTermValue);
+	var customizeButton = "<button type='button'  id='btnCustomizeShoppingCart' name='btnCustomizeShoppingCart' class='btn btn-primary'  siteid='"+siteId+"' style='float: left;'>Edit My Cart <span class='glyphicon glyphicon-shopping-cart'></span></button>";
+	//thisElement.attr('onclick','onClickApplyShoppingCartData('+siteId+', \"'+url+'\");');
 	thisElement.after(customizeButton);
+	$(divShoppingCartConfigBody).find("#btnCustomizeShoppingCart").attr('onclick', 'onClickCustomizeShoppingCart('+siteId+', \"'+url+'\");');
 	thisElement.remove();
 }
 
@@ -870,7 +883,7 @@ function goBackToOffers() {
 function onClickViewCartAndCheckoutNew(url) {
 	try { $("div.modal-backdrop").remove(); } catch(ex) {}
 	
-	//location.hash = "myCart";
+	location.hash = "myCart";
 	$('body').find("#divShoppingCartTemplate").remove();
 	if(url == null || url == undefined || url == ''){
 		var url = $("#btnViewCartAndCheckout").attr('link');
@@ -878,13 +891,8 @@ function onClickViewCartAndCheckoutNew(url) {
 
 	var data = httpGetWithJsonResponse(url, "");
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
-	portSpeedsToCustomizeGCData = data["portSpeedList"];//store port speed list
 	
-	var configSiteList = []
-	var configSiteList = siteConfigListAsArray();
-	
-	
-	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc"];
+	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc", "id"];
 	
 	var DATA = {};
 	$.each(objectKeysArray, function(k, value) {
@@ -902,32 +910,21 @@ function onClickViewCartAndCheckoutNew(url) {
 		}
 	});
 	
-	DATA["siteList"] = configSiteList;
 	defaultTermPeriod = DATA["TERM"];
 	defaultTermPeriodMRC = DATA["MRC"];
 	defaultTermPeriodNRC = DATA["NRC"];
 	$('<div class="row" id="displayShoppingCart"></div>').insertAfter("div.sachtopmenu");
-	//addContractGenTab();
 	activateMyCartTab();
 	
-	//jsonObjectToShoppingCartTmpl = DATA;
 	
+	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
+		 var siteName = $(this).attr('data-name');
+		 var siteId = $(this).attr('value');
+		 jsonObjectToShoppingCartTmpl[siteId] = jQuery.extend(true, {}, DATA);
+         jsonObjectToShoppingCartTmpl[siteId]["siteName"] = siteName;
+	});
 	
-	for(var i = 0; i < DATA["siteList"].length; i++) {
-		var site = DATA["siteList"][i];
-		jsonObjectToShoppingCartTmpl[site] =  DATA;
-	}
-	
-	
-	
-	var templatePath = contextPath + "/templates/shopping_cart.html";
-	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("shopping_cart", modalTemplate);
-	var modalTemplateToDisplay = $.tmpl("shopping_cart", {"jsonObjectToShoppingCartTmpl" : jsonObjectToShoppingCartTmpl});
-	
-	$("#displayShoppingCart").append(modalTemplateToDisplay);
-	var topMenuDiv = $("#displayShoppingCart");
-	removeNextAllSiblingDivRows(topMenuDiv);
+	showCartDetails(jsonObjectToShoppingCartTmpl);
 	
 	$("#shoppingCartLink").find('.badge').remove();
 	var itemsInCart = Object.keys(jsonObjectToShoppingCartTmpl).length;
@@ -937,3 +934,4 @@ function onClickViewCartAndCheckoutNew(url) {
 	}
 	isButtonCustomizeClick = false;
 }
+
