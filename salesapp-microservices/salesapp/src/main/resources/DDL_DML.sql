@@ -279,8 +279,7 @@ SELECT a.access_type,
 		where aa.price_Catalog_id = b.price_Catalog_id 
 		and b.RECURRENCE_ID = 2 
 		and a.price_scenario_id = aa.price_scenario_id 
-		group by aa.price_scenario_id) as NRC
-
+		group by aa.price_scenario_id) as NRC,
        a.term 
   FROM avpn_transport_design_v a, AD_LEAD_DESIGN ald
   where a.ACCESS_TYPE_ID='ETHERNET' and a.BUNDLE_CD='AVPN'  
@@ -291,3 +290,11 @@ SELECT a.access_type,
   a.PORT_TYPE IS NOT NULL and 
   a.ACCESS_SPEED_ID IS NOT NULL and
   a.PORT_SPEED_ID IS NOT NULL
+
+and ACCESS_SPEED_ID in (
+10000,
+50000,
+250000,
+2000,
+20000,
+150000)

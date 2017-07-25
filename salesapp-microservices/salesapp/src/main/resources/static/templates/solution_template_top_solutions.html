@@ -13,10 +13,19 @@
 
 		$("input[name='btnAddToCart']").on('click', function(e) {
 			var designName = $(this).attr('design-name');
-			var speed = $(this).attr('speed');
-			var mrc = $(this).attr('mrc');
-			var url = $(this).attr('link');
-			displayConfirmModalAddToCart(designName, speed, mrc, url);
+			
+			if ('Flexware' == designName ) {
+				var deviceId = $(this).attr('speed');
+				var mrc = $(this).attr('mrc');
+				var url = $(this).attr('link');
+				displayConfirmModalAddToCart(designName, deviceId, mrc, url);	
+			}
+			else {
+				var speed = $(this).attr('speed');
+				var mrc = $(this).attr('mrc');
+				var url = $(this).attr('link');
+				displayConfirmModalAddToCart(designName, speed, mrc, url);				
+			}
 		});
 
 		$("input[name='btnCustomize']").on('click', function(e) {
@@ -122,11 +131,11 @@
 					<div class="row">&nbsp;</div>
 					<div class="row">
 						<div class="col-sm-10 col-sm-offset-1">
-							<input speed="${data['DATA'][1]['portSpeed']}" name="btnAddToCart"
+							<input name="btnAddToCart"
 								type="button"
 								style="color: black; background-color: #efefef; border: 1px solid;"
-								design-name="${data['DATA'][1]['bundleCd']}" class="btn btn-block"
-								value="Add To Cart" mrc="${data['DATA'][1]['mrc']}"
+								design-name="Flexware" class="btn btn-block" speed="${data['DATA'][1]['vnfId']}"
+								value="Add To Cart" mrc="${data['DATA'][1]['rate']}"
 								link="${data['DATA'][1]['links'][0]['href']}">
 						</div>
 					</div>
@@ -137,10 +146,8 @@
 								style="background-color: #efefef; border: 1px solid;"
 								matchPercentage="${data['DATA'][1]['matchPercentage']}"
 								class="btn btn-block" value="Customize"
-								mrc="${data['DATA'][1]['mrc']}"
-								design-name="${data['DATA'][1]['bundleCd']}"
-								speed="${data['DATA'][1]['portSpeed']}">
-								
+								mrc="${data['DATA'][1]['rate']}"
+								design-name="Flexware" speed="${data['DATA'][1]['vnfId']}">								
 						</div>
 					</div>
 				</div>

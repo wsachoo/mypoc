@@ -61,6 +61,7 @@ public interface SQLConstantsOracle {
 			+ "            sth.* "
 			+ "            from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
 			+ "            where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
+			+ "            and sth.BUNDLE_CD = 'AVPN'"
 			+ "            ) countTable "
 			+ "            ) rankTable "
 			+ "            where rankTable.indexWithinGroup < :INDEX_WITHIN_GROUP"
@@ -78,12 +79,11 @@ public interface SQLConstantsOracle {
 			+ "ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2) as MATCHING_ROW_PERCENTAGE, "
 			+ "rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
-			//+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY) totalTrans "
 			+ "from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
 			+ "where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
+			+ "and sth.BUNDLE_CD = 'AVPN'"
 			+ ") countTable "
 			+ ") rankTable "
-			//+ "where rankTable.RNK = 1 and rownum <= :NUMBER_OF_ROWS"; 
 			+ "where rankTable.indexWithinGroup = 1 and rownum <= :NUMBER_OF_ROWS "
 			+ "order by MATCHING_ROW_PERCENTAGE desc, MRC asc";
 	
