@@ -185,3 +185,116 @@ tdv.PORT_SPEED_ID IS NOT NULL
 order by 
 tdv.ACCESS_TYPE, tdv.PORT_TYPE, 
 tdv.ACCESS_SPEED_ID, tdv.PORT_SPEED_ID;
+
+
+-------------------------------------------------------------------------------
+-- 20170723
+-- SQL to retrieve AVPN Data from UAT TRANS
+
+SELECT a.access_type, 
+       a.access_type_id, 
+       a.access_type_s, 
+       a.access_speed, 
+       a.access_speed_id, 
+       a.access_speed_s, 
+       a.port_type, 
+       a.port_type_id, 
+       a.port_type_s, 
+       a.port_speed, 
+       a.port_speed_id, 
+       a.port_speed_s, 
+       NULL AS design_name, 
+       NULL AS design_type, 
+       NULL AS erate, 
+       NULL AS erate_quick_quote_ind, 
+       NULL AS solution_type, 
+       NULL AS source_design_id, 
+       NULL AS status_id, 
+       NULL AS sub_status_id, 
+       NULL AS dbor_solution_id, 
+       a.lead_design_id, 
+       NULL AS lead_id, 
+       a.create_date, 
+       a.create_id, 
+       a.access_actual_speed_id, 
+       a.access_architecture_id, 
+       a.access_architecture_desc, 
+       a.interconnect_technology, 
+       a.interconnect_technology_desc, 
+       a.access_service, 
+       a.access_service_id, 
+       a.access_service_s, 
+       a.bundle_cd, 
+       a.bv_ip_version, 
+       a.country_cd, 
+       NULL AS cpe_model, 
+       NULL AS cpe_model_id, 
+       NULL AS cpe_model_s, 
+       NULL AS cpe_redundant, 
+       NULL AS cpe_svc_config, 
+       NULL AS cpe_svc_config_id, 
+       NULL AS create_date, 
+       NULL AS create_design_type, 
+       NULL AS create_id, 
+       a.custom_interface_id, 
+       a.design_bundle_site_id, 
+       a.design_site_offer_port_id, 
+       a.ethernet__handoff_interface_id, 
+       a.ethernet__handoff_int_desc, 
+       NULL AS ethernet_interface, 
+       NULL AS ethernet_yn, 
+       a.hcf_min_commitment, 
+       a.hcf_min_commitment_id, 
+       a.hcf_min_commitment_s, 
+       a.hcf_overage, 
+       a.ip_version_id, 
+       a.ip_version_s, 
+       NULL AS managed_router, 
+       NULL AS managed_router_id, 
+       NULL AS managed_router_s, 
+       a.protocol, 
+       a.protocol_id, 
+       a.protocol_s, 
+       a.rate_plan, 
+       a.rate_plan_id, 
+       a.rate_plan_s, 
+       a.routing_protocol, 
+       a.routing_protocol_id, 
+       a.state, 
+       NULL AS t1_availability_yn, 
+       a.t3_availability_yn, 
+       a.tail_technology, 
+       NULL AS tail_technology_id, 
+       a.tail_technology_s, 
+       a.site_id, 
+       a.site_name_alias, 
+       a.site_name_alias_s, 
+       (select sum(aa.price) from ad_lead_design_proposal aa,ad_price_Catalog b 
+		where aa.price_Catalog_id = b.price_Catalog_id 
+		and b.RECURRENCE_ID = 1 
+		and a.price_scenario_id = aa.price_scenario_id 
+		group by aa.price_scenario_id) as MRC, 
+       
+		(select sum(aa.price) from ad_lead_design_proposal aa,ad_price_Catalog b 
+		where aa.price_Catalog_id = b.price_Catalog_id 
+		and b.RECURRENCE_ID = 2 
+		and a.price_scenario_id = aa.price_scenario_id 
+		group by aa.price_scenario_id) as NRC,
+       a.term 
+  FROM avpn_transport_design_v a, AD_LEAD_DESIGN ald
+  where a.ACCESS_TYPE_ID='ETHERNET' and a.BUNDLE_CD='AVPN'  
+  and a.LEAD_DESIGN_ID = ald.LEAD_DESIGN_ID and 
+  ald.STATUS_ID > 40 and 
+  ald.CREATED_DATE > '01-JAN-2016'
+ and a.ACCESS_TYPE IS NOT NULL and 
+  a.PORT_TYPE IS NOT NULL and 
+  a.ACCESS_SPEED_ID IS NOT NULL and
+  a.PORT_SPEED_ID IS NOT NULL
+
+and ACCESS_SPEED_ID in (
+10000,
+50000,
+250000,
+2000,
+20000,
+150000)

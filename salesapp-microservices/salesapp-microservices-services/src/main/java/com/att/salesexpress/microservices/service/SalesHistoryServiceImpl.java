@@ -129,11 +129,11 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 				returnValue.add(salesHistoryStrippedList.get(i));
 			}
 			
-			if (recommendedVnfDevices.size() > i) {
+			if (recommendedVnfDevices.size() > i && (i % 2 == 0)) {
 				returnValue.add(recommendedVnfDevices.get(i));
 			}
 			
-			if (recommendedUcpeDevices.size() > i) {
+			if (recommendedUcpeDevices.size() > i && (i % 2 == 1)) {
 				returnValue.add(recommendedUcpeDevices.get(i));
 			}
 			
