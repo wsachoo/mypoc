@@ -108,7 +108,7 @@ function displayDataGrid(data, templateFormat) {
 	});	
 }
 
-function displayDataGridWithTop5Records(accessType, accessSpeed) {
+/*function displayDataGridWithTop5Records(accessType, accessSpeed) {
 	var tmpObj = {};
 	tmpObj["ACCESS_TYPE_ID"] = accessType;
 	tmpObj["NUMBER_OF_ROWS"] = 10;
@@ -168,6 +168,128 @@ function displayDataGridWithTop5Records(accessType, accessSpeed) {
 	
 } 
 
+*/
+
+/*function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
+	$("#displayConfirmModalAddToCart").remove();
+	var data = {};
+	data["designName"] = designName;
+	data["speed"] = speed;
+	data["mrc"] = mrc;
+	data["url"] = url
+	var templatePath = contextPath + "/templates/confirm_modal_addToCart.html";
+	var modalTemplate = getTemplateDefinition(templatePath);
+	$.template("confirm_modal_addToCart", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("confirm_modal_addToCart", data);
+	
+	$('body').append(modalTemplateToDisplay);
+	$("#btndisplayConfirmModalAddToCart").trigger('click');
+	if(name != undefined && name != '' && name == 'btnCustomize') {
+		isButtonCustomizeClick = true;
+		$("#dispConfirmAddToCartModal #modal-footer").find('button').html('Continue <span class="glyphicon glyphicon-shopping-cart"></span>');
+		$("#dispConfirmAddToCartModal").find('p').html('has been successfully added to the Cart and ready for customization.')
+	}
+}
+*/
+
+function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
+	$("#displayConfirmModalAddToCart").remove();
+	var datatemp = {};
+	datatemp["designName"] = designName;
+	datatemp["speed"] = speed;
+	datatemp["mrc"] = mrc;
+	datatemp["url"] = url
+/*	var templatePath = contextPath + "/templates/confirm_modal_addToCart.html";
+	var modalTemplate = getTemplateDefinition(templatePath);
+	$.template("confirm_modal_addToCart", modalTemplate);*/
+	var modalTemplateToDisplay = $.tmpl("confirm_modal_addToCart", datatemp);
+	
+	$('body').append(modalTemplateToDisplay);
+	$("#btndisplayConfirmModalAddToCart").trigger('click');
+	if(name != undefined && name != '' && name == 'btnCustomize') {
+		isButtonCustomizeClick = true;
+		$("#dispConfirmAddToCartModal #modal-footer").find('button').html('Continue <span class="glyphicon glyphicon-shopping-cart"></span>');
+		$("#dispConfirmAddToCartModal").find('p').html('has been successfully added to the Cart and ready for customization.')
+	}
+}
+
+function displayTopRecommendations(accessType, accessSpeed) {
+	var tmpObj = {};
+	tmpObj["ACCESS_TYPE_ID"] = accessType;
+	tmpObj["NUMBER_OF_ROWS"] = 10;
+	tmpObj["ACCESS_SPEED_ID"] = accessSpeed;
+	
+	var jsonData = JSON.stringify(tmpObj);
+	var promise = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_RECOMMENDATION_URL"), jsonData);
+	promise.done(function(data, textStatus, jqXHR) {
+		
+	$("#solutionTemplateBottomFrame").empty();
+		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
+	
+/*	        var soltemplatePath = contextPath + "/templates/solution_template_top_solutions.html";
+	        var toplSolutionTemplate = getTemplateDefinition(soltemplatePath);
+	        $.template("solution_template_top_solutions", toplSolutionTemplate);
+*/	        
+    		var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", {"data":data});
+        	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
+        	$("#solutionTemplateTopFrame").trigger('create');
+
+/*			var templatePath = contextPath + "/templates/top_results_template.html";
+			var topResultsTemplate = getTemplateDefinition(templatePath);
+			$.template("top_results_template", topResultsTemplate);
+*/			
+
+			var otherData = {};
+			otherData["DATA"] = data.DATA.slice(6);
+
+			var topResultsTemplateToDisplay = $.tmpl("top_results_template", {"data":data, "data2":otherData});
+			$("#solutionTemplateBottomFrame").append(topResultsTemplateToDisplay);
+			
+			
+	        //START: Code top display graph
+	    	var promise3 = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL"), "{}");
+	    	promise3.done(function(data3, textStatus, jqXHR){
+	        	drawPieGraphOnTopSolutionTemplatePage(data3);
+	        	
+	    	}).fail(function(jqXHR, textStatus, errorThrown) {
+	    		console.log(textStatus);
+	    	}); 
+
+        	
+/*        	var tmpObj2 = {};
+			tmpObj2["ACCESS_TYPE_ID"] = accessType;
+			tmpObj2["NUMBER_OF_ROWS"] = 25;
+			tmpObj2["indexWithinGroup"] = 4;
+			tmpObj2["ACCESS_SPEED_ID"] = accessSpeed;
+			
+			var jsonData2 = JSON.stringify(tmpObj2);
+			var promise2 = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_RECOMMENDATION_URL"), jsonData2);
+			
+			promise2.done(function(data2, textStatus, jqXHR) {
+				var topResultsTemplateToDisplay = $.tmpl("top_results_template", {"data":data, "data2":data2});
+				$("#solutionTemplateBottomFrame").append(topResultsTemplateToDisplay);
+				
+				
+		        //START: Code top display graph
+		    	var promise3 = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL"), "{}");
+		    	promise3.done(function(data3, textStatus, jqXHR){
+		        	drawPieGraphOnTopSolutionTemplatePage(data3);
+		        	
+		    	}).fail(function(jqXHR, textStatus, errorThrown) {
+		    		console.log(textStatus);
+		    	}); 
+		    	//END: Code top display graph				
+			});*/
+		}
+		else{
+			$("#solutionTemplateBottomFrame").empty();
+			$("#solutionTemplateBottomFrame").html(data["ERROR_DESC"])
+		}
+
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		console.log(textStatus);
+	});	
+}
 
 function showSalesHistoryGrid() {
 	var reqObject = convertOjectArrayToObject(userSolTmplSelectionObject);
@@ -746,27 +868,6 @@ function executeOnClickOfGenerateContract() {
 	$("body").find("#displaySelectedRowModal").remove();
 	$('body').append(modalTemplateToDisplay);
 	$("#simplePopupModalButton").trigger('click');
-}
-
-function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
-	$("#displayConfirmModalAddToCart").remove();
-	var data = {};
-	data["designName"] = designName;
-	data["speed"] = speed;
-	data["mrc"] = mrc;
-	data["url"] = url
-	var templatePath = contextPath + "/templates/confirm_modal_addToCart.html";
-	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("confirm_modal_addToCart", modalTemplate);
-	var modalTemplateToDisplay = $.tmpl("confirm_modal_addToCart", data);
-	
-	$('body').append(modalTemplateToDisplay);
-	$("#btndisplayConfirmModalAddToCart").trigger('click');
-	if(name != undefined && name != '' && name == 'btnCustomize') {
-		isButtonCustomizeClick = true;
-		$("#dispConfirmAddToCartModal #modal-footer").find('button').html('Continue <span class="glyphicon glyphicon-shopping-cart"></span>');
-		$("#dispConfirmAddToCartModal").find('p').html('has been successfully added to the Cart and ready for customization.')
-	}
 }
 
 
