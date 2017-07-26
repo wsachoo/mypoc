@@ -132,7 +132,25 @@ function displayDataGridWithTop5Records(accessType, accessSpeed) {
 			var topResultsTemplate = getTemplateDefinition(templatePath);
 			$.template("top_results_template", topResultsTemplate);
 */			
-			var tmpObj2 = {};
+
+			var otherData = {};
+			otherData["DATA"] = data.DATA.slice(6);
+
+			var topResultsTemplateToDisplay = $.tmpl("top_results_template", {"data":data, "data2":otherData});
+			$("#solutionTemplateBottomFrame").append(topResultsTemplateToDisplay);
+			
+			
+	        //START: Code top display graph
+	    	var promise3 = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL"), "{}");
+	    	promise3.done(function(data3, textStatus, jqXHR){
+	        	drawPieGraphOnTopSolutionTemplatePage(data3);
+	        	
+	    	}).fail(function(jqXHR, textStatus, errorThrown) {
+	    		console.log(textStatus);
+	    	}); 
+
+        	
+/*        	var tmpObj2 = {};
 			tmpObj2["ACCESS_TYPE_ID"] = accessType;
 			tmpObj2["NUMBER_OF_ROWS"] = 25;
 			tmpObj2["indexWithinGroup"] = 4;
@@ -155,7 +173,7 @@ function displayDataGridWithTop5Records(accessType, accessSpeed) {
 		    		console.log(textStatus);
 		    	}); 
 		    	//END: Code top display graph				
-			});
+			});*/
 		}
 		else{
 			$("#solutionTemplateBottomFrame").empty();
@@ -164,10 +182,8 @@ function displayDataGridWithTop5Records(accessType, accessSpeed) {
 
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(textStatus);
-	}); 
-	
-} 
-
+	});	
+}
 
 function showSalesHistoryGrid() {
 	var reqObject = convertOjectArrayToObject(userSolTmplSelectionObject);
@@ -756,15 +772,15 @@ function executeOnClickOfGenerateContract() {
 
 function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
 	$("#displayConfirmModalAddToCart").remove();
-	var data = {};
-	data["designName"] = designName;
-	data["speed"] = speed;
-	data["mrc"] = mrc;
-	data["url"] = url
+	var datatemp = {};
+	datatemp["designName"] = designName;
+	datatemp["speed"] = speed;
+	datatemp["mrc"] = mrc;
+	datatemp["url"] = url
 /*	var templatePath = contextPath + "/templates/confirm_modal_addToCart.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
 	$.template("confirm_modal_addToCart", modalTemplate);*/
-	var modalTemplateToDisplay = $.tmpl("confirm_modal_addToCart", data);
+	var modalTemplateToDisplay = $.tmpl("confirm_modal_addToCart", datatemp);
 	
 	$('body').append(modalTemplateToDisplay);
 	$("#btndisplayConfirmModalAddToCart").trigger('click');
@@ -774,7 +790,6 @@ function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
 		$("#dispConfirmAddToCartModal").find('p').html('has been successfully added to the Cart and ready for customization.')
 	}
 }
-
 
 function onClickViewCartAndCheckout(url) {
 	try { $("div.modal-backdrop").remove(); } catch(ex) {}
