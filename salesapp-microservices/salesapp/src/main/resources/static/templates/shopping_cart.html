@@ -18,10 +18,17 @@ $(document).ready(function() {
 			$("#securityFeatureDiv").css('display', 'none');
 		}
 	});
+	
+/* 	$("button [name='btnCustomizeShoppingCart']").on('click', function(e) {
+			alert("from cart1");
+			var siteId = $(this).attr('siteid');
+			onClickCustomizeShoppingCart(siteId);
+	}); */
+	
 });
 </script>
 
-<div class="container-fluid" id="divShoppingCartTemplate">
+<div class="container" id="divShoppingCartTemplate">
 		<div class="row" style="text-align: left;">
 			<div class="col-sm-6">
 				<label style="font-size: 22px;">My Cart Details</label>
@@ -30,36 +37,63 @@ $(document).ready(function() {
 				<input type="button" value="Back To Offers" id="btnGoBackToOffers" class="btn btn-primary col-sm-offset-3" onclick="goBackToOffers();">
 			</div>
 		</div>
-		<hr>
-		<div class="row">
-		<div class="col-sm-6">
-				<strong style="font-size: 22px;">1. ${DATA["DESIGN NAME"]} &nbsp;<span class="glyphicon glyphicon-trash" ></span></strong> <br>
-				<div style="margin-left: 4%;">
-					${DATA["ACCESS BANDWIDTH"]}<br>
-					${DATA["NRC"]} of OTC<br>
-					${DATA["MANAGED ROUTER"]}<br>
-				</div>
-		</div>
+		<hr>                              
+		<!--  -->
+	{{each(j, item) jsonObjectToShoppingCartTmpl}}
+		<div class="row" id="divCartConfig">
+			<div class="col-md-10">
+				<div class="panel panel-primary ">
+					<div class="panel-heading" style="background-color: #3399ff;">
+						<h3 class="panel-title"><span style="font-size: 22px;"> ${jsonObjectToShoppingCartTmpl[j]["siteName"]} &nbsp;</span></h3>
+						<span class="pull-right clickable"><i
+							class="glyphicon glyphicon-chevron-up"></i></span>
+					</div>
+					<div class="panel-body" id="divCartConfigBody-${j}">
+						<div class="row">
+							<div class="col-sm-6">
+								<strong style="font-size: 20px;">
+									${jsonObjectToShoppingCartTmpl[j]["DESIGN NAME"]} &nbsp;<span
+									class="glyphicon glyphicon-trash"></span>
+								</strong> <br>
+								<div style="margin-left: 4%;">
+									${jsonObjectToShoppingCartTmpl[j]["ACCESS BANDWIDTH"]}<br>
+									${jsonObjectToShoppingCartTmpl[j]["NRC"]} of OTC<br>
+									${jsonObjectToShoppingCartTmpl[j]["MANAGED ROUTER"]}<br>
+								</div>
 
-		<div class="col-sm-6">
-				<strong style="font-size: 22px;">${DATA["MRC"]}</strong> <br>Effective monthly charge
-			</div>
-		</div>
-		<br>
-		<div class="row col-sm-10" >
-		<div class="col-sm-6">
-		<strong style="font-size: 18px;">Oppurtunity & Configuration options</strong>
-		</div>
-		<div class="col-sm-12">
-		<table class="table table-striped">
-			<tr>
-				<td>OPPORTUNITY ID</td>
-				<td>1-67YHJK&nbsp;<BR>
-					<a href="#">Edit Opportunity</a>
-				</td>
-			</tr>
-			{{each(i, item) DATA}}
-							{{if ( i == 'IP VERSION' || i == 'MANAGED ROUTER' || i == 'PORT SPEED') }}
+							</div>
+
+							<div class="col-sm-6">
+								<strong style="font-size: 22px;">${jsonObjectToShoppingCartTmpl[j]["MRC"]}</strong>
+								<br>Effective monthly charge<br>
+								<button type="button" id="btnCustomizeShoppingCart" name="btnCustomizeShoppingCart"
+									class="btn btn-primary" siteId= "${j}" onclick="onClickCustomizeShoppingCart( ${j}, '${jsonObjectToShoppingCartTmpl[j]['ID'].links[0]['href']}');"
+									style="float: left;">
+									Edit My Cart <span class="glyphicon glyphicon-shopping-cart"></span>
+								</button>
+							</div>
+						</div>
+						
+						<br>
+						
+						<div class="row col-sm-12">
+							<div class="col-sm-6">
+								<strong style="font-size: 18px;">Oppurtunity &
+									Configuration options</strong>
+							</div>
+							<div class="col-sm-12">
+								<table class="table table-striped">
+									<tr>
+										<td>OPPORTUNITY ID</td>
+										<td>1-67YHJK&nbsp;<BR> <a href="#">Edit
+												Opportunity</a>
+										</td>
+									</tr>
+									{{each(i, item) jsonObjectToShoppingCartTmpl[j]}}
+									{{if i == 'ID'}}
+									
+									{{else}}
+											{{if ( i == 'IP VERSION' || i == 'MANAGED ROUTER' || i == 'PORT SPEED') }}
 								{{if (i == 'IP VERSION' || i == 'PORT SPEED') }}
 									{{if (i == 'IP VERSION') }}
 										<tr>
@@ -127,61 +161,78 @@ $(document).ready(function() {
 									{{/if}}		
 								{{/if}}	
 							{{/if}}	
-						{{/each}}
-						</table>
-						<strong style="font-size: 18px;">Additional Features</strong>
-						<div class="col-sm-12">
-						<table class="table table-striped">
-						<tr>
-							<td>Add Voice Feature? &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="bvoipNeeded" disabled="disabled" id="bvoipNeeded"> Yes
-							</td>
-							<td>
-							<div class="row">
-								<div class="col-sm-1">
-									
-								</div>
-								<div class="col-sm-8" id="showDivBvoipFeature" style="display: none;">
-										Calling Plan <select name="bvoipVoiceFeature" class="form-control"
-											id="selectBvoipVoiceFeature" style="width: 60%;">
-											<option value="callingPlanB">Calling Plan B</option>
-											<option value="CallingPlanC">Calling Plan C</option>
-										</select>
-										Concurrent calls <input type="text" placeholder="6" id="txtConcurrentCall"
-											class="form-control" style="width: 60%;">
+									{{/if}} 
+									 
+									{{/each}}
+								</table>
+								<strong style="font-size: 18px;">Additional Features</strong>
+								<div class="col-sm-12">
+									<table class="table table-striped">
+										<tr>
+											<td>Add Voice Feature? &nbsp;&nbsp;&nbsp;&nbsp;<input
+												type="checkbox" name="bvoipNeeded" id="bvoipNeeded">
+												Yes
+											</td>
+											<td>
+												<div class="row">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-8" id="showDivBvoipFeature"
+														style="display: none;">
+														Calling Plan <select name="bvoipVoiceFeature"
+															class="form-control" id="selectBvoipVoiceFeature"
+															style="width: 60%;">
+															<option value="callingPlanB">Calling Plan B</option>
+															<option value="CallingPlanC">Calling Plan C</option>
+														</select> Concurrent calls <input type="text" placeholder="6"
+															id="txtConcurrentCall" class="form-control"
+															style="width: 60%;">
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>Add Security Feature? &nbsp;&nbsp;&nbsp;&nbsp;<input
+												type="checkbox" name="securityNeeded" id="securityNeeded">
+												Yes
+											</td>
+											<td>
+												<div class="row">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-8" id="securityFeatureDiv"
+														style="display: none;">
+														<select name="securityFeature" class="form-control"
+															id="securityFeatureSelect" style="width: 60%;">
+															<option value="cloudBasedSecurity">Cloud Based
+																Security
+															<option value="firewall">Firewall
+															<option value="wirelessBasedSecurity">Wireless
+																Based Security
+														</select>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</table>
 								</div>
 							</div>
-							</td>
-						</tr>
-						<tr>
-							<td>Add Security Feature? &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" disabled="disabled" name="securityNeeded" id="securityNeeded"> Yes
-							</td>
-						<td>
-							<div class="row">
-								<div class="col-sm-1">
-									
-								</div>
-								<div class="col-sm-8" id="securityFeatureDiv" style="display: none;">
-										<select name="securityFeature" class="form-control" id="securityFeatureSelect" style="width:60%;">
-											<option value="cloudBasedSecurity">Cloud Based Security
-											<option value="firewall">Firewall
-											<option value="wirelessBasedSecurity">Wireless Based Security
-										</select>
-								</div>
-							</div>
-						</td>
-						</tr>
-						</table>
 						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		<br>
+	{{/each}}
+
+
+
+
+
+	<div class="row col-sm-10" style="text-align: center" >
+		<input type="button" value="Checkout & Generate Contract" id="btnCheckoutGenContract" class="btn btn-primary" onclick="onClickCheckoutAndGenContract();" >
+	</div>
 		<div class="clearfix col-sm-12" style="text-align: center;">
-		<hr>
-			You have currently one Item in the cart.<br>
-		<hr>
+			<hr>
+				You have currently one Item in the cart.<br>
+			<hr>
 		</div>
-		
-	</div>
-	<div class="row col-sm-10" >
-		<button type="button"  id="btnCustomizeShoppingCart" class="btn btn-primary" onclick="onClickCustomizeShoppingCart();" style="float: left;">Edit My Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
-		<input type="button" value="Checkout & Generate Contract" id="btnCheckoutGenContract" class="btn btn-primary" onclick="onClickCheckoutAndGenContract();" style="float: right;">
-	</div>
 </div>
