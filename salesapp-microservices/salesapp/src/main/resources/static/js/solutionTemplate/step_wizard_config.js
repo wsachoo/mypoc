@@ -2,6 +2,7 @@ var userSolTmplSelectionObject = []; //global object for user selection on step 
 var dataToGenContract = {}; //global object to hold the data to display the contract wizard
 var portSpeedsToCustomizeGCData = {};
 var isButtonCustomizeClick = false;
+var jsonObjectToShoppingCartTmpl = {};
 
 var customizeGCDataFields = {
 		ipVersionDropDown  : function() {
@@ -107,7 +108,7 @@ function displayDataGrid(data, templateFormat) {
 	});	
 }
 
-function displayTopRecommendations(accessType, accessSpeed) {
+function displayDataGridWithTop5Records(accessType, accessSpeed) {
 	var tmpObj = {};
 	tmpObj["ACCESS_TYPE_ID"] = accessType;
 	tmpObj["NUMBER_OF_ROWS"] = 10;
@@ -120,37 +121,18 @@ function displayTopRecommendations(accessType, accessSpeed) {
 	$("#solutionTemplateBottomFrame").empty();
 		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
 	
-/*	        var soltemplatePath = contextPath + "/templates/solution_template_top_solutions.html";
+	        var soltemplatePath = contextPath + "/templates/solution_template_top_solutions.html";
 	        var toplSolutionTemplate = getTemplateDefinition(soltemplatePath);
 	        $.template("solution_template_top_solutions", toplSolutionTemplate);
-*/	        
     		var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", {"data":data});
         	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
         	$("#solutionTemplateTopFrame").trigger('create');
 
-/*			var templatePath = contextPath + "/templates/top_results_template.html";
+			var templatePath = contextPath + "/templates/top_results_template.html";
 			var topResultsTemplate = getTemplateDefinition(templatePath);
 			$.template("top_results_template", topResultsTemplate);
-*/			
-
-			var otherData = {};
-			otherData["DATA"] = data.DATA.slice(6);
-
-			var topResultsTemplateToDisplay = $.tmpl("top_results_template", {"data":data, "data2":otherData});
-			$("#solutionTemplateBottomFrame").append(topResultsTemplateToDisplay);
 			
-			
-	        //START: Code top display graph
-	    	var promise3 = httpAsyncPostWithJsonRequestResponse(SALESEXPRESS_CONSTANTS.getUrlPath("ZUUL_GATEWAY_FIND_SALES_PERCENTAGE_URL"), "{}");
-	    	promise3.done(function(data3, textStatus, jqXHR){
-	        	drawPieGraphOnTopSolutionTemplatePage(data3);
-	        	
-	    	}).fail(function(jqXHR, textStatus, errorThrown) {
-	    		console.log(textStatus);
-	    	}); 
-
-        	
-/*        	var tmpObj2 = {};
+			var tmpObj2 = {};
 			tmpObj2["ACCESS_TYPE_ID"] = accessType;
 			tmpObj2["NUMBER_OF_ROWS"] = 25;
 			tmpObj2["indexWithinGroup"] = 4;
@@ -173,7 +155,7 @@ function displayTopRecommendations(accessType, accessSpeed) {
 		    		console.log(textStatus);
 		    	}); 
 		    	//END: Code top display graph				
-			});*/
+			});
 		}
 		else{
 			$("#solutionTemplateBottomFrame").empty();
@@ -182,8 +164,10 @@ function displayTopRecommendations(accessType, accessSpeed) {
 
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(textStatus);
-	});	
-}
+	}); 
+	
+} 
+
 
 function showSalesHistoryGrid() {
 	var reqObject = convertOjectArrayToObject(userSolTmplSelectionObject);
@@ -533,8 +517,6 @@ function onNextButtonClick($thisRef) {
 function drawPieGraphOnTopSolutionTemplatePage(data) {
 	var tmpData = data["DATA"];
 	
-	//console.log("XXXX: " + JSON.stringify(tmpData));
-	
 	var graph_data = {};
 	graph_data.labels = [];
 	graph_data.datasets = [];
@@ -545,21 +527,9 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 	graph_data.datasets[0].data = [];
 	
 	$.each(tmpData, function(i, value) {
-		
-		if (value.ACCESS_TYPE_ID) {
-			graph_data.labels.push((value.ACCESS_TYPE_ID.split("_")[1])/1000 + " Mbps");
-		}
-		else {
-			graph_data.labels.push((value.access_type_id.split("_")[1])/1000 + " Mbps");
-		}
-		
-		if (value.PERCENTAGE) {
-			graph_data.datasets[0].data.push(value.PERCENTAGE || value.percentage);
-		}
-		else {
-			graph_data.datasets[0].data.push(value.percentage || value.percentage);
-		}
-		
+
+		graph_data.labels.push((value.ACCESS_TYPE_ID.split("_")[1])/1000 + " Mbps");
+		graph_data.datasets[0].data.push(value.PERCENTAGE || value.percentage);
 		graph_data.attr.push();
 	});
 	
@@ -581,7 +551,7 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
       };
 }
 
-function showConfiguredSitesList() {
+var siteConfigListAsArray = function showConfiguredSitesList() {
 	$("#showConfiguredSitesList tr").remove();
 	var checkSiteNames = []
 	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
@@ -592,7 +562,9 @@ function showConfiguredSitesList() {
 		var siteName = "<tr><td>"+ value +"</td></tr>";
 		$("#showConfiguredSites").find('table').append(siteName);
 	});
-}
+	
+	return checkSiteNames
+};
 
 var checkSitesSelection = function() {
 	var checkSiteNames = []
@@ -646,23 +618,28 @@ function onClickApplyGCData() {
 	thisElement.remove();
 }
 
-function customizePortSpeedsGCData() {
+function customizePortSpeedsGCData(siteId, url) {
 	var portSpeedsDropDownElem = customizeGCDataFields.portSpeedsDropDown();
-	var displayPortSpeedList = $("#displayPortSpeedList");
-	displayPortSpeedList.html(portSpeedsDropDownElem);
 	
+	var divShoppingCartConfigBody = "#divCartConfigBody-"+siteId; //current site config div
+	var displayPortSpeedList = $(divShoppingCartConfigBody).find("#displayPortSpeedList");
+	
+	displayPortSpeedList.html(portSpeedsDropDownElem);
+	var data = httpGetWithJsonResponse(url, "");
+	var portSpeedsToCustomizeGCData = data["portSpeedList"];
 	 $.each(portSpeedsToCustomizeGCData, function(key, value) {
         var option = $('<option />').prop('value', value).text(value);
         $('#displayPortSpeedList select').append(option);
       });
 }
 
-function customizeContractTermGCData() {
+function customizeContractTermGCData(siteId) {
 	var contractTermDropDownElem = customizeGCDataFields.contractTermDropDowm();
-	var displayContractTermList = $("#displayContractTermList");
+	
+	var divShoppingCartConfigBody = "#divCartConfigBody-"+siteId; //current site config div
+	var displayContractTermList = $(divShoppingCartConfigBody).find("#displayContractTermList");
+	
 	displayContractTermList.html(contractTermDropDownElem);
-	
-	
 }
 
 function updateMRCAndNRC(updatedContractTermValue, updatedContractTerm) {
@@ -745,7 +722,8 @@ function executeFuncForTerm36Months(updatedContractTermValue, updatedContractTer
 			    		try { $("div.modal-backdrop").remove(); } catch(ex) {}
 			    		setCameHereFromRecommendation();
 			    		//displaySelectedRowModal(vbb250mbpsUrl, vvb250mbpsMatchPercentage);
-			    		onClickViewCartAndCheckout(vbb250mbpsUrl);
+			    		//onClickViewCartAndCheckout(vbb250mbpsUrl);
+			    		onClickViewCartAndCheckoutNew(vbb250mbpsUrl);
 			    	}
 			    }
 			});
@@ -772,15 +750,15 @@ function executeOnClickOfGenerateContract() {
 
 function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
 	$("#displayConfirmModalAddToCart").remove();
-	var datatemp = {};
-	datatemp["designName"] = designName;
-	datatemp["speed"] = speed;
-	datatemp["mrc"] = mrc;
-	datatemp["url"] = url
-/*	var templatePath = contextPath + "/templates/confirm_modal_addToCart.html";
+	var data = {};
+	data["designName"] = designName;
+	data["speed"] = speed;
+	data["mrc"] = mrc;
+	data["url"] = url
+	var templatePath = contextPath + "/templates/confirm_modal_addToCart.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("confirm_modal_addToCart", modalTemplate);*/
-	var modalTemplateToDisplay = $.tmpl("confirm_modal_addToCart", datatemp);
+	$.template("confirm_modal_addToCart", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("confirm_modal_addToCart", data);
 	
 	$('body').append(modalTemplateToDisplay);
 	$("#btndisplayConfirmModalAddToCart").trigger('click');
@@ -790,6 +768,7 @@ function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
 		$("#dispConfirmAddToCartModal").find('p').html('has been successfully added to the Cart and ready for customization.')
 	}
 }
+
 
 function onClickViewCartAndCheckout(url) {
 	try { $("div.modal-backdrop").remove(); } catch(ex) {}
@@ -830,10 +809,10 @@ function onClickViewCartAndCheckout(url) {
 	$('<div class="row" id="displayShoppingCart"></div>').insertAfter("div.sachtopmenu");
 	//addContractGenTab();
 	activateMyCartTab();
-/*	var templatePath = contextPath + "/templates/shopping_cart.html";
+	var templatePath = contextPath + "/templates/shopping_cart.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("shopping_cart", modalTemplate);*/
-	var modalTemplateToDisplay = $.tmpl("shopping_cart_url", {"DATA" : DATA});
+	$.template("shopping_cart", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("shopping_cart", DATA);
 	
 	$("#displayShoppingCart").append(modalTemplateToDisplay);
 	var topMenuDiv = $("#displayShoppingCart");
@@ -847,76 +826,58 @@ function onClickViewCartAndCheckout(url) {
 	isButtonCustomizeClick = false;
 }
 
-function onClickCustomizeShoppingCart() {
-
+function onClickCustomizeShoppingCart(siteId, url) {
+	
 	var ipVersionDropDownTmpl = customizeGCDataFields.ipVersionDropDown();
 	var managedRouterDropDownTmpl = customizeGCDataFields.managedRouterDropDown();
-	customizePortSpeedsGCData();
-	customizeContractTermGCData();
-	enableAdditionalFeaturesCheckBox();
-	var thisElement = $("#btnCustomizeShoppingCart");
+	customizePortSpeedsGCData(siteId, url);
+	customizeContractTermGCData(siteId);
+	
+	var divShoppingCartConfigBody = "#divCartConfigBody-"+siteId; //current site config div
+	
+	var thisElement = $(divShoppingCartConfigBody).find("#btnCustomizeShoppingCart");
 	thisElement.html('Update My Cart <span class="glyphicon glyphicon-shopping-cart"></span>');
 	thisElement.attr('id','btnApplyShoppingCartData');
-	thisElement.attr('onclick','onClickApplyShoppingCartData();');
-	$("#displayIpVersionTd").empty();
-	$("#displayIpVersionTd").append(ipVersionDropDownTmpl);
-	$("#displayManagedRouterType").empty();
-	$("#displayManagedRouterType").append(managedRouterDropDownTmpl);
+	thisElement.attr('name','btnApplyShoppingCartData');
+	thisElement.removeAttr('onclick');
+	thisElement.attr('onclick','onClickApplyShoppingCartData('+siteId+', \"'+url+'\");');
+	//thisElement.attr('siteid', siteId);
+	
+	$(divShoppingCartConfigBody).find("#displayIpVersionTd").empty();
+	$(divShoppingCartConfigBody).find("#displayIpVersionTd").append(ipVersionDropDownTmpl);
+	$(divShoppingCartConfigBody).find("#displayManagedRouterType").empty();
+	$(divShoppingCartConfigBody).find("#displayManagedRouterType").append(managedRouterDropDownTmpl);
 
 }
 
-function enableAdditionalFeaturesCheckBox() {
+function onClickApplyShoppingCartData(siteId, url) {
+	var divShoppingCartConfigBody = "#divCartConfigBody-"+siteId; //current site config div
 	
-	$("#bvoipNeeded").removeAttr('disabled');
-	$("#securityNeeded").removeAttr('disabled');
+	var ipVersionValue = $(divShoppingCartConfigBody).find('select[name="ipVersion"]').val();
+	var managedRouterValue = $(divShoppingCartConfigBody).find('select[name="managedRouterForGC"]').val();
+	var portSpeedValue = $(divShoppingCartConfigBody).find('select[name="portSpeedListForGC"]').val();
+	var contractTermValue = $(divShoppingCartConfigBody).find('select[name="contractTermForGC"]').val();
 	
-}
-
-function onClickApplyShoppingCartData() {
+	saveCartDetailConfigData(ipVersionValue, managedRouterValue, portSpeedValue, contractTermValue, siteId);//declared in cart_detail_config.js
+	var thisElement = $(divShoppingCartConfigBody).find("#btnApplyShoppingCartData");
 	
-	var ipVersionValue = $('select[name="ipVersion"]').val();
-	var managedRouterValue = $('select[name="managedRouterForGC"]').val();
-	var portSpeedValue = $('select[name="portSpeedListForGC"]').val();
-	var contractTermValue = $('select[name="contractTermForGC"]').val();
-	
-	var thisElement = $("#btnApplyShoppingCartData");
-	
-	$("#displayIpVersionTd").html(ipVersionValue);
-	$("#displayManagedRouterType").html(managedRouterValue);
-	$("#displayPortSpeedList").html(portSpeedValue);
-	$("#displayContractTermList").html(contractTermValue);
-	
-	var customizeButton = '<button type="button"  id="btnCustomizeShoppingCart" class="btn btn-primary" onclick="onClickCustomizeShoppingCart();" style="float: left;">Edit My Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>';
-	
+	$(divShoppingCartConfigBody).find("#displayIpVersionTd").html(ipVersionValue);
+	$(divShoppingCartConfigBody).find("#displayManagedRouterType").html(managedRouterValue);
+	$(divShoppingCartConfigBody).find("#displayPortSpeedList").html(portSpeedValue);
+	$(divShoppingCartConfigBody).find("#displayContractTermList").html(contractTermValue);
+	var customizeButton = "<button type='button'  id='btnCustomizeShoppingCart' name='btnCustomizeShoppingCart' class='btn btn-primary'  siteid='"+siteId+"' style='float: left;'>Edit My Cart <span class='glyphicon glyphicon-shopping-cart'></span></button>";
+	//thisElement.attr('onclick','onClickApplyShoppingCartData('+siteId+', \"'+url+'\");');
 	thisElement.after(customizeButton);
+	$(divShoppingCartConfigBody).find("#btnCustomizeShoppingCart").attr('onclick', 'onClickCustomizeShoppingCart('+siteId+', \"'+url+'\");');
 	thisElement.remove();
 }
 
 function onClickCheckoutAndGenContract() {
 	$("#checkoutGenerateContractDiv").remove();
-	var serviceLocations = {};
-	var sitePhysicalLocations = [];
-
-	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
-		var siteName = $(this).attr('data-name');
-		for(var i = 0; i < gUserDetails.siteAddresses.length; i++) {
-			var tmpServiceLocations = {};
-			if(siteName == gUserDetails.siteAddresses[i].site_name || siteName == gUserDetails.siteAddresses[i].SITE_NAME) {
-				tmpServiceLocations["siteName"] = gUserDetails.siteAddresses[i].site_name || gUserDetails.siteAddresses[i].SITE_NAME;
-				tmpServiceLocations["siteAddress"] = gUserDetails.siteAddresses[i].site_addr || gUserDetails.siteAddresses[i].SITE_ADDR;
-				sitePhysicalLocations.push(tmpServiceLocations);
-			}
-		}
-		
-	});
-	
-	serviceLocations["siteNameAddress"] = sitePhysicalLocations;
-	var numOfLocations = serviceLocations["siteNameAddress"].length;
-	serviceLocations["numOfLocations"] = numOfLocations;
-/*	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
+	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("checkout_generate_contract", modalTemplate);*/
-	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract_modal_url", {"serviceLocations" : serviceLocations});
+	$.template("checkout_generate_contract", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract", {});
 	$('body').append(modalTemplateToDisplay);
 	$("#btnPreviewContactModal").trigger('click');
 }
@@ -924,4 +885,60 @@ function onClickCheckoutAndGenContract() {
 function goBackToOffers() {
 	$("#shoppingCartLink").find('.badge').remove();
 	window.history.back();
+}
+
+
+function onClickViewCartAndCheckoutNew(url) {
+	try { $("div.modal-backdrop").remove(); } catch(ex) {}
+	
+	location.hash = "myCart";
+	$('body').find("#divShoppingCartTemplate").remove();
+	if(url == null || url == undefined || url == ''){
+		var url = $("#btnViewCartAndCheckout").attr('link');
+	}
+
+	var data = httpGetWithJsonResponse(url, "");
+	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
+	
+	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc", "id"];
+	
+	var DATA = {};
+	$.each(objectKeysArray, function(k, value) {
+		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
+		key = transformDisplayKeyName(key);
+		
+		DATA[key] = dataToGenContract[value];
+		
+		if (key == "OFFER NAME") {
+			DATA[key] = dataToGenContract["bundleCd"];
+		}
+		else if(key == "MRC" || key == "NRC") {
+			data[value] = "$ "+ data[value];
+			DATA[key] = data[value];
+		}
+	});
+	
+	defaultTermPeriod = DATA["TERM"];
+	defaultTermPeriodMRC = DATA["MRC"];
+	defaultTermPeriodNRC = DATA["NRC"];
+	$('<div class="row" id="displayShoppingCart"></div>').insertAfter("div.sachtopmenu");
+	activateMyCartTab();
+	
+	
+	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
+		 var siteName = $(this).attr('data-name');
+		 var siteId = $(this).attr('value');
+		 jsonObjectToShoppingCartTmpl[siteId] = jQuery.extend(true, {}, DATA);
+         jsonObjectToShoppingCartTmpl[siteId]["siteName"] = siteName;
+	});
+	
+	showCartDetails(jsonObjectToShoppingCartTmpl);
+	
+	$("#shoppingCartLink").find('.badge').remove();
+	var itemsInCart = Object.keys(jsonObjectToShoppingCartTmpl).length;
+	$("#shoppingCartLink").append('<span class="badge">'+ itemsInCart +'</span>');
+	if( isButtonCustomizeClick == true) {
+		onClickCustomizeShoppingCart();
+	}
+	isButtonCustomizeClick = false;
 }

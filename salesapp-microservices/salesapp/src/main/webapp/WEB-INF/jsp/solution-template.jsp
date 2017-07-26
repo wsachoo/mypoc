@@ -39,6 +39,9 @@
 					 
 	document
 			.write('<link rel="stylesheet" href="${contextPath}/css/jquery.bootgrid.css?id='
+					+ Math.floor(Math.random() * 100) + 'type="text/css" />');
+	document
+			.write('<link rel="stylesheet" href="${contextPath}/css/cart-detail.css?id='
 					+ Math.floor(Math.random() * 100) + 'type="text/css" />');				 
 					
 </script>
@@ -99,7 +102,7 @@
 							id="sachtopmenu_myCart">
 							<a href="#" id="shoppingCartLink" style="color: white;"
 								data-name="myCart"
-								data-url="${pageContext.request.contextPath}/myCart"> My Cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
+								data-url="myCart"> My Cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -175,7 +178,10 @@
 					+ Math.floor(Math.random() * 100) + '"\><\/script>');
 	document
 			.write('<script src="${contextPath}/js/solutionTemplate/step_wizard_config.js?dev='
-					+ Math.floor(Math.random() * 100) + '"\><\/script>');				
+					+ Math.floor(Math.random() * 100) + '"\><\/script>');
+	document
+			.write('<script src="${contextPath}/js/solutionTemplate/cart_detail_config.js?dev='
+					+ Math.floor(Math.random() * 100) + '"\><\/script>');								
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -183,9 +189,9 @@
 			location.replace("${contextPath}/user/home");
 		
 		});
-		$("#shoppingCartLink").click(function(e) {
+/* 		$("#shoppingCartLink").click(function(e) {
 			return false;
-		});
+		}); */
 	});
 </script>
 </html>
