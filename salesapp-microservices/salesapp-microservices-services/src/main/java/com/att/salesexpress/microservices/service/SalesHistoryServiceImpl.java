@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -111,7 +112,7 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 	}
 
 	/**
-	 * Arranges the products in proper order fir displaying on recommendation page.
+	 * Arranges the products in proper order for displaying on recommendation page.
 	 * 
 	 * @param salesHistoryStrippedList
 	 * @param recommendedVnfDevices
@@ -124,17 +125,24 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		List<Object> returnValue = new ArrayList<>();
 		
 		int i = 0;
+		Iterator<Object> itrVnf = recommendedVnfDevices.iterator();
+		Iterator<Object> itrUcpe = recommendedUcpeDevices.iterator();
+		
 		while (returnValue.size() <= NUMBER_OF_PRODUCTS_TO_DISPLAY) {
+			
+			//Add AVPN product
 			if (salesHistoryStrippedList.size() > i) {
 				returnValue.add(salesHistoryStrippedList.get(i));
 			}
 			
-			if (recommendedVnfDevices.size() > i && (i % 2 == 0)) {
-				returnValue.add(recommendedVnfDevices.get(i));
+			//Add Flexware VNF product
+			if ((i % 2 == 0) && itrVnf.hasNext()) {
+				returnValue.add(itrVnf.next());
 			}
 			
-			if (recommendedUcpeDevices.size() > i && (i % 2 == 1)) {
-				returnValue.add(recommendedUcpeDevices.get(i));
+			//Add Flexware UCPE product
+			if ((i % 2 == 1) && itrUcpe.hasNext()) {
+				returnValue.add(itrUcpe.next());
 			}
 			
 			i++;
