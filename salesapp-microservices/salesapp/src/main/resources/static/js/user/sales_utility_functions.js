@@ -1,3 +1,12 @@
+function getNRCAvailabilityString(val, msg) {
+	if (val != 0) {
+		return "$" + val + msg;
+	}
+	else {
+		return "NRC Not Available";
+	}
+}
+
 function getProductSitesDisplayTextOnResultsPage(str) {
 	var siteIdArray = str.split(",");
 	var numberOfsitesForProduct = siteIdArray.length;
@@ -15,8 +24,6 @@ function getProductSitesDisplayTextOnResultsPage(str) {
 	
 	return productSiteNames.toString();
 }
-
-
 
 function capitalize_jsobject_keys(obj) {
 	return obj.map( function( item ){

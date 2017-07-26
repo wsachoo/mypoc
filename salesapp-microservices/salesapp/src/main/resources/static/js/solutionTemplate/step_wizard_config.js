@@ -121,18 +121,17 @@ function displayDataGridWithTop5Records(accessType, accessSpeed) {
 	$("#solutionTemplateBottomFrame").empty();
 		if(data["STATUS"] != null && data["STATUS"] != "" && data["STATUS"] == "SUCCESS" && data["DATA"].length>0){
 	
-/*	        var soltemplatePath = contextPath + "/templates/solution_template_top_solutions.html";
+	        var soltemplatePath = contextPath + "/templates/solution_template_top_solutions.html";
 	        var toplSolutionTemplate = getTemplateDefinition(soltemplatePath);
 	        $.template("solution_template_top_solutions", toplSolutionTemplate);
-*/	        
     		var toplSolutionTemplate = $.tmpl("solution_template_top_solutions", {"data":data});
         	$("#solutionTemplateTopFrame").after(toplSolutionTemplate);
         	$("#solutionTemplateTopFrame").trigger('create');
 
-/*			var templatePath = contextPath + "/templates/top_results_template.html";
+			var templatePath = contextPath + "/templates/top_results_template.html";
 			var topResultsTemplate = getTemplateDefinition(templatePath);
 			$.template("top_results_template", topResultsTemplate);
-*/			
+			
 			var tmpObj2 = {};
 			tmpObj2["ACCESS_TYPE_ID"] = accessType;
 			tmpObj2["NUMBER_OF_ROWS"] = 25;
@@ -518,8 +517,6 @@ function onNextButtonClick($thisRef) {
 function drawPieGraphOnTopSolutionTemplatePage(data) {
 	var tmpData = data["DATA"];
 	
-	//console.log("XXXX: " + JSON.stringify(tmpData));
-	
 	var graph_data = {};
 	graph_data.labels = [];
 	graph_data.datasets = [];
@@ -530,21 +527,9 @@ function drawPieGraphOnTopSolutionTemplatePage(data) {
 	graph_data.datasets[0].data = [];
 	
 	$.each(tmpData, function(i, value) {
-		
-		if (value.ACCESS_TYPE_ID) {
-			graph_data.labels.push((value.ACCESS_TYPE_ID.split("_")[1])/1000 + " Mbps");
-		}
-		else {
-			graph_data.labels.push((value.access_type_id.split("_")[1])/1000 + " Mbps");
-		}
-		
-		if (value.PERCENTAGE) {
-			graph_data.datasets[0].data.push(value.PERCENTAGE || value.percentage);
-		}
-		else {
-			graph_data.datasets[0].data.push(value.percentage || value.percentage);
-		}
-		
+
+		graph_data.labels.push((value.ACCESS_TYPE_ID.split("_")[1])/1000 + " Mbps");
+		graph_data.datasets[0].data.push(value.PERCENTAGE || value.percentage);
 		graph_data.attr.push();
 	});
 	
@@ -770,9 +755,9 @@ function displayConfirmModalAddToCart (designName, speed, mrc, url, name) {
 	data["speed"] = speed;
 	data["mrc"] = mrc;
 	data["url"] = url
-/*	var templatePath = contextPath + "/templates/confirm_modal_addToCart.html";
+	var templatePath = contextPath + "/templates/confirm_modal_addToCart.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("confirm_modal_addToCart", modalTemplate);*/
+	$.template("confirm_modal_addToCart", modalTemplate);
 	var modalTemplateToDisplay = $.tmpl("confirm_modal_addToCart", data);
 	
 	$('body').append(modalTemplateToDisplay);
@@ -824,10 +809,10 @@ function onClickViewCartAndCheckout(url) {
 	$('<div class="row" id="displayShoppingCart"></div>').insertAfter("div.sachtopmenu");
 	//addContractGenTab();
 	activateMyCartTab();
-/*	var templatePath = contextPath + "/templates/shopping_cart.html";
+	var templatePath = contextPath + "/templates/shopping_cart.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("shopping_cart", modalTemplate);*/
-	var modalTemplateToDisplay = $.tmpl("shopping_cart_url", {"DATA" : DATA});
+	$.template("shopping_cart", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("shopping_cart", DATA);
 	
 	$("#displayShoppingCart").append(modalTemplateToDisplay);
 	var topMenuDiv = $("#displayShoppingCart");
@@ -845,14 +830,12 @@ function onClickCustomizeShoppingCart(siteId, url) {
 	
 	var ipVersionDropDownTmpl = customizeGCDataFields.ipVersionDropDown();
 	var managedRouterDropDownTmpl = customizeGCDataFields.managedRouterDropDown();
-
 	customizePortSpeedsGCData(siteId, url);
 	customizeContractTermGCData(siteId);
-	enableAdditionalFeaturesCheckBox();
+	
 	var divShoppingCartConfigBody = "#divCartConfigBody-"+siteId; //current site config div
 	
 	var thisElement = $(divShoppingCartConfigBody).find("#btnCustomizeShoppingCart");
-
 	thisElement.html('Update My Cart <span class="glyphicon glyphicon-shopping-cart"></span>');
 	thisElement.attr('id','btnApplyShoppingCartData');
 	thisElement.attr('name','btnApplyShoppingCartData');
@@ -865,13 +848,6 @@ function onClickCustomizeShoppingCart(siteId, url) {
 	$(divShoppingCartConfigBody).find("#displayManagedRouterType").empty();
 	$(divShoppingCartConfigBody).find("#displayManagedRouterType").append(managedRouterDropDownTmpl);
 
-}
-
-function enableAdditionalFeaturesCheckBox() {
-	
-	$("#bvoipNeeded").removeAttr('disabled');
-	$("#securityNeeded").removeAttr('disabled');
-	
 }
 
 function onClickApplyShoppingCartData(siteId, url) {
@@ -898,29 +874,10 @@ function onClickApplyShoppingCartData(siteId, url) {
 
 function onClickCheckoutAndGenContract() {
 	$("#checkoutGenerateContractDiv").remove();
-	var serviceLocations = {};
-	var sitePhysicalLocations = [];
-
-	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
-		var siteName = $(this).attr('data-name');
-		for(var i = 0; i < gUserDetails.siteAddresses.length; i++) {
-			var tmpServiceLocations = {};
-			if(siteName == gUserDetails.siteAddresses[i].site_name || siteName == gUserDetails.siteAddresses[i].SITE_NAME) {
-				tmpServiceLocations["siteName"] = gUserDetails.siteAddresses[i].site_name || gUserDetails.siteAddresses[i].SITE_NAME;
-				tmpServiceLocations["siteAddress"] = gUserDetails.siteAddresses[i].site_addr || gUserDetails.siteAddresses[i].SITE_ADDR;
-				sitePhysicalLocations.push(tmpServiceLocations);
-			}
-		}
-		
-	});
-	
-	serviceLocations["siteNameAddress"] = sitePhysicalLocations;
-	var numOfLocations = serviceLocations["siteNameAddress"].length;
-	serviceLocations["numOfLocations"] = numOfLocations;
-/*	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
+	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("checkout_generate_contract", modalTemplate);*/
-	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract_modal_url", {"serviceLocations" : serviceLocations});
+	$.template("checkout_generate_contract", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract", {});
 	$('body').append(modalTemplateToDisplay);
 	$("#btnPreviewContactModal").trigger('click');
 }
@@ -985,4 +942,3 @@ function onClickViewCartAndCheckoutNew(url) {
 	}
 	isButtonCustomizeClick = false;
 }
-

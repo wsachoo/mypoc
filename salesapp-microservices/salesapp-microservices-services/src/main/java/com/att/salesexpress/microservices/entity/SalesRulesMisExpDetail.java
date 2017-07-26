@@ -22,6 +22,8 @@ public class SalesRulesMisExpDetail implements Serializable {
 
 	private transient List<String> portSpeedList = new ArrayList<>();
 	
+	private transient String productType = "OTHER";
+	
 	@EmbeddedId
 	private SalesRulesMisExpDetailPK id;
 
@@ -243,4 +245,7 @@ public class SalesRulesMisExpDetail implements Serializable {
 		this.portSpeedList = portSpeedList;
 	}
 
+	public String getProductType() {
+		return productType;
+	}	
 }

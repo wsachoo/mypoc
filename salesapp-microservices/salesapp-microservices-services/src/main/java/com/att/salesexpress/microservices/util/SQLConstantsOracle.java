@@ -48,7 +48,8 @@ public interface SQLConstantsOracle {
 			+ "group by  m.DESIGN_NAME, m.ACCESS_SPEED_ID, m.MANAGED_ROUTER, m.MRC, m.NRC "
 			+ ")";
 
-	String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup = "select * from ( select "
+	String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup = "select * from ( "
+			+ "select * from ( select "
 			+ "row_number() over(partition by rankTable.DESIGN_NAME,rankTable.ACCESS_SPEED_ID, rankTable.MANAGED_ROUTER, rankTable.MRC, rankTable.NRC order by rankTable.SITE_ID) myrow, "
 			+ "rankTable.* from ( "
 			+ "        select countTable.*, "
@@ -60,11 +61,13 @@ public interface SQLConstantsOracle {
 			+ "            sth.* "
 			+ "            from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
 			+ "            where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
+			+ "            and sth.BUNDLE_CD = 'AVPN'"
 			+ "            ) countTable "
 			+ "            ) rankTable "
 			+ "            where rankTable.indexWithinGroup < :INDEX_WITHIN_GROUP"
 			+ "            order by MATCHING_ROW_PERCENTAGE desc, MRC asc"
-			+ ") x where x.myrow=1 and rownum <= :NUMBER_OF_ROWS";
+			+ ") x where x.myrow=1 and rownum <= :NUMBER_OF_ROWS"
+			+ " ) outerfilter where outerfilter.ACCESS_SPEED_ID in (50000, 150000)  and outerfilter.indexWithinGroup=1";
 
 	String sqlGetSalesHistoryDataByAccessType = "select rankTable.* from ("
 			+ "select countTable.*, "
@@ -76,12 +79,11 @@ public interface SQLConstantsOracle {
 			+ "ROUND(count(*) over (partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID) * 100/ totalTrans.cnt, 2) as MATCHING_ROW_PERCENTAGE, "
 			+ "rank() over ( partition by sth.ACCESS_SPEED_ID,  sth.PORT_SPEED_ID, sth.BUNDLE_CD order by sth.SITE_ID ) indexWithinGroup,"
 			+ "sth.* "
-			//+ "from SALES_TRANSACTION_HISTORY sth, (select count(*) cnt from SALES_TRANSACTION_HISTORY) totalTrans "
 			+ "from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
 			+ "where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
+			+ "and sth.BUNDLE_CD = 'AVPN'"
 			+ ") countTable "
 			+ ") rankTable "
-			//+ "where rankTable.RNK = 1 and rownum <= :NUMBER_OF_ROWS"; 
 			+ "where rankTable.indexWithinGroup = 1 and rownum <= :NUMBER_OF_ROWS "
 			+ "order by MATCHING_ROW_PERCENTAGE desc, MRC asc";
 	
@@ -165,5 +167,30 @@ public interface SQLConstantsOracle {
 	
 	String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed = "select * from sales_rules_mis_exp where  access_type = :ACCESS_TYPE_ID and"
 			  + "  ACCESS_SPEED_ID = :ACCESS_SPEED_ID and PORT_SPEED_ID =:PORT_SPEED_ID  and MRC is not null and ROWNUM <= 1";
+	
+    String sqlFindRecommendedVnfDevices = "With tInline as ( " + 
+            "select * from SALES_VNF_RULES where ROWID in ( " + 
+            "  select min(ROWID) " + 
+            "       from SALES_VNF_RULES a where a.RATE <> 0 " + 
+            "       group by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1), a.RATE " + 
+            "       )  " + 
+            "     )  " + 
+            "     select RULE_ID,VNF_ID,VIRTUAL_FEATURE_NAME,TYPE_OF_RATE,CURRENCY,RATE,EXTERNAL_RATE_ID,ACTIVE_YN,MANAGEMENT_TYPE  from ( " + 
+            "       select  " + 
+            "         dense_rank() over (partition by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1) order by a.RATE desc) RNK, " + 
+            "         a.*  " + 
+            "       from tInline a where a.RATE <> 0 " +  
+            "     ) t1  " + 
+            "     where t1.RNK <= 1 " + 
+            "     order by VNF_ID ";
+    
+    String sqlFindRecommendedUcpeDevices = "select RULE_ID, DEVICE_ID, MANUFACTURE_NAME, MODEL_NAME, STORAGE, CURRENCY, MRC_RATE, NRC_RATE, EXTERNAL_RATE_ID, ACTIVE_YN  from ("
+    		+ "select "
+    		+ "dense_rank() over (partition by SUBSTR(a.MODEL_NAME, 0, decode(INSTR(a.MODEL_NAME, '-', 1)-1, -1, length(a.MODEL_NAME), INSTR(a.MODEL_NAME, '-', 1)-1)) order by a.MRC_RATE desc) RNK, "
+    		+ "a.* "
+    		+ "from SALES_UCPE_RULES a where a.ACTIVE_YN = 'Y' "
+    		+ ") t1 "
+    		+ "where t1.RNK <=1 "
+    		+ " order by RULE_ID";
 	
 }

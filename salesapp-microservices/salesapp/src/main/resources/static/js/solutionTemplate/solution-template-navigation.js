@@ -43,7 +43,7 @@ function hashChange(){
         topMenuDiv.after(frameFormat);
         topMenuDiv.trigger('create');
         
-        displayDataGridWithTop5Records("ETHERNET");
+        displayTopRecommendations("ETHERNET");
     }	
 	else if (page.includes("stepWizard")) {
 		changeTab(page);

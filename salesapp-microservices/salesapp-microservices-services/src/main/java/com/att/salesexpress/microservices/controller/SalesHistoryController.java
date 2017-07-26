@@ -3,6 +3,7 @@ package com.att.salesexpress.microservices.controller;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.att.salesexpress.microservices.entity.SalesHistoryDetail;
 import com.att.salesexpress.microservices.entity.SalesHistoryStripped;
 import com.att.salesexpress.microservices.entity.SalesRulesMisExpDetail;
+import com.att.salesexpress.microservices.entity.SalesUcpeRule;
+import com.att.salesexpress.microservices.entity.SalesVnfRule;
 import com.att.salesexpress.microservices.service.SalesHistoryService;
 
 @RestController
@@ -33,32 +36,81 @@ public class SalesHistoryController {
 	@Autowired
 	private SalesHistoryService objSalesHistoryService;
 
+	/*
+	 * @RequestMapping(value =
+	 * "/salesHistory/getRecommendationBasedOnSalesHistory", method =
+	 * RequestMethod.GET, produces = { "application/json" }) public
+	 * HttpEntity<List<SalesHistoryStripped>>
+	 * getRecommendationBasedOnSalesHistory(
+	 * 
+	 * @RequestParam Map<String, Object> paramValues, HttpServletRequest
+	 * request) { logger.info(
+	 * "Inside getRecommendationBasedOnSalesHistory method");
+	 * List<SalesHistoryStripped> result =
+	 * objSalesHistoryService.getRecommendationBasedOnSalesHistory(paramValues);
+	 * 
+	 * if ((!result.isEmpty()) && result.get(0).getRuleDesignId() != 0) { for
+	 * (SalesHistoryStripped objSalesHistoryDO : result) { Link selfLink =
+	 * linkTo(methodOn(SalesHistoryController.class)
+	 * .getSalesHistoryOrderDetailByDesignRuleId(objSalesHistoryDO.
+	 * getRuleDesignId())) .withRel("siteDetail");
+	 * objSalesHistoryDO.add(selfLink); } } else { for (SalesHistoryStripped
+	 * objSalesHistoryDO : result) { Link selfLink = linkTo(
+	 * methodOn(SalesHistoryController.class).
+	 * getSalesHistoryOrderDetailBySiteIdLeadDesignId(
+	 * objSalesHistoryDO.getSiteId(), objSalesHistoryDO.getLeadDesignId()))
+	 * .withRel("siteDetail"); objSalesHistoryDO.add(selfLink); } }
+	 * 
+	 * logger.info(
+	 * "Returning result from getRecommendationBasedOnSalesHistory method");
+	 * return new ResponseEntity<List<SalesHistoryStripped>>(result,
+	 * HttpStatus.OK); }
+	 */
+
 	@RequestMapping(value = "/salesHistory/getRecommendationBasedOnSalesHistory", method = RequestMethod.GET, produces = {
 			"application/json" })
-	public HttpEntity<List<SalesHistoryStripped>> getRecommendationBasedOnSalesHistory(
+	public HttpEntity<List<Object>> getRecommendationBasedOnSalesHistory(
 			@RequestParam Map<String, Object> paramValues, HttpServletRequest request) {
 		logger.info("Inside getRecommendationBasedOnSalesHistory method");
-		List<SalesHistoryStripped> result = objSalesHistoryService.getRecommendationBasedOnSalesHistory(paramValues);
+		List<Object> result = objSalesHistoryService.getRecommendationBasedOnSalesHistory(paramValues);
 		
-		if((!result.isEmpty()) && result.get(0).getRuleDesignId() != 0){
-			for (SalesHistoryStripped objSalesHistoryDO : result) {
-				Link selfLink = linkTo(
-						methodOn(SalesHistoryController.class).getSalesHistoryOrderDetailByDesignRuleId(
-								objSalesHistoryDO.getRuleDesignId())).withRel("siteDetail");
-				objSalesHistoryDO.add(selfLink);
+		if (!result.isEmpty()) {
+			for (Object object : result) {
+				if (object instanceof SalesHistoryStripped) {
+					SalesHistoryStripped objSalesHistoryStripped = (SalesHistoryStripped) object;
+					
+					if (objSalesHistoryStripped.getRuleDesignId() != 0) {
+							Link selfLink = linkTo(methodOn(SalesHistoryController.class)
+									.getSalesHistoryOrderDetailByDesignRuleId(objSalesHistoryStripped.getRuleDesignId()))
+											.withRel("siteDetail");
+							objSalesHistoryStripped.add(selfLink);
+					} else {
+							Link selfLink = linkTo(
+									methodOn(SalesHistoryController.class).getSalesHistoryOrderDetailBySiteIdLeadDesignId(
+											objSalesHistoryStripped.getSiteId(), objSalesHistoryStripped.getLeadDesignId()))
+													.withRel("siteDetail");
+							objSalesHistoryStripped.add(selfLink);
+					}							
+				}
+				else if (object instanceof SalesVnfRule) {
+					SalesVnfRule salesVnfRule = (SalesVnfRule) object;
+					Link selfLink = linkTo(
+							methodOn(SalesHistoryController.class).getRecommendedVnfDeviceByRuleId(salesVnfRule.getRuleId()))
+									.withRel("siteDetail");
+					salesVnfRule.add(selfLink);									
+				}
+				else if (object instanceof SalesUcpeRule) {
+					SalesUcpeRule salesUcpeRule = (SalesUcpeRule) object;
+					Link selfLink = linkTo(
+							methodOn(SalesHistoryController.class).getRecommendedUcpeDeviceByRuleId(salesUcpeRule.getRuleId()))
+									.withRel("siteDetail");
+					salesUcpeRule.add(selfLink);					
+				}				
 			}
 		}
-		else{
-			for (SalesHistoryStripped objSalesHistoryDO : result) {
-				Link selfLink = linkTo(
-						methodOn(SalesHistoryController.class).getSalesHistoryOrderDetailBySiteIdLeadDesignId(
-								objSalesHistoryDO.getSiteId(), objSalesHistoryDO.getLeadDesignId())).withRel("siteDetail");
-				objSalesHistoryDO.add(selfLink);
-			}
-		}	
-		
+
 		logger.info("Returning result from getRecommendationBasedOnSalesHistory method");
-		return new ResponseEntity<List<SalesHistoryStripped>>(result, HttpStatus.OK);
+		return new ResponseEntity<List<Object>>(result, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/salesHistory/getSalesHistoryOrderDetailBySiteIdLeadDesignId", method = RequestMethod.GET, produces = {
@@ -91,22 +143,96 @@ public class SalesHistoryController {
 		logger.info("Returning result from getSalesHistoryOrderDetailBySiteId method");
 		return new ResponseEntity<List<Map<String, Object>>>(stats, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/salesHistory/getSalesHistoryOrderDetailByDesignRuleId", method = RequestMethod.GET, produces = {
-	"application/json" })
+			"application/json" })
 	@CrossOrigin
 	public HttpEntity<SalesRulesMisExpDetail> getSalesHistoryOrderDetailByDesignRuleId(
-			
 			@RequestParam(value = "designRuleId", required = true) int designRuleId) {
 		logger.info("Inside getSalesHistoryOrderDetailByDesignRuleId method");
 
 		SalesRulesMisExpDetail objSalesRulesmisExpDetail = objSalesHistoryService
 				.getSalesHistoryOrderDetailByDesignRuleId(designRuleId);
-		Link selfLink = linkTo(methodOn(SalesHistoryController.class)
-				.getSalesHistoryOrderDetailByDesignRuleId(designRuleId)).withSelfRel();
+		Link selfLink = linkTo(
+				methodOn(SalesHistoryController.class).getSalesHistoryOrderDetailByDesignRuleId(designRuleId))
+						.withSelfRel();
 		objSalesRulesmisExpDetail.getId().add(selfLink);
 
 		logger.info("Returning result from getSalesHistoryOrderDetailByDesignRuleId method");
 		return new ResponseEntity<SalesRulesMisExpDetail>(objSalesRulesmisExpDetail, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/salesHistory/getRecommendedVnfDevices", method = RequestMethod.GET, produces = {
+			"application/json" })
+	@CrossOrigin
+	public HttpEntity<List<Object>> getRecommendedVnfDevices() {
+		logger.info("Entered getRecommendedVnfDevices method");
+		List<Object> resultGeneric = objSalesHistoryService.getRecommendedVnfDevices();
+		@SuppressWarnings("unchecked")
+		List<SalesVnfRule> result = (List<SalesVnfRule>)(List<?>)resultGeneric;
+
+		for (SalesVnfRule salesVnfRule : result) {
+			Link selfLink = linkTo(
+					methodOn(SalesHistoryController.class).getRecommendedVnfDeviceByRuleId(salesVnfRule.getRuleId()))
+							.withRel("siteDetail");
+			salesVnfRule.add(selfLink);
+		}
+
+		logger.info("Exiting getRecommendedVnfDevices method");
+		return new ResponseEntity<List<Object>>(resultGeneric, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/salesHistory/getRecommendedVnfDeviceByRuleId", method = RequestMethod.GET, produces = {
+			"application/json" })
+	@CrossOrigin
+	public HttpEntity<SalesVnfRule> getRecommendedVnfDeviceByRuleId(
+			@RequestParam(value = "ruleId", required = true) BigDecimal ruleId) {
+
+		logger.info("Inside getRecommendedVnfDeviceByRuleId method");
+
+		SalesVnfRule objSalesVnfRule = objSalesHistoryService.getRecommendedVnfDeviceByRuleId(ruleId);
+		Link selfLink = linkTo(methodOn(SalesHistoryController.class).getRecommendedVnfDeviceByRuleId(ruleId))
+				.withSelfRel();
+		objSalesVnfRule.add(selfLink);
+
+		logger.info("Returning result from getRecommendedVnfDeviceByRuleId method");
+		return new ResponseEntity<SalesVnfRule>(objSalesVnfRule, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/salesHistory/getRecommendedUcpeDevices", method = RequestMethod.GET, produces = {
+			"application/json" })
+	@CrossOrigin
+	public HttpEntity<List<Object>> getRecommendedUcpeDevices() {
+		logger.info("Entered getRecommendedUcpeDevices method");
+		List<Object> resultGeneric = objSalesHistoryService.getRecommendedUcpeDevices();
+		@SuppressWarnings("unchecked")
+		List<SalesUcpeRule> result = (List<SalesUcpeRule>)(List<?>)resultGeneric;
+
+		for (SalesUcpeRule salesUcpeRule : result) {
+			Link selfLink = linkTo(
+					methodOn(SalesHistoryController.class).getRecommendedUcpeDeviceByRuleId(salesUcpeRule.getRuleId()))
+							.withRel("siteDetail");
+			salesUcpeRule.add(selfLink);
+		}
+
+		logger.info("Exiting getRecommendedUcpeDevices method");
+		return new ResponseEntity<List<Object>>(resultGeneric, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/salesHistory/getRecommendedUcpeDeviceByRuleId", method = RequestMethod.GET, produces = {
+			"application/json" })
+	@CrossOrigin
+	public HttpEntity<SalesUcpeRule> getRecommendedUcpeDeviceByRuleId(
+			@RequestParam(value = "ruleId", required = true) Long ruleId) {
+
+		logger.info("Inside getRecommendedUcpeDeviceByRuleId method");
+
+		SalesUcpeRule objSalesUcpeRule = objSalesHistoryService.getRecommendedUcpeDeviceByRuleId(ruleId);
+		Link selfLink = linkTo(methodOn(SalesHistoryController.class).getRecommendedUcpeDeviceByRuleId(ruleId))
+				.withSelfRel();
+		objSalesUcpeRule.add(selfLink);
+
+		logger.info("Returning result from getRecommendedUcpeDeviceByRuleId method");
+		return new ResponseEntity<SalesUcpeRule>(objSalesUcpeRule, HttpStatus.OK);
 	}
 }

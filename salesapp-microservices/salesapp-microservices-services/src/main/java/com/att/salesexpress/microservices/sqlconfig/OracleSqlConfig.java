@@ -50,4 +50,15 @@ public class OracleSqlConfig {
 	public String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed() {
 		return SQLConstantsOracle.sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed;
 	}
+	
+	@Bean
+	public String sqlGetFindRecommendedVnfDevices() {
+		return SQLConstantsOracle.sqlFindRecommendedVnfDevices;
+	}	
+	
+	@Bean
+	public String sqlGetFindRecommendedUcpeDevices() {
+		return SQLConstantsOracle.sqlFindRecommendedUcpeDevices;
+	}	
+		
 }

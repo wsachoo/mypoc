@@ -8,15 +8,24 @@
 		$("input[name='ACCESS_TYPE_ID']").click(function() {
 			var accessType = $(this).val().split("_")[0];
 			var accessSpeed = $(this).val().split("_")[1];
-			displayDataGridWithTop5Records(accessType, accessSpeed);
+			displayTopRecommendations(accessType, accessSpeed);
 		});
 
 		$("input[name='btnAddToCart']").on('click', function(e) {
 			var designName = $(this).attr('design-name');
-			var speed = $(this).attr('speed');
-			var mrc = $(this).attr('mrc');
-			var url = $(this).attr('link');
-			displayConfirmModalAddToCart(designName, speed, mrc, url);
+			
+			if ('Flexware' == designName ) {
+				var deviceId = $(this).attr('speed');
+				var mrc = $(this).attr('mrc');
+				var url = $(this).attr('link');
+				displayConfirmModalAddToCart(designName, deviceId, mrc, url);	
+			}
+			else {
+				var speed = $(this).attr('speed');
+				var mrc = $(this).attr('mrc');
+				var url = $(this).attr('link');
+				displayConfirmModalAddToCart(designName, speed, mrc, url);				
+			}
 		});
 
 		$("input[name='btnCustomize']").on('click', function(e) {
@@ -95,7 +104,57 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6">
+
+ 			<div class="col-sm-6">
+				<div class="jumbotron"
+					style="background-color: #33ccff; color: black; border: 1px solid; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
+					<div class="row" style="text-align: center;">
+						<span style="color: white;font-size: 18px;">FLEXWARE</span>
+						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
+					</div>					
+					<div class="row" style="text-align: center;">
+						<span style="color: white;font-size: 22px; font-weight: bold;">${data["DATA"][1]["vnfId"]}</span>
+						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
+					</div>
+					<div class="row" style="text-align: center;">
+						<span style="color: white;font-size: 17px;">${data["DATA"][1]["managementType"]} Managed</span>
+						<hr style="width: 60%; margin-top: 1px;margin-bottom: 1px">
+					</div>					
+
+					<div class="row" style="text-align: center;">
+						<span style="color: white;font-size: 17px;">External Rate Id ${data["DATA"][1]["externalRateId"]}</span>
+					</div>
+					<div class="row" style="color: white; text-align: center;font-size: 22px; font-weight: bold;">
+						$${data["DATA"][1]["rate"]}
+					</div>
+					<div class="row" style="color: white; text-align: center; font-size: 14px;font-weight: bold;">Effective Monthly Price</div>
+					<div class="row">&nbsp;</div>
+					<div class="row">
+						<div class="col-sm-10 col-sm-offset-1">
+							<input name="btnAddToCart"
+								type="button"
+								style="color: black; background-color: #efefef; border: 1px solid;"
+								design-name="Flexware" class="btn btn-block" speed="${data['DATA'][1]['vnfId']}"
+								value="Add To Cart" mrc="${data['DATA'][1]['rate']}"
+								link="${data['DATA'][1]['links'][0]['href']}">
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px">
+						<div class="col-sm-8 col-sm-offset-2">
+							<input link="${data['DATA'][1]['links'][0]['href']}"
+								name="btnCustomize" type="button"
+								style="background-color: #efefef; border: 1px solid;"
+								matchPercentage="${data['DATA'][1]['matchPercentage']}"
+								class="btn btn-block" value="Customize"
+								mrc="${data['DATA'][1]['rate']}"
+								design-name="Flexware" speed="${data['DATA'][1]['vnfId']}">								
+						</div>
+					</div>
+				</div>
+			</div> 	
+
+
+<!-- 			<div class="col-sm-6">
 				<div class="jumbotron"
 					style="background-color: #33ccff; color: black; border: 1px solid; border-radius: 25px; padding-bottom: 20px; padding-top: 20px;">
 					<div class="row" style="text-align: center;">
@@ -143,7 +202,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>  -->
 		</div>
 	</div>
 	<div class="col-sm-6">
@@ -151,4 +210,5 @@
 			<canvas id="myChart"></canvas>
 		</div>
 	</div>
+
 </div>
