@@ -107,7 +107,7 @@ function displayDataGrid(data, templateFormat) {
 	});	
 }
 
-function displayDataGridWithTop5Records(accessType, accessSpeed) {
+function displayTopRecommendations(accessType, accessSpeed) {
 	var tmpObj = {};
 	tmpObj["ACCESS_TYPE_ID"] = accessType;
 	tmpObj["NUMBER_OF_ROWS"] = 10;
