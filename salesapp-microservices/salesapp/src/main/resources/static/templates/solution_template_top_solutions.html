@@ -8,7 +8,7 @@
 		$("input[name='ACCESS_TYPE_ID']").click(function() {
 			var accessType = $(this).val().split("_")[0];
 			var accessSpeed = $(this).val().split("_")[1];
-			displayDataGridWithTop5Records(accessType, accessSpeed);
+			displayTopRecommendations(accessType, accessSpeed);
 		});
 
 		$("input[name='btnAddToCart']").on('click', function(e) {
