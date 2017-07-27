@@ -46,6 +46,9 @@ public class SalesVnfRule extends ResourceSupport implements Serializable {
 	@Column(name="VNF_ID")
 	private String vnfId;
 
+	@Column(name="OPPORTUNITY_ID")
+	private String opportunityId;
+
 	public SalesVnfRule() {
 	}
 
@@ -123,5 +126,13 @@ public class SalesVnfRule extends ResourceSupport implements Serializable {
 
 	public String getProductType() {
 		return productType;
+	}
+
+	public String getOpportunityId() {
+		return opportunityId;
+	}
+
+	public void setOpportunityId(String opportunityId) {
+		this.opportunityId = opportunityId;
 	}
 }

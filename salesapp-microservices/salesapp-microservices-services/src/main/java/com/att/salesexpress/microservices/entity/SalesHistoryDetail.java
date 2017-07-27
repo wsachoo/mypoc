@@ -266,7 +266,10 @@ public class SalesHistoryDetail implements Serializable {
 
 	@Column(name="ACTIVE_YN")
 	private String activeYn;
-
+	
+	@Column(name="OPPORTUNITY_ID")
+	private String opportunityId;
+	
 	private transient List<String> portSpeedList = new ArrayList<>();
 
 	public SalesHistoryDetail() {
@@ -930,6 +933,14 @@ public class SalesHistoryDetail implements Serializable {
 
 	public void setActiveYn(String activeYn) {
 		this.activeYn = activeYn;
+	}
+
+	public String getOpportunityId() {
+		return opportunityId;
+	}
+
+	public void setOpportunityId(String opportunityId) {
+		this.opportunityId = opportunityId;
 	}
 	
 }
