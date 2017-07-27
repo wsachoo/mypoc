@@ -61,7 +61,7 @@ public interface SQLConstantsOracle {
 			+ "            sth.* "
 			+ "            from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
 			+ "            where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
-			+ "            and sth.BUNDLE_CD = 'AVPN'"
+			+ "            and sth.ACTIVE_YN = 'Y'"
 			+ "            ) countTable "
 			+ "            ) rankTable "
 			+ "            where rankTable.indexWithinGroup < :INDEX_WITHIN_GROUP"
@@ -81,7 +81,7 @@ public interface SQLConstantsOracle {
 			+ "sth.* "
 			+ "from SALES_TRANS_HISTORY_MIS_EXP sth, (select count(*) cnt from SALES_TRANS_HISTORY_MIS_EXP) totalTrans "
 			+ "where sth.ACCESS_TYPE_ID = :ACCESS_TYPE_ID "
-			+ "and sth.BUNDLE_CD = 'AVPN'"
+			+ "and sth.ACTIVE_YN = 'Y'"
 			+ ") countTable "
 			+ ") rankTable "
 			+ "where rankTable.indexWithinGroup = 1 and rownum <= :NUMBER_OF_ROWS "
@@ -179,7 +179,7 @@ public interface SQLConstantsOracle {
             "       select  " + 
             "         dense_rank() over (partition by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1) order by a.RATE desc) RNK, " + 
             "         a.*  " + 
-            "       from tInline a where a.RATE <> 0 " +  
+            "       from tInline a where a.RATE <> 0 and a.ACTIVE_YN='Y'" +  
             "     ) t1  " + 
             "     where t1.RNK <= 1 " + 
             "     order by VNF_ID ";
