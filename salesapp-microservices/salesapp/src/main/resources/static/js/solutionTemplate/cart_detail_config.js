@@ -20,7 +20,10 @@ function saveCartDetailConfigData(ipVersionValue, managedRouterValue, portSpeedV
 	jsonObjectToShoppingCartTmpl[siteId]["TERM"] = contractTermValue;
 }
 
-function showCartDetails(jsonObjectToShoppingCartTmpl) {
+function displayCartDetails(jsonObjectToShoppingCartTmpl) {
+
+	$('body').find("#displayShoppingCart").remove();
+	$('<div class="row" id="displayShoppingCart"></div>').insertAfter("div.sachtopmenu");
 	var templatePath = contextPath + "/templates/shopping_cart.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
 	$.template("shopping_cart", modalTemplate);
@@ -30,3 +33,4 @@ function showCartDetails(jsonObjectToShoppingCartTmpl) {
 	var topMenuDiv = $("#displayShoppingCart");
 	removeNextAllSiblingDivRows(topMenuDiv);
 }
+

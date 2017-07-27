@@ -988,16 +988,19 @@ function goBackToOffers() {
 	window.history.back();
 }
 
-
 function onClickViewCartAndCheckoutNew(url) {
+	constructJsonObjectToShoppingCartTmpl(url);
+	location.hash = "myCart";
+}
+
+function constructJsonObjectToShoppingCartTmpl(url) {
 	try { $("div.modal-backdrop").remove(); } catch(ex) {}
 	
-	location.hash = "myCart";
 	$('body').find("#divShoppingCartTemplate").remove();
+	
 	if(url == null || url == undefined || url == ''){
 		var url = $("#btnViewCartAndCheckout").attr('link');
 	}
-
 	var data = httpGetWithJsonResponse(url, "");
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	
@@ -1033,11 +1036,10 @@ function onClickViewCartAndCheckoutNew(url) {
          jsonObjectToShoppingCartTmpl[siteId]["siteName"] = siteName;
 	});
 	
-	showCartDetails(jsonObjectToShoppingCartTmpl);
-	
 	$("#shoppingCartLink").find('.badge').remove();
 	var itemsInCart = Object.keys(jsonObjectToShoppingCartTmpl).length;
 	$("#shoppingCartLink").append('<span class="badge">'+ itemsInCart +'</span>');
+	
 	if( isButtonCustomizeClick == true) {
 		onClickCustomizeShoppingCart();
 	}

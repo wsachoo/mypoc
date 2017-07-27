@@ -87,7 +87,7 @@ function hashChange(){
 			alert("Cart is Empty. Please Select atleast one offer to view your cart.");
 		}else{
 		changeTab(page);
-		onClickViewCartAndCheckoutNew();
+		displayCartDetails(jsonObjectToShoppingCartTmpl);
 		}
 	}
 	else if (page == "") {
