@@ -298,3 +298,22 @@ and ACCESS_SPEED_ID in (
 2000,
 20000,
 150000)
+----------------------------------------------------------------------------------------------------------------------------------------------------
+alter table SALES_TRANS_HISTORY_MIS_EXP
+add OPPORTUNITY_ID VARCHAR2(30) 
+
+alter table SALES_VNF_RULES
+add OPPORTUNITY_ID VARCHAR2(30) 
+
+alter table SALES_UCPE_RULES
+add OPPORTUNITY_ID VARCHAR2(30)
+
+update SALES_VNF_RULES a set a.OPPORTUNITY_ID= (select b.OPPORTUNITY_ID from SALES_SSDF_CONTRACT_REQ_INFO b where b.ID= mod(a.RULE_ID, 2)+3)
+
+update SALES_UCPE_RULES a set a.OPPORTUNITY_ID= (select b.OPPORTUNITY_ID from SALES_SSDF_CONTRACT_REQ_INFO b where b.ID= mod(a.RULE_ID, 2)+3)
+
+
+update SALES_TRANS_HISTORY_MIS_EXP a set a.OPPORTUNITY_ID= (select b.OPPORTUNITY_ID from SALES_SSDF_CONTRACT_REQ_INFO b where b.ID= mod(a.SITE_ID, 2)+1)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+

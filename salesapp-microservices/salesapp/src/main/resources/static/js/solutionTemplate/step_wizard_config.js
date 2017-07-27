@@ -1001,7 +1001,7 @@ function onClickViewCartAndCheckoutNew(url) {
 	var data = httpGetWithJsonResponse(url, "");
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	
-	var objectKeysArray = ["bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc", "id"];
+	var objectKeysArray = ["opportunityId", "bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc", "id"];
 	
 	var DATA = {};
 	$.each(objectKeysArray, function(k, value) {

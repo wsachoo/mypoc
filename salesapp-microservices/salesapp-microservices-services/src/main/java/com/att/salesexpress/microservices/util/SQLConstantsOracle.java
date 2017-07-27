@@ -175,7 +175,7 @@ public interface SQLConstantsOracle {
             "       group by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1), a.RATE " + 
             "       )  " + 
             "     )  " + 
-            "     select RULE_ID,VNF_ID,VIRTUAL_FEATURE_NAME,TYPE_OF_RATE,CURRENCY,RATE,EXTERNAL_RATE_ID,ACTIVE_YN,MANAGEMENT_TYPE  from ( " + 
+            "     select RULE_ID,VNF_ID,VIRTUAL_FEATURE_NAME,TYPE_OF_RATE,CURRENCY,RATE,EXTERNAL_RATE_ID,ACTIVE_YN,MANAGEMENT_TYPE,OPPORTUNITY_ID  from ( " + 
             "       select  " + 
             "         dense_rank() over (partition by a.MANAGEMENT_TYPE, SUBSTR(a.VNF_ID, 0, INSTR(a.VNF_ID, '-', 1)-1) order by a.RATE desc) RNK, " + 
             "         a.*  " + 
@@ -184,7 +184,7 @@ public interface SQLConstantsOracle {
             "     where t1.RNK <= 1 " + 
             "     order by VNF_ID ";
     
-    String sqlFindRecommendedUcpeDevices = "select RULE_ID, DEVICE_ID, MANUFACTURE_NAME, MODEL_NAME, STORAGE, CURRENCY, MRC_RATE, NRC_RATE, EXTERNAL_RATE_ID, ACTIVE_YN  from ("
+    String sqlFindRecommendedUcpeDevices = "select RULE_ID, DEVICE_ID, MANUFACTURE_NAME, MODEL_NAME, STORAGE, CURRENCY, MRC_RATE, NRC_RATE, EXTERNAL_RATE_ID, ACTIVE_YN,OPPORTUNITY_ID  from ("
     		+ "select "
     		+ "dense_rank() over (partition by SUBSTR(a.MODEL_NAME, 0, decode(INSTR(a.MODEL_NAME, '-', 1)-1, -1, length(a.MODEL_NAME), INSTR(a.MODEL_NAME, '-', 1)-1)) order by a.MRC_RATE desc) RNK, "
     		+ "a.* "

@@ -81,6 +81,7 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 				v.setRuleId(rs.getLong("RULE_ID"));
 				v.setMrcRate(rs.getBigDecimal("MRC_RATE"));
 				v.setNrcRate(rs.getBigDecimal("NRC_RATE"));
+				v.setOpportunityId(rs.getString("OPPORTUNITY_ID"));
 				
 				return v;
 			}
@@ -109,6 +110,8 @@ public class SalesHistoryDaoImpl implements SalesHistoryDao {
 				v.setVirtualFeatureName(rs.getString("VIRTUAL_FEATURE_NAME"));
 				v.setVnfId(rs.getString("VNF_ID"));
 				v.setRuleId(rs.getBigDecimal("RULE_ID"));
+				v.setOpportunityId(rs.getString("OPPORTUNITY_ID"));
+				
 				return v;
 			}
 		}));

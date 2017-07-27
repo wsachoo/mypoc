@@ -50,6 +50,9 @@ public class SalesUcpeRule extends ResourceSupport implements Serializable {
 	@Column(name="STORAGE")
 	private String storage;
 
+	@Column(name="OPPORTUNITY_ID")
+	private String opportunityId;
+
 	public SalesUcpeRule() {
 	}
 
@@ -135,5 +138,13 @@ public class SalesUcpeRule extends ResourceSupport implements Serializable {
 	
 	public String getProductType() {
 		return productType;
+	}
+
+	public String getOpportunityId() {
+		return opportunityId;
+	}
+
+	public void setOpportunityId(String opportunityId) {
+		this.opportunityId = opportunityId;
 	}
 }
