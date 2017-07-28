@@ -34,3 +34,8 @@ function displayCartDetails(jsonObjectToShoppingCartTmpl) {
 	removeNextAllSiblingDivRows(topMenuDiv);
 }
 
+function displayFlewareDiscountDataOnCart() {
+	var url = SALESEXPRESS_CONSTANTS.getUrlPath("postSpeedsBySelectedAccessSpeedUrl");
+	var flexwareDiscountData = httpGetWithJsonResponse(url, "");
+}
+
