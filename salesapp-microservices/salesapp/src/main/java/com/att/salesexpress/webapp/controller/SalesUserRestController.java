@@ -123,6 +123,4 @@ public class SalesUserRestController {
 		String servFeaturesMetaData = salesExpressOperationServiceImpl.getServiceFeaturesMetaDataBySiteName(siteType);
 		return new ResponseEntity<String>(servFeaturesMetaData, HttpStatus.OK);
 	}
-
 }
-

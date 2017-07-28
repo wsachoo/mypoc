@@ -512,4 +512,21 @@ public class DbServiceImpl implements DbService {
 		return rows;
 	}
 
+	@Override
+	public String findSsdfRequestJsonByOpportunityId(String opportunityId) {
+		logger.debug("Entered findSsdfRequestJsonByOpportunityId() method.");
+		String sql = "select REQ_JSON from SALES_SSDF_CONTRACT_REQ_INFO where OPPORTUNITY_ID = ?";
+		String siteDataJson = (String) jdbcTemplate.queryForObject(sql, new Object[] { opportunityId }, String.class);
+		logger.debug("Exiting findSsdfRequestJsonByOpportunityId() method.");
+		return siteDataJson;
+	}
+
+	@Override
+	public String findSsdfMicroserviceUrl(String key) {
+		logger.debug("Entered findSsdfMicroserviceUrl() method.");
+		String sql = "select URL_VALUE from SALES_SSDF_MICROSERVICES_URLS where URL_KEY = ?";
+		String url = (String) jdbcTemplate.queryForObject(sql, new Object[] { key }, String.class);
+		logger.debug("Exiting findSsdfMicroserviceUrl() method.");
+		return url;
+	}
 }

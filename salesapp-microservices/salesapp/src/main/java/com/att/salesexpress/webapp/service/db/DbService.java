@@ -80,4 +80,8 @@ public interface DbService {
 	public List<Map<String, Object>> getDistinctPortSpeedsByAccessSpeed(String accessType, Long lAccessSpeed);
 
 	void deleteProductConfiguration(String portType, Long long1, Long long2);
+	
+	public String findSsdfRequestJsonByOpportunityId(String opportunityId);
+	
+	public String findSsdfMicroserviceUrl(String key);
 }
