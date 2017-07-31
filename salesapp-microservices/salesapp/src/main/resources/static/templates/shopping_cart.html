@@ -86,7 +86,7 @@ $(document).ready(function() {
 							<div class="col-sm-12">
 								<table class="table table-striped">
 									{{each(i, item) jsonObjectToShoppingCartTmpl[j]}}
-									{{if i == 'ID'}}
+									{{if i == 'ID' || i == 'PRODUCT' || i == 'siteName'}}
 									
 									{{else}}
 											{{if ( i == 'IP VERSION' || i == 'MANAGED ROUTER' || i == 'PORT SPEED') }}

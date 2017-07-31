@@ -1013,7 +1013,7 @@ function constructJsonObjectToShoppingCartTmpl(url) {
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
 		key = transformDisplayKeyName(key);
 		
-		DATA[key] = dataToGenContract[value];
+		
 		
 		if (key == "OFFER NAME") {
 			DATA[key] = dataToGenContract["bundleCd"];
@@ -1025,6 +1025,8 @@ function constructJsonObjectToShoppingCartTmpl(url) {
 		else if(key == "PRODUCT TYPE") {
 			key = "PRODUCT";
 			DATA[key] = data[value];
+		}else {
+			DATA[key] = dataToGenContract[value];
 		}
 	});
 	
