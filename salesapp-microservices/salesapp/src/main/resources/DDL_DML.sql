@@ -341,4 +341,4 @@ ID             NOT NULL NUMBER(38)
 OPPORTUNITY_ID NOT NULL VARCHAR2(30) 
 PRODUCT_TYPE   NOT NULL VARCHAR2(30) 
 REQ_JSON                CLOB    
-______________________________________________________
+____________________________________________________

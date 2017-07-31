@@ -1002,9 +1002,11 @@ function constructJsonObjectToShoppingCartTmpl(url) {
 		var url = $("#btnViewCartAndCheckout").attr('link');
 	}
 	var data = httpGetWithJsonResponse(url, "");
-	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	
-	var objectKeysArray = ["opportunityId", "bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc", "id"];
+	if(data["productType"] == 'OTHER') {
+	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
+	//displayFlewareDiscountDataOnCart();
+	var objectKeysArray = ["opportunityId", "bundleCd", "accessSpeed", "accessType", "accessService", "portType",  "portSpeed", "managedRouter", "ipVersionLabel", "protocol", "tailTechnology", "designName", "term", "mrc", "nrc", "id", "productType"];
 	
 	var DATA = {};
 	$.each(objectKeysArray, function(k, value) {
@@ -1020,6 +1022,10 @@ function constructJsonObjectToShoppingCartTmpl(url) {
 			data[value] = "$ "+ data[value];
 			DATA[key] = data[value];
 		}
+		else if(key == "PRODUCT TYPE") {
+			key = "PRODUCT";
+			DATA[key] = data[value];
+		}
 	});
 	
 	defaultTermPeriod = DATA["TERM"];
@@ -1028,13 +1034,17 @@ function constructJsonObjectToShoppingCartTmpl(url) {
 	$('<div class="row" id="displayShoppingCart"></div>').insertAfter("div.sachtopmenu");
 	activateMyCartTab();
 	
-	
 	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
 		 var siteName = $(this).attr('data-name');
 		 var siteId = $(this).attr('value');
 		 jsonObjectToShoppingCartTmpl[siteId] = jQuery.extend(true, {}, DATA);
-         jsonObjectToShoppingCartTmpl[siteId]["siteName"] = siteName;
+        jsonObjectToShoppingCartTmpl[siteId]["siteName"] = siteName;
 	});
+	displayCartDetails(jsonObjectToShoppingCartTmpl);
+	}
+	else {
+		constructJsonForFlexwareproduct(data);
+	}
 	
 	$("#shoppingCartLink").find('.badge').remove();
 	var itemsInCart = Object.keys(jsonObjectToShoppingCartTmpl).length;
@@ -1044,4 +1054,34 @@ function constructJsonObjectToShoppingCartTmpl(url) {
 		onClickCustomizeShoppingCart();
 	}
 	isButtonCustomizeClick = false;
+}
+
+function constructJsonForFlexwareproduct(data) {
+	var objectKeysArray = ["productType", "rate", "currency", "typeOfRate", "managementType" ];
+	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
+	
+	
+	var DATA = {};
+	$.each(objectKeysArray, function(k, value) {
+		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
+		DATA[key] = dataToGenContract[value];
+		
+
+		if(key == "MANAGEMENT TYPE") {
+			key = "MANAGED ROUTER";
+			DATA[key] = data[value];
+		}else if(key == "PRODUCT TYPE") {
+			key = "PRODUCT";
+			DATA[key] = data[value];
+		}
+	});
+	
+	$('#sales_side_bar input[type="checkbox"]:checked').each(function() {
+		 var siteName = $(this).attr('data-name');
+		 var siteId = $(this).attr('value');
+		 jsonObjectToShoppingCartTmpl[siteId] = jQuery.extend(true, {}, DATA);
+        jsonObjectToShoppingCartTmpl[siteId]["siteName"] = siteName;
+	});
+	displayCartDetails(jsonObjectToShoppingCartTmpl);
+	//displayFlewareDiscountDataOnCart();
 }

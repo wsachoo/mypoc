@@ -54,6 +54,7 @@ SALESEXPRESS_CONSTANTS = (function() {
 		"getPortSpeedsByAccessSpeedUrl" : "getPortSpeedsByAccessSpeed",
 		"getDistinctAccessSpeedByAccessTypeUrl" : "getDistinctAccessSpeedByAccessType",
 		"getDistinctPortSpeedsByAccessSpeedUrl" : "getDistinctPortSpeedsByAccessSpeed",
+		"getAllSalesFlexwareDiscountDataUrl" : "solutionTemplate/getAllSalesFlexDiscountData",
 		
 		"getSsdfContractMicroserviceRequestInfoUrl" : "solutionTemplate/getSsdfContractMicroserviceRequestInfo",
 		
