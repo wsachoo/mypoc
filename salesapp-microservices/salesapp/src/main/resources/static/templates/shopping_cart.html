@@ -262,10 +262,14 @@ $(document).ready(function() {
 							<div class="col-sm-12">
 								<table class="table table-striped">
 									{{each(i, item) jsonObjectToShoppingCartTmpl[j]}}
-									<tr>
-										<td>${i}</td>
-										<td>${item}</td>
-									</tr>
+										{{if i == 'siteName'}}
+										
+										{{else}}
+										<tr>
+											<td>${i}</td>
+											<td>${item}</td>
+										</tr>
+										{{/if}}
 									{{/each}}
 								</table>
 								<strong style="font-size: 18px;">Additional Features</strong>

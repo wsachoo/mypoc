@@ -60,7 +60,7 @@
                     	0%
                     </div>
                     <div class="col-sm-1-5">
-                    	<input type="text" class="form-control" placeholder="0%">
+                    	<input type="text" class="form-control" value="0%" id="discountPercentage_${flexwareDiscountData[i]['discountId']}">
                     </div>
                     <div class="col-sm-1-5">
                     
@@ -114,7 +114,7 @@
 				                </td>
 				                <td>${flexwareDiscountData[i]["childSalesFlexDiscountDataItems"][j]["discountPerc"]}%</td>
 				                <td>
-				                    <input type="text" class="form-control" placeholder="0%" id="discountId_${flexwareDiscountData[i]['childSalesFlexDiscountDataItems'][j]['discountId']}" name="child-vnf-discount-${i}">
+				                    <input type="text" class="form-control" value="0%" id="discountPercentage_${flexwareDiscountData[i]['childSalesFlexDiscountDataItems'][j]['discountId']}" name="child-vnf-discount-${i}">
 				                </td>
 				            </tr>
 				            {{/each}}

@@ -87,3 +87,47 @@ function setDiscountPercToChild() {
 
 }
 
+
+function handleSsdfCallForContractDetail() {
+	var ssdfContractApiResponse = {};//Clear earlier SSDF response
+	//START: Get SSDF Request JSON for each site
+    var dfd = new $.Deferred();    
+    var url = SALESEXPRESS_CONSTANTS.getUrlPath('getSsdfContractMicroserviceRequestInfoUrl');
+	
+	var i = Object.keys(jsonObjectToShoppingCartTmpl).length;
+
+	$.each(jsonObjectToShoppingCartTmpl, function(k, v) {
+		var reqData = {}; //JSON.stringify(productConfigObj);
+		reqData["OPPORTUNITY_ID"] = v["OPPORTUNITY ID"];
+		var promise = httpAsyncPostWithJsonRequestResponse(url, JSON.stringify(reqData));
+		
+		promise.done(function(data, textStatus, jqXHR) {
+			//START: Call SSDF Contract Microservice
+			var ssdfUrl = data.REQUEST_URL;
+			var ssdfReqObj = data.REQUEST_JSON;
+			
+			var promise = httpAsyncPostWithJsonRequestResponse(ssdfUrl, JSON.stringify(ssdfReqObj));
+
+			promise.done(function(data2, textStatus, jqXHR) {
+				i--;
+				ssdfContractApiResponse[k] = data2;
+				
+				if (i == 0) {
+					dfd.resolve(ssdfContractApiResponse, textStatus, jqXHR);
+				}
+			}).fail(function(jqXHR, textStatus, errorThrown) {
+				dfd.reject(jqXHR, textStatus, errorThrown);
+				alert("Error while getting SSDF Response");
+			}); 
+			
+			//END: Call SSDF Contract Microservice
+			//this is the call to web service to get response json from SSDF
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			dfd.reject(jqXHR, textStatus, errorThrown);
+			alert("Error while getting SSDF Request Information");
+		});		
+	});
+	
+	return dfd.promise();	
+	//END: Get SSDF Request JSON for each site	
+}

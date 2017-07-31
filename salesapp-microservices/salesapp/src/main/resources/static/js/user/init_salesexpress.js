@@ -227,10 +227,12 @@ function httpAsyncPostWithJsonRequestResponse(postUrl, postData) {
     });
     
     $(document).ajaxStart(function(){ 
-        $("body").addClass('ajaxLoading');
+//        $("body").addClass('ajaxLoading');
+        $.blockUI();
     });
     $(document).ajaxStop(function(){ 
-        $("body").removeClass('ajaxLoading');
+  //      $("body").removeClass('ajaxLoading');
+        $.unblockUI();
     });
     
   	var postResp = $.ajax({
@@ -258,6 +260,7 @@ function httpAsyncPostWithJsonRequestResponseSynchronous(postUrl, postData) {
     $(document).ajaxStart(function(){ 
         $("body").addClass('ajaxLoading');
     });
+    
     $(document).ajaxStop(function(){ 
         $("body").removeClass('ajaxLoading');
     });

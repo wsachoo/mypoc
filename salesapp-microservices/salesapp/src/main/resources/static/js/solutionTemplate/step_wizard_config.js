@@ -974,18 +974,36 @@ function onClickApplyShoppingCartData(siteId, url) {
 }
 
 function onClickCheckoutAndGenContract() {
-	$("#checkoutGenerateContractDiv").remove();
-	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
-	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("checkout_generate_contract", modalTemplate);
-	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract", {});
-	$('body').append(modalTemplateToDisplay);
-	$("#btnPreviewContactModal").trigger('click');
+    $.blockUI({ css: { 
+        border: 'none', 
+        padding: '15px', 
+        backgroundColor: '#000', 
+        '-webkit-border-radius': '10px', 
+        '-moz-border-radius': '10px', 
+        opacity: .5, 
+        color: '#fff' 
+    }});
+    
+    var promise = handleSsdfCallForContractDetail();
+    
+    promise.done(function (ssdfResp, textStatus, jqXHR) {
+    	$.unblockUI();    	
+    	$("#checkoutGenerateContractDiv").remove();
+    	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
+    	var modalTemplate = getTemplateDefinition(templatePath);
+    	$.template("checkout_generate_contract", modalTemplate);
+    	console.log(JSON.stringify(ssdfResp));
+    	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract", ssdfResp);
+    	$('body').append(modalTemplateToDisplay);
+    	$("#btnPreviewContactModal").trigger('click');
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert("Error: " + textStatus);
+    });   
 }
 
 function goBackToOffers() {
-	$("#shoppingCartLink").find('.badge').remove();
-	window.history.back();
+//	$("#shoppingCartLink").find('.badge').remove();
+//	window.history.back();
 }
 
 function onClickViewCartAndCheckoutNew(url) {
@@ -1058,11 +1076,12 @@ function constructJsonObjectToShoppingCartTmpl(url) {
 	isButtonCustomizeClick = false;
 }
 
+
 function constructJsonForFlexwareproduct(dataFlex) {
 
 	var objectKeysArray = ["opportunityId", "productType", "rate", "currency", "typeOfRate", "managementType" ];
 	storeDataToGenerateContract(dataFlex);//this method stores the data info into object required to show contract wizard
-	if(data["productType"] == 'FLEXWARE-UCPE'){
+	if(dataFlex["productType"] == 'FLEXWARE-UCPE'){
 		constructJsonForFlexwareUCPE(dataFlex);
 	}
 	else {
@@ -1097,13 +1116,14 @@ function constructJsonForFlexwareproduct(dataFlex) {
 function constructJsonForFlexwareUCPE(dataUCPE) {
 	var objectKeysArray = ["opportunityId", "productType", "currency", "deviceId", "manufactureName", "modelName", "mrcRate", "nrcRate"];
 	storeDataToGenerateContract(dataUCPE);//this method stores the data info into object required to show contract wizard
+
 	var DATA = {};
 	$.each(objectKeysArray, function(k, value) {
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
 
 		if(key == "MRC RATE") {
 			dataUCPE[value] = "$ "+ dataUCPE[value];
-			dataUCPE["MRC"] = dataUCPE[value];
+			DATA["MRC"] = dataUCPE[value];
 		}else if(key == "NRC RATE") {
 			dataUCPE[value] = "$ "+ dataUCPE[value];
 			DATA["NRC"] = dataUCPE[value];
