@@ -42,7 +42,7 @@
 					+ Math.floor(Math.random() * 100) + 'type="text/css" />');
 	document
 			.write('<link rel="stylesheet" href="${contextPath}/css/cart-detail.css?id='
-					+ Math.floor(Math.random() * 100) + 'type="text/css" />');				 
+					+ Math.floor(Math.random() * 100) + 'type="text/css" />');		
 					
 </script>
 

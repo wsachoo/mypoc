@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$(document).on('click', '.panel-heading span.clickable', function(e){
-	    var $this = $(this);
+		var $this = $(this);
 		if(!$this.hasClass('panel-collapsed')) {
 			$this.parents('.panel').find('.panel-body').slideUp();
 			$this.addClass('panel-collapsed');
@@ -11,6 +11,7 @@ $(document).ready(function() {
 			$this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
 		}
 	});
+
 });
 
 function saveCartDetailConfigData(ipVersionValue, managedRouterValue, portSpeedValue, contractTermValue, siteId) {
@@ -30,51 +31,59 @@ function displayCartDetails(jsonObjectToShoppingCartTmpl) {
 	var modalTemplate = getTemplateDefinition(templatePath);
 	$.template("shopping_cart", modalTemplate);
 	var modalTemplateToDisplay = $.tmpl("shopping_cart", {"jsonObjectToShoppingCartTmpl" : jsonObjectToShoppingCartTmpl});
-	
+
 	$("#displayShoppingCart").append(modalTemplateToDisplay);
 	var topMenuDiv = $("#displayShoppingCart");
 	removeNextAllSiblingDivRows(topMenuDiv);
 	displayFlewareDiscountDataOnCart();
 	setStylesForDiscountData();
+	setDiscountPercToChild();
 }
 
 function displayFlewareDiscountDataOnCart() {
 	var url = SALESEXPRESS_CONSTANTS.getUrlPath("getAllSalesFlexwareDiscountDataUrl");
 	var data = httpGetWithJsonResponse(url, "");
 	flexwareDiscountData = data;
-	
+
 	var templatePath = contextPath + "/templates/flexware_discounts_data.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
 	$.template("flexware_discounts_data", modalTemplate);
 	var modalTemplateToDisplay = $.tmpl("flexware_discounts_data", {"flexwareDiscountData" : flexwareDiscountData});
-	
+
 	$("#divShoppingCartTemplate").append(modalTemplateToDisplay);
 }
 
 function setStylesForDiscountData() {
 	$('[id^=childDiscountDiv-]').hide();
-    $('[id^=parentDiscountDiv-]').click(function() {
-    	var parentId = $(this).attr('id');
-    	var parentIdNum = parentId.split("-")[1];
-    	var childDivId = $("#child-"+parentIdNum);
-    	if( $("#"+parentId).find('i').hasClass("fa-chevron-down") ) {
-    		childDivId.show();
-    		$("#"+parentId).find('i').removeClass("fa-chevron-down");
-    		$("#"+parentId).find('i').addClass("fa-chevron-up");
-    	}else if( $("#"+parentId).find('i').hasClass("fa-chevron-up") ) {
-    		childDivId.hide();
-    		$("#"+parentId).find('i').removeClass("fa-chevron-up");
-    		$("#"+parentId).find('i').addClass("fa-chevron-down");
-    	}
-    });
+	$('[id^=parentDiscountDiv-]').click(function() {
+		var parentId = $(this).attr('id');
+		var parentIdNum = parentId.split("-")[1];
+		var childDivId = $("#childDiscountDiv-"+parentIdNum);
+		if( $("#"+parentId).find('i').hasClass("glyphicon-chevron-down") ) {
+			childDivId.show();
+			$("#"+parentId).find('i').removeClass("glyphicon-chevron-down");
+			$("#"+parentId).find('i').addClass("glyphicon-chevron-up");
+		}else if( $("#"+parentId).find('i').hasClass("glyphicon-chevron-up") ) {
+			childDivId.hide();
+			$("#"+parentId).find('i').removeClass("glyphicon-chevron-up");
+			$("#"+parentId).find('i').addClass("glyphicon-chevron-down");
+		}
+	});
 }
 
-$('[id^=parent-vnf-discount-]').change(function() {
-	
-	var parentId = $(this).attr();
-	var childElemIdNum = parentId.split("-")[3];
-	var childElementId = $("#child-vnf-discount-"+childElemIdNum);
-	alert(childElementId);
-});
+function setDiscountPercToChild() {
+	$('[id^=parent-vnf-discount-]').on('change', function () {
+		if($(this).val() <= 36) {
+			var num = $(this).attr('id').split("-")[3];
+			var parentDiscountValue = $(this).val();
+			var childTextBoxname = 'child-vnf-discount-'+num;
+			$('input[name='+childTextBoxname+']').val(parentDiscountValue+'%');
+		}
+		else
+		{
+			alert("Please enter a value which is less than or equal to MAX MRC Discount");
+		}
+	});
 
+}
 
