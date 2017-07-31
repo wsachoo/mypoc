@@ -33,6 +33,9 @@ public class SalesFlexDiscountData implements Serializable {
 	@Column(name="DISCOUNT_PERC")
 	private BigDecimal discountPerc;
 
+	@Column(name="DISCOUNT_ID", nullable = true)
+	private Long discountId;
+
 	@Column(name="TERM_IN_MONTHS")
 	private BigDecimal termInMonths;
 
@@ -143,6 +146,14 @@ public class SalesFlexDiscountData implements Serializable {
 		salesFlexTermDiscount.setSalesFlexDiscountData(null);
 
 		return salesFlexTermDiscount;
+	}
+
+	public Long getDiscountId() {
+		return discountId;
+	}
+
+	public void setDiscountId(Long discountId) {
+		this.discountId = discountId;
 	}
 
 }
