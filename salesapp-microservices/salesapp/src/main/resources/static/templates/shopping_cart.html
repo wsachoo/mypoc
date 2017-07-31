@@ -242,7 +242,7 @@ $(document).ready(function() {
 							</div>
 
 							<div class="col-sm-6">
-								<strong style="font-size: 22px;"> $${jsonObjectToShoppingCartTmpl[j]["RATE"]}</strong>
+								<strong style="font-size: 22px;"> ${jsonObjectToShoppingCartTmpl[j]["MRC"]}</strong>
 								<br>Effective monthly charge<br>
 								<button type="button" id="btnCustomizeShoppingCart" name="btnCustomizeShoppingCart"
 									class="btn btn-primary"
@@ -261,18 +261,12 @@ $(document).ready(function() {
 							</div>
 							<div class="col-sm-12">
 								<table class="table table-striped">
+									{{each(i, item) jsonObjectToShoppingCartTmpl[j]}}
 									<tr>
-										<td>CURRENCY</td>
-										<td>USD</td>
+										<td>${i}</td>
+										<td>${item}</td>
 									</tr>
-									<tr>
-										<td>MANAGEMENT ROUTER</td>
-										<td>${jsonObjectToShoppingCartTmpl[j]["MANAGED ROUTER"]}</td>
-									</tr>
-									<tr>
-										<td>RATE</td>
-										<td>${jsonObjectToShoppingCartTmpl[j]["RATE"]}</td>
-									</tr>
+									{{/each}}
 								</table>
 								<strong style="font-size: 18px;">Additional Features</strong>
 								<div class="col-sm-12">
@@ -333,13 +327,17 @@ $(document).ready(function() {
 		{{/if}}
 		
 	{{/each}}
-
-	<div class="row col-sm-10" style="text-align: center" >
-		<input type="button" value="Checkout & Generate Contract" id="btnCheckoutGenContract" class="btn btn-primary" onclick="onClickCheckoutAndGenContract();" >
 	</div>
+	<div class="container" id="divCheckoutContractGenerate">
+	<br>
+		<div class="row col-sm-10" style="text-align: center">
+			<input type="button" value="Checkout & Generate Contract"
+				id="btnCheckoutGenContract" class="btn btn-primary"
+				onclick="onClickCheckoutAndGenContract();">
+		</div>
 		<div class="clearfix col-sm-12" style="text-align: center;">
 			<hr>
-				You have currently one Item in the cart.<br>
+			You have currently one Item in the cart.<br>
 			<hr>
 		</div>
-</div>
+	</div>

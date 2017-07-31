@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-sm-6">
 		<label>Term : </label><select class="form-control" id="flexwareTermList">
-					<option value="12">12 Months</option>
+					<option value="24">24 Months</option>
 					<option value="36">36 Months</option>
 					<option value="48">48 Months</option>
 					<option value="60">60 Months</option>
@@ -48,16 +48,30 @@
             {{each(i, item) flexwareDiscountData}}
             {{if i == 0 }}
             <li class="list-group-item">
-                <div class="row " id="dropdown-detail-${i}">
-                    <div class="col-xs-10">
+                <div class="row" id="dropdown-detail-${i}">
+                	<div class="row">
+                    <div class="col-sm-1-5">
                         ${flexwareDiscountData[i]["deviceName"]}
                     </div>
-                    <div class="col-xs-2"></div>
+                    <div class="col-sm-1-5">
+                    	&nbsp;&nbsp;
+                    </div>
+                    <div class="col-sm-1-5" id="hostDevicesMaxDiscPerc">
+                    	0%
+                    </div>
+                    <div class="col-sm-1-5">
+                    	<input type="text" class="form-control" placeholder="0%">
+                    </div>
+                    <div class="col-sm-1-5">
+                    
+                    </div>
+                </div>
                 </div>
                 <div id="detail-${i}">
 
 
                 </div>
+                
             </li>
             {{else}}
             <li class="list-group-item">
@@ -100,7 +114,7 @@
 				                </td>
 				                <td>${flexwareDiscountData[i]["childSalesFlexDiscountDataItems"][j]["discountPerc"]}%</td>
 				                <td>
-				                    <input type="text" class="form-control" placeholder="0%" id="discountId-${flexwareDiscountData[i]['childSalesFlexDiscountDataItems'][j]['discountId']}" name="child-vnf-discount-${i}">
+				                    <input type="text" class="form-control" placeholder="0%" id="discountId_${flexwareDiscountData[i]['childSalesFlexDiscountDataItems'][j]['discountId']}" name="child-vnf-discount-${i}">
 				                </td>
 				            </tr>
 				            {{/each}}
