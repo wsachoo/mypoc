@@ -974,6 +974,9 @@ function onClickApplyShoppingCartData(siteId, url) {
 }
 
 function onClickCheckoutAndGenContract() {
+	
+	var ssdfResponseJson = handleSsdfCallForContractDetail();
+	
 	$("#checkoutGenerateContractDiv").remove();
 	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
 	var modalTemplate = getTemplateDefinition(templatePath);
@@ -984,8 +987,8 @@ function onClickCheckoutAndGenContract() {
 }
 
 function goBackToOffers() {
-	$("#shoppingCartLink").find('.badge').remove();
-	window.history.back();
+//	$("#shoppingCartLink").find('.badge').remove();
+//	window.history.back();
 }
 
 function onClickViewCartAndCheckoutNew(url) {
@@ -1057,7 +1060,7 @@ function constructJsonObjectToShoppingCartTmpl(url) {
 }
 
 function constructJsonForFlexwareproduct(data) {
-	var objectKeysArray = ["productType", "rate", "currency", "typeOfRate", "managementType" ];
+	var objectKeysArray = ["opportunityId", "productType", "rate", "currency", "typeOfRate", "managementType" ];
 	storeDataToGenerateContract(data);//this method stores the data info into object required to show contract wizard
 	
 	

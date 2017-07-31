@@ -87,3 +87,39 @@ function setDiscountPercToChild() {
 
 }
 
+
+function handleSsdfCallForContractDetail() {
+	//START: Get SSDF Request JSON for each site
+	var url = SALESEXPRESS_CONSTANTS.getUrlPath('getSsdfContractMicroserviceRequestInfoUrl');
+	var ssdfContractApiResponse = {};
+	
+	$.each(jsonObjectToShoppingCartTmpl, function(k, v) {
+		var reqData = {}; //JSON.stringify(productConfigObj);
+		reqData["OPPORTUNITY_ID"] = v["OPPORTUNITY ID"];
+		var promise = httpAsyncPostWithJsonRequestResponseSynchronous(url, JSON.stringify(reqData));
+		
+		promise.done(function(data, textStatus, jqXHR) {
+			console.log(data);
+
+			//START: Call SSDF Contract Microservice
+			var ssdfUrl = data.REQUEST_URL;
+			var ssdfReqObj = data.REQUEST_JSON;
+			
+			var promise = httpAsyncPostWithJsonRequestResponseSynchronous(ssdfUrl, JSON.stringify(ssdfReqObj));
+			promise.done(function(data, textStatus, jqXHR) {
+				ssdfContractApiResponse[k] = data;
+			}).fail(function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus);
+			}); 
+			
+			//END: Call SSDF Contract Microservice
+			//this is the call to web service to get response json from SSDF
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			alert("Error while getting SSDF Request Information");
+		});		
+	});
+	
+	return ssdfContractApiResponse;
+	//END: Get SSDF Request JSON for each site
+	
+}
