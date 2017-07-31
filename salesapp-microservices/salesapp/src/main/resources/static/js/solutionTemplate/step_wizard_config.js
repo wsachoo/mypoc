@@ -974,16 +974,31 @@ function onClickApplyShoppingCartData(siteId, url) {
 }
 
 function onClickCheckoutAndGenContract() {
-	
-	var ssdfResponseJson = handleSsdfCallForContractDetail();
-	
-	$("#checkoutGenerateContractDiv").remove();
-	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
-	var modalTemplate = getTemplateDefinition(templatePath);
-	$.template("checkout_generate_contract", modalTemplate);
-	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract", {});
-	$('body').append(modalTemplateToDisplay);
-	$("#btnPreviewContactModal").trigger('click');
+    $.blockUI({ css: { 
+        border: 'none', 
+        padding: '15px', 
+        backgroundColor: '#000', 
+        '-webkit-border-radius': '10px', 
+        '-moz-border-radius': '10px', 
+        opacity: .5, 
+        color: '#fff' 
+    }});
+    
+    var promise = handleSsdfCallForContractDetail();
+    
+    promise.done(function (ssdfResp, textStatus, jqXHR) {
+    	$.unblockUI();    	
+    	$("#checkoutGenerateContractDiv").remove();
+    	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
+    	var modalTemplate = getTemplateDefinition(templatePath);
+    	$.template("checkout_generate_contract", modalTemplate);
+    	console.log(JSON.stringify(ssdfResp));
+    	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract", ssdfResp);
+    	$('body').append(modalTemplateToDisplay);
+    	$("#btnPreviewContactModal").trigger('click');
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert("Error: " + textStatus);
+    });   
 }
 
 function goBackToOffers() {
