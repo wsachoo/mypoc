@@ -317,3 +317,15 @@ update SALES_TRANS_HISTORY_MIS_EXP a set a.OPPORTUNITY_ID= (select b.OPPORTUNITY
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
+alter table SALES_FLEX_DISCOUNT_DATA
+add DISCOUNT_ID integer
+
+
+update SALES_FLEX_DISCOUNT_DATA set DISCOUNT_ID=2000100 where DEVICE_ID=1;
+update SALES_FLEX_DISCOUNT_DATA set DISCOUNT_ID=2000101 where DEVICE_ID=3;
+update SALES_FLEX_DISCOUNT_DATA set DISCOUNT_ID=2000103 where DEVICE_ID=4;
+update SALES_FLEX_DISCOUNT_DATA set DISCOUNT_ID=2000105 where DEVICE_ID=5;
+update SALES_FLEX_DISCOUNT_DATA set DISCOUNT_ID=2000102 where DEVICE_ID=7;
+update SALES_FLEX_DISCOUNT_DATA set DISCOUNT_ID=2000104 where DEVICE_ID=8;
+update SALES_FLEX_DISCOUNT_DATA set DISCOUNT_ID=2000106 where DEVICE_ID=9;
+---------------------------------------------------------------------------------------------------------------------------------------------------
