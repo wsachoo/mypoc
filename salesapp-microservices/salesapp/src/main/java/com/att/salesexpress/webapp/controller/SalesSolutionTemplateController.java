@@ -24,6 +24,7 @@ import com.att.salesexpress.webapp.entity.SalesFlexDiscountData;
 import com.att.salesexpress.webapp.entity.SolutionTmplQuestion;
 import com.att.salesexpress.webapp.service.SalesExpressOperationService;
 import com.att.salesexpress.webapp.service.SolutionTemplateService;
+import com.att.salesexpress.webapp.service.SsdfServiceCall;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -40,6 +41,9 @@ public class SalesSolutionTemplateController {
 
 	@Autowired
 	private SolutionTemplateService solutionTemplateService;
+
+	@Autowired
+	private SsdfServiceCall ssdfServiceCall;
 
 	@RequestMapping(value = "/user/solutionTemplate/getNextQuestion", method = RequestMethod.POST, produces = {
 			"application/json" })
@@ -112,8 +116,18 @@ public class SalesSolutionTemplateController {
 	@RequestMapping(value = "/user/solutionTemplate/getAllSalesFlexDiscountData", method = RequestMethod.GET, produces = {
 			"application/json" })
 	@ResponseBody
-	public ResponseEntity<List<SalesFlexDiscountData>> getAllSalesFlexDiscountData(HttpServletRequest request) throws JsonProcessingException {
+	public ResponseEntity<List<SalesFlexDiscountData>> getAllSalesFlexDiscountData(HttpServletRequest request)
+			throws JsonProcessingException {
 		List<SalesFlexDiscountData> SalesFlexDiscountDataList = solutionTemplateService.findAllSalesFlexDiscountData();
 		return new ResponseEntity<List<SalesFlexDiscountData>>(SalesFlexDiscountDataList, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/user/solutionTemplate/getSsdfContractMicroserviceRequestInfo", method = RequestMethod.POST, produces = {
+			"application/json" })
+	@ResponseBody
+	public ResponseEntity<String> getSsdfContractMicroserviceRequestInfo(HttpServletRequest request,
+			@RequestBody Map<String, Object> paramValues) throws JsonProcessingException {
+		String ssdfContractReqJson = ssdfServiceCall.getSsdfContractMicroserviceRequestInfo(paramValues);
+		return new ResponseEntity<String>(ssdfContractReqJson, HttpStatus.OK);
 	}
 }

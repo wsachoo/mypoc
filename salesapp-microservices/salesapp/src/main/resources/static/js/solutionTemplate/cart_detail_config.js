@@ -10,7 +10,7 @@ $(document).ready(function() {
 			$this.removeClass('panel-collapsed');
 			$this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
 		}
-	})
+	});
 });
 
 function saveCartDetailConfigData(ipVersionValue, managedRouterValue, portSpeedValue, contractTermValue, siteId) {
@@ -19,6 +19,8 @@ function saveCartDetailConfigData(ipVersionValue, managedRouterValue, portSpeedV
 	jsonObjectToShoppingCartTmpl[siteId]["PORT SPEED"] = portSpeedValue;
 	jsonObjectToShoppingCartTmpl[siteId]["TERM"] = contractTermValue;
 }
+
+var flexwareDiscountData = {};
 
 function displayCartDetails(jsonObjectToShoppingCartTmpl) {
 
@@ -32,10 +34,47 @@ function displayCartDetails(jsonObjectToShoppingCartTmpl) {
 	$("#displayShoppingCart").append(modalTemplateToDisplay);
 	var topMenuDiv = $("#displayShoppingCart");
 	removeNextAllSiblingDivRows(topMenuDiv);
+	displayFlewareDiscountDataOnCart();
+	setStylesForDiscountData();
 }
 
 function displayFlewareDiscountDataOnCart() {
-	var url = SALESEXPRESS_CONSTANTS.getUrlPath("postSpeedsBySelectedAccessSpeedUrl");
-	var flexwareDiscountData = httpGetWithJsonResponse(url, "");
+	var url = SALESEXPRESS_CONSTANTS.getUrlPath("getAllSalesFlexwareDiscountDataUrl");
+	var data = httpGetWithJsonResponse(url, "");
+	flexwareDiscountData = data;
+	
+	var templatePath = contextPath + "/templates/flexware_discounts_data.html";
+	var modalTemplate = getTemplateDefinition(templatePath);
+	$.template("flexware_discounts_data", modalTemplate);
+	var modalTemplateToDisplay = $.tmpl("flexware_discounts_data", {"flexwareDiscountData" : flexwareDiscountData});
+	
+	$("#divShoppingCartTemplate").append(modalTemplateToDisplay);
 }
+
+function setStylesForDiscountData() {
+	$('[id^=childDiscountDiv-]').hide();
+    $('[id^=parentDiscountDiv-]').click(function() {
+    	var parentId = $(this).attr('id');
+    	var parentIdNum = parentId.split("-")[1];
+    	var childDivId = $("#child-"+parentIdNum);
+    	if( $("#"+parentId).find('i').hasClass("fa-chevron-down") ) {
+    		childDivId.show();
+    		$("#"+parentId).find('i').removeClass("fa-chevron-down");
+    		$("#"+parentId).find('i').addClass("fa-chevron-up");
+    	}else if( $("#"+parentId).find('i').hasClass("fa-chevron-up") ) {
+    		childDivId.hide();
+    		$("#"+parentId).find('i').removeClass("fa-chevron-up");
+    		$("#"+parentId).find('i').addClass("fa-chevron-down");
+    	}
+    });
+}
+
+$('[id^=parent-vnf-discount-]').change(function() {
+	
+	var parentId = $(this).attr();
+	var childElemIdNum = parentId.split("-")[3];
+	var childElementId = $("#child-vnf-discount-"+childElemIdNum);
+	alert(childElementId);
+});
+
 
