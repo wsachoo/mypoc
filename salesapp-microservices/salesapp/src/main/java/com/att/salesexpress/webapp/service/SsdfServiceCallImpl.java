@@ -2,6 +2,7 @@ package com.att.salesexpress.webapp.service;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.text.StrSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class SsdfServiceCallImpl implements SsdfServiceCall {
 		logger.debug("Entered getSsdfContractMicroserviceRequestInfo() method.");
 		String opportunityId = paramValues.get("OPPORTUNITY_ID").toString();
 		String reqJson = dbServiceImpl.findSsdfRequestJsonByOpportunityId(opportunityId);
+		
+		StrSubstitutor sub = new StrSubstitutor(paramValues);
+		reqJson = sub.replace(reqJson);
+		
 		String url = dbServiceImpl.findSsdfMicroserviceUrl("SSDF_CONTRACT_MICROSERVICE_URL");
 
 		logger.debug("Exiting getSsdfContractMicroserviceRequestInfo() method.");

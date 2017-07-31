@@ -95,10 +95,17 @@ function handleSsdfCallForContractDetail() {
     var url = SALESEXPRESS_CONSTANTS.getUrlPath('getSsdfContractMicroserviceRequestInfoUrl');
 	
 	var i = Object.keys(jsonObjectToShoppingCartTmpl).length;
-
+	var reqData = {}; //JSON.stringify(productConfigObj);
+	
+	var trigerList = $("input[id^='discountPercentage_']");
+	$.each(trigerList, function(a, b) {
+	    reqData[b.id] = b.value;
+	});
+	
 	$.each(jsonObjectToShoppingCartTmpl, function(k, v) {
-		var reqData = {}; //JSON.stringify(productConfigObj);
 		reqData["OPPORTUNITY_ID"] = v["OPPORTUNITY ID"];
+		console.log(JSON.stringify(reqData));
+		
 		var promise = httpAsyncPostWithJsonRequestResponse(url, JSON.stringify(reqData));
 		
 		promise.done(function(data, textStatus, jqXHR) {
