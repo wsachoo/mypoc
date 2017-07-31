@@ -329,3 +329,16 @@ update SALES_FLEX_DISCOUNT_DATA set DISCOUNT_ID=2000102 where DEVICE_ID=7;
 update SALES_FLEX_DISCOUNT_DATA set DISCOUNT_ID=2000104 where DEVICE_ID=8;
 update SALES_FLEX_DISCOUNT_DATA set DISCOUNT_ID=2000106 where DEVICE_ID=9;
 ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+create table SALES_SSDF_CONTRACT_REQ_INFO
+_____________________________________________________
+
+Name           Null     Type         
+-------------- -------- ------------ 
+ID             NOT NULL NUMBER(38)   
+OPPORTUNITY_ID NOT NULL VARCHAR2(30) 
+PRODUCT_TYPE   NOT NULL VARCHAR2(30) 
+REQ_JSON                CLOB    
+____________________________________________________
