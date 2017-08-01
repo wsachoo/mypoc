@@ -992,7 +992,7 @@ function onClickCheckoutAndGenContract() {
     	var templatePath = contextPath + "/templates/checkout_generate_contract_modal.html";
     	var modalTemplate = getTemplateDefinition(templatePath);
     	$.template("checkout_generate_contract", modalTemplate);
-    	//console.log("ssdfResp:" + JSON.stringify(ssdfResp));
+    	//console.log("ssdfResp :" + JSON.stringify(ssdfResp));
     	var modalTemplateToDisplay = $.tmpl("checkout_generate_contract", ssdfResp);
     	$('body').append(modalTemplateToDisplay);
     	setDataToCheckoutGenContractPopup(ssdfResp);
@@ -1005,7 +1005,7 @@ function onClickCheckoutAndGenContract() {
 
 function goBackToOffers() {
 //	$("#shoppingCartLink").find('.badge').remove();
-//	window.history.back();
+	window.history.back();
 }
 
 function onClickViewCartAndCheckoutNew(url) {
