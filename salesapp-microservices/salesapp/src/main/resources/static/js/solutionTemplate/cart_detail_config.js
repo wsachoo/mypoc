@@ -143,10 +143,11 @@ function handleSsdfCallForContractDetail() {
 function setDataToCheckoutGenContractPopup(ssdfResp) {
 	var ssdfKeys = Object.keys(ssdfResp);
 	var firstSiteDataForContactInfo = ssdfResp[ssdfKeys[0]];
-	setContactInfo(firstSiteDataForContactInfo)
+	setContactInfoToContractGenPopup(firstSiteDataForContactInfo);
+	setTermInfoToContractGenPopup(firstSiteDataForContactInfo);
 }
 
-function setContactInfo(firstSiteDataForContactInfo) {
+function setContactInfoToContractGenPopup(firstSiteDataForContactInfo) {
 	
 	var legalInfo = firstSiteDataForContactInfo[0]["customerProfile"]["customerLegalInfo"];
 	$("#legalInfoLegalName").val(legalInfo["customerLegalName"]);
@@ -180,6 +181,13 @@ function setContactInfo(firstSiteDataForContactInfo) {
 
 }
 
+function setTermInfoToContractGenPopup(firstSiteDataForContactInfo) {
+	var contractTerm = firstSiteDataForContactInfo[0]["intialTerm"];
+	$("#contactTermTxt").val(contractTerm);
+	var marc = firstSiteDataForContactInfo[0]["commitmentInstance"]["minAnnualRevCommitment"];
+	$("#contractTermMarc").val(marc);
+}
+
 function formTermsAndConditionsDisplayTable() {
 	$('#divTermsAndConditions').append('<table class="table"></table>');
 	var table = $('#divTermsAndConditions').children();
@@ -199,3 +207,5 @@ function formTermsAndConditionsDisplayTable() {
 	table.append(tbody);
 
 }
+
+
