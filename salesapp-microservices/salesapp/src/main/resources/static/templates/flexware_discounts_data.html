@@ -4,10 +4,15 @@
 	<div class="row">
 		<div class="col-sm-6">
 		<label>Term : </label><select class="form-control" id="flexwareTermList">
-					<option value="24">24 Months</option>
-					<option value="36">36 Months</option>
-					<option value="48">48 Months</option>
-					<option value="60">60 Months</option>
+			{{each(i, item) flexwareDiscountData}}
+				{{if i == 0}}
+					{{each(j, item) flexwareDiscountData[i]["salesFlexTermDiscounts"]}}
+						<option value="24">${flexwareDiscountData[i]["salesFlexTermDiscounts"][j]["termInMonths"]} months</option>
+					{{/each}}
+				{{else}}
+					
+				{{/if}}
+			{{/each}}	
 				</select>
 		</div>
 		<div class="col-sm-6">
