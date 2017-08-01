@@ -113,15 +113,11 @@ function showPricingTables(blnBvoipNeeded) {
 }
 
 function displayTermsAndConditionsText() {
-	if (termSelectedByUser == '12 Months') {
-		$("#liTC12Months").css('display', 'inline');
-	} else if (termSelectedByUser == '24 Months') {
-		$("#liTC24Months").css('display', 'inline');
-	} else if (termSelectedByUser == '36 Months') {
-		$("#liTC36Months").css('display', 'inline');
-	}
+
+	formTermsAndConditionsDisplayTable();
 }
-	
+
+
 function showMARCElementsData() {
 	var date = new Date();
 
@@ -619,23 +615,7 @@ function showMARCElementsData() {
 
 							<div class="row" style="margin-top: 5px;" id="divMISTandC">
 								<h4>ADI Terms and Conditions</h4>
-								<ul id="txtTandC">
-									<li id="liTC12Months" style="display: none;">AT&T may
-										discontinue a Service or Service Component as provided in the
-										applicable Service Guide and in the case of a Service or
-										Service Component that is supplied to AT&T by a third party
-										service provider upon thirty (30) days written notice.</li>
-									<li id="liTC24Months" style="display: none;">AT&T may
-										discontinue a Service or Service Component as provided in the
-										applicable Service Guide and in the case of a Service or
-										Service Component that is supplied to AT&T by a third party
-										service provider upon thirty (30) days written notice.</li>
-									<li id="liTC36Months" style="display: none;">AT&T may
-										discontinue a Service or Service Component as provided in the
-										applicable Service Guide and in the case of a Service or
-										Service Component that is supplied to AT&T by a third party
-										service provider upon thirty (30) days written notice.</li>
-								</ul>
+								<div id="divTermsAndConditions"></div>
 							</div>
 							<div class="row" style="margin-top: 5px;" id="divBVOIPTandC">
 								<h4>BVOIP Terms and Conditions</h4>
