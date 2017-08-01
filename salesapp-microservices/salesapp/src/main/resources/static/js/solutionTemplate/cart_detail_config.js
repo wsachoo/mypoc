@@ -189,23 +189,38 @@ function setTermInfoToContractGenPopup(firstSiteDataForContactInfo) {
 }
 
 function formTermsAndConditionsDisplayTable() {
-	$('#divTermsAndConditions').append('<table class="table"></table>');
-	var table = $('#divTermsAndConditions').children();
-	table.append("<thead><tr><th>Outline Number</th><th>Clause Level</th><th>Clause Code</th><th>Clause Name</th><th>Verbiage</th></tr></thead>");
+	var flexWareKey = undefined;
+	
+	$.each(ssdfContractApiResponse, function(k, v) {
+	    if (v[0].offerName == "FlexWare") {
+	    	flexWareKey = k ;
+	    	return false; 
+	    }
+	});
+	
+	if (flexWareKey) {
+		var flexWareObject = ssdfContractApiResponse[flexWareKey][0];
+		
+		$('#divTermsAndConditions').empty();
+		$('#divTermsAndConditions').append('<table class="table" border="1"></table>');
+		var table = $('#divTermsAndConditions').children();
+		table.append("<thead><tr><th>Outline Number</th><th>Clause Level</th><th>Clause Code</th><th>Clause Name</th><th>Verbiage</th></tr></thead>");
 
-	var tbody = "<tbody>";
-	for (var i= 0; i <3; i++) {
-		tbody = tbody + "<tr>";
-		tbody = tbody + "<td>" + i + "</td>";
-		tbody = tbody + "<td>" + (i+5) + "</td>";
-		tbody = tbody + "<td>" + (i+10) + "</td>";
-		tbody = tbody + "<td>" + (i+15) + "</td>";
-		tbody = tbody + "<td>" + (i+20) + "</td>";
-		tbody = tbody + "</tr>";
+		var tbody = "<tbody>";
+		
+		$.each(flexWareObject.sections[0].subsections, function(i, objSubsection) {
+			tbody = tbody + "<tr>";
+			tbody = tbody + "<td>" + objSubsection.outlineNumber + "</td>";
+			tbody = tbody + "<td>" + objSubsection.clauseLevel + "</td>";
+			tbody = tbody + "<td>" + objSubsection.clauseCode + "</td>";
+			tbody = tbody + "<td>" + objSubsection.name + "</td>";
+			tbody = tbody + "<td>" + objSubsection.verbiage + "</td>";
+			tbody = tbody + "</tr>";
+		});
+		
+		tbody = tbody + "</tbody>";
+		table.append(tbody);		
 	}
-	tbody = tbody + "</tbody>";
-	table.append(tbody);
-
 }
 
 
