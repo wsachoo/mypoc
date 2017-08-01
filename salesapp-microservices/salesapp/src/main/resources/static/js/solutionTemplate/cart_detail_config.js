@@ -138,3 +138,42 @@ function handleSsdfCallForContractDetail() {
 	return dfd.promise();	
 	//END: Get SSDF Request JSON for each site	
 }
+
+function setDataToCheckoutGenContractPopup(ssdfResp) {
+	var ssdfKeys = Object.keys(ssdfResp);
+	var firstSiteDataForContactInfo = ssdfResp[ssdfKeys[0]];
+	setContactInfo(firstSiteDataForContactInfo)
+}
+
+function setContactInfo(firstSiteDataForContactInfo) {
+	
+	var legalInfo = firstSiteDataForContactInfo[0]["customerProfile"]["customerLegalInfo"];
+	$("#legalInfoLegalName").val(legalInfo["customerLegalName"]);
+	$("#legalInfoCity").val(legalInfo["city"]);
+	$("#legalInfoCountry").val(legalInfo["country"]);
+	$("#legalInfoSAddress").val(legalInfo["streetAddress1"]);
+	$("#legalInfoState").val(legalInfo["stateOrProvince"]);
+	$("#legalInfoZipcode").val(legalInfo["zipOrPostalCode"]);
+	
+	var salesContactInfo = firstSiteDataForContactInfo[0]["attProfile"]["attSalesContact"];
+	$("#salesInfoName").val(salesContactInfo["firstName"]);
+	$("#salesInfoCountry").val(salesContactInfo["country"]);
+	$("#salesInfoManager").val(salesContactInfo["branchManager"]);
+	$("#salesInfoSAddress").val(salesContactInfo["streetAddress"]);
+	$("#salesInfoPhone").val(salesContactInfo["telephone"]);
+	$("#salesinfoState").val(salesContactInfo["state"]);
+	$("#salesInfoCity").val(salesContactInfo["city"]);
+	$("#salesInfoFax").val("123-456-789");
+	$("#salesInfoZipcode").val(salesContactInfo["zip"]);
+	
+	
+    var customerContactInfo = firstSiteDataForContactInfo[0]["customerProfile"]["customerContact"];
+	$("#customerInfoName").val(customerContactInfo["firstName"]);
+	$("#customerInfoCity").val(customerContactInfo["city"]);
+	$("#customerInfoCountry").val(customerContactInfo["country"]);
+	$("#customerInfoSAddress").val(customerContactInfo["streetAddress"]);
+	$("#customerInfoState").val(customerContactInfo["state"]);
+	$("#customerInfoZipcode").val(customerContactInfo["zip"]);
+	$("#customerInfoPhone").val(customerContactInfo["telephone"]);
+	$("#customerInfoEmail").val(customerContactInfo["email"]);
+}
