@@ -997,6 +997,7 @@ function onClickCheckoutAndGenContract() {
     	$('body').append(modalTemplateToDisplay);
     	setDataToCheckoutGenContractPopup(ssdfResp);
     	$("#btnPreviewContactModal").trigger('click');
+
     }).fail(function (jqXHR, textStatus, errorThrown) {
         alert("Error: " + textStatus);
     });   
@@ -1031,8 +1032,6 @@ function constructJsonObjectToShoppingCartTmpl(url) {
 	$.each(objectKeysArray, function(k, value) {
 		var key = value.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
 		key = transformDisplayKeyName(key);
-		
-		
 		
 		if (key == "OFFER NAME") {
 			DATA[key] = dataToGenContract["bundleCd"];

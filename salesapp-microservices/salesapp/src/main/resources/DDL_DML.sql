@@ -341,4 +341,24 @@ ID             NOT NULL NUMBER(38)
 OPPORTUNITY_ID NOT NULL VARCHAR2(30) 
 PRODUCT_TYPE   NOT NULL VARCHAR2(30) 
 REQ_JSON                CLOB    
-____________________________________________________
+
+REM INSERTING into SALES_SSDF_CONTRACT_REQ_INFO
+SET DEFINE OFF;
+Insert into SALES_SSDF_CONTRACT_REQ_INFO (ID,OPPORTUNITY_ID,PRODUCT_TYPE) values (1,'1-61KINBM','AVPN');
+Insert into SALES_SSDF_CONTRACT_REQ_INFO (ID,OPPORTUNITY_ID,PRODUCT_TYPE) values (2,'1-62JOAFU','AVPN');
+Insert into SALES_SSDF_CONTRACT_REQ_INFO (ID,OPPORTUNITY_ID,PRODUCT_TYPE) values (3,'1-61YK6ZN','Flexware');
+Insert into SALES_SSDF_CONTRACT_REQ_INFO (ID,OPPORTUNITY_ID,PRODUCT_TYPE) values (4,'1-62A13TQ','Flexware');
+________________________________________________________________________________________________________
+
+
+desc SALES_SSDF_MICROSERVICES_URLS
+
+Name      Null     Type          
+--------- -------- ------------- 
+ID        NOT NULL NUMBER(38)    
+URL_KEY            VARCHAR2(60)  
+URL_VALUE          VARCHAR2(300)
+Insert into SALES_SSDF_MICROSERVICES_URLS (ID,URL_KEY,URL_VALUE) values (1,'SSDF_CONTRACT_MICROSERVICE_URL','http://zld03838.vci.att.com:30807/ssdf/pricingschedule/v1/service/previewPricingSchedules');
+
+________________________________________________________________________________________________________
+
