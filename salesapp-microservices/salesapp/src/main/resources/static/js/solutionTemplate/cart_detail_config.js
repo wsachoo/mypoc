@@ -87,9 +87,9 @@ function setDiscountPercToChild() {
 
 }
 
-
+var ssdfContractApiResponse = {};//Clear earlier SSDF response
 function handleSsdfCallForContractDetail() {
-	var ssdfContractApiResponse = {};//Clear earlier SSDF response
+	ssdfContractApiResponse = {};//Clear earlier SSDF response
 	//START: Get SSDF Request JSON for each site
     var dfd = new $.Deferred();    
     var url = SALESEXPRESS_CONSTANTS.getUrlPath('getSsdfContractMicroserviceRequestInfoUrl');
@@ -104,7 +104,6 @@ function handleSsdfCallForContractDetail() {
 	
 	$.each(jsonObjectToShoppingCartTmpl, function(k, v) {
 		reqData["OPPORTUNITY_ID"] = v["OPPORTUNITY ID"];
-		console.log(JSON.stringify(reqData));
 		
 		var promise = httpAsyncPostWithJsonRequestResponse(url, JSON.stringify(reqData));
 		
@@ -116,8 +115,9 @@ function handleSsdfCallForContractDetail() {
 			var promise = httpAsyncPostWithJsonRequestResponse(ssdfUrl, JSON.stringify(ssdfReqObj));
 
 			promise.done(function(data2, textStatus, jqXHR) {
-				i--;
+				
 				ssdfContractApiResponse[k] = data2;
+				i--;
 				
 				if (i == 0) {
 					dfd.resolve(ssdfContractApiResponse, textStatus, jqXHR);
@@ -137,4 +137,24 @@ function handleSsdfCallForContractDetail() {
 	
 	return dfd.promise();	
 	//END: Get SSDF Request JSON for each site	
+}
+
+
+function formTermsAndConditionsDisplayTable() {
+	$('#divTermsAndConditions').append('<table class="table"></table>');
+	var table = $('#divTermsAndConditions').children();
+	table.append("<thead><tr><th>Outline Number</th><th>Clause Level</th><th>Clause Code</th><th>Clause Name</th><th>Verbiage</th></tr></thead>");
+
+	var tbody = "<tbody>";
+	for (var i= 0; i <3; i++) {
+		tbody = tbody + "<tr>";
+		tbody = tbody + "<td>" + i + "</td>";
+		tbody = tbody + "<td>" + (i+5) + "</td>";
+		tbody = tbody + "<td>" + (i+10) + "</td>";
+		tbody = tbody + "<td>" + (i+15) + "</td>";
+		tbody = tbody + "<td>" + (i+20) + "</td>";
+		tbody = tbody + "</tr>";
+	}
+	tbody = tbody + "</tbody>";
+	table.append(tbody);
 }
