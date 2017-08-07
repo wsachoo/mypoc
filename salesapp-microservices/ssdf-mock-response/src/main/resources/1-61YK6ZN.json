@@ -1,0 +1,2587 @@
+[{
+		"uuid": "68a788fa-dff0-48ea-9bfe-0b8ef38be10e",
+		"id": null,
+		"contractNumber": "NFOD61YK6ZN",
+		"solutionId": 2435490,
+		"pricingScenarioId": 4055608,
+		"solutionNumber": "46336047",
+		"opportunityId": "1-61YK6ZN",
+		"intialTerm": "24",
+		"receiptDate": null,
+		"romeId": null,
+		"eSignId": null,
+		"docViewerId": null,
+		"segment": null,
+		"masterAgreementType": null,
+		"masterAgreementReferenceNumber": "MA7223691UA",
+		"customerProfile": {
+			"customerLegalInfo": {
+				"customerLegalName": "The Network",
+				"streetAddress1": "726 W SHERIDAN AVE",
+				"streetAddress2": null,
+				"city": "OKLAHOMA CITY",
+				"stateOrProvince": "OK",
+				"country": "US",
+				"zipOrPostalCode": "73102-2412",
+				"telephone": "(325) 280-2422",
+				"buildingName": null,
+				"houseNumber": null
+			},
+			"customerContact": {
+				"contactType": "Customer",
+				"firstName": "Prathap",
+				"lastName": "Kumar",
+				"title": "Administrator",
+				"streetAddress": "1307 MEADOW CREEK DR",
+				"city": "IRVING",
+				"state": "TX",
+				"country": "US",
+				"zip": "75038-7936",
+				"telephone": "4690000000",
+				"fax": null,
+				"email": "pk186q@att.com",
+				"scvpName": null,
+				"branchManager": null,
+				"salesStrata": null,
+				"salesRegion": null,
+				"agentCode": null,
+				"companyCode": null,
+				"alternatePhone": "4691000000",
+				"cellPhone": null,
+				"attuid": "pk186q",
+				"adminId": null
+			},
+			"site": null
+		},
+		"attProfile": {
+			"attEntity": null,
+			"attSalesContact": {
+				"contactType": "ATT Sales",
+				"firstName": "Prathap",
+				"lastName": "Kumar",
+				"title": null,
+				"streetAddress": "1307 Meadow Creek",
+				"city": "Irving",
+				"state": "TX",
+				"country": "US",
+				"zip": "75038",
+				"telephone": "(469) 000-0000",
+				"fax": null,
+				"email": "pk186q@att.com",
+				"scvpName": "Test",
+				"branchManager": "Testng",
+				"salesStrata": "Wholesale",
+				"salesRegion": "USA",
+				"agentCode": "",
+				"companyCode": "",
+				"alternatePhone": null,
+				"cellPhone": null,
+				"attuid": "pk186q",
+				"adminId": null
+			},
+			"solutionProviderContact": null
+		},
+		"docId": null,
+		"attSignatureInfo": {
+			"signatureType": "wet",
+			"autoExecuteIndicaotr": "N",
+			"attSignatureDate": 1501020172154,
+			"presignIndicator": "N"
+		},
+		"customerSignatureInfo": {
+			"signatureType": "wet",
+			"eSignType": "iPad",
+			"customerSignatureDate": 1501020172154,
+			"singleSingureCoverPageIndicator": "Y"
+		},
+		"services": [{
+				"name": "AT&T FlexWare",
+				"servicePublicationLocation": "http://serviceguidenew.att.com/sg_flashPlayerPage/NFoD"
+			}
+		],
+		"termAndEffectiveDates": [{
+				"name": "Pricing Schedule Term",
+				"value": "24  Months"
+			}, {
+				"name": "Term Start Date and Effective Date of Rates and Discounts",
+				"value": "Original Effective Date of this Pricing Schedule"
+			}, {
+				"name": "Start Date of Minimum Payment Period, Per Service Component",
+				"value": "Later of the Effective Date of this Pricing Schedule or Installation of the Service Component"
+			}, {
+				"name": "Rate Stabilization per Service Component",
+				"value": "Rates as specified in this Pricing Schedule for each Host Service Component are stabilized until the end of its Minimum Payment Period (“MPP”).  The rates for the Virtual Network Functions Service Components are stabilized until the end of the MPP for the Host on which it resides."
+			}, {
+				"name": "Pricing Following the End of Host Minimum Payment Period",
+				"value": "Non-stabilized prices as modified from time to time in applicable Service Publication or, if there is no such pricing, the pricing in this Pricing Schedule. "
+			}
+		],
+		"minimumPaymentPeriods": [{
+				"serviceComponent": "Service Components",
+				"percentageOfMonthlyRecurringRate": "Percentage of Monthly Recurring Rate Applied for Calculation of Early Termination Charges",
+				"minPaymentPeriod": "Minimum Payment Period per Service Component"
+			}, {
+				"serviceComponent": "All Virtual Network Function Service Components",
+				"percentageOfMonthlyRecurringRate": "100% ",
+				"minPaymentPeriod": "1 Month"
+			}, {
+				"serviceComponent": "All Host Service Components",
+				"percentageOfMonthlyRecurringRate": "100%",
+				"minPaymentPeriod": "24 Month"
+			}
+		],
+		"commitmentInstance": {
+			"typeofMarcCommitment": null,
+			"coterminousTermDate": null,
+			"minAnnualRevCommitment": "NA",
+			"commitmentTerm": "24",
+			"extendTerm": null,
+			"reduceTerm": null,
+			"marcByYear": [{
+					"commitmentYear": "NA",
+					"commitmentAmount": "NA"
+				}
+			]
+		},
+		"credits": {
+			"hasCredit": false,
+			"hasAnualCredit": false,
+			"hasOneTimeCredit": false
+		},
+		"termsAndConditions": [],
+		"ratesAndCharges": {
+			"id": null,
+			"name": null,
+			"rateSections": []
+		},
+		"avpnDiscounts": [],
+		"properties": {},
+		"rateMap": {
+			"Host Devices|AT&T u401/u410|MRC|Devices||141607": "310.0",
+			"Host Devices|AT&T u412|MRC|Devices||144396": "377.0",
+			"Host Devices|AT&T u210|MRC|Devices||151668": "200.0",
+			"AT&T Managed|Juniper vSRX 1G|MRC|vRouter||152049": "141.0",
+			"AT&T Managed|Juniper vSRX 300M|MRC|vRouter||152050": "108.0",
+			"AT&T Managed|Cisco CSR 10M|MRC|vRouter||145950": "104.0",
+			"AT&T Managed|Cisco CSR 50M|MRC|vRouter||145951": "142.0",
+			"AT&T Managed|Cisco CSR 100M|MRC|vRouter||145952": "210.0",
+			"AT&T Managed|Cisco CSR 250M|MRC|vRouter||145953": "402.0",
+			"AT&T Managed|Cisco CSR 1G|MRC|vRouter||145954": "642.0",
+			"Customer Managed|Juniper vSRX 1G|MRC|vRouter||152051": "78.0",
+			"Customer Managed|Juniper vSRX 300M|MRC|vRouter||152052": "60.0",
+			"Customer Managed|Cisco CSR 10M|MRC|vRouter||152054": "57.0",
+			"Customer Managed|Cisco CSR 50M|MRC|vRouter||152055": "84.0",
+			"Customer Managed|Cisco CSR 100M|MRC|vRouter||152056": "133.0",
+			"Customer Managed|Cisco CSR 250M|MRC|vRouter||152057": "269.0",
+			"Customer Managed|Cisco CSR 1G|MRC|vRouter||152058": "435.0",
+			"AT&T Managed|Palo Alto VM100|MRC|vFirewall|Essential|165967": "691.0",
+			"AT&T Managed|Palo Alto VM300|MRC|vFirewall|Essential|165971": "845.0",
+			"Customer Managed|Palo Alto VM100|MRC|vFirewall|Essential|165966": "188.0",
+			"Customer Managed|Palo Alto VM300|MRC|vFirewall|Essential|165970": "284.0",
+			"AT&T Managed|Fortinet FortiGate-VM00|MRC|vFirewall|Enhanced|152059": "753.0",
+			"AT&T Managed|Fortinet FortiGate-VM01|MRC|vFirewall|Enhanced|152060": "872.0",
+			"AT&T Managed|Fortinet FortiGate-VM02|MRC|vFirewall|Enhanced|152061": "1025.0",
+			"AT&T Managed|Fortinet FortiGate-VM04|MRC|vFirewall|Enhanced|152062": "1278.0",
+			"AT&T Managed|Fortinet FortiGate-VM08|MRC|vFirewall|Enhanced|152063": "1858.0",
+			"AT&T Managed|Palo Alto VM100|MRC|vFirewall|Enhanced|165973": "1125.0",
+			"AT&T Managed|Palo Alto VM300|MRC|vFirewall|Enhanced|165977": "1392.0",
+			"Customer Managed|Fortinet FortiGate-VM00|MRC|vFirewall|Enhanced|143890": "122.0",
+			"Customer Managed|Fortinet FortiGate-VM01|MRC|vFirewall|Enhanced|143891": "267.0",
+			"Customer Managed|Fortinet FortiGate-VM02|MRC|vFirewall|Enhanced|143892": "500.0",
+			"Customer Managed|Fortinet FortiGate-VM04|MRC|vFirewall|Enhanced|143893": "750.0",
+			"Customer Managed|Fortinet FortiGate-VM08|MRC|vFirewall|Enhanced|143894": "1167.0",
+			"Customer Managed|Palo Alto VM100|MRC|vFirewall|Enhanced|165972": "464.0",
+			"Customer Managed|Palo Alto VM300|MRC|vFirewall|Enhanced|165976": "561.0",
+			"AT&T Managed|Riverbed Steelhead 255-U|MRC|vWANX|Basic|145917": "255.0",
+			"AT&T Managed|Riverbed Steelhead 255-L|MRC|vWANX|Basic|145919": "271.0",
+			"AT&T Managed|Riverbed Steelhead 255-M|MRC|vWANX|Basic|145921": "336.0",
+			"AT&T Managed|Riverbed Steelhead 255-H|MRC|vWANX|Basic|145923": "396.0",
+			"AT&T Managed|Riverbed Steelhead 555-L|MRC|vWANX|Basic|145925": "686.0",
+			"AT&T Managed|Riverbed Steelhead 555-M|MRC|vWANX|Basic|145927": "772.0",
+			"AT&T Managed|Riverbed Steelhead 555-H|MRC|vWANX|Basic|145929": "835.0",
+			"AT&T Managed|Riverbed Steelhead 755-L|MRC|vWANX|Basic|145931": "991.0",
+			"AT&T Managed|Riverbed Steelhead 755-M|MRC|vWANX|Basic|145933": "1077.0",
+			"AT&T Managed|Riverbed Steelhead 755-H|MRC|vWANX|Basic|145935": "1297.0",
+			"AT&T Managed|Riverbed Steelhead 255-U|MRC|vWANX|Complete|145918": "289.0",
+			"AT&T Managed|Riverbed Steelhead 255-L|MRC|vWANX|Complete|145920": "318.0",
+			"AT&T Managed|Riverbed Steelhead 255-M|MRC|vWANX|Complete|145922": "398.0",
+			"AT&T Managed|Riverbed Steelhead 255-H|MRC|vWANX|Complete|145924": "456.0",
+			"AT&T Managed|Riverbed Steelhead 555-L|MRC|vWANX|Complete|145926": "798.0",
+			"AT&T Managed|Riverbed Steelhead 555-M|MRC|vWANX|Complete|145928": "890.0",
+			"AT&T Managed|Riverbed Steelhead 555-H|MRC|vWANX|Complete|145930": "1054.0",
+			"AT&T Managed|Riverbed Steelhead 755-L|MRC|vWANX|Complete|145932": "1270.0",
+			"AT&T Managed|Riverbed Steelhead 755-M|MRC|vWANX|Complete|145934": "1383.0",
+			"AT&T Managed|Riverbed Steelhead 755-H|MRC|vWANX|Complete|145936": "1650.0",
+			"Customer Managed|Riverbed Steelhead 255-U|MRC|vWANX|Complete|145937": "169.0",
+			"Customer Managed|Riverbed Steelhead 255-L|MRC|vWANX|Complete|145938": "190.0",
+			"Customer Managed|Riverbed Steelhead 255-M|MRC|vWANX|Complete|145939": "247.0",
+			"Customer Managed|Riverbed Steelhead 255-H|MRC|vWANX|Complete|145940": "288.0",
+			"Customer Managed|Riverbed Steelhead 555-L|MRC|vWANX|Complete|145941": "518.0",
+			"Customer Managed|Riverbed Steelhead 555-M|MRC|vWANX|Complete|145942": "583.0",
+			"Customer Managed|Riverbed Steelhead 555-H|MRC|vWANX|Complete|145943": "700.0",
+			"Customer Managed|Riverbed Steelhead 755-L|MRC|vWANX|Complete|145944": "853.0",
+			"Customer Managed|Riverbed Steelhead 755-M|MRC|vWANX|Complete|145945": "934.0",
+			"Customer Managed|Riverbed Steelhead 755-H|MRC|vWANX|Complete|145946": "1123.0"
+		},
+		"netRateTableMap": {
+			"Host MRC": {
+				"name": "Host MRC",
+				"title": "Host MRC",
+				"headerRows": [{
+						"name": "Country",
+						"groupName": "Host Type",
+						"description": "Country",
+						"cells": [{
+								"name": "column1",
+								"value": "United States",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "United States"
+							}
+						]
+					}, {
+						"name": "Currency",
+						"groupName": "Host Type",
+						"description": "Currency",
+						"cells": [{
+								"name": "column1",
+								"value": "USD",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "USD"
+							}
+						]
+					}
+				],
+				"rateRows": [{
+						"groupName": "UCPE",
+						"description": "AT&T u401/u410",
+						"cells": [{
+								"name": "Rate1",
+								"value": "310.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$310.00"
+							}
+						]
+					}, {
+						"groupName": "UCPE",
+						"description": "AT&T u412",
+						"cells": [{
+								"name": "Rate1",
+								"value": "377.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$377.00"
+							}
+						]
+					}, {
+						"groupName": "UCPE",
+						"description": "AT&T u210",
+						"cells": [{
+								"name": "Rate1",
+								"value": "200.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$200.00"
+							}
+						]
+					}
+				],
+				"uniqueGroupNames": [
+					"UCPE"
+				]
+			},
+			"VNF MRC - Self Managed": {
+				"name": "VNF MRC - Self Managed",
+				"title": "VNF MRC - Self Managed",
+				"headerRows": [{
+						"name": "Country",
+						"groupName": "Software Type",
+						"description": "Country",
+						"cells": [{
+								"name": "column1",
+								"value": "United States",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "United States"
+							}
+						]
+					}, {
+						"name": "Currency",
+						"groupName": "Software Type",
+						"description": "Currency",
+						"cells": [{
+								"name": "column1",
+								"value": "USD",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "USD"
+							}
+						]
+					}
+				],
+				"rateRows": [{
+						"groupName": "Router",
+						"description": "Juniper vSRX 1G",
+						"cells": [{
+								"name": "Rate1",
+								"value": "78.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$78.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Juniper vSRX 300M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "60.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$60.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 10M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "57.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$57.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 50M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "84.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$84.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 100M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "133.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$133.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 250M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "269.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$269.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 1G",
+						"cells": [{
+								"name": "Rate1",
+								"value": "435.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$435.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Essential",
+						"description": "Palo Alto VM100",
+						"cells": [{
+								"name": "Rate1",
+								"value": "188.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$188.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Essential",
+						"description": "Palo Alto VM300",
+						"cells": [{
+								"name": "Rate1",
+								"value": "284.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$284.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM00",
+						"cells": [{
+								"name": "Rate1",
+								"value": "122.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$122.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM01",
+						"cells": [{
+								"name": "Rate1",
+								"value": "267.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$267.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM02",
+						"cells": [{
+								"name": "Rate1",
+								"value": "500.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$500.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM04",
+						"cells": [{
+								"name": "Rate1",
+								"value": "750.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$750.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM08",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1167.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,167.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Palo Alto VM100",
+						"cells": [{
+								"name": "Rate1",
+								"value": "464.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$464.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Palo Alto VM300",
+						"cells": [{
+								"name": "Rate1",
+								"value": "561.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$561.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-U",
+						"cells": [{
+								"name": "Rate1",
+								"value": "169.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$169.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "190.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$190.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "247.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$247.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "288.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$288.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "518.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$518.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "583.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$583.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "700.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$700.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "853.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$853.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "934.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$934.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1123.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,123.00"
+							}
+						]
+					}
+				],
+				"uniqueGroupNames": [
+					"Router",
+					"Firewall Essential",
+					"Firewall Enhanced",
+					"WANx Complete"
+				]
+			},
+			"VNF MRC - AT&T Managed": {
+				"name": "VNF MRC - AT&T Managed",
+				"title": "VNF MRC - AT&T Managed",
+				"headerRows": [{
+						"name": "Country",
+						"groupName": "Software Type",
+						"description": "Country",
+						"cells": [{
+								"name": "column1",
+								"value": "United States",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "United States"
+							}
+						]
+					}, {
+						"name": "Currency",
+						"groupName": "Software Type",
+						"description": "Currency",
+						"cells": [{
+								"name": "column1",
+								"value": "USD",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "USD"
+							}
+						]
+					}
+				],
+				"rateRows": [{
+						"groupName": "Router",
+						"description": "Juniper vSRX 1G",
+						"cells": [{
+								"name": "Rate1",
+								"value": "141.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$141.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Juniper vSRX 300M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "108.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$108.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 10M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "104.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$104.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 50M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "142.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$142.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 100M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "210.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$210.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 250M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "402.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$402.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 1G",
+						"cells": [{
+								"name": "Rate1",
+								"value": "642.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$642.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Essential",
+						"description": "Palo Alto VM100",
+						"cells": [{
+								"name": "Rate1",
+								"value": "691.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$691.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Essential",
+						"description": "Palo Alto VM300",
+						"cells": [{
+								"name": "Rate1",
+								"value": "845.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$845.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM00",
+						"cells": [{
+								"name": "Rate1",
+								"value": "753.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$753.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM01",
+						"cells": [{
+								"name": "Rate1",
+								"value": "872.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$872.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM02",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1025.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,025.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM04",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1278.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,278.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM08",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1858.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,858.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Palo Alto VM100",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1125.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,125.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Palo Alto VM300",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1392.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,392.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 255-U",
+						"cells": [{
+								"name": "Rate1",
+								"value": "255.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$255.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 255-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "271.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$271.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 255-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "336.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$336.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 255-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "396.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$396.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 555-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "686.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$686.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 555-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "772.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$772.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 555-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "835.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$835.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 755-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "991.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$991.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 755-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1077.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,077.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 755-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1297.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,297.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-U",
+						"cells": [{
+								"name": "Rate1",
+								"value": "289.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$289.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "318.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$318.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "398.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$398.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "456.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$456.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "798.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$798.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "890.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$890.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1054.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,054.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1270.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,270.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1383.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,383.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1650.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,650.00"
+							}
+						]
+					}
+				],
+				"uniqueGroupNames": [
+					"Router",
+					"Firewall Essential",
+					"Firewall Enhanced",
+					"WANx Basic",
+					"WANx Complete"
+				]
+			}
+		},
+		"netRateTables": [{
+				"name": "Host MRC",
+				"title": "Host MRC",
+				"headerRows": [{
+						"name": "Country",
+						"groupName": "Host Type",
+						"description": "Country",
+						"cells": [{
+								"name": "column1",
+								"value": "United States",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "United States"
+							}
+						]
+					}, {
+						"name": "Currency",
+						"groupName": "Host Type",
+						"description": "Currency",
+						"cells": [{
+								"name": "column1",
+								"value": "USD",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "USD"
+							}
+						]
+					}
+				],
+				"rateRows": [{
+						"groupName": "UCPE",
+						"description": "AT&T u401/u410",
+						"cells": [{
+								"name": "Rate1",
+								"value": "310.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$310.00"
+							}
+						]
+					}, {
+						"groupName": "UCPE",
+						"description": "AT&T u412",
+						"cells": [{
+								"name": "Rate1",
+								"value": "377.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$377.00"
+							}
+						]
+					}, {
+						"groupName": "UCPE",
+						"description": "AT&T u210",
+						"cells": [{
+								"name": "Rate1",
+								"value": "200.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$200.00"
+							}
+						]
+					}
+				],
+				"uniqueGroupNames": [
+					"UCPE"
+				]
+			}, {
+				"name": "VNF MRC - AT&T Managed",
+				"title": "VNF MRC - AT&T Managed",
+				"headerRows": [{
+						"name": "Country",
+						"groupName": "Software Type",
+						"description": "Country",
+						"cells": [{
+								"name": "column1",
+								"value": "United States",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "United States"
+							}
+						]
+					}, {
+						"name": "Currency",
+						"groupName": "Software Type",
+						"description": "Currency",
+						"cells": [{
+								"name": "column1",
+								"value": "USD",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "USD"
+							}
+						]
+					}
+				],
+				"rateRows": [{
+						"groupName": "Router",
+						"description": "Juniper vSRX 1G",
+						"cells": [{
+								"name": "Rate1",
+								"value": "141.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$141.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Juniper vSRX 300M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "108.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$108.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 10M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "104.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$104.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 50M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "142.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$142.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 100M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "210.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$210.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 250M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "402.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$402.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 1G",
+						"cells": [{
+								"name": "Rate1",
+								"value": "642.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$642.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Essential",
+						"description": "Palo Alto VM100",
+						"cells": [{
+								"name": "Rate1",
+								"value": "691.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$691.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Essential",
+						"description": "Palo Alto VM300",
+						"cells": [{
+								"name": "Rate1",
+								"value": "845.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$845.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM00",
+						"cells": [{
+								"name": "Rate1",
+								"value": "753.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$753.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM01",
+						"cells": [{
+								"name": "Rate1",
+								"value": "872.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$872.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM02",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1025.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,025.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM04",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1278.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,278.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM08",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1858.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,858.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Palo Alto VM100",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1125.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,125.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Palo Alto VM300",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1392.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,392.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 255-U",
+						"cells": [{
+								"name": "Rate1",
+								"value": "255.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$255.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 255-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "271.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$271.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 255-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "336.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$336.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 255-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "396.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$396.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 555-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "686.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$686.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 555-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "772.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$772.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 555-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "835.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$835.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 755-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "991.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$991.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 755-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1077.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,077.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Basic",
+						"description": "Riverbed Steelhead 755-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1297.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,297.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-U",
+						"cells": [{
+								"name": "Rate1",
+								"value": "289.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$289.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "318.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$318.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "398.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$398.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "456.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$456.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "798.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$798.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "890.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$890.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1054.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,054.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1270.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,270.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1383.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,383.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1650.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,650.00"
+							}
+						]
+					}
+				],
+				"uniqueGroupNames": [
+					"Router",
+					"Firewall Essential",
+					"Firewall Enhanced",
+					"WANx Basic",
+					"WANx Complete"
+				]
+			}, {
+				"name": "VNF MRC - Self Managed",
+				"title": "VNF MRC - Self Managed",
+				"headerRows": [{
+						"name": "Country",
+						"groupName": "Software Type",
+						"description": "Country",
+						"cells": [{
+								"name": "column1",
+								"value": "United States",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "United States"
+							}
+						]
+					}, {
+						"name": "Currency",
+						"groupName": "Software Type",
+						"description": "Currency",
+						"cells": [{
+								"name": "column1",
+								"value": "USD",
+								"type": "STRING",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "USD"
+							}
+						]
+					}
+				],
+				"rateRows": [{
+						"groupName": "Router",
+						"description": "Juniper vSRX 1G",
+						"cells": [{
+								"name": "Rate1",
+								"value": "78.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$78.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Juniper vSRX 300M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "60.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$60.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 10M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "57.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$57.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 50M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "84.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$84.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 100M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "133.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$133.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 250M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "269.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$269.00"
+							}
+						]
+					}, {
+						"groupName": "Router",
+						"description": "Cisco CSR 1G",
+						"cells": [{
+								"name": "Rate1",
+								"value": "435.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$435.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Essential",
+						"description": "Palo Alto VM100",
+						"cells": [{
+								"name": "Rate1",
+								"value": "188.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$188.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Essential",
+						"description": "Palo Alto VM300",
+						"cells": [{
+								"name": "Rate1",
+								"value": "284.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$284.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM00",
+						"cells": [{
+								"name": "Rate1",
+								"value": "122.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$122.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM01",
+						"cells": [{
+								"name": "Rate1",
+								"value": "267.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$267.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM02",
+						"cells": [{
+								"name": "Rate1",
+								"value": "500.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$500.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM04",
+						"cells": [{
+								"name": "Rate1",
+								"value": "750.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$750.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Fortinet FortiGate-VM08",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1167.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,167.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Palo Alto VM100",
+						"cells": [{
+								"name": "Rate1",
+								"value": "464.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$464.00"
+							}
+						]
+					}, {
+						"groupName": "Firewall Enhanced",
+						"description": "Palo Alto VM300",
+						"cells": [{
+								"name": "Rate1",
+								"value": "561.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$561.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-U",
+						"cells": [{
+								"name": "Rate1",
+								"value": "169.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$169.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "190.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$190.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "247.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$247.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 255-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "288.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$288.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "518.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$518.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "583.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$583.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 555-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "700.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$700.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-L",
+						"cells": [{
+								"name": "Rate1",
+								"value": "853.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$853.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-M",
+						"cells": [{
+								"name": "Rate1",
+								"value": "934.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$934.00"
+							}
+						]
+					}, {
+						"groupName": "WANx Complete",
+						"description": "Riverbed Steelhead 755-H",
+						"cells": [{
+								"name": "Rate1",
+								"value": "1123.0",
+								"type": "MONEY",
+								"formatString": null,
+								"attibutes": {},
+								"formattedValue": "$1,123.00"
+							}
+						]
+					}
+				],
+				"uniqueGroupNames": [
+					"Router",
+					"Firewall Essential",
+					"Firewall Enhanced",
+					"WANx Complete"
+				]
+			}
+		],
+		"templateVersion": {
+			"id": 24131,
+			"templateName": "FlexWare_icb_ps",
+			"documentVersionNumber": 2,
+			"documentFileName": "FlexWare_ps_digital.doc",
+			"effectiveStartDate": "2017-07-03",
+			"effectiveEndDate": "2018-06-28",
+			"status": null,
+			"sections": [{
+					"id": 24174,
+					"outlineNumber": null,
+					"clauseCode": "PS-S-COVERPAGE",
+					"name": "CoverPage",
+					"description": null,
+					"information": null,
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiage": null,
+					"verbiageStyle": "TEXT",
+					"hexValue": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+					"alternativeClauses": [],
+					"fileName": "/template/common/coverpage.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500838701000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500838701000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25146,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "0",
+					"configuration": {
+						"outlineBookmarkName": "CoverPage",
+						"outlineBookmarkLevel": 1,
+						"dataTableBookmarkName": null,
+						"dataTableName": null,
+						"dataTableTitle": null,
+						"dataTableSourceName": null,
+						"mergeColumns": null,
+						"mergeHeader": true
+					},
+					"subsections": []
+				}, {
+					"id": 24159,
+					"outlineNumber": "1",
+					"clauseCode": "PS-S-FLEXWARE-SERVICES",
+					"name": "SERVICES",
+					"description": "SERVICES",
+					"information": null,
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiage": null,
+					"verbiageStyle": "XML",
+					"hexValue": "920ccc91e947d3933a8be481dcc27caf44882213205b3ae4b3d78dc480fb8fb8",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/services.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500564629000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500564629000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25147,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "1.",
+					"configuration": {
+						"outlineBookmarkName": "Services",
+						"outlineBookmarkLevel": 1,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "Service",
+						"dataTableTitle": null,
+						"dataTableSourceName": "services",
+						"mergeColumns": null,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24160,
+					"outlineNumber": "2",
+					"clauseCode": "PS-S-FLEXWARE-PSTERMEFFDATES",
+					"name": "PRICING SCHEDULE TERM AND EFFECTIVE DATES",
+					"description": "PRICING SCHEDULE TERM AND EFFECTIVE DATES",
+					"information": null,
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiage": null,
+					"verbiageStyle": "XML",
+					"hexValue": "d8ce58e6d28f5a3719f070a2d36b1cde849a47aaa29a3a5c1ab7a5b355f1714f",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/term_and_effectivedates.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500564947000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500564947000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25148,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "2.",
+					"configuration": {
+						"outlineBookmarkName": "TermAndEffectiveDates",
+						"outlineBookmarkLevel": 1,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "termAndEffectiveDate",
+						"dataTableTitle": null,
+						"dataTableSourceName": "termAndEffectiveDates",
+						"mergeColumns": null,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24161,
+					"outlineNumber": "3",
+					"clauseCode": "PS-S-FLEXWARE-MINPYMNTPRDS",
+					"name": "MINIMUM PAYMENT PERIODS",
+					"description": "MINIMUM PAYMENT PERIODS",
+					"information": null,
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiage": null,
+					"verbiageStyle": "XML",
+					"hexValue": "78eebe5a5bddc30b6aa545feb92a2a73cc507de0a1eeb2173a00c81d785bba24",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/min_payment_periods.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500565092000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500565092000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25149,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "3.",
+					"configuration": {
+						"outlineBookmarkName": "MinimumPaymentPeriods",
+						"outlineBookmarkLevel": 1,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "minimumPaymentPeriod",
+						"dataTableTitle": null,
+						"dataTableSourceName": "minimumPaymentPeriods",
+						"mergeColumns": null,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24162,
+					"outlineNumber": "4.",
+					"clauseCode": "PS-S-FLEXWARE-ADDSMOVES",
+					"name": "ADDS AND MOVES",
+					"description": "ADDS AND MOVES",
+					"information": null,
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiage": "ADDS AND MOVES",
+					"verbiageStyle": "TEXT",
+					"hexValue": "d9b81004cb96975ae6d2a0fbfa1c8c6d13c83490a0eaaef20fb2990d4ac40ce9",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/section.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500565157000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500565157000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25150,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "4.",
+					"configuration": {
+						"outlineBookmarkName": "AddsAndMoves",
+						"outlineBookmarkLevel": 1,
+						"dataTableBookmarkName": null,
+						"dataTableName": null,
+						"dataTableTitle": null,
+						"dataTableSourceName": null,
+						"mergeColumns": null,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24163,
+					"outlineNumber": "4.1",
+					"clauseCode": "PS-S-FLEXWARE-ADDS",
+					"name": "ADDS",
+					"description": null,
+					"information": null,
+					"clauseLevel": "CLAUSE",
+					"clauseType": "S",
+					"verbiage": "AT&T FlexWare Service Components may be purchased during the Pricing Schedule Term, where available per the applicable Service Publication, at the rates, terms and conditions herein. Orders for new Service Components may not be placed under this Pricing Schedule after the expiration of the Pricing Schedule Term.",
+					"verbiageStyle": "TEXT",
+					"hexValue": "d5a94c51ff68fe1031966ba0d0243076c159d0cd2a45bc655324a3158d46baf6",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/clause.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500565208000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500565208000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25151,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "4.1",
+					"configuration": {
+						"outlineBookmarkName": "Adds",
+						"outlineBookmarkLevel": 2,
+						"dataTableBookmarkName": null,
+						"dataTableName": null,
+						"dataTableTitle": null,
+						"dataTableSourceName": null,
+						"mergeColumns": null,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24164,
+					"outlineNumber": "4.2",
+					"clauseCode": "PS-S-FLEXWARE-MOVES",
+					"name": "MOVES",
+					"description": null,
+					"information": null,
+					"clauseLevel": "CLAUSE",
+					"clauseType": "S",
+					"verbiage": "Per applicable Service Guide.",
+					"verbiageStyle": "TEXT",
+					"hexValue": "460fee1302e7408ae51690d53c7d5bf290457479fe1a7345170940cbb29bd3e9",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/clause.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500565269000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500565269000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25152,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "4.2",
+					"configuration": {
+						"outlineBookmarkName": "Moves",
+						"outlineBookmarkLevel": 2,
+						"dataTableBookmarkName": null,
+						"dataTableName": null,
+						"dataTableTitle": null,
+						"dataTableSourceName": null,
+						"mergeColumns": null,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24165,
+					"outlineNumber": "5.",
+					"clauseCode": "PS-S-FLEXWARE-RATESCHARGES",
+					"name": "RATES and CHARGES",
+					"description": "RATES and CHARGES",
+					"information": null,
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiage": "RATES and CHARGES",
+					"verbiageStyle": "TEXT",
+					"hexValue": "9ab89523fb16a6d52bd01c28559d1fe5e7f686e9b0ab364ed6de21dbc87de81a",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/section.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500565331000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500565331000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25153,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "5",
+					"configuration": {
+						"outlineBookmarkName": "RatesAndCharges",
+						"outlineBookmarkLevel": 1,
+						"dataTableBookmarkName": null,
+						"dataTableName": null,
+						"dataTableTitle": null,
+						"dataTableSourceName": null,
+						"mergeColumns": null,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24166,
+					"outlineNumber": "5.1",
+					"clauseCode": "PS-S-FLEXWARE-MRC",
+					"name": "Monthly Recurring Charges (MRC)",
+					"description": "Monthly Recurring Charges (MRC)",
+					"information": null,
+					"clauseLevel": "CLAUSE",
+					"clauseType": "S",
+					"verbiage": "- Sites in the US exclude Guam, CNMI and American Samoa.",
+					"verbiageStyle": "TEXT",
+					"hexValue": "ed7f2ad4e120f16ab9ab2ff31d749c33367b319bbf7ce5d1838dcdf6c664bcf9",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/clause_v2.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500565460000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500565460000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25154,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "5.1",
+					"configuration": {
+						"outlineBookmarkName": "MRC",
+						"outlineBookmarkLevel": 2,
+						"dataTableBookmarkName": null,
+						"dataTableName": null,
+						"dataTableTitle": null,
+						"dataTableSourceName": null,
+						"mergeColumns": null,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24167,
+					"outlineNumber": "5.1.1",
+					"clauseCode": "PS-S-FLEXWARE-HOSTMRC",
+					"name": "Host MRCs",
+					"description": "Host MRCs Universal CPE (UCPE)",
+					"information": null,
+					"clauseLevel": "SUBCLAUSE",
+					"clauseType": "S",
+					"verbiage": "Host MRCs Universal CPE (UCPE)",
+					"verbiageStyle": "XML",
+					"hexValue": "2c87540b4a884e614b1f9ad3c5fdd58596e16d601898b5cf5c37e7bae898bba8",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/rates_and_charges_mrc_host.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500565585000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500565585000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25155,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "5.1.1",
+					"configuration": {
+						"outlineBookmarkName": "HostMrcs",
+						"outlineBookmarkLevel": 3,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "rates",
+						"dataTableTitle": "HOST MRCs",
+						"dataTableSourceName": "Host MRC",
+						"mergeColumns": "0",
+						"mergeHeader": true
+					},
+					"subsections": []
+				}, {
+					"id": 24168,
+					"outlineNumber": "5.1.2",
+					"clauseCode": "PS-S-FLEXWARE-VNFMRCATT",
+					"name": "Virtual Network Functions (VNF) MRC – AT&T Managed",
+					"description": "Virtual Network Functions (VNF) MRC – AT&T Managed",
+					"information": null,
+					"clauseLevel": "SUBCLAUSE",
+					"clauseType": "S",
+					"verbiage": "Virtual Network Functions (VNF) MRC – AT&T Managed",
+					"verbiageStyle": "XML",
+					"hexValue": "378713c6f84a8a72e1f76ade931dffc50b1d09f028fa4216f148dddf92271c9c",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/rates_and_charges_mrc_vnf_att.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500565697000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500565697000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25156,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "5.1.2",
+					"configuration": {
+						"outlineBookmarkName": "VnfMrcAttManaged",
+						"outlineBookmarkLevel": 3,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "rates",
+						"dataTableTitle": "VNF MRC - AT&T Managed",
+						"dataTableSourceName": "VNF MRC - AT&T Managed",
+						"mergeColumns": "0",
+						"mergeHeader": true
+					},
+					"subsections": []
+				}, {
+					"id": 24169,
+					"outlineNumber": "5.1.3",
+					"clauseCode": "PS-S-FLEXWARE-VNFMRCSELF",
+					"name": "Virtual Network Functions (VNF) MRCs – Self Managed",
+					"description": "Virtual Network Functions (VNF) MRCs – Self Managed",
+					"information": null,
+					"clauseLevel": "SUBCLAUSE",
+					"clauseType": "S",
+					"verbiage": "Virtual Network Functions (VNF) MRCs – Self Managed",
+					"verbiageStyle": "XML",
+					"hexValue": "f75aca1b10772bf3b2d18924cad0df7cf8d77af25a2606cd6c2f2c6f5b74d739",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/rates_and_charges_mrc_vnf_self.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500565813000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500565813000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25157,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "5.1.3",
+					"configuration": {
+						"outlineBookmarkName": "VnfMrcSelfManaged",
+						"outlineBookmarkLevel": 3,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "rates",
+						"dataTableTitle": "VNF MRC - Self Managed",
+						"dataTableSourceName": "VNF MRC - Self Managed",
+						"mergeColumns": "0",
+						"mergeHeader": true
+					},
+					"subsections": []
+				}, {
+					"id": 24171,
+					"outlineNumber": "5.3",
+					"clauseCode": "PS-S-FLEXWARE-ADDLCHARGES",
+					"name": "Additional Charges",
+					"description": "Additional Charges",
+					"information": null,
+					"clauseLevel": "CLAUSE",
+					"clauseType": "S",
+					"verbiage": "Charges for additional Service options may apply, per Service Publication",
+					"verbiageStyle": "TEXT",
+					"hexValue": "92b4506fe637471544feec80cef69d60be33aa0d5acb82bef44b5651b8d125bd",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/clause.xml",
+					"documentUrl": null,
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": 1500566015000,
+					"createdBy": "SYSTEM",
+					"createdDate": 1500566015000,
+					"selectedAlternativeClause": false,
+					"sceContractClauseId": null,
+					"sectionId": 25158,
+					"sectionBookmarkName": null,
+					"sectionOutlineNumber": "5.2",
+					"configuration": {
+						"outlineBookmarkName": "AdditionalCharges",
+						"outlineBookmarkLevel": 1,
+						"dataTableBookmarkName": null,
+						"dataTableName": null,
+						"dataTableTitle": null,
+						"dataTableSourceName": null,
+						"mergeColumns": null,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}
+			]
+		},
+		"sections": [{
+				"id": 24162,
+				"outlineNumber": "4.",
+				"clauseCode": "PS-S-FLEXWARE-ADDSMOVES",
+				"name": "ADDS AND MOVES",
+				"description": null,
+				"information": null,
+				"clauseLevel": "SECTION",
+				"clauseType": "S",
+				"verbiage": "ADDS AND MOVES",
+				"verbiageStyle": null,
+				"hexValue": "d9b81004cb96975ae6d2a0fbfa1c8c6d13c83490a0eaaef20fb2990d4ac40ce9",
+				"alternativeClauses": [],
+				"fileName": "/template/flexware/section.xml",
+				"documentUrl": null,
+				"status": null,
+				"modifiedBy": null,
+				"modifiedDate": 1494436599000,
+				"createdBy": null,
+				"createdDate": 1500565157000,
+				"selectedAlternativeClause": false,
+				"sceContractClauseId": 101092,
+				"sectionId": null,
+				"sectionBookmarkName": null,
+				"sectionOutlineNumber": "4.",
+				"configuration": null,
+				"subsections": [{
+						"id": 24163,
+						"outlineNumber": "4.1",
+						"clauseCode": "PS-S-FLEXWARE-ADDS",
+						"name": "ADDS",
+						"description": null,
+						"information": null,
+						"clauseLevel": "CLAUSE",
+						"clauseType": "S",
+						"verbiage": "AT&T FlexWare Service Components may be purchased during the Pricing Schedule Term, where available per the applicable Service Publication, at the rates, terms and conditions herein. Orders for new Service Components may not be placed under this Pricing Schedule after the expiration of the Pricing Schedule Term.",
+						"verbiageStyle": null,
+						"hexValue": "d5a94c51ff68fe1031966ba0d0243076c159d0cd2a45bc655324a3158d46baf6",
+						"alternativeClauses": [],
+						"fileName": "/template/flexware/clause.xml",
+						"documentUrl": null,
+						"status": null,
+						"modifiedBy": null,
+						"modifiedDate": 1494436599000,
+						"createdBy": null,
+						"createdDate": 1500565208000,
+						"selectedAlternativeClause": false,
+						"sceContractClauseId": 101093,
+						"sectionId": null,
+						"sectionBookmarkName": null,
+						"sectionOutlineNumber": "4.1",
+						"configuration": null,
+						"subsections": []
+					}, {
+						"id": 24164,
+						"outlineNumber": "4.2",
+						"clauseCode": "PS-S-FLEXWARE-MOVES",
+						"name": "MOVES",
+						"description": null,
+						"information": null,
+						"clauseLevel": "CLAUSE",
+						"clauseType": "S",
+						"verbiage": "Per applicable Service Guide.",
+						"verbiageStyle": null,
+						"hexValue": "460fee1302e7408ae51690d53c7d5bf290457479fe1a7345170940cbb29bd3e9",
+						"alternativeClauses": [],
+						"fileName": "/template/flexware/clause.xml",
+						"documentUrl": null,
+						"status": null,
+						"modifiedBy": null,
+						"modifiedDate": 1494436599000,
+						"createdBy": null,
+						"createdDate": 1500565269000,
+						"selectedAlternativeClause": false,
+						"sceContractClauseId": 101094,
+						"sectionId": null,
+						"sectionBookmarkName": null,
+						"sectionOutlineNumber": "4.2",
+						"configuration": null,
+						"subsections": []
+					}
+				]
+			}
+		]
+	}
+]
