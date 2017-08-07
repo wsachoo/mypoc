@@ -1,0 +1,559 @@
+[{
+		"uuid": "6082f59f-d8bc-4829-828a-4d2e9a9a415c",
+		"contractNumber": "NFOD62A13TQ",
+		"solutionId": 2436962,
+		"pricingScenarioId": 4057796,
+		"solutionNumber": "46865870",
+		"opportunityId": "1-62A13TQ",
+		"intialTerm": "36",
+		"masterAgreementReferenceNumber": "eMSA UA III",
+		"customerProfile": {
+			"customerLegalInfo": {
+				"customerLegalName": "TANEKA WALKER INC",
+				"streetAddress1": "12829 ROCKY RIVER CHURCH RD",
+				"city": "CHARLOTTE",
+				"stateOrProvince": "NC",
+				"country": "US",
+				"zipOrPostalCode": "28215-6014",
+				"telephone": "(510) 270-3270"
+			},
+			"customerContact": {
+				"contactType": "Customer",
+				"firstName": "Eddy",
+				"lastName": "Dominguez",
+				"title": "Consultant",
+				"streetAddress": "12829 ROCKY RIVER CHURCH RD",
+				"city": "CHARLOTTE",
+				"state": "NC",
+				"country": "US",
+				"zip": "28215-6014",
+				"telephone": "5102703270",
+				"email": "eddyd@att.us.com",
+				"alternatePhone": "7896541452",
+				"attuid": "t31212"
+			}
+		},
+		"attProfile": {
+			"attSalesContact": {
+				"contactType": "ATT Sales",
+				"firstName": "Naman",
+				"lastName": "Gupta",
+				"streetAddress": "13330, Birmingham Hwy",
+				"city": "Milton",
+				"state": "GA",
+				"country": "US",
+				"zip": "30004",
+				"telephone": "(789) 654-7895",
+				"email": "namang@list.att.com",
+				"scvpName": "DINO PERONE",
+				"branchManager": "qwerty",
+				"salesStrata": "Retail",
+				"salesRegion": "USA",
+				"agentCode": "",
+				"companyCode": "",
+				"attuid": "t31212"
+			}
+		},
+		"attSignatureInfo": {
+			"signatureType": "wet",
+			"autoExecuteIndicaotr": "N",
+			"attSignatureDate": "2017-07-25T08:52:34.460+0000",
+			"presignIndicator": "N"
+		},
+		"customerSignatureInfo": {
+			"signatureType": "wet",
+			"eSignType": "iPad",
+			"customerSignatureDate": "2017-07-25T08:52:34.460+0000",
+			"singleSingureCoverPageIndicator": "Y"
+		},
+		"services": [{
+				"name": "AT&T FlexWare",
+				"servicePublicationLocation": "http://serviceguidenew.att.com/sg_flashPlayerPage/NFoD"
+			}
+		],
+		"termAndEffectiveDates": [{
+				"name": "Pricing Schedule Term",
+				"value": "36  Months"
+			}, {
+				"name": "Term Start Date and Effective Date of Rates and Discounts",
+				"value": "Original Effective Date of this Pricing Schedule"
+			}, {
+				"name": "Start Date of Minimum Payment Period, Per Service Component",
+				"value": "Later of the Effective Date of this Pricing Schedule or Installation of the Service Component"
+			}, {
+				"name": "Rate Stabilization per Service Component",
+				"value": "Rates as specified in this Pricing Schedule for each Host Service Component are stabilized until the end of its Minimum Payment Period (“MPP”).  The rates for the Virtual Network Functions Service Components are stabilized until the end of the MPP for the Host on which it resides."
+			}, {
+				"name": "Pricing Following the End of Host Minimum Payment Period",
+				"value": "Non-stabilized prices as modified from time to time in applicable Service Publication or, if there is no such pricing, the pricing in this Pricing Schedule. "
+			}
+		],
+		"minimumPaymentPeriods": [{
+				"serviceComponent": "Service Components",
+				"percentageOfMonthlyRecurringRate": "Percentage of Monthly Recurring Rate Applied for Calculation of Early Termination Charges",
+				"minPaymentPeriod": "Minimum Payment Period per Service Component"
+			}, {
+				"serviceComponent": "All Virtual Network Function Service Components",
+				"percentageOfMonthlyRecurringRate": "100% ",
+				"minPaymentPeriod": "1 Month"
+			}, {
+				"serviceComponent": "All Host Service Components",
+				"percentageOfMonthlyRecurringRate": "100%",
+				"minPaymentPeriod": "36 Month"
+			}
+		],
+		"commitmentInstance": {
+			"minAnnualRevCommitment": "NA",
+			"commitmentTerm": "36",
+			"marcByYear": [{
+					"commitmentYear": "NA",
+					"commitmentAmount": "NA"
+				}
+			]
+		},
+		"credits": {
+			"hasCredit": false,
+			"hasAnualCredit": false,
+			"hasOneTimeCredit": false
+		},
+		"termsAndConditions": [],
+		"ratesAndCharges": {
+			"rateSections": []
+		},
+		"properties": {},
+		"rateMap": {},
+		"netRateTableMap": {},
+		"netRateTables": [],
+		"templateVersion": {
+			"id": 24131,
+			"templateName": "FlexWare_icb_ps",
+			"documentVersionNumber": 2,
+			"documentFileName": "FlexWare_ps_digital.doc",
+			"effectiveStartDate": "2017-07-03",
+			"effectiveEndDate": "2018-06-28",
+			"sections": [{
+					"id": 24174,
+					"clauseCode": "PS-S-COVERPAGE",
+					"name": "CoverPage",
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiageStyle": "TEXT",
+					"hexValue": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+					"alternativeClauses": [],
+					"fileName": "/template/common/coverpage.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-23T19:38:21.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-23T19:38:21.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25146,
+					"sectionOutlineNumber": "0",
+					"configuration": {
+						"outlineBookmarkName": "CoverPage",
+						"outlineBookmarkLevel": 1,
+						"mergeHeader": true
+					},
+					"subsections": []
+				}, {
+					"id": 24159,
+					"outlineNumber": "1",
+					"clauseCode": "PS-S-FLEXWARE-SERVICES",
+					"name": "SERVICES",
+					"description": "SERVICES",
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiageStyle": "XML",
+					"hexValue": "920ccc91e947d3933a8be481dcc27caf44882213205b3ae4b3d78dc480fb8fb8",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/services.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:30:29.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:30:29.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25147,
+					"sectionOutlineNumber": "1.",
+					"configuration": {
+						"outlineBookmarkName": "Services",
+						"outlineBookmarkLevel": 1,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "Service",
+						"dataTableSourceName": "services",
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24160,
+					"outlineNumber": "2",
+					"clauseCode": "PS-S-FLEXWARE-PSTERMEFFDATES",
+					"name": "PRICING SCHEDULE TERM AND EFFECTIVE DATES",
+					"description": "PRICING SCHEDULE TERM AND EFFECTIVE DATES",
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiageStyle": "XML",
+					"hexValue": "d8ce58e6d28f5a3719f070a2d36b1cde849a47aaa29a3a5c1ab7a5b355f1714f",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/term_and_effectivedates.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:35:47.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:35:47.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25148,
+					"sectionOutlineNumber": "2.",
+					"configuration": {
+						"outlineBookmarkName": "TermAndEffectiveDates",
+						"outlineBookmarkLevel": 1,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "termAndEffectiveDate",
+						"dataTableSourceName": "termAndEffectiveDates",
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24161,
+					"outlineNumber": "3",
+					"clauseCode": "PS-S-FLEXWARE-MINPYMNTPRDS",
+					"name": "MINIMUM PAYMENT PERIODS",
+					"description": "MINIMUM PAYMENT PERIODS",
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiageStyle": "XML",
+					"hexValue": "78eebe5a5bddc30b6aa545feb92a2a73cc507de0a1eeb2173a00c81d785bba24",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/min_payment_periods.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:38:12.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:38:12.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25149,
+					"sectionOutlineNumber": "3.",
+					"configuration": {
+						"outlineBookmarkName": "MinimumPaymentPeriods",
+						"outlineBookmarkLevel": 1,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "minimumPaymentPeriod",
+						"dataTableSourceName": "minimumPaymentPeriods",
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24162,
+					"outlineNumber": "4.",
+					"clauseCode": "PS-S-FLEXWARE-ADDSMOVES",
+					"name": "ADDS AND MOVES",
+					"description": "ADDS AND MOVES",
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiage": "ADDS AND MOVES",
+					"verbiageStyle": "TEXT",
+					"hexValue": "d9b81004cb96975ae6d2a0fbfa1c8c6d13c83490a0eaaef20fb2990d4ac40ce9",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/section.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:39:17.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:39:17.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25150,
+					"sectionOutlineNumber": "4.",
+					"configuration": {
+						"outlineBookmarkName": "AddsAndMoves",
+						"outlineBookmarkLevel": 1,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24163,
+					"outlineNumber": "4.1",
+					"clauseCode": "PS-S-FLEXWARE-ADDS",
+					"name": "ADDS",
+					"clauseLevel": "CLAUSE",
+					"clauseType": "S",
+					"verbiage": "AT&T FlexWare Service Components may be purchased during the Pricing Schedule Term, where available per the applicable Service Publication, at the rates, terms and conditions herein. Orders for new Service Components may not be placed under this Pricing Schedule after the expiration of the Pricing Schedule Term.",
+					"verbiageStyle": "TEXT",
+					"hexValue": "d5a94c51ff68fe1031966ba0d0243076c159d0cd2a45bc655324a3158d46baf6",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/clause.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:40:08.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:40:08.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25151,
+					"sectionOutlineNumber": "4.1",
+					"configuration": {
+						"outlineBookmarkName": "Adds",
+						"outlineBookmarkLevel": 2,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24164,
+					"outlineNumber": "4.2",
+					"clauseCode": "PS-S-FLEXWARE-MOVES",
+					"name": "MOVES",
+					"clauseLevel": "CLAUSE",
+					"clauseType": "S",
+					"verbiage": "Per applicable Service Guide.",
+					"verbiageStyle": "TEXT",
+					"hexValue": "460fee1302e7408ae51690d53c7d5bf290457479fe1a7345170940cbb29bd3e9",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/clause.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:41:09.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:41:09.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25152,
+					"sectionOutlineNumber": "4.2",
+					"configuration": {
+						"outlineBookmarkName": "Moves",
+						"outlineBookmarkLevel": 2,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24165,
+					"outlineNumber": "5.",
+					"clauseCode": "PS-S-FLEXWARE-RATESCHARGES",
+					"name": "RATES and CHARGES",
+					"description": "RATES and CHARGES",
+					"clauseLevel": "SECTION",
+					"clauseType": "S",
+					"verbiage": "RATES and CHARGES",
+					"verbiageStyle": "TEXT",
+					"hexValue": "9ab89523fb16a6d52bd01c28559d1fe5e7f686e9b0ab364ed6de21dbc87de81a",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/section.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:42:11.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:42:11.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25153,
+					"sectionOutlineNumber": "5",
+					"configuration": {
+						"outlineBookmarkName": "RatesAndCharges",
+						"outlineBookmarkLevel": 1,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24166,
+					"outlineNumber": "5.1",
+					"clauseCode": "PS-S-FLEXWARE-MRC",
+					"name": "Monthly Recurring Charges (MRC)",
+					"description": "Monthly Recurring Charges (MRC)",
+					"clauseLevel": "CLAUSE",
+					"clauseType": "S",
+					"verbiage": "- Sites in the US exclude Guam, CNMI and American Samoa.",
+					"verbiageStyle": "TEXT",
+					"hexValue": "ed7f2ad4e120f16ab9ab2ff31d749c33367b319bbf7ce5d1838dcdf6c664bcf9",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/clause_v2.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:44:20.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:44:20.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25154,
+					"sectionOutlineNumber": "5.1",
+					"configuration": {
+						"outlineBookmarkName": "MRC",
+						"outlineBookmarkLevel": 2,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}, {
+					"id": 24167,
+					"outlineNumber": "5.1.1",
+					"clauseCode": "PS-S-FLEXWARE-HOSTMRC",
+					"name": "Host MRCs",
+					"description": "Host MRCs Universal CPE (UCPE)",
+					"clauseLevel": "SUBCLAUSE",
+					"clauseType": "S",
+					"verbiage": "Host MRCs Universal CPE (UCPE)",
+					"verbiageStyle": "XML",
+					"hexValue": "2c87540b4a884e614b1f9ad3c5fdd58596e16d601898b5cf5c37e7bae898bba8",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/rates_and_charges_mrc_host.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:46:25.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:46:25.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25155,
+					"sectionOutlineNumber": "5.1.1",
+					"configuration": {
+						"outlineBookmarkName": "HostMrcs",
+						"outlineBookmarkLevel": 3,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "rates",
+						"dataTableTitle": "HOST MRCs",
+						"dataTableSourceName": "Host MRC",
+						"mergeColumns": "0",
+						"mergeHeader": true
+					},
+					"subsections": []
+				}, {
+					"id": 24168,
+					"outlineNumber": "5.1.2",
+					"clauseCode": "PS-S-FLEXWARE-VNFMRCATT",
+					"name": "Virtual Network Functions (VNF) MRC – AT&T Managed",
+					"description": "Virtual Network Functions (VNF) MRC – AT&T Managed",
+					"clauseLevel": "SUBCLAUSE",
+					"clauseType": "S",
+					"verbiage": "Virtual Network Functions (VNF) MRC – AT&T Managed",
+					"verbiageStyle": "XML",
+					"hexValue": "378713c6f84a8a72e1f76ade931dffc50b1d09f028fa4216f148dddf92271c9c",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/rates_and_charges_mrc_vnf_att.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:48:17.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:48:17.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25156,
+					"sectionOutlineNumber": "5.1.2",
+					"configuration": {
+						"outlineBookmarkName": "VnfMrcAttManaged",
+						"outlineBookmarkLevel": 3,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "rates",
+						"dataTableTitle": "VNF MRC - AT&T Managed",
+						"dataTableSourceName": "VNF MRC - AT&T Managed",
+						"mergeColumns": "0",
+						"mergeHeader": true
+					},
+					"subsections": []
+				}, {
+					"id": 24169,
+					"outlineNumber": "5.1.3",
+					"clauseCode": "PS-S-FLEXWARE-VNFMRCSELF",
+					"name": "Virtual Network Functions (VNF) MRCs – Self Managed",
+					"description": "Virtual Network Functions (VNF) MRCs – Self Managed",
+					"clauseLevel": "SUBCLAUSE",
+					"clauseType": "S",
+					"verbiage": "Virtual Network Functions (VNF) MRCs – Self Managed",
+					"verbiageStyle": "XML",
+					"hexValue": "f75aca1b10772bf3b2d18924cad0df7cf8d77af25a2606cd6c2f2c6f5b74d739",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/rates_and_charges_mrc_vnf_self.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:50:13.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:50:13.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25157,
+					"sectionOutlineNumber": "5.1.3",
+					"configuration": {
+						"outlineBookmarkName": "VnfMrcSelfManaged",
+						"outlineBookmarkLevel": 3,
+						"dataTableBookmarkName": "dataTable",
+						"dataTableName": "rates",
+						"dataTableTitle": "VNF MRC - Self Managed",
+						"dataTableSourceName": "VNF MRC - Self Managed",
+						"mergeColumns": "0",
+						"mergeHeader": true
+					},
+					"subsections": []
+				}, {
+					"id": 24171,
+					"outlineNumber": "5.3",
+					"clauseCode": "PS-S-FLEXWARE-ADDLCHARGES",
+					"name": "Additional Charges",
+					"description": "Additional Charges",
+					"clauseLevel": "CLAUSE",
+					"clauseType": "S",
+					"verbiage": "Charges for additional Service options may apply, per Service Publication",
+					"verbiageStyle": "TEXT",
+					"hexValue": "92b4506fe637471544feec80cef69d60be33aa0d5acb82bef44b5651b8d125bd",
+					"alternativeClauses": [],
+					"fileName": "/template/flexware/clause.xml",
+					"status": "Active",
+					"modifiedBy": "SYSTEM",
+					"modifiedDate": "2017-07-20T15:53:35.000+0000",
+					"createdBy": "SYSTEM",
+					"createdDate": "2017-07-20T15:53:35.000+0000",
+					"selectedAlternativeClause": false,
+					"sectionId": 25158,
+					"sectionOutlineNumber": "5.2",
+					"configuration": {
+						"outlineBookmarkName": "AdditionalCharges",
+						"outlineBookmarkLevel": 1,
+						"mergeHeader": false
+					},
+					"subsections": []
+				}
+			]
+		},
+		"sections": [{
+				"id": 24162,
+				"outlineNumber": "4.",
+				"clauseCode": "PS-S-FLEXWARE-ADDSMOVES",
+				"name": "ADDS AND MOVES",
+				"clauseLevel": "SECTION",
+				"clauseType": "S",
+				"verbiage": "ADDS AND MOVES",
+				"hexValue": "d9b81004cb96975ae6d2a0fbfa1c8c6d13c83490a0eaaef20fb2990d4ac40ce9",
+				"alternativeClauses": [],
+				"fileName": "/template/flexware/section.xml",
+				"modifiedDate": "2017-05-25T10:38:53.000+0000",
+				"createdDate": "2017-07-20T15:39:17.000+0000",
+				"selectedAlternativeClause": false,
+				"sceContractClauseId": 100315,
+				"sectionOutlineNumber": "4.",
+				"subsections": [{
+						"id": 24163,
+						"outlineNumber": "4.1",
+						"clauseCode": "PS-S-FLEXWARE-ADDS",
+						"name": "ADDS",
+						"clauseLevel": "CLAUSE",
+						"clauseType": "S",
+						"verbiage": "AT&T FlexWare Service Components may be purchased during the Pricing Schedule Term, where available per the applicable Service Publication, at the rates, terms and conditions herein. Orders for new Service Components may not be placed under this Pricing Schedule after the expiration of the Pricing Schedule Term.",
+						"hexValue": "d5a94c51ff68fe1031966ba0d0243076c159d0cd2a45bc655324a3158d46baf6",
+						"alternativeClauses": [],
+						"fileName": "/template/flexware/clause.xml",
+						"modifiedDate": "2017-05-25T10:38:53.000+0000",
+						"createdDate": "2017-07-20T15:40:08.000+0000",
+						"selectedAlternativeClause": false,
+						"sceContractClauseId": 100316,
+						"sectionOutlineNumber": "4.1",
+						"subsections": []
+					}, {
+						"id": 24164,
+						"outlineNumber": "4.2",
+						"clauseCode": "PS-S-FLEXWARE-MOVES",
+						"name": "MOVES",
+						"clauseLevel": "CLAUSE",
+						"clauseType": "S",
+						"verbiage": "Per applicable Service Guide.",
+						"hexValue": "460fee1302e7408ae51690d53c7d5bf290457479fe1a7345170940cbb29bd3e9",
+						"alternativeClauses": [],
+						"fileName": "/template/flexware/clause.xml",
+						"modifiedDate": "2017-05-25T10:38:53.000+0000",
+						"createdDate": "2017-07-20T15:41:09.000+0000",
+						"selectedAlternativeClause": false,
+						"sceContractClauseId": 100317,
+						"sectionOutlineNumber": "4.2",
+						"subsections": []
+					}
+				]
+			}
+		]
+	}
+]
