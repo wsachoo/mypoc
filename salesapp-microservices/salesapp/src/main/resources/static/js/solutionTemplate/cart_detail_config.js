@@ -191,6 +191,7 @@ function setTermInfoToContractGenPopup(firstSiteDataForContactInfo) {
 
 function formTermsAndConditionsDisplayTable() {
 	var flexWareKey = undefined;
+	var avpnKey = undefined;
 	
 	$.each(ssdfContractApiResponse, function(k, v) {
 	    if (v[0].offerName == "FlexWare") {
@@ -198,16 +199,25 @@ function formTermsAndConditionsDisplayTable() {
 	    	return false; 
 	    }
 	});
-	
-	if (flexWareKey) {
-		var flexWareObject = ssdfContractApiResponse[flexWareKey][0];
-		
+
+	$.each(ssdfContractApiResponse, function(k, v) {
+	    if (v[0].offerName == "OFFER_AVPN") {
+	    	avpnKey = k ;
+	    	return false; 
+	    }
+	});
+
+	if (flexWareKey || avpnKey) {
 		$('#divTermsAndConditions').empty();
 		$('#divTermsAndConditions').append('<table class="table" border="1"></table>');
 		var table = $('#divTermsAndConditions').children();
 		table.append("<thead><tr><th>Outline Number</th><th>Clause Level</th><th>Clause Code</th><th>Clause Name</th><th>Verbiage</th></tr></thead>");
 
-		var tbody = "<tbody>";
+		var tbody = "<tbody>";		
+	}
+	
+	if (flexWareKey) {
+		var flexWareObject = ssdfContractApiResponse[flexWareKey][0];
 		
 		$.each(flexWareObject.sections[0].subsections, function(i, objSubsection) {
 			tbody = tbody + "<tr>";
@@ -218,9 +228,25 @@ function formTermsAndConditionsDisplayTable() {
 			tbody = tbody + "<td>" + objSubsection.verbiage + "</td>";
 			tbody = tbody + "</tr>";
 		});
+	}
+	
+	if (avpnKey) {
+		var avpnObject = ssdfContractApiResponse[avpnKey][0];
 		
+		$.each(avpnObject.sections[0].subsections, function(i, objSubsection) {
+			tbody = tbody + "<tr>";
+			tbody = tbody + "<td>" + objSubsection.outlineNumber + "</td>";
+			tbody = tbody + "<td>" + objSubsection.clauseLevel + "</td>";
+			tbody = tbody + "<td>" + objSubsection.clauseCode + "</td>";
+			tbody = tbody + "<td>" + objSubsection.name + "</td>";
+			tbody = tbody + "<td>" + objSubsection.verbiage + "</td>";
+			tbody = tbody + "</tr>";
+		});
+	}
+
+	if (flexWareKey || avpnKey) {
 		tbody = tbody + "</tbody>";
-		table.append(tbody);		
+		table.append(tbody);				
 	}
 }
 
