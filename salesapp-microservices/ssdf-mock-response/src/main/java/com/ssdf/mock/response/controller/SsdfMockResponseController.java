@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 
@@ -31,34 +29,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SsdfMockResponseController {
 	private static final Logger logger = LoggerFactory.getLogger(SsdfMockResponseController.class);
 
-	@CrossOrigin
-	@ResponseBody
-	@RequestMapping(value = "/ssdf/pricingschedule/v1/service/previewPricingScheduleX", method = RequestMethod.POST, produces = {
-			"application/json" })
-	public Map<String, Object> getRecommendationBasedOnSalesHistory(@RequestBody Map<String, Object> paramValues,
-			HttpServletRequest request) {
-		logger.info("Inside getRecommendationBasedOnSalesHistory method");
-		Map<String, Object> result = null;
-		try {
-			result = null;
-		} catch (Exception e) {
-			logger.error("Error occurred while invoking webservice: {}" + ExceptionUtils.getStackTrace(e));
-		}
-		logger.info("Returning result from getRecommendationBasedOnSalesHistory method");
-		return result;
-	}
-
+	@SuppressWarnings({ "resource", "unchecked" })
 	@RequestMapping(value = "/ssdf/pricingschedule/v1/service/previewPricingSchedules", method = RequestMethod.POST, produces = {
 			"application/json" })
 	@CrossOrigin
-	public ResponseEntity<String> previewPricingSchedules(
-			@RequestBody Map<String, Object> paramValues, HttpServletRequest request) throws IOException {
+	public ResponseEntity<String> previewPricingSchedules(@RequestBody Map<String, Object> paramValues,
+			HttpServletRequest request) throws IOException {
 		logger.info("Inside getSalesHistoryOrderDetailBySiteId method");
 
-		String strResp = "{\"name\":\"sachin\"}";
 		Map<String, Object> objSol = (Map<String, Object>) paramValues.get("solution");
 		String optId = (String) objSol.get("opportunityId");
-		System.out.println("opportunityId: " + optId);
 
 		File file = new File(getClass().getClassLoader().getResource(optId + ".json").getFile());
 
