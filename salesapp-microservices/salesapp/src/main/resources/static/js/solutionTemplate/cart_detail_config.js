@@ -258,7 +258,7 @@ function setPriceAndDiscDetailsToContractGenPopup(ssdfResp) {
 	for(var i = 0; i < ssdfRespkeys.length; i++) {
 		if(ssdfResp[ssdfRespkeys[i]][0]["offerName"] == 'OFFER_AVPN') {
 			$("#panelAvpnDiscounts").css('display','inline');
-			$.each( ssdfResp[ssdfRespkeys[0]][0]["avpnDiscounts"], function(k,v) {
+			$.each(ssdfResp[ssdfRespkeys[i]][0]["avpnDiscounts"], function(k,v) {
 				var tr = "<tr>" +
 							"<td>"+ ssdfResp[ssdfRespkeys[i]][0]["avpnDiscounts"][k]["description"] +"</td>"+
 							"<td>"+ ssdfResp[ssdfRespkeys[i]][0]["avpnDiscounts"][k]["discountType"] +"</td>"+
@@ -267,7 +267,27 @@ function setPriceAndDiscDetailsToContractGenPopup(ssdfResp) {
 				$("#displayRatesInfoTableAvpn").append(tr);
 			});
 		}else if(ssdfResp[ssdfRespkeys[i]][0]["offerName"] == 'FlexWare') {
+			$("#panelFlexwareDiscounts").css('display', 'inline');
 			
+			$.each(ssdfResp[ssdfRespkeys[i]][0]["netRateTables"], function(k,v) {
+				var tableId = "displayRatesInfoTableFlexware_"+k ;
+				var vTable = "<table class='table' id='"+tableId+"'>" +
+						      "</table>";
+				$("#displayFlexwareDiscountsPanelbody").append(vTable);
+				var tr = "";
+				$.each( ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["rateRows"], function(rateRowkey, rateRowValue) {
+					tr = "<tr>"+
+								"<td>" +ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["rateRows"][rateRowkey]["description"] + "</td>" ;
+					
+					$.each(ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["rateRows"][rateRowkey]["cells"], function(cellKey, cellValue) {
+							
+							 var td = "<td>" +ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["rateRows"][rateRowkey]["cells"][cellKey]["value"] + "</td>" + "</tr>";
+							 tr = tr + td;	
+							$("#displayRatesInfoTableFlexware_"+k).append(tr);
+					});
+				});
+			
+			});
 		}
 	}
 }
