@@ -72,8 +72,13 @@ function setStylesForDiscountData() {
 }
 
 function setDiscountPercToChild() {
-	$('[id^=parent-vnf-discount-]').on('change', function () {
-		if($(this).val() <= 36) {
+	$('[id^=parent-vnf-discount-]').on('focusout', function (e) {
+		var tm = $(this).attr("id");
+		var ind = tm.substr(tm.lastIndexOf('-') + 1);
+		var maxValFieldName = "parent-max-discount-" + ind;
+		var cmpMaxVal = $("#" + maxValFieldName).attr("maxdiscountpercent");
+		
+		if(parseFloat($(this).val()) <= parseFloat(cmpMaxVal) || $(this).val() == "") {
 			var num = $(this).attr('id').split("-")[3];
 			var parentDiscountValue = $(this).val();
 			var childTextBoxname = 'child-vnf-discount-'+num;
@@ -81,7 +86,9 @@ function setDiscountPercToChild() {
 		}
 		else
 		{
-			alert("Please enter a value which is less than or equal to MAX MRC Discount");
+			alert("Please enter a value which is less than or equal to MAX MRC Discount of " + cmpMaxVal);
+			$(this).val("0");
+			$(this).focus();
 		}
 	});
 
