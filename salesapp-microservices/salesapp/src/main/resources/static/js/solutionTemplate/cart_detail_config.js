@@ -145,6 +145,7 @@ function setDataToCheckoutGenContractPopup(ssdfResp) {
 	var firstSiteDataForContactInfo = ssdfResp[ssdfKeys[0]];
 	setContactInfoToContractGenPopup(firstSiteDataForContactInfo);
 	setTermInfoToContractGenPopup(firstSiteDataForContactInfo);
+	setPriceAndDiscDetailsToContractGenPopup(ssdfResp);
 }
 
 function setContactInfoToContractGenPopup(firstSiteDataForContactInfo) {
@@ -222,5 +223,26 @@ function formTermsAndConditionsDisplayTable() {
 		table.append(tbody);		
 	}
 }
+
+function setPriceAndDiscDetailsToContractGenPopup(ssdfResp) {
+	var ssdfRespkeys = Object.keys(ssdfResp);
+	for(var i = 0; i < ssdfRespkeys.length; i++) {
+		if(ssdfResp[ssdfRespkeys[i]][0]["offerName"] == 'OFFER_AVPN') {
+			$("#panelAvpnDiscounts").css('display','inline');
+			$.each( ssdfResp[ssdfRespkeys[0]][0]["avpnDiscounts"], function(k,v) {
+				var tr = "<tr>" +
+							"<td>"+ ssdfResp[ssdfRespkeys[i]][0]["avpnDiscounts"][k]["description"] +"</td>"+
+							"<td>"+ ssdfResp[ssdfRespkeys[i]][0]["avpnDiscounts"][k]["discountType"] +"</td>"+
+							"<td>"+ ssdfResp[ssdfRespkeys[i]][0]["avpnDiscounts"][k]["discountPercentage"] +"</td>"+
+						 "</tr>";
+				$("#displayRatesInfoTableAvpn").append(tr);
+			});
+		}else if(ssdfResp[ssdfRespkeys[i]][0]["offerName"] == 'FlexWare') {
+			
+		}
+	}
+}
+
+
 
 
