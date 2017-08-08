@@ -145,6 +145,7 @@ function setDataToCheckoutGenContractPopup(ssdfResp) {
 	var firstSiteDataForContactInfo = ssdfResp[ssdfKeys[0]];
 	setContactInfoToContractGenPopup(firstSiteDataForContactInfo);
 	setTermInfoToContractGenPopup(firstSiteDataForContactInfo);
+	formTermsAndConditionsDisplayTable();
 }
 
 function setContactInfoToContractGenPopup(firstSiteDataForContactInfo) {
