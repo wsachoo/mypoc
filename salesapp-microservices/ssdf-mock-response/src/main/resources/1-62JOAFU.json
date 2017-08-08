@@ -406,6 +406,75 @@
                 }
             ]
         },
-        "sections": []
+        "sections": [
+	        {
+                "subsections": [
+                    {
+                        "id": 24163,
+                        "outlineNumber": "5.1",
+                        "clauseCode": "PS-S-AVPN-ADDS",
+                        "name": "ADDS",
+                        "description": null,
+                        "information": null,
+                        "clauseLevel": "CLAUSE",
+                        "clauseType": "S",
+                        "verbiage": "AT&T may discontinue a MPLS DSL Service Component that is supplied to AT&T by a third party service provider upon thirty(30) days written notice.",
+                        "verbiageStyle": null,
+                        "hexValue": "d5a94c51ff68fe1031966ba0d0243076c159d0cd2a45bc655324a3158d46baf6",
+                        "alternativeClauses": [],
+                        "fileName": "/template/avpn/clause.xml",
+                        "documentUrl": null,
+                        "status": null,
+                        "modifiedBy": null,
+                        "modifiedDate": 1495598134000,
+                        "createdBy": null,
+                        "createdDate": null,
+                        "selectedAlternativeClause": false,
+                        "sceContractClauseId": 102718,
+                        "sectionId": null,
+                        "sectionBookmarkName": null,
+                        "sectionOutlineNumber": "4.1",
+                        "configuration": null,
+                        "sortOrder": null,
+                        "condition": null,
+                        "subsections": [],
+                        "dataTableBookmarkName": "dataTable",
+                        "mergeColumnIndexs": []
+                    },
+                    {
+                        "id": 24164,
+                        "outlineNumber": "5.2",
+                        "clauseCode": "PS-S-AVPN-MOVES",
+                        "name": "MOVES",
+                        "description": null,
+                        "information": null,
+                        "clauseLevel": "CLAUSE",
+                        "clauseType": "S",
+                        "verbiage": "Per applicable Service Guide.",
+                        "verbiageStyle": null,
+                        "hexValue": "460fee1302e7408ae51690d53c7d5bf290457479fe1a7345170940cbb29bd3e9",
+                        "alternativeClauses": [],
+                        "fileName": "/template/avpn/clause.xml",
+                        "documentUrl": null,
+                        "status": null,
+                        "modifiedBy": null,
+                        "modifiedDate": 1495598134000,
+                        "createdBy": null,
+                        "createdDate": null,
+                        "selectedAlternativeClause": false,
+                        "sceContractClauseId": 102719,
+                        "sectionId": null,
+                        "sectionBookmarkName": null,
+                        "sectionOutlineNumber": "4.2",
+                        "configuration": null,
+                        "sortOrder": null,
+                        "condition": null,
+                        "subsections": [],
+                        "dataTableBookmarkName": "dataTable",
+                        "mergeColumnIndexs": []
+                    }                                           
+                ]
+            }                                 
+        ]
     }
 ]
