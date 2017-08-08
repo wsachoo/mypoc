@@ -124,6 +124,7 @@ function handleSsdfCallForContractDetail() {
 				}
 			}).fail(function(jqXHR, textStatus, errorThrown) {
 				dfd.reject(jqXHR, textStatus, errorThrown);
+				console.log("Error is: " + errorThrown);
 				alert("Error while getting SSDF Response");
 			}); 
 			
@@ -131,6 +132,7 @@ function handleSsdfCallForContractDetail() {
 			//this is the call to web service to get response json from SSDF
 		}).fail(function(jqXHR, textStatus, errorThrown) {
 			dfd.reject(jqXHR, textStatus, errorThrown);
+			console.log("Error is: " + errorThrown);
 			alert("Error while getting SSDF Request Information");
 		});		
 	});
@@ -209,7 +211,7 @@ function formTermsAndConditionsDisplayTable() {
 
 	if (flexWareKey || avpnKey) {
 		$('#divTermsAndConditions').empty();
-		$('#divTermsAndConditions').append('<table class="table" border="1"></table>');
+		$('#divTermsAndConditions').append('<table class="table table-striped" border="1"></table>');
 		var table = $('#divTermsAndConditions').children();
 		table.append("<thead><tr><th>Outline Number</th><th>Clause Level</th><th>Clause Code</th><th>Clause Name</th><th>Verbiage</th></tr></thead>");
 
