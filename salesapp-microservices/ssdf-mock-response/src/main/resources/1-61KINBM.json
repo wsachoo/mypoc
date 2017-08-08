@@ -1,297 +1,411 @@
-[{
-		"uuid": "9ef59305-6ce6-42c0-8233-3970cb99492e",
-		"id": null,
-		"contractNumber": "NBI3516776",
-		"solutionId": 2434088,
-		"pricingScenarioId": 4053543,
-		"solutionNumber": "46054381",
-		"opportunityId": "1-61KINBM",
-		"intialTerm": "24",
-		"receiptDate": null,
-		"romeId": null,
-		"eSignId": null,
-		"docViewerId": null,
-		"segment": null,
-		"masterAgreementType": null,
-		"masterAgreementReferenceNumber": "null",
-		"customerProfile": {
-			"customerLegalInfo": {
-				"customerLegalName": "Test ORT_1 FMO ASAP",
-				"streetAddress1": "901 MARQUETTE AVE",
-				"streetAddress2": "STE 700",
-				"city": "MINNEAPOLIS",
-				"stateOrProvince": "MN",
-				"country": "US",
-				"zipOrPostalCode": "554023205",
-				"telephone": null,
-				"buildingName": null,
-				"houseNumber": null
-			},
-			"customerContact": {
-				"contactType": "Customer",
-				"firstName": "Srinivas",
-				"lastName": "1",
-				"title": null,
-				"streetAddress": "308 PALUXY DRIVE",
-				"city": "Irving",
-				"state": "NJ",
-				"country": "US",
-				"zip": "75039",
-				"telephone": "(732) 420-6789",
-				"fax": null,
-				"email": "jhfhgf@att.com",
-				"scvpName": null,
-				"branchManager": null,
-				"salesStrata": null,
-				"salesRegion": null,
-				"agentCode": null,
-				"companyCode": null,
-				"alternatePhone": null,
-				"cellPhone": null,
-				"attuid": "dm9203",
-				"adminId": null
-			},
-			"site": null
-		},
-		"attProfile": {
-			"attEntity": null,
-			"attSalesContact": {
-				"contactType": "ATT Sales",
-				"firstName": "DILIP",
-				"lastName": "MALLIPEDDI",
-				"title": null,
-				"streetAddress": "MANYATA EMBASSY BUSINESS PK, OUTER",
-				"city": "BANGALORE",
-				"state": "BE",
-				"country": "IN",
-				"zip": "560045",
-				"telephone": "91804/024-9999",
-				"fax": null,
-				"email": "dcmallipeddi@in.ibm.com",
-				"scvpName": "SCVP1 TEST BRANCH",
-				"branchManager": "SCVP1 TEST BRANCH",
-				"salesStrata": "Retail",
-				"salesRegion": "USA",
-				"agentCode": null,
-				"companyCode": null,
-				"alternatePhone": null,
-				"cellPhone": null,
-				"attuid": "DM9203",
-				"adminId": null
-			},
-			"solutionProviderContact": null
-		},
-		"docId": null,
-		"attSignatureInfo": {
-			"signatureType": "wet",
-			"autoExecuteIndicaotr": "N",
-			"attSignatureDate": 1501019046310,
-			"presignIndicator": "N"
-		},
-		"customerSignatureInfo": {
-			"signatureType": "wet",
-			"eSignType": "iPad",
-			"customerSignatureDate": 1501019046310,
-			"singleSingureCoverPageIndicator": "Y"
-		},
-		"services": [{
-				"name": "AT&T VPN Service",
-				"servicePublicationLocation": "http://serviceguidenew.att.com/sg_flashPlayerPage/AVPN"
-			}, {
-				"name": "AT&T Bandwidth Services",
-				"servicePublicationLocation": "http://serviceguidenew.att.com/sg_flashPlayerPage/BWS"
-			}
-		],
-		"termAndEffectiveDates": [{
-				"name": "Pricing Schedule Term",
-				"value": "24  Months"
-			}, {
-				"name": "Pricing Schedule Term Start Date",
-				"value": "Effective Date of this Pricing Schedule"
-			}, {
-				"name": "Effective Date of Rates and Discounts",
-				"value": "Effective Date of this Pricing Schedule"
-			}
-		],
-		"minimumPaymentPeriods": [{
-				"serviceComponent": "Service Components",
-				"percentageOfMonthlyRecurringRate": "Percentage of Monthly Recurring Rate Applied for Calculation of Early Termination Charges",
-				"minPaymentPeriod": "Minimum Payment Period per Service Component"
-			}, {
-				"serviceComponent": "All AT&T VPN Service and AT&T Bandwidth Service Components",
-				"percentageOfMonthlyRecurringRate": "100% ",
-				"minPaymentPeriod": "12 Month"
-			}
-		],
-		"commitmentInstance": {
-			"typeofMarcCommitment": "Annualized MARC",
-			"coterminousTermDate": null,
-			"minAnnualRevCommitment": "12000",
-			"commitmentTerm": "24",
-			"extendTerm": null,
-			"reduceTerm": null,
-			"marcByYear": [{
-					"commitmentYear": "1",
-					"commitmentAmount": "12000.0"
-				}, {
-					"commitmentYear": "2",
-					"commitmentAmount": "12000.0"
-				}, {
-					"commitmentYear": "3",
-					"commitmentAmount": "0.0"
-				}, {
-					"commitmentYear": "4",
-					"commitmentAmount": "0.0"
-				}, {
-					"commitmentYear": "5",
-					"commitmentAmount": "0.0"
-				}
-			]
-		},
-		"credits": {
-			"hasCredit": false,
-			"hasAnualCredit": false,
-			"hasOneTimeCredit": false
-		},
-		"termsAndConditions": [],
-		"ratesAndCharges": {
-			"id": null,
-			"name": null,
-			"rateSections": []
-		},
-		"avpnDiscounts": [{
-				"discountType": "1 - Category",
-				"categoryName": "VPN Transport",
-				"subcategoryName": "VPN Transport",
-				"name": null,
-				"description": "VPN Transport",
-				"discountPercentage": " 100.00",
-				"discountIdExternal": 148,
-				"parentDiscountIdExternal": null,
-				"discountId": 301690,
-				"parentDiscountId": null,
-				"isoCountryCode": "US",
-				"discountGroup": "Transport"
-			}, {
-				"discountType": "2 - Sub Category",
-				"categoryName": null,
-				"subcategoryName": "Connection Monthly Charge",
-				"name": null,
-				"description": "Connection Monthly Charge",
-				"discountPercentage": " 100.00",
-				"discountIdExternal": 223,
-				"parentDiscountIdExternal": 148,
-				"discountId": 301690,
-				"parentDiscountId": null,
-				"isoCountryCode": "US",
-				"discountGroup": "Transport"
-			}, {
-				"discountType": "3 - Service Component",
-				"categoryName": null,
-				"subcategoryName": null,
-				"name": null,
-				"description": "ALL VNIC COMPONENTS",
-				"discountPercentage": " 100.00",
-				"discountIdExternal": 2757,
-				"parentDiscountIdExternal": 223,
-				"discountId": null,
-				"parentDiscountId": null,
-				"isoCountryCode": null,
-				"discountGroup": null
-			}, {
-				"discountType": "3 - Service Component",
-				"categoryName": null,
-				"subcategoryName": null,
-				"name": null,
-				"description": "MPLS Port - 3.088M",
-				"discountPercentage": " 100.00",
-				"discountIdExternal": 279,
-				"parentDiscountIdExternal": 223,
-				"discountId": null,
-				"parentDiscountId": null,
-				"isoCountryCode": null,
-				"discountGroup": null
-			}, {
-				"discountType": "2 - Sub Category",
-				"categoryName": null,
-				"subcategoryName": "COS Package Monthly Charge",
-				"name": null,
-				"description": "COS Package Monthly Charge",
-				"discountPercentage": " 100.00",
-				"discountIdExternal": 226,
-				"parentDiscountIdExternal": 148,
-				"discountId": 301690,
-				"parentDiscountId": null,
-				"isoCountryCode": "US",
-				"discountGroup": "Transport"
-			}, {
-				"discountType": "3 - Service Component",
-				"categoryName": null,
-				"subcategoryName": null,
-				"name": null,
-				"description": "CoS Package Multimedia Standard Svc - 3.088M",
-				"discountPercentage": " 100.00",
-				"discountIdExternal": 652,
-				"parentDiscountIdExternal": 226,
-				"discountId": null,
-				"parentDiscountId": null,
-				"isoCountryCode": null,
-				"discountGroup": null
-			}, {
-				"discountType": "1 - Category",
-				"categoryName": "VPN DSL",
-				"subcategoryName": "VPN DSL",
-				"name": null,
-				"description": "VPN DSL",
-				"discountPercentage": "  30.00",
-				"discountIdExternal": 150,
-				"parentDiscountIdExternal": null,
-				"discountId": 301869,
-				"parentDiscountId": null,
-				"isoCountryCode": "US",
-				"discountGroup": "Transport"
-			}, {
-				"discountType": "1 - Category",
-				"categoryName": "Managed CPE",
-				"subcategoryName": "Managed CPE",
-				"name": null,
-				"description": "Managed CPE",
-				"discountPercentage": " 100.00",
-				"discountIdExternal": 149,
-				"parentDiscountIdExternal": null,
-				"discountId": 301691,
-				"parentDiscountId": null,
-				"isoCountryCode": "US",
-				"discountGroup": "Transport"
-			}, {
-				"discountType": "1 - Category",
-				"categoryName": "Non-Recurring Charges",
-				"subcategoryName": "Non-Recurring Charges",
-				"name": null,
-				"description": "Non-Recurring Charges",
-				"discountPercentage": " 100.00",
-				"discountIdExternal": 151,
-				"parentDiscountIdExternal": null,
-				"discountId": 301692,
-				"parentDiscountId": null,
-				"isoCountryCode": "US",
-				"discountGroup": "Transport"
-			}
-		],
-		"properties": {},
-		"rateMap": {},
-		"netRateTableMap": {},
-		"netRateTables": [],
-		"templateVersion": {
-			"id": 24150,
-			"templateName": "AVPN UB Pricing Schedule 082012.doc",
-			"documentVersionNumber": 2,
-			"documentFileName": "AVPN_UB_Pricing_Schedule_digital.doc",
-			"effectiveStartDate": "2017-07-24",
-			"effectiveEndDate": "2018-07-19",
-			"status": null,
-			"sections": []
-		},
-		"sections": []
-	}
+[
+    {
+        "uuid": "d10e6c32-91c0-4efc-a73b-07787dea6c68",
+        "id": null,
+        "contractNumber": "NBI3516776",
+        "solutionId": 2434088,
+        "pricingScenarioId": 4053543,
+        "solutionNumber": "46054381",
+        "opportunityId": "1-61KINBM",
+        "offerName": "OFFER_AVPN",
+        "serviceName": "AT&T VPN Service",
+        "intialTerm": "24",
+        "receiptDate": null,
+        "romeId": null,
+        "eSignId": null,
+        "docViewerId": null,
+        "segment": null,
+        "masterAgreementType": null,
+        "masterAgreementReferenceNumber": "null",
+        "customerProfile": {
+            "customerLegalInfo": {
+                "customerLegalName": "Test ORT_1 FMO ASAP",
+                "streetAddress1": "901 MARQUETTE AVE",
+                "streetAddress2": "STE 700",
+                "city": "MINNEAPOLIS",
+                "stateOrProvince": "MN",
+                "country": "US",
+                "zipOrPostalCode": "554023205",
+                "telephone": null,
+                "buildingName": null,
+                "houseNumber": null
+            },
+            "customerContact": {
+                "contactType": "Customer",
+                "firstName": "Srinivas",
+                "lastName": "1",
+                "title": null,
+                "streetAddress": "308 PALUXY DRIVE",
+                "city": "Irving",
+                "state": "NJ",
+                "country": "US",
+                "zip": "75039",
+                "telephone": "(732) 420-6789",
+                "fax": null,
+                "email": "jhfhgf@att.com",
+                "scvpName": null,
+                "branchManager": null,
+                "salesStrata": null,
+                "salesRegion": null,
+                "agentCode": null,
+                "companyCode": null,
+                "alternatePhone": null,
+                "cellPhone": null,
+                "attuid": "dm9203",
+                "adminId": null
+            },
+            "site": null
+        },
+        "attProfile": {
+            "attEntity": null,
+            "attSalesContact": {
+                "contactType": "ATT Sales",
+                "firstName": "DILIP",
+                "lastName": "MALLIPEDDI",
+                "title": null,
+                "streetAddress": "MANYATA EMBASSY BUSINESS PK, OUTER",
+                "city": "BANGALORE",
+                "state": "BE",
+                "country": "IN",
+                "zip": "560045",
+                "telephone": "91804/024-9999",
+                "fax": null,
+                "email": "dcmallipeddi@in.ibm.com",
+                "scvpName": "SCVP1 TEST BRANCH",
+                "branchManager": "SCVP1 TEST BRANCH",
+                "salesStrata": "Retail",
+                "salesRegion": "USA",
+                "agentCode": null,
+                "companyCode": null,
+                "alternatePhone": null,
+                "cellPhone": null,
+                "attuid": "DM9203",
+                "adminId": null
+            },
+            "solutionProviderContact": null
+        },
+        "docId": null,
+        "attSignatureInfo": {
+            "signatureType": "wet",
+            "autoExecuteIndicaotr": "N",
+            "attSignatureDate": 1502210889050,
+            "presignIndicator": "N"
+        },
+        "customerSignatureInfo": {
+            "signatureType": "wet",
+            "eSignType": "iPad",
+            "customerSignatureDate": 1502210889050,
+            "singleSingureCoverPageIndicator": "Y"
+        },
+        "services": [
+            {
+                "name": "AT&T VPN Service",
+                "servicePublicationLocation": "http://serviceguidenew.att.com/sg_flashPlayerPage/AVPN",
+                "serviceName": null
+            },
+            {
+                "name": "AT&T Bandwidth Services",
+                "servicePublicationLocation": "http://serviceguidenew.att.com/sg_flashPlayerPage/BWS",
+                "serviceName": null
+            }
+        ],
+        "termAndEffectiveDates": [
+            {
+                "name": "Pricing Schedule Term",
+                "value": "24  Months",
+                "serviceName": null
+            },
+            {
+                "name": "Pricing Schedule Term Start Date",
+                "value": "Effective Date of this Pricing Schedule",
+                "serviceName": null
+            },
+            {
+                "name": "Effective Date of Rates and Discounts",
+                "value": "Effective Date of this Pricing Schedule",
+                "serviceName": null
+            }
+        ],
+        "minimumPaymentPeriods": [
+            {
+                "serviceComponent": "Service Components",
+                "percentageOfMonthlyRecurringRate": "Percentage of Monthly Recurring Rate Applied for Calculation of Early Termination Charges",
+                "minPaymentPeriod": "Minimum Payment Period per Service Component",
+                "serviceName": null
+            },
+            {
+                "serviceComponent": "All AT&T VPN Service and AT&T Bandwidth Service Components",
+                "percentageOfMonthlyRecurringRate": "100% ",
+                "minPaymentPeriod": "12 Month",
+                "serviceName": null
+            }
+        ],
+        "commitmentInstance": {
+            "typeofMarcCommitment": "Annualized MARC",
+            "coterminousTermDate": null,
+            "minAnnualRevCommitment": "12000",
+            "commitmentTerm": "24",
+            "extendTerm": null,
+            "reduceTerm": null,
+            "marcByYear": [
+                {
+                    "commitmentYear": "1",
+                    "commitmentAmount": "12000.0"
+                },
+                {
+                    "commitmentYear": "2",
+                    "commitmentAmount": "12000.0"
+                },
+                {
+                    "commitmentYear": "3",
+                    "commitmentAmount": "0.0"
+                },
+                {
+                    "commitmentYear": "4",
+                    "commitmentAmount": "0.0"
+                },
+                {
+                    "commitmentYear": "5",
+                    "commitmentAmount": "0.0"
+                }
+            ]
+        },
+        "credits": {
+            "hasCredit": false,
+            "hasAnualCredit": false,
+            "hasOneTimeCredit": false
+        },
+        "termsAndConditions": [],
+        "ratesAndCharges": {
+            "id": null,
+            "name": null,
+            "rateSections": []
+        },
+        "avpnDiscounts": [
+            {
+                "discountType": "1 - Category",
+                "categoryName": "VPN Transport",
+                "subcategoryName": "VPN Transport",
+                "name": null,
+                "description": "VPN Transport",
+                "discountPercentage": " 100.00",
+                "discountIdExternal": 148,
+                "parentDiscountIdExternal": null,
+                "discountId": 301690,
+                "parentDiscountId": null,
+                "isoCountryCode": "US",
+                "discountGroup": "Transport"
+            },
+            {
+                "discountType": "2 - Sub Category",
+                "categoryName": null,
+                "subcategoryName": "Connection Monthly Charge",
+                "name": null,
+                "description": "Connection Monthly Charge",
+                "discountPercentage": " 100.00",
+                "discountIdExternal": 223,
+                "parentDiscountIdExternal": 148,
+                "discountId": 301690,
+                "parentDiscountId": null,
+                "isoCountryCode": "US",
+                "discountGroup": "Transport"
+            },
+            {
+                "discountType": "3 - Service Component",
+                "categoryName": null,
+                "subcategoryName": null,
+                "name": null,
+                "description": "ALL VNIC COMPONENTS",
+                "discountPercentage": " 100.00",
+                "discountIdExternal": 2757,
+                "parentDiscountIdExternal": 223,
+                "discountId": null,
+                "parentDiscountId": null,
+                "isoCountryCode": null,
+                "discountGroup": null
+            },
+            {
+                "discountType": "3 - Service Component",
+                "categoryName": null,
+                "subcategoryName": null,
+                "name": null,
+                "description": "MPLS Port - 3.088M",
+                "discountPercentage": " 100.00",
+                "discountIdExternal": 279,
+                "parentDiscountIdExternal": 223,
+                "discountId": null,
+                "parentDiscountId": null,
+                "isoCountryCode": null,
+                "discountGroup": null
+            },
+            {
+                "discountType": "2 - Sub Category",
+                "categoryName": null,
+                "subcategoryName": "COS Package Monthly Charge",
+                "name": null,
+                "description": "COS Package Monthly Charge",
+                "discountPercentage": " 100.00",
+                "discountIdExternal": 226,
+                "parentDiscountIdExternal": 148,
+                "discountId": 301690,
+                "parentDiscountId": null,
+                "isoCountryCode": "US",
+                "discountGroup": "Transport"
+            },
+            {
+                "discountType": "3 - Service Component",
+                "categoryName": null,
+                "subcategoryName": null,
+                "name": null,
+                "description": "CoS Package Multimedia Standard Svc - 3.088M",
+                "discountPercentage": " 100.00",
+                "discountIdExternal": 652,
+                "parentDiscountIdExternal": 226,
+                "discountId": null,
+                "parentDiscountId": null,
+                "isoCountryCode": null,
+                "discountGroup": null
+            },
+            {
+                "discountType": "1 - Category",
+                "categoryName": "VPN DSL",
+                "subcategoryName": "VPN DSL",
+                "name": null,
+                "description": "VPN DSL",
+                "discountPercentage": "  30.00",
+                "discountIdExternal": 150,
+                "parentDiscountIdExternal": null,
+                "discountId": 301869,
+                "parentDiscountId": null,
+                "isoCountryCode": "US",
+                "discountGroup": "Transport"
+            },
+            {
+                "discountType": "1 - Category",
+                "categoryName": "Managed CPE",
+                "subcategoryName": "Managed CPE",
+                "name": null,
+                "description": "Managed CPE",
+                "discountPercentage": " 100.00",
+                "discountIdExternal": 149,
+                "parentDiscountIdExternal": null,
+                "discountId": 301691,
+                "parentDiscountId": null,
+                "isoCountryCode": "US",
+                "discountGroup": "Transport"
+            },
+            {
+                "discountType": "1 - Category",
+                "categoryName": "Non-Recurring Charges",
+                "subcategoryName": "Non-Recurring Charges",
+                "name": null,
+                "description": "Non-Recurring Charges",
+                "discountPercentage": " 100.00",
+                "discountIdExternal": 151,
+                "parentDiscountIdExternal": null,
+                "discountId": 301692,
+                "parentDiscountId": null,
+                "isoCountryCode": "US",
+                "discountGroup": "Transport"
+            }
+        ],
+        "properties": {},
+        "rateMap": {},
+        "netRateTableMap": {},
+        "netRateTables": [],
+        "templateVersion": {
+            "id": 24150,
+            "templateName": "AVPN UB Pricing Schedule 082012.doc",
+            "documentVersionNumber": 2,
+            "documentFileName": "AVPN_UB_Pricing_Schedule_digital.doc",
+            "effectiveStartDate": "2017-06-20",
+            "effectiveEndDate": "2018-06-15",
+            "status": null,
+            "sections": [
+                {
+                    "id": 24230,
+                    "outlineNumber": "0",
+                    "clauseCode": "PS-S-AVPN-CoverPage",
+                    "name": "CoverPage",
+                    "description": "CoverPage",
+                    "information": null,
+                    "clauseLevel": "SECTION",
+                    "clauseType": "S",
+                    "verbiage": "CoverPage",
+                    "verbiageStyle": "TEXT",
+                    "hexValue": "515b8e7ca03ece0ba873c0057b7735eb1f2d2a63c174040ac3d29e99616a8150",
+                    "alternativeClauses": [],
+                    "fileName": "/template/avpn/coverpage.xml",
+                    "documentUrl": null,
+                    "status": null,
+                    "modifiedBy": null,
+                    "modifiedDate": null,
+                    "createdBy": null,
+                    "createdDate": null,
+                    "selectedAlternativeClause": false,
+                    "sceContractClauseId": null,
+                    "sectionId": 25505,
+                    "sectionBookmarkName": null,
+                    "sectionOutlineNumber": "0",
+                    "configuration": {
+                        "outlineBookmarkName": "Coverpage",
+                        "outlineBookmarkLevel": 1,
+                        "dataTableBookmarkName": null,
+                        "dataTableName": null,
+                        "dataTableTitle": null,
+                        "dataTableSourceName": null,
+                        "mergeColumns": null,
+                        "mergeHeader": false
+                    },
+                    "sortOrder": 1,
+                    "condition": "{\"outlineBookmarkName\":\"Coverpage\",\"outlineBookmarkLevel\":1,\"dataTableBookmarkName\":null,\"dataTableName\":null,\"dataTableTitle\":null,\"dataTableSourceName\":null,\"isMergeHeader\":false,\"mergeColumns\":null}",
+                    "subsections": [],
+                    "dataTableBookmarkName": "dataTable",
+                    "mergeColumnIndexs": []
+                },
+                {
+                    "id": 24180,
+                    "outlineNumber": "1",
+                    "clauseCode": "PS-S-AVPN-SERVICES",
+                    "name": "SERVICES",
+                    "description": "SERVICES",
+                    "information": null,
+                    "clauseLevel": "SECTION",
+                    "clauseType": "S",
+                    "verbiage": "SERVICES",
+                    "verbiageStyle": "XML",
+                    "hexValue": "019c527ea98177fd1de8e1d4975d9163027049dae5361e8f4d28cad3dac554d5",
+                    "alternativeClauses": [],
+                    "fileName": "/template/common/services.xml",
+                    "documentUrl": null,
+                    "status": null,
+                    "modifiedBy": null,
+                    "modifiedDate": null,
+                    "createdBy": null,
+                    "createdDate": null,
+                    "selectedAlternativeClause": false,
+                    "sceContractClauseId": null,
+                    "sectionId": 25506,
+                    "sectionBookmarkName": null,
+                    "sectionOutlineNumber": "1.",
+                    "configuration": {
+                        "outlineBookmarkName": "Services",
+                        "outlineBookmarkLevel": 1,
+                        "dataTableBookmarkName": "dataTable",
+                        "dataTableName": "Service",
+                        "dataTableTitle": null,
+                        "dataTableSourceName": "services",
+                        "mergeColumns": null,
+                        "mergeHeader": false
+                    },
+                    "sortOrder": 2,
+                    "condition": "{\"outlineBookmarkName\":\"Services\",\"outlineBookmarkLevel\":1,\"dataTableBookmarkName\":\"dataTable\",\"dataTableName\":\"Service\",\"dataTableTitle\":null,\"dataTableSourceName\":\"services\",\"isMergeHeader\":false,\"mergeColumns\":null}",
+                    "subsections": [],
+                    "dataTableBookmarkName": "dataTable",
+                    "mergeColumnIndexs": []
+                }
+            ]
+        },
+        "sections": []
+    }
 ]
