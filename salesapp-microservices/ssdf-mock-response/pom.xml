@@ -8,6 +8,7 @@
 	</parent>
 	<groupId>com.ssdf.mock.response</groupId>
 	<artifactId>ssdf-mock-response</artifactId>
+	<packaging>${artifact-packaging}</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
