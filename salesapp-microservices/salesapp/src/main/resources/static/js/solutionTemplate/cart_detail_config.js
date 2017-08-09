@@ -35,9 +35,29 @@ function displayCartDetails(jsonObjectToShoppingCartTmpl) {
 	$("#displayShoppingCart").append(modalTemplateToDisplay);
 	var topMenuDiv = $("#displayShoppingCart");
 	removeNextAllSiblingDivRows(topMenuDiv);
-	displayFlewareDiscountDataOnCart();
-	setStylesForDiscountData();
-	setDiscountPercToChild();
+	
+	if (isFlexWareProductAddedInShoppingCart()) {
+		displayFlewareDiscountDataOnCart();
+		setStylesForDiscountData();
+		setDiscountPercToChild();		
+	}
+}
+
+/**
+ * @author sw088d
+ * Checks if user has added flexware to shopping cart.
+ */
+function isFlexWareProductAddedInShoppingCart() {
+	var flexWareAdded = false;
+	
+	$.each(jsonObjectToShoppingCartTmpl, function(k, v) {
+	    if (v["PRODUCT"].toLowerCase().indexOf("flexware") != -1) {
+	    	flexWareAdded = true ;
+	    	return false; 
+	    }
+	});	
+	
+	return flexWareAdded;
 }
 
 function displayFlewareDiscountDataOnCart() {

@@ -1,5 +1,20 @@
 <script>
 var blnBvoipNeeded = false;
+function deleteSiteProduct(siteId) {
+	delete jsonObjectToShoppingCartTmpl[siteId];
+	if ($.isEmptyObject(jsonObjectToShoppingCartTmpl)) {
+		$("#shoppingCartLink").find('.badge').remove();
+		location.hash = "topCustomerSolutions";
+	}
+	else {
+		
+		var itemsInCart = Object.keys(jsonObjectToShoppingCartTmpl).length;
+		$("#shoppingCartLink").find('.badge').remove();
+		$("#shoppingCartLink").append('<span class="badge">'+ itemsInCart +'</span>');
+		window.dispatchEvent(new HashChangeEvent("hashchange"));
+	}
+}
+
 $(document).ready(function() {
 	$("#bvoipNeeded").click(function() {
 		if ($(this).prop('checked')) {
@@ -54,8 +69,8 @@ $(document).ready(function() {
 						<div class="row">
 							<div class="col-sm-6">
 								<font style="font-size: 20px;">
-									${jsonObjectToShoppingCartTmpl[j]["DESIGN NAME"]} &nbsp;<span
-									class="glyphicon glyphicon-trash"></span>
+									${jsonObjectToShoppingCartTmpl[j]["DESIGN NAME"]} &nbsp;<a href="#" onclick="return false;"><span
+									class="glyphicon glyphicon-trash" onclick="deleteSiteProduct(${j})"></span></a>
 								</font> <br>
 								<div style="margin-left: 4%;">
 									${jsonObjectToShoppingCartTmpl[j]["ACCESS BANDWIDTH"]}<br>
@@ -230,8 +245,8 @@ $(document).ready(function() {
 						<div class="row">
 							<div class="col-sm-6">
 								<font style="font-size: 20px;">
-									${jsonObjectToShoppingCartTmpl[j]["PRODUCT"]} &nbsp;<span
-									class="glyphicon glyphicon-trash"></span>
+									${jsonObjectToShoppingCartTmpl[j]["PRODUCT"]} &nbsp;<a href="#" onclick="return false;"><span
+									class="glyphicon glyphicon-trash" onclick="deleteSiteProduct(${j})"></span></a>
 								</font> <br>
 								<!-- <div style="margin-left: 4%;">
 									${jsonObjectToShoppingCartTmpl[j]["ACCESS BANDWIDTH"]}<br>

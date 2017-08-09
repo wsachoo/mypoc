@@ -83,7 +83,8 @@ function hashChange(){
 	}
 	else if(page.includes("myCart")) {
 		//dataToGenContract is the global object from step_wizard_config.js file
-		if(Object.keys(dataToGenContract).length == 0) {
+		//if(Object.keys(dataToGenContract).length == 0) {
+		if(Object.keys(jsonObjectToShoppingCartTmpl).length == 0) {
 			alert("Cart is Empty. Please Select atleast one offer to view your cart.");
 		}else{
 		changeTab(page);
