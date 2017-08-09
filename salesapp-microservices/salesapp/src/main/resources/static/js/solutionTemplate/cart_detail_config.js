@@ -270,11 +270,17 @@ function setPriceAndDiscDetailsToContractGenPopup(ssdfResp) {
 			$("#panelFlexwareDiscounts").css('display', 'inline');
 			
 			$.each(ssdfResp[ssdfRespkeys[i]][0]["netRateTables"], function(k,v) {
+				var divDisplayFlexwarePricingElemsDivId = "divDisplayFlexwarePricingElements_"+k ;
+				var flexwarePricingElemsDiv = "<div id='"+divDisplayFlexwarePricingElemsDivId+"'>" +
+													"<strong>"+ ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["title"]  +"</strong>"+
+						      					"</div>";
+				$("#displayFlexwareDiscountsPanelbody").append(flexwarePricingElemsDiv);
 				var tableId = "displayRatesInfoTableFlexware_"+k ;
-				var vTable = "<table class='table' id='"+tableId+"'>" +
+				var vTable = "<table class='table' class='table table-striped' id='"+tableId+"'>" +
 						      "</table>";
 				$("#displayFlexwareDiscountsPanelbody").append(vTable);
 				var tr = "";
+				var newTableId = "";
 				$.each( ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["rateRows"], function(rateRowkey, rateRowValue) {
 					tr = "<tr>"+
 								"<td>" +ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["rateRows"][rateRowkey]["description"] + "</td>" ;
@@ -284,9 +290,11 @@ function setPriceAndDiscDetailsToContractGenPopup(ssdfResp) {
 							 var td = "<td>" +ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["rateRows"][rateRowkey]["cells"][cellKey]["value"] + "</td>" + "</tr>";
 							 tr = tr + td;	
 							$("#displayRatesInfoTableFlexware_"+k).append(tr);
+							newTableId = $("#displayRatesInfoTableFlexware_"+k);
 					});
+					$("#divDisplayFlexwarePricingElements_"+k).append(newTableId);
 				});
-			
+				
 			});
 		}
 	}
