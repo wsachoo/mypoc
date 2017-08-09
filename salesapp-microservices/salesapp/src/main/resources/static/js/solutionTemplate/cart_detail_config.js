@@ -154,6 +154,7 @@ function setDataToCheckoutGenContractPopup(ssdfResp) {
 	var firstSiteDataForContactInfo = ssdfResp[ssdfKeys[0]];
 	setContactInfoToContractGenPopup(firstSiteDataForContactInfo);
 	setTermInfoToContractGenPopup(firstSiteDataForContactInfo);
+	setPriceAndDiscDetailsToContractGenPopup(ssdfResp);
 	formTermsAndConditionsDisplayTable();
 }
 
@@ -258,5 +259,63 @@ function formTermsAndConditionsDisplayTable() {
 		table.append(tbody);				
 	}
 }
+
+function setPriceAndDiscDetailsToContractGenPopup(ssdfResp) {
+	var ssdfRespkeys = Object.keys(ssdfResp);
+	for(var i = 0; i < ssdfRespkeys.length; i++) {
+		if(ssdfResp[ssdfRespkeys[i]][0]["offerName"] == 'OFFER_AVPN') {
+			$("#panelAvpnDiscounts").css('display','inline');
+			$.each(ssdfResp[ssdfRespkeys[i]][0]["avpnDiscounts"], function(k,v) {
+				var tr = "<tr>" +
+							"<td>"+ ssdfResp[ssdfRespkeys[i]][0]["avpnDiscounts"][k]["description"] +"</td>"+
+							"<td>"+ ssdfResp[ssdfRespkeys[i]][0]["avpnDiscounts"][k]["discountType"] +"</td>"+
+							"<td>"+ ssdfResp[ssdfRespkeys[i]][0]["avpnDiscounts"][k]["discountPercentage"] +"</td>"+
+						 "</tr>";
+				$("#displayRatesInfoTableAvpn").append(tr);
+			});
+		}else if(ssdfResp[ssdfRespkeys[i]][0]["offerName"] == 'FlexWare') {
+			$("#panelFlexwareDiscounts").css('display', 'inline');
+			
+			$.each(ssdfResp[ssdfRespkeys[i]][0]["netRateTables"], function(k,v) {
+				var divDisplayFlexwarePricingElemsDivId = "divDisplayFlexwarePricingElements_"+k ;
+				var flexwarePricingElemsDiv = "<div id='"+divDisplayFlexwarePricingElemsDivId+"'>" +
+													"<div style='background-color:#F5F5F5;'>"+
+														"<strong>"+ ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["title"]  +"</strong>"+
+													"</div>"+
+						      					"</div>";
+				$("#displayFlexwareDiscountsPanelbody").append(flexwarePricingElemsDiv);
+				var tableId = "displayRatesInfoTableFlexware_"+k ;
+				var vTable = "<table class='table' class='table table-striped' id='"+tableId+"'>" +
+								"<tr>"+
+									"<th>"+ "Description" +"</th>"+
+									"<th>"+ "Rate" +"</th>"+
+								"</tr>"+
+						      "</table>";
+				$("#displayFlexwareDiscountsPanelbody").append(vTable);
+				var tr = "";
+				var newTableId = "";
+				$.each( ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["rateRows"], function(rateRowkey, rateRowValue) {
+					tr = "<tr>"+
+								"<td>" +ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["rateRows"][rateRowkey]["description"] + 
+								"</td>" ;
+					
+					$.each(ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["rateRows"][rateRowkey]["cells"], function(cellKey, cellValue) {
+							
+							 var td = "<td>" +ssdfResp[ssdfRespkeys[i]][0]["netRateTables"][k]["rateRows"][rateRowkey]["cells"][cellKey]["value"] +
+							 		  "</td>" + 
+							 		  "</tr>";
+							 tr = tr + td;	
+							$("#displayRatesInfoTableFlexware_"+k).append(tr);
+							newTableId = $("#displayRatesInfoTableFlexware_"+k);
+					});
+					$("#divDisplayFlexwarePricingElements_"+k).append(newTableId);
+				});
+				
+			});
+		}
+	}
+}
+
+
 
 
