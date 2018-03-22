@@ -37,16 +37,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.antMatchers("/resources/**").permitAll()
-				.antMatchers("/", "/user/home", "/user/**").access("hasRole('USER')")
-				.antMatchers("/admin/home", "/admin/**").access("hasRole('ADMIN')")
-				.and()
-				.formLogin().loginPage("/login").successHandler(salesAuthenticationSuccessHandler).permitAll()
-				.and()
-				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().csrf()
-				.and()
-				.exceptionHandling().accessDeniedPage("/accessDenied");
+		http.authorizeRequests().antMatchers("/resources/**").permitAll()
+				// .antMatchers("/", "/user/home", "/user/**").access("hasRole('USER')")
+				.antMatchers("/", "/user/home", "/user/**").permitAll()
+				// .antMatchers("/admin/home", "/admin/**").access("hasRole('ADMIN')")
+				.antMatchers("/admin/home", "/admin/**").permitAll()
+				 .and().formLogin().loginPage("/login")
+				.successHandler(salesAuthenticationSuccessHandler).permitAll().and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().csrf().and().exceptionHandling()
+				.accessDeniedPage("/accessDenied");
 	}
 
 	@Autowired
@@ -59,5 +58,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		BCryptPasswordEncoder passEncoder = new BCryptPasswordEncoder();
 		return passEncoder;
 	}
-}
 
+}

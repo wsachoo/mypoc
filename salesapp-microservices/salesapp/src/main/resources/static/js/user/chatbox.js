@@ -164,6 +164,7 @@ function translateTextLanguage(inputText, fromLang, toLang) {
 
 
 function isLanguageTranslationServiceUp() {
+	return false; //Added on 2018-03-20
 	var returnStatus = true;
 	try {
 	$.ajax({
