@@ -3,12 +3,14 @@ $(document).ready(function() {
 });
 
 function displayUserSitesOnGoogleMap() {
+
 	if (!(typeof gUserDetails === 'undefined')) {
 		displaySitesOnGoogleMap(gUserDetails.siteAddresses);
 	}
 	else {
 		displaySitesOnGoogleMap();
 	}	
+	
 }
 /*
  * addressList: List of physical addresses
@@ -55,6 +57,7 @@ function displaySitesOnGoogleMap(addressList, centerLatitude, centerLongitude) {
   
 function getLatitudeLongitudeByLocation(address) {
 	var jqxhr = httpGetWithJsonResponse('http://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&sensor=false');
+	console.log("sachin: " + JSON.stringify(jqxhr));
 	var p = jqxhr.results[0].geometry.location;
 	return p;
 }

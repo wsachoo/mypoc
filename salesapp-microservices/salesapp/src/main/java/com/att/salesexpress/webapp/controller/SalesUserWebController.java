@@ -71,10 +71,12 @@ public class SalesUserWebController {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = user.getUsername();
 		logger.debug("Solution is retrieved from authentication object is {}", userId);
-
+		
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);
 		session.setAttribute("loginId", userId);
+		
+		logger.debug("Flow Transaction Id received inside session is {}", session.getAttribute("flow_txn_id"));
 
 		Long solutionId = (Long) session.getAttribute("solutionId");
 		if (solutionId == null) {
