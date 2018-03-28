@@ -277,7 +277,7 @@ public class DbServiceImpl implements DbService {
 	}
 
 	public Long fetchDefaultSolutionIdByUserId(String userId) {
-		String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?) and rownum=1";
+		String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?) limit 1";
 		Long solutionId = jdbcTemplate.queryForObject(sql, Long.class, userId);
 		logger.debug("Solution id retrieved from database is  {}", solutionId);
 		return solutionId;
