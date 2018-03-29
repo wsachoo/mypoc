@@ -14,6 +14,11 @@ public class PostgresqlSqlConfig {
 	public String sqlGetSalesHistoryDataByAccessType() {
 		return SQLConstantsPostgresql.sqlGetSalesHistoryDataByAccessType;
 	}
+	
+	@Bean
+	public String sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup() {
+		return SQLConstantsPostgresql.sqlGetSalesHistoryDataByAccessTypeIndexWithinGroup;
+	}
 
 	@Bean
 	public String sqlGetSalesHistoryDataByAccessTypeForOtherAccessType() {
@@ -33,5 +38,15 @@ public class PostgresqlSqlConfig {
 	@Bean
 	public String sqlGetSalesHistoryPercentageRecordsByAccessType() {
 		return SQLConstantsPostgresql.sqlGetSalesHistoryPercentageRecordsByAccessType;
+	}
+	
+	@Bean
+	public String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed() {
+		return SQLConstantsPostgresql.sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeed;
+	}
+	
+	@Bean
+	public String sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed() {
+		return SQLConstantsPostgresql.sqlGetSalesRulesForMISEXPByAccessTypeAndAccessSpeedAndPortSpeed;
 	}
 }

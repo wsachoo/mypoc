@@ -223,7 +223,7 @@ public class DbServiceImpl implements DbService {
 		 * jdbcTemplate.queryForList(sql, accessSpeed, portSpeed);
 		 */
 
-		String sql = "select a.PRODUCT, a.MRC, a.NRC, LISTAGG(b.SITE_ID, ',') WITHIN GROUP (ORDER BY b.SITE_ID) AS SITE_IDS "
+		String sql = "select a.PRODUCT, a.MRC, a.NRC, STRING_AGG(cast(b.SITE_ID as  text), ',' ORDER BY cast(b.SITE_ID as  text))  AS SITE_IDS "
 				+ "from SALES_RULES a, sales_design b " + "where a.ACCESS_SPEED_ID = b.ACCESS_SPEED "
 				+ "and a.PORT_SPEED_ID=b.PORT_SPEED and b.SOLUTION_ID=?" + "group by a.PRODUCT, a.MRC, a.NRC";
 		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, solutionId);
@@ -277,7 +277,7 @@ public class DbServiceImpl implements DbService {
 	}
 
 	public Long fetchDefaultSolutionIdByUserId(String userId) {
-		String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?) and rownum=1";
+		String sql = "select design_id from sales_user_solution where created_id=(select user_id from fn_user where login_id=?) limit 1";
 		Long solutionId = jdbcTemplate.queryForObject(sql, Long.class, userId);
 		logger.debug("Solution id retrieved from database is  {}", solutionId);
 		return solutionId;
